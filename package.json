@@ -1,0 +1,26 @@
+{
+  "name": "guangying-blog",
+  "version": "1.0.0",
+  "description": "光影博客 - 基于VitePress的现代化博客",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "serve": "vitepress serve docs",
+    "preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "vue": "^3.3.0",
+    "vitepress": "^1.0.0"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search"
+      ]
+    }
+  }
+}
