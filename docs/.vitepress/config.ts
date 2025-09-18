@@ -5,13 +5,13 @@ export default defineConfig({
   title: '光影博客',
   description: '一个基于VitePress的现代化博客',
   lang: 'zh-CN',
-  base: '/itlingxiu.github.io/',
+  base: '/',
   cleanUrls: true,
   head: [
-    ['link', { rel: 'icon', type: 'image/x-icon', href: '/itlingxiu.github.io/favicon.ico' }],
-    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/itlingxiu.github.io/images/logo.jpg' }],
-    ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/itlingxiu.github.io/images/logo.jpg' }],
-    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/itlingxiu.github.io/images/logo.jpg' }],
+    ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/images/logo.jpg' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/images/logo.jpg' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/images/logo.jpg' }],
     ['meta', { name: 'theme-color', content: '#1e293b' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }]
   ],
