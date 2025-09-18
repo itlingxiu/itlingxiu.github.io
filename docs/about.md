@@ -4,9 +4,17 @@ title: 关于我
 description: 了解更多关于光影博客和博主的信息
 ---
 
+<div class="about-container">
+
+<div class="about-card about-card-full">
+
 # 👋 关于我
 
 欢迎来到光影博客！这里是我分享技术心得、记录学习历程的地方。
+
+</div>
+
+<div class="about-card">
 
 ## 🚀 关于博客
 
@@ -18,11 +26,19 @@ description: 了解更多关于光影博客和博主的信息
 - **移动端开发**: React Native、Taro、uni-app
 - **后端技术**: Node.js、Express、Nest.js
 
+</div>
+
+<div class="about-card">
+
 ## 💡 博客理念
 
 > 记录技术与生活的点点滴滴
 
 我相信技术分享和知识传递的力量。通过记录和分享，不仅能帮助他人解决问题，也能加深自己对技术的理解。
+
+</div>
+
+<div class="about-card">
 
 ## 🎯 技术栈
 
@@ -33,17 +49,17 @@ description: 了解更多关于光影博客和博主的信息
 - **样式**: CSS3
 - **部署**: 静态部署
 
+</div>
+
+<div class="about-card">
+
 ## 📫 联系方式
 
 如果你有任何问题或建议，欢迎通过以下方式联系我：
 
-- **GitHub**: [github.com](https://github.com)
-- **邮箱**: contact@example.com
+- **邮箱**: it_zhijia@163.com
 
-## 🎉 感谢
+</div>
 
-感谢你访问光影博客，希望这里的内容对你有帮助！
+</div>
 
----
-
-*最后更新：2024年*
