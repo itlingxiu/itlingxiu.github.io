@@ -12,10 +12,10 @@ const About: React.FC = () => {
 
   return (
     <div className="about-container">
-      <div className="container">
+      <div className="container full-width" style={{ maxWidth: '100%', padding: '0' }}>
         {/* 顶部欢迎区域 */}
         <div className="welcome-section">
-          <Card className="welcome-card" variant="borderless">
+          <Card className="welcome-card" variant="borderless" style={{ width: '100%' }}>
             <div className="welcome-header">
               <span className="welcome-emoji">👋</span>
               <h1 className="welcome-title">关于我</h1>
@@ -24,7 +24,7 @@ const About: React.FC = () => {
           </Card>
         </div>
 
-        <Row gutter={[24, 24]}>
+        <Row gutter={[24, 24]} style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
           {/* 左侧博客介绍 */}
           <Col xs={24} md={12}>
             <Card className="about-card" variant="borderless">
@@ -64,7 +64,7 @@ const About: React.FC = () => {
           </Col>
         </Row>
 
-        <Row gutter={[24, 24]} style={{ marginTop: 24 }}>
+        <Row gutter={[24, 24]} style={{ width: '100%', maxWidth: '1200px', margin: '24px auto 0' }}>
           {/* 左侧技术栈 */}
           <Col xs={24} md={12}>
             <Card className="about-card" variant="borderless">

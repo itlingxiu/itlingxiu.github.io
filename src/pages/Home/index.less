@@ -9,6 +9,8 @@
 
   // 头部横幅区域
   .hero-section {
+    width: 100vw;
+    max-width: 100%;
     position: relative;
     height: 400px;
     .gradient-bg(linear-gradient(135deg, #4A90E2 0%, #7B68EE 100%));
@@ -191,7 +193,10 @@
 
   // 功能卡片区域
   .features-section {
-    padding: 80px 0;
+    width: 100vw;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 80px 2vw;
     background: @background-color-white;
     position: relative;
     z-index: 1;
@@ -232,7 +237,7 @@
     .features-grid {
       margin-top: 60px;
       width: 100%;
-      padding: 0 2vw;
+      padding: 0;
       margin-left: auto;
       margin-right: auto;
       display: flex;
@@ -250,7 +255,21 @@
       .feature-col {
         display: flex;
         justify-content: center;
-        flex: 1;
+        
+        @media (min-width: @screen-md) {
+          flex: 0 0 33.33%;
+          max-width: 33.33%;
+        }
+        
+        @media (max-width: @screen-md - 1px) and (min-width: @screen-sm) {
+          flex: 0 0 50%;
+          max-width: 50%;
+        }
+        
+        @media (max-width: @screen-sm - 1px) {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
         
         @media (max-width: @screen-xs) {
           margin-bottom: 20px;
@@ -364,6 +383,8 @@
 
   // 底部装饰
   .bottom-decoration {
+    width: 100vw;
+    max-width: 100%;
     position: relative;
     height: 100px;
     background: @background-color-base;
@@ -371,6 +392,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 2vw;
     
     @media (max-width: @screen-sm) {
       height: 80px;

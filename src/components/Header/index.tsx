@@ -185,6 +185,21 @@ const Header: React.FC = () => {
                 );
               }
               
+              // 如果是首页，不显示下拉菜单和箭头图标
+              if (link.path === '/') {
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={closeMobileMenu}
+                    className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              }
+              
+              // 其他页面保持不变
               return (
                 <Dropdown key={link.path} menu={{ items: menuItems }} placement="bottom" trigger={["hover"]}>
                   <Link

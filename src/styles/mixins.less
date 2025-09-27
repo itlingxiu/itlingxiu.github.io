@@ -92,6 +92,20 @@
   }
 }
 
+// 最小宽度响应式媒体查询
+.responsive-min(@screen) {
+  @media (min-width: @screen) {
+    @content();
+  }
+}
+
+// 范围响应式媒体查询
+.responsive-between(@min, @max) {
+  @media (min-width: @min) and (max-width: @max) {
+    @content();
+  }
+}
+
 // 移动端样式
 .mobile() {
   @media (max-width: @screen-md) {

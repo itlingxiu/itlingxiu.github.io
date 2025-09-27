@@ -15,29 +15,49 @@
 
   .layout-content {
     flex: 1;
-    max-width: 1200px;
     width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: @padding-lg;
     box-sizing: border-box;
     
+    @media (min-width: @screen-xxl) {
+      max-width: 1400px;
+    }
+    
+    @media (min-width: @screen-xl) and (max-width: (@screen-xxl - 1px)) {
+      max-width: 1200px;
+    }
+    
+    @media (min-width: @screen-lg) and (max-width: (@screen-xl - 1px)) {
+      max-width: 992px;
+    }
+    
+    @media (min-width: @screen-md) and (max-width: (@screen-lg - 1px)) {
+      max-width: 768px;
+      padding: 0 @padding-md;
+    }
+    
+    @media (max-width: (@screen-md - 1px)) {
+      max-width: 100%;
+      padding: 0 @padding-md;
+    }
+    
+    @media (max-width: (@screen-sm - 1px)) {
+      padding: 0 @padding-sm;
+    }
+    
     &.full-width {
       max-width: 100%;
       padding: 0 2vw;
-    }
-    
-    @media (max-width: @screen-lg) {
-      max-width: 992px;
-      padding: @padding-md;
-    }
-    
-    @media (max-width: @screen-md) {
-      max-width: 100%;
-      padding: @padding-md;
-    }
-    
-    @media (max-width: @screen-sm) {
-      padding: @padding-sm;
+      
+      @media (max-width: @screen-md) {
+        padding: 0 @padding-md;
+      }
+      
+      @media (max-width: @screen-sm) {
+        padding: 0 @padding-sm;
+      }
     }
   }
 }
