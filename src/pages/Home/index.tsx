@@ -75,9 +75,9 @@ const Home: React.FC = () => {
             <h2>功能特色</h2>
             <p>发现更多精彩内容</p>
           </div>
-          <Row gutter={[32, 32]} className="features-grid" justify="space-between">
+          <Row gutter={[24, 24]} className="features-grid" justify="space-between">
             {/* 第一行 - 前三个卡片 */}
-            <Col xs={24} sm={24} md={8} className="feature-col">
+            <Col xs={24} sm={12} md={8} className="feature-col">
               <Card
               className="feature-card"
               hoverable
@@ -93,7 +93,7 @@ const Home: React.FC = () => {
               </Card>
             </Col>
             
-            <Col xs={24} sm={24} md={8} className="feature-col">
+            <Col xs={24} sm={12} md={8} className="feature-col">
               <Card
               className="feature-card"
               hoverable
@@ -109,7 +109,7 @@ const Home: React.FC = () => {
               </Card>
             </Col>
             
-            <Col xs={24} sm={24} md={8} className="feature-col">
+            <Col xs={24} sm={12} md={8} className="feature-col">
               <Card
               className="feature-card"
               hoverable
@@ -126,9 +126,9 @@ const Home: React.FC = () => {
             </Col>
           </Row>
           
-          <Row gutter={[32, 32]} className="features-grid second-row" justify="space-between">
+          <Row gutter={[24, 24]} className="features-grid second-row" justify="space-between">
             {/* 第二行 - 后三个卡片 */}
-            <Col xs={24} sm={24} md={8} className="feature-col">
+            <Col xs={24} sm={12} md={8} className="feature-col">
               <Card
               className="feature-card"
               hoverable
@@ -144,7 +144,7 @@ const Home: React.FC = () => {
               </Card>
             </Col>
             
-            <Col xs={24} sm={24} md={8} className="feature-col">
+            <Col xs={24} sm={12} md={8} className="feature-col">
               <Card
               className="feature-card"
               hoverable
@@ -160,7 +160,7 @@ const Home: React.FC = () => {
               </Card>
             </Col>
             
-            <Col xs={24} sm={24} md={8} className="feature-col">
+            <Col xs={24} sm={12} md={8} className="feature-col">
               <Card
               className="feature-card"
               hoverable

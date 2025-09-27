@@ -1,0 +1,43 @@
+@import '../../styles/variables.less';
+@import '../../styles/mixins.less';
+
+.layout-container {
+  padding-top: 64px; // 为顶部导航腾出空间
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  
+  @media (max-width: @screen-md) {
+    padding-bottom: 56px; // 为移动端底部导航腾出空间
+  }
+
+  .layout-content {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: @padding-lg;
+    box-sizing: border-box;
+    
+    &.full-width {
+      max-width: 100%;
+      padding: 0 2vw;
+    }
+    
+    @media (max-width: @screen-lg) {
+      max-width: 992px;
+      padding: @padding-md;
+    }
+    
+    @media (max-width: @screen-md) {
+      max-width: 100%;
+      padding: @padding-md;
+    }
+    
+    @media (max-width: @screen-sm) {
+      padding: @padding-sm;
+    }
+  }
+}

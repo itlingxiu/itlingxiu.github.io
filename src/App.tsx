@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
+import MobileNav from './components/MobileNav';
+import Layout from './components/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Blog from './pages/Blog';
@@ -30,13 +32,15 @@ import Nest from './pages/NodePages/Nest';
 import NodePractice from './pages/NodePages/Practice';
 
 import './App.css';
+import './styles/mobile.less';
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App touch-friendly">
         <Header />
-        <Routes>
+        <Layout>
+          <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
@@ -71,6 +75,8 @@ function App() {
           <Route path="/node/nest" element={<Nest />} />
           <Route path="/node/practice" element={<NodePractice />} />
         </Routes>
+        </Layout>
+        <MobileNav />
       </div>
     </Router>
   );

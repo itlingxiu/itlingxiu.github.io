@@ -22,6 +22,10 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
+  
+  @media (max-width: @screen-sm) {
+    font-size: @font-size-base - 1px;
+  }
 }
 
 #root {
@@ -172,9 +176,13 @@ pre {
     padding: 0 2vw;
   }
   
-  .mobile() {
+  @media (max-width: @screen-md) {
     padding: 0 @padding-md;
     width: 100%;
+  }
+  
+  @media (max-width: @screen-sm) {
+    padding: 0 @padding-sm;
   }
 }
 
