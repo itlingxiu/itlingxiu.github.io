@@ -22,7 +22,7 @@ const sortOptions = [
 const categories = computed(() => {
   const cats = new Set()
   posts.forEach(post => {
-    if (post.frontmatter.category) {
+    if (post?.frontmatter?.category) {
       cats.add(post.frontmatter.category)
     }
   })
@@ -31,30 +31,34 @@ const categories = computed(() => {
 
 const filteredPosts = computed(() => {
   let filtered = posts.filter(post => {
+    if (!post) return false
+    
     const matchesSearch = !searchQuery.value || 
-      post.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      (post.excerpt && post.excerpt.toLowerCase().includes(searchQuery.value.toLowerCase())) ||
-      (post.frontmatter.tags && post.frontmatter.tags.some(tag => 
+      (post.title || post.frontmatter?.title || '').toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      (post?.excerpt && post.excerpt.toLowerCase().includes(searchQuery.value.toLowerCase())) ||
+      (post?.frontmatter?.tags && post.frontmatter.tags.some(tag => 
         tag.toLowerCase().includes(searchQuery.value.toLowerCase())
       ))
     
     const matchesCategory = !selectedCategory.value || 
-      post.frontmatter.category === selectedCategory.value
+      post?.frontmatter?.category === selectedCategory.value
     
     return matchesSearch && matchesCategory
   })
   
   // 排序
   filtered.sort((a, b) => {
+    if (!a || !b) return 0
+    
     switch (currentSort.value) {
       case 'date-desc':
-        return new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
+        return new Date(b?.frontmatter?.date || 0) - new Date(a?.frontmatter?.date || 0)
       case 'date-asc':
-        return new Date(a.frontmatter.date) - new Date(b.frontmatter.date)
+        return new Date(a?.frontmatter?.date || 0) - new Date(b?.frontmatter?.date || 0)
       case 'title-asc':
-        return a.title.localeCompare(b.title)
+        return (a?.title || a?.frontmatter?.title || '').localeCompare(b?.title || b?.frontmatter?.title || '')
       case 'title-desc':
-        return b.title.localeCompare(a.title)
+        return (b?.title || b?.frontmatter?.title || '').localeCompare(a?.title || a?.frontmatter?.title || '')
       default:
         return 0
     }
@@ -115,8 +119,8 @@ const clearFilters = () => {
         <div class="filter-group">
           <label class="filter-label">排序</label>
           <select v-model="currentSort" class="filter-select">
-            <option v-for="option in sortOptions" :key="option.value" :value="option.value">
-              {{ option.label }}
+            <option v-for="option in sortOptions" :key="option?.value" :value="option?.value">
+              {{ option?.label }}
             </option>
           </select>
         </div>
@@ -130,25 +134,25 @@ const clearFilters = () => {
     </div>
     
     <div v-if="filteredPosts.length > 0" class="posts-grid">
-      <article v-for="post in filteredPosts" :key="post.url" class="post-card">
+      <article v-for="post in filteredPosts" :key="post?.url" class="post-card">
         <div class="post-header">
           <h2 class="post-title">
-            <a :href="post.url">{{ post.title }}</a>
+            <a :href="post?.url">{{ post?.title || post?.frontmatter?.title || '无标题' }}</a>
           </h2>
           <div class="post-date">
             <span>📅</span>
-            <span>{{ formatDate(post.frontmatter.date) }}</span>
+            <span>{{ formatDate(post?.frontmatter?.date) }}</span>
           </div>
         </div>
         
-        <p class="post-excerpt" v-if="post.excerpt">{{ post.excerpt }}</p>
+        <p class="post-excerpt" v-if="post?.excerpt">{{ post?.excerpt }}</p>
         
         <div class="post-footer">
-          <div class="post-category" v-if="post.frontmatter.category">
-            {{ post.frontmatter.category }}
+          <div class="post-category" v-if="post?.frontmatter?.category">
+            {{ post?.frontmatter?.category }}
           </div>
-          <div class="post-tags" v-if="post.frontmatter.tags">
-            <span v-for="tag in post.frontmatter.tags" :key="tag" class="tag">
+          <div class="post-tags" v-if="post?.frontmatter?.tags">
+            <span v-for="tag in post?.frontmatter?.tags" :key="tag" class="tag">
               {{ tag }}
             </span>
           </div>

@@ -5,14 +5,14 @@ description: 带有"Vue"标签的所有文章
 ---
 
 <script setup>
-import { data as posts } from '../../.vitepress/posts.data.js'
+import { data as posts } from '../.vitepress/posts.data.js'
 import { computed } from 'vue'
 
 // 过滤带有"Vue"标签的文章
 const tagPosts = computed(() => {
   return posts.filter(post => 
-    post.frontmatter.tags && post.frontmatter.tags.includes('Vue')
-  ).sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
+    post?.frontmatter?.tags && post.frontmatter.tags.includes('Vue')
+  ).sort((a, b) => new Date(b?.frontmatter?.date) - new Date(a?.frontmatter?.date))
 })
 
 // 格式化日期
@@ -39,24 +39,24 @@ const formatDate = (date) => {
       <div class="posts-grid">
         <article 
           v-for="post in tagPosts" 
-          :key="post.url" 
+          :key="post?.url" 
           class="post-card"
         >
           <div class="post-content">
             <h2 class="post-title">
-              <a :href="post.url">{{ post.title }}</a>
+              <a :href="post?.url">{{ post?.title || post?.frontmatter?.title || '无标题' }}</a>
             </h2>
-            <p class="post-excerpt" v-if="post.excerpt">
-              {{ post.excerpt }}
+            <p class="post-excerpt" v-if="post?.excerpt">
+              {{ post?.excerpt }}
             </p>
             <div class="post-meta">
-              <time class="post-date">{{ formatDate(post.frontmatter.date) }}</time>
-              <div class="post-category" v-if="post.frontmatter.category">
-                <span class="category">{{ post.frontmatter.category }}</span>
+              <time class="post-date">{{ formatDate(post?.frontmatter?.date) }}</time>
+              <div class="post-category" v-if="post?.frontmatter?.category">
+                <span class="category">{{ post?.frontmatter?.category }}</span>
               </div>
-              <div class="post-tags" v-if="post.frontmatter.tags">
+              <div class="post-tags" v-if="post?.frontmatter?.tags">
                 <span 
-                  v-for="tag in post.frontmatter.tags" 
+                  v-for="tag in post?.frontmatter?.tags" 
                   :key="tag" 
                   class="tag"
                   :class="{ 'current-tag': tag === 'Vue' }"

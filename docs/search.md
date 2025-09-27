@@ -18,7 +18,7 @@ const selectedTag = ref('')
 const categories = computed(() => {
   const cats = new Set()
   posts.forEach(post => {
-    if (post.frontmatter.category) {
+    if (post?.frontmatter?.category) {
       cats.add(post.frontmatter.category)
     }
   })
@@ -28,7 +28,7 @@ const categories = computed(() => {
 const tags = computed(() => {
   const tagSet = new Set()
   posts.forEach(post => {
-    if (post.frontmatter.tags) {
+    if (post?.frontmatter?.tags) {
       post.frontmatter.tags.forEach(tag => tagSet.add(tag))
     }
   })
@@ -47,22 +47,22 @@ const performSearch = () => {
   const query = searchQuery.value.toLowerCase().trim()
   const results = posts.filter(post => {
     // 分类筛选
-    if (selectedCategory.value && post.frontmatter.category !== selectedCategory.value) {
+    if (selectedCategory.value && post?.frontmatter?.category !== selectedCategory.value) {
       return false
     }
     
     // 标签筛选
-    if (selectedTag.value && (!post.frontmatter.tags || !post.frontmatter.tags.includes(selectedTag.value))) {
+    if (selectedTag.value && (!post?.frontmatter?.tags || !post.frontmatter.tags.includes(selectedTag.value))) {
       return false
     }
     
     // 文本搜索
     if (query) {
       const searchableText = [
-        post.title,
-        post.frontmatter.excerpt || post.excerpt || '',
-        post.frontmatter.category || '',
-        ...(post.frontmatter.tags || [])
+        post?.title || post?.frontmatter?.title || '',
+        post?.frontmatter?.excerpt || post?.excerpt || '',
+        post?.frontmatter?.category || '',
+        ...(post?.frontmatter?.tags || [])
       ].join(' ').toLowerCase()
       
       return searchableText.includes(query)
@@ -71,9 +71,12 @@ const performSearch = () => {
     return true
   })
   
-  searchResults.value = results.sort((a, b) => 
-    new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
-  )
+  searchResults.value = results.sort((a, b) => {
+    const dateA = a?.frontmatter?.date
+    const dateB = b?.frontmatter?.date
+    if (!dateA || !dateB) return 0
+    return new Date(dateB) - new Date(dateA)
+  })
   
   isSearching.value = false
 }
@@ -178,21 +181,21 @@ onMounted(() => {
     </div>
     
     <div v-if="searchResults.length > 0" class="results-grid">
-      <article v-for="post in searchResults" :key="post.url" class="result-card">
+      <article v-for="post in searchResults" :key="post?.url" class="result-card">
         <div class="result-content">
           <h3 class="result-title">
-            <a :href="post.url" v-html="highlightText(post.title, searchQuery)"></a>
+            <a :href="post?.url" v-html="highlightText(post?.title || post?.frontmatter?.title || '无标题', searchQuery)"></a>
           </h3>
           
-          <p class="result-excerpt" v-html="highlightText(post.frontmatter.excerpt || post.excerpt || '', searchQuery)"></p>
+          <p class="result-excerpt" v-html="highlightText(post?.frontmatter?.excerpt || post?.excerpt || '', searchQuery)"></p>
           
           <div class="result-meta">
-            <span class="result-date">{{ formatDate(post.frontmatter.date) }}</span>
-            <span v-if="post.frontmatter.category" class="result-category">
-              {{ post.frontmatter.category }}
+            <span class="result-date">{{ formatDate(post?.frontmatter?.date) }}</span>
+            <span v-if="post?.frontmatter?.category" class="result-category">
+              {{ post?.frontmatter?.category }}
             </span>
-            <div v-if="post.frontmatter.tags" class="result-tags">
-              <span v-for="tag in post.frontmatter.tags" :key="tag" class="result-tag">
+            <div v-if="post?.frontmatter?.tags" class="result-tags">
+              <span v-for="tag in post?.frontmatter?.tags" :key="tag" class="result-tag">
                 {{ tag }}
               </span>
             </div>

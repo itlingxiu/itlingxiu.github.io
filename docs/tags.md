@@ -343,7 +343,7 @@ const getTagColor = (index) => {
     <div class="posts-grid">
       <article v-for="post in filteredPosts" :key="post.url" class="post-card">
         <h3 class="post-title">
-          <a :href="post.url">{{ post.title }}</a>
+          <a :href="post.url">{{ post.title || post.frontmatter?.title || '无标题' }}</a>
         </h3>
         <p class="post-excerpt" v-if="post.excerpt">{{ post.excerpt }}</p>
         <div class="post-meta">

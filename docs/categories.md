@@ -13,6 +13,9 @@ const categories = computed(() => {
   const categoryMap = new Map()
   
   posts.forEach(post => {
+    // 确保post和frontmatter存在
+    if (!post || !post.frontmatter) return
+    
     const category = post.frontmatter.category || '未分类'
     if (!categoryMap.has(category)) {
       categoryMap.set(category, [])
@@ -202,18 +205,18 @@ const formatDate = (date) => {
     </div>
     
     <div class="posts-grid">
-      <article v-for="post in category.posts" :key="post.url" class="post-card">
+      <article v-for="post in category.posts" :key="post?.url || Math.random()" class="post-card" v-if="post">
         <h3 class="post-title">
-          <a :href="post.url">{{ post.title }}</a>
+          <a :href="post.url || '#'">{{ (post?.title || post?.frontmatter?.title || '无标题') }}</a>
         </h3>
-        <p class="post-excerpt" v-if="post.excerpt">{{ post.excerpt }}</p>
+        <p class="post-excerpt" v-if="post?.excerpt">{{ post?.excerpt }}</p>
         <div class="post-meta">
-          <div class="post-date">
+          <div class="post-date" v-if="post?.frontmatter?.date">
             <span>📅</span>
-            <span>{{ formatDate(post.frontmatter.date) }}</span>
+            <span>{{ formatDate(post?.frontmatter?.date) }}</span>
           </div>
-          <div class="post-tags" v-if="post.frontmatter.tags">
-            <span v-for="tag in post.frontmatter.tags" :key="tag" class="tag">
+          <div class="post-tags" v-if="post?.frontmatter?.tags">
+            <span v-for="tag in post?.frontmatter?.tags" :key="tag" class="tag">
               {{ tag }}
             </span>
           </div>

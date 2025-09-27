@@ -13,8 +13,8 @@ const goPosts = computed(() => {
     post.frontmatter.tags?.includes('Go') || 
     post.frontmatter.tags?.includes('Golang') ||
     post.frontmatter.category === 'Go' ||
-    post.title.toLowerCase().includes('go') ||
-    post.title.toLowerCase().includes('golang')
+    (post.title || post.frontmatter?.title || '').toLowerCase().includes('go') ||
+    (post.title || post.frontmatter?.title || '').toLowerCase().includes('golang')
   ).sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
 })
 
@@ -39,24 +39,24 @@ const formatDate = (date) => {
     </div>
     
     <div v-if="goPosts.length > 0" class="posts-grid">
-      <article v-for="post in goPosts" :key="post.url" class="post-card">
+      <article v-for="post in goPosts" :key="post?.url" class="post-card">
         <div class="post-header">
           <h2 class="post-title">
-            <a :href="post.url">{{ post.title }}</a>
+            <a :href="post?.url">{{ post?.title || post?.frontmatter?.title || '无标题' }}</a>
           </h2>
           <div class="post-date">
-            📅 {{ formatDate(post.frontmatter.date) }}
+            📅 {{ formatDate(post?.frontmatter?.date) }}
           </div>
         </div>
         
-        <p class="post-excerpt" v-if="post.excerpt">{{ post.excerpt }}</p>
+        <p class="post-excerpt" v-if="post?.excerpt">{{ post?.excerpt }}</p>
         
         <div class="post-footer">
-          <div class="post-category" v-if="post.frontmatter.category">
-            {{ post.frontmatter.category }}
+          <div class="post-category" v-if="post?.frontmatter?.category">
+            {{ post?.frontmatter?.category }}
           </div>
-          <div class="post-tags" v-if="post.frontmatter.tags">
-            <span v-for="tag in post.frontmatter.tags" :key="tag" class="tag">
+          <div class="post-tags" v-if="post?.frontmatter?.tags">
+            <span v-for="tag in post?.frontmatter?.tags" :key="tag" class="tag">
               {{ tag }}
             </span>
           </div>

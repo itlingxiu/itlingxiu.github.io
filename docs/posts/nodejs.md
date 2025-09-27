@@ -9,12 +9,16 @@ import { data as posts } from '../.vitepress/posts.data'
 import { computed } from 'vue'
 
 const nodejsPosts = computed(() => {
-  return posts.filter(post => 
-    post.frontmatter.tags?.includes('Node.js') || 
-    post.frontmatter.tags?.includes('Node') ||
-    post.frontmatter.category === 'Node.js' ||
-    post.title.toLowerCase().includes('node')
-  ).sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
+  return posts.filter(post => {
+    if (!post) return false
+    return post?.frontmatter?.tags?.includes('Node.js') || 
+      post?.frontmatter?.tags?.includes('Node') ||
+      post?.frontmatter?.category === 'Node.js' ||
+      (post?.title || post?.frontmatter?.title || '').toLowerCase().includes('node')
+  }).sort((a, b) => {
+    if (!a || !b) return 0
+    return new Date(b?.frontmatter?.date || 0) - new Date(a?.frontmatter?.date || 0)
+  })
 })
 
 const formatDate = (date) => {
@@ -38,24 +42,24 @@ const formatDate = (date) => {
     </div>
     
     <div v-if="nodejsPosts.length > 0" class="posts-grid">
-      <article v-for="post in nodejsPosts" :key="post.url" class="post-card">
+      <article v-for="post in nodejsPosts" :key="post?.url" class="post-card">
         <div class="post-header">
           <h2 class="post-title">
-            <a :href="post.url">{{ post.title }}</a>
+            <a :href="post?.url">{{ post?.title || post?.frontmatter?.title || '无标题' }}</a>
           </h2>
           <div class="post-date">
-            📅 {{ formatDate(post.frontmatter.date) }}
+            📅 {{ formatDate(post?.frontmatter?.date) }}
           </div>
         </div>
         
-        <p class="post-excerpt" v-if="post.excerpt">{{ post.excerpt }}</p>
+        <p class="post-excerpt" v-if="post?.excerpt">{{ post?.excerpt }}</p>
         
         <div class="post-footer">
-          <div class="post-category" v-if="post.frontmatter.category">
-            {{ post.frontmatter.category }}
+          <div class="post-category" v-if="post?.frontmatter?.category">
+            {{ post?.frontmatter?.category }}
           </div>
-          <div class="post-tags" v-if="post.frontmatter.tags">
-            <span v-for="tag in post.frontmatter.tags" :key="tag" class="tag">
+          <div class="post-tags" v-if="post?.frontmatter?.tags">
+            <span v-for="tag in post?.frontmatter?.tags" :key="tag" class="tag">
               {{ tag }}
             </span>
           </div>

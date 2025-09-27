@@ -43,7 +43,7 @@ const totalPosts = computed(() => posts.length)
     <h2>{{ yearData.year }} ({{ yearData.count }} 篇)</h2>
     <ul>
       <li v-for="post in yearData.posts" :key="post.url">
-        <a :href="post.url">{{ post.title }}</a>
+        <a :href="post.url">{{ post.title || post.frontmatter?.title || '无标题' }}</a>
         <span> - {{ formatDate(post.frontmatter.date) }}</span>
       </li>
     </ul>

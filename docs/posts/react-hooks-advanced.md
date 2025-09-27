@@ -231,7 +231,7 @@ function PostList() {
       <button onClick={refetch}>Refresh</button>
       {posts?.map(post => (
         <article key={post.id}>
-          <h2>{post.title}</h2>
+          <h2>{post.title || post.frontmatter?.title || '无标题'}</h2>
           <p>{post.excerpt}</p>
         </article>
       ))}
