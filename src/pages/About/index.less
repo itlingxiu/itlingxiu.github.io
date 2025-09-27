@@ -1,0 +1,125 @@
+@import '../../styles/variables.less';
+@import '../../styles/mixins.less';
+
+.about-container {
+  min-height: 100vh;
+  padding: 40px 0;
+  background: @background-color-base;
+  width: 100%;
+  overflow-x: hidden;
+
+  .mobile() {
+    padding: 20px 0;
+  }
+
+  // 欢迎区域
+  .welcome-section {
+    margin-bottom: 40px;
+    text-align: center;
+
+    .welcome-card {
+      .card-style();
+      padding: @padding-xl;
+      text-align: center;
+
+      .mobile() {
+        padding: @padding-lg;
+      }
+
+      .welcome-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: @margin-md;
+
+        .welcome-emoji {
+          font-size: 32px;
+          margin-right: @margin-md;
+        }
+
+        .welcome-title {
+          font-size: @font-size-title;
+          color: @text-color;
+          font-weight: 700;
+          margin: 0;
+        }
+      }
+
+      .welcome-text {
+        font-size: @font-size-lg;
+        color: @text-color-secondary;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // 关于博客卡片样式
+  .about-card {
+    .card-style();
+    margin-bottom: 24px;
+    height: 100%;
+    
+    .about-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: @margin-md;
+      
+      .about-icon {
+        font-size: 24px;
+        color: @primary-color;
+        margin-right: @margin-md;
+      }
+      
+      .about-title {
+        font-size: @font-size-xl;
+        color: @text-color;
+        margin: 0;
+        font-weight: 600;
+      }
+    }
+    
+    .about-content {
+      color: @text-color-secondary;
+      font-size: @font-size-base;
+      line-height: 1.8;
+      
+      ul {
+        padding-left: @padding-lg;
+        
+        li {
+          margin-bottom: @margin-sm;
+          
+          strong {
+            color: @text-color;
+          }
+        }
+      }
+      
+      .quote-block {
+        background-color: fade(@primary-color, 5%);
+        border-left: 4px solid @primary-color;
+        padding: @padding-md;
+        margin-bottom: @margin-lg;
+        
+        p {
+          color: @text-color;
+          font-style: italic;
+          font-size: @font-size-lg;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+// 动画定义
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.2;
+  }
+}

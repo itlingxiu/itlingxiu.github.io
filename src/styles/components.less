@@ -1,0 +1,49 @@
+@import './variables.less';
+@import './mixins.less';
+
+// 开发中页面样式组件
+.developing-section {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  width: 100%;
+  
+  .developing-card {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    
+    .developing-content {
+      h2 {
+        font-size: 28px;
+        color: @text-color;
+        margin-bottom: 16px;
+      }
+      
+      p {
+        font-size: 16px;
+        color: @text-color-secondary;
+        margin-bottom: 24px;
+      }
+      
+      .developing-icon {
+        font-size: 64px;
+        margin-top: 24px;
+      }
+    }
+  }
+}
+
+// 通用页面容器
+.page-container {
+  min-height: 100vh;
+  padding-top: 64px; // 为导航栏留出空间
+  background: @background-color-base;
+  width: 100%;
+  overflow-x: hidden;
+}
