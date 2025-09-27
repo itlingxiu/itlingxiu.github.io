@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs && powershell -Command \"Copy-Item -Recurse -Force docs\\.vitepress\\dist .\\dist\"",
+    "build": "vitepress build docs && xcopy /E /I /Y docs\\.vitepress\\dist dist",
     "serve": "vitepress serve docs",
     "preview": "vitepress preview docs"
   },
