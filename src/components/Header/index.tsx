@@ -64,7 +64,7 @@ const Header: React.FC = () => {
     <AntHeader className="site-header">
       <div className="header-container">
         <Link to="/" className="logo">
-          <img src="/src/assets/images/logo.jpg" alt="Logo" className="logo-img" />
+          <img src="/images/logo.jpg" alt="Logo" className="logo-img" />
           <span className="logo-text">光影博客</span>
         </Link>
         
