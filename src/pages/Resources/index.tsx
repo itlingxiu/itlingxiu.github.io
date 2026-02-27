@@ -38,7 +38,7 @@ const resourceSections: ResourceSection[] = [
     tag: '博客推荐',
     tagColor: '#ef4444',
     items: [
-      { icon: <ReadOutlined />, title: '博客菠菜', desc: '优质技术博客，干货满满', url: 'https://bocai668.xyz/', color: '#ef4444' },
+      { icon: <ReadOutlined />, title: '菠菜博客', desc: '优质技术博客，干货满满', url: 'https://bocai668.xyz/', color: '#ef4444' },
       { icon: <ExperimentOutlined />, title: '小满 React 文档', desc: 'React 入门到进阶完整教程', url: 'https://message163.github.io/react-docs/react/basic/introduce.html', color: '#61dafb' },
       { icon: <RocketOutlined />, title: '小满 Next.js 文档', desc: 'Next.js 全栈框架中文教程', url: 'https://nextjs-docs-henna-six.vercel.app/tutorials/getting-started', color: '#1e293b' },
       { icon: <UserOutlined />, title: '小白龙博客', desc: '全栈开发工程师，Vue 技术栈深耕者', url: 'https://xiaolong0418.com/about', color: '#8b5cf6' },
