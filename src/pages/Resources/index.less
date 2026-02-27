@@ -1,0 +1,118 @@
+@import '../../styles/variables.less';
+
+.resources-page {
+  padding: @padding-xl @padding-lg;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: @screen-md) {
+    padding: @padding-lg @padding-md;
+  }
+
+  .page-header {
+    margin-bottom: 36px;
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: @text-color;
+      margin-bottom: 8px;
+    }
+
+    .page-desc {
+      font-size: @font-size-lg;
+      color: @text-color-secondary;
+      margin: 0;
+    }
+  }
+
+  .resources-container {
+    .resource-section {
+      margin-bottom: 36px;
+
+      .section-header {
+        margin-bottom: 16px;
+
+        .section-tag {
+          display: inline-flex;
+          align-items: center;
+          padding: 4px 14px;
+          border-radius: @border-radius-full;
+          color: @text-color-white;
+          font-size: @font-size-sm;
+          font-weight: 600;
+        }
+      }
+
+      .section-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+        gap: 12px;
+
+        @media (max-width: @screen-sm) {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .resource-link-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 18px;
+        background: @card-bg;
+        border-radius: @border-radius-lg;
+        border: 1px solid @border-color-light;
+        cursor: pointer;
+        transition: all @animation-duration-base;
+
+        &:hover {
+          border-color: @border-color-base;
+          box-shadow: @box-shadow-md;
+
+          .external-icon {
+            opacity: 1;
+            transform: translate(1px, -1px);
+          }
+        }
+
+        .link-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 42px;
+          height: 42px;
+          border-radius: @border-radius-base;
+          font-size: 20px;
+          flex-shrink: 0;
+        }
+
+        .link-info {
+          flex: 1;
+          min-width: 0;
+
+          .link-title {
+            font-size: @font-size-base;
+            font-weight: 600;
+            color: @text-color;
+            margin-bottom: 3px;
+          }
+
+          .link-desc {
+            font-size: @font-size-sm;
+            color: @text-color-muted;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+
+        .external-icon {
+          color: @text-color-muted;
+          opacity: 0;
+          transition: all @animation-duration-base;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+}

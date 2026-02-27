@@ -1,0 +1,99 @@
+@import '../../styles/variables.less';
+
+.app-sidebar {
+  position: fixed;
+  top: @header-height;
+  left: 0;
+  bottom: 0;
+  width: @sidebar-width;
+  background: @sidebar-bg;
+  border-right: 1px solid @border-color-base;
+  z-index: 100;
+  overflow: hidden;
+  transition: transform @animation-duration-slow;
+
+  .sidebar-scroll {
+    height: 100%;
+    overflow-y: auto;
+    padding: @padding-md @padding-sm;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 2px;
+    }
+  }
+
+  .sidebar-group {
+    margin-bottom: @margin-lg;
+
+    .sidebar-group-title {
+      font-size: @font-size-xs;
+      font-weight: 600;
+      color: @text-color-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0 @padding-sm;
+      margin-bottom: @margin-xs;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px @padding-sm;
+      border-radius: @border-radius-base;
+      color: @text-color-secondary;
+      text-decoration: none;
+      font-size: @font-size-base;
+      font-weight: 500;
+      transition: all @animation-duration-base;
+      cursor: pointer;
+      margin-bottom: 2px;
+
+      .sidebar-item-icon {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        width: 20px;
+        flex-shrink: 0;
+      }
+
+      .sidebar-item-label {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &:hover {
+        color: @primary-color;
+        background: @primary-light;
+      }
+
+      &.active {
+        color: @primary-color;
+        background: @primary-light;
+        font-weight: 600;
+
+        .sidebar-item-icon {
+          color: @primary-color;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-lg) {
+  .app-sidebar {
+    transform: translateX(-100%);
+
+    &.open {
+      transform: translateX(0);
+      box-shadow: @box-shadow-lg;
+    }
+  }
+}

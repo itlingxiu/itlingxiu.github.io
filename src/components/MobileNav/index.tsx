@@ -1,39 +1,42 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { HomeOutlined, BookOutlined, AppstoreOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  HomeOutlined,
+  AppstoreOutlined,
+  CompassOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import './index.less';
 
 const MobileNav: React.FC = () => {
   const location = useLocation();
-  
+
   const isActive = (path: string) => {
-    if (path === '/') {
-      return location.pathname === '/';
-    }
+    if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
 
+  const navItems = [
+    { path: '/', label: '主页', icon: <HomeOutlined /> },
+    { path: '/tech-category', label: '分类', icon: <AppstoreOutlined /> },
+    { path: '/resources', label: '资源', icon: <CompassOutlined /> },
+    { path: '/cooperation', label: '合作', icon: <TeamOutlined /> },
+    { path: '/about', label: '关于', icon: <UserOutlined /> },
+  ];
+
   return (
     <div className="mobile-bottom-nav">
-      <Link to="/" className={`nav-item ${isActive('/') ? 'active' : ''}`}>
-        <div className="icon"><HomeOutlined /></div>
-        <div className="label">首页</div>
-      </Link>
-      
-      <Link to="/blog" className={`nav-item ${isActive('/blog') ? 'active' : ''}`}>
-        <div className="icon"><BookOutlined /></div>
-        <div className="label">博客</div>
-      </Link>
-      
-      <Link to="/frontend-basic" className={`nav-item ${isActive('/frontend-basic') || isActive('/frontend-engineering') ? 'active' : ''}`}>
-        <div className="icon"><AppstoreOutlined /></div>
-        <div className="label">技术</div>
-      </Link>
-      
-      <Link to="/about" className={`nav-item ${isActive('/about') ? 'active' : ''}`}>
-        <div className="icon"><UserOutlined /></div>
-        <div className="label">关于</div>
-      </Link>
+      {navItems.map((item) => (
+        <Link
+          key={item.path}
+          to={item.path}
+          className={`nav-item ${isActive(item.path) ? 'active' : ''}`}
+        >
+          <div className="icon">{item.icon}</div>
+          <div className="label">{item.label}</div>
+        </Link>
+      ))}
     </div>
   );
 };

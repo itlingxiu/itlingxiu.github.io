@@ -1,132 +1,462 @@
 @import '../../styles/variables.less';
-@import '../../styles/mixins.less';
 
-.about-container {
-  min-height: 100vh;
-  padding: 40px 2vw;
-  background: @background-color-base;
-  width: 100vw;
-  max-width: 100%;
-  overflow-x: hidden;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+.about-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: @padding-xl @padding-lg 60px;
 
-  .mobile() {
-    padding: 20px 0;
+  @media (max-width: @screen-md) {
+    padding: @padding-lg @padding-md 48px;
   }
 
-  // 欢迎区域
-  .welcome-section {
-    margin-bottom: 40px;
+  @media (max-width: @screen-sm) {
+    padding: @padding-md @padding-sm 40px;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: @text-color;
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border-left: 4px solid @primary-color;
+    line-height: 1.2;
+  }
+
+  // ─── Profile Hero ───
+  .profile-hero {
     text-align: center;
-    width: 100%;
-    max-width: 1200px;
+    padding: 40px 0 32px;
 
-    .welcome-card {
-      .card-style();
-      padding: @padding-xl;
-      text-align: center;
+    @media (max-width: @screen-sm) {
+      padding: 28px 0 24px;
+    }
 
-      .mobile() {
-        padding: @padding-lg;
-      }
+    .profile-avatar {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 16px;
 
-      .welcome-header {
+      .avatar-placeholder {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: @gradient-primary;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: @margin-md;
-
-        .welcome-emoji {
-          font-size: 32px;
-          margin-right: @margin-md;
-        }
-
-        .welcome-title {
-          font-size: @font-size-title;
-          color: @text-color;
-          font-weight: 700;
-          margin: 0;
-        }
+        color: white;
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
       }
 
-      .welcome-text {
-        font-size: @font-size-lg;
-        color: @text-color-secondary;
-        margin-bottom: 0;
+      .status-dot {
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+        width: 16px;
+        height: 16px;
+        background: #22c55e;
+        border-radius: 50%;
+        border: 3px solid @background-color-white;
+      }
+    }
+
+    .profile-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: @text-color;
+      margin-bottom: 6px;
+
+      @media (max-width: @screen-sm) {
+        font-size: 24px;
+      }
+    }
+
+    .profile-subtitle {
+      font-size: @font-size-lg;
+      color: @text-color-secondary;
+      margin-bottom: 18px;
+    }
+
+    .profile-tags {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      .ptag {
+        display: inline-block;
+        padding: 4px 16px;
+        border-radius: @border-radius-full;
+        color: white;
+        font-size: @font-size-sm;
+        font-weight: 600;
+        letter-spacing: 0.3px;
       }
     }
   }
 
-  // 关于博客卡片样式
-  .about-card {
-    .card-style();
-    margin-bottom: 24px;
-    height: 100%;
-    
-    .about-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: @margin-md;
-      
-      .about-icon {
-        font-size: 24px;
-        color: @primary-color;
-        margin-right: @margin-md;
+  // ─── Intro ───
+  .intro-section {
+    margin-bottom: 36px;
+
+    .intro-card {
+      background: @card-bg;
+      border: 1px solid @border-color-light;
+      border-radius: @border-radius-xl;
+      padding: 28px 30px;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        border-radius: @border-radius-xl @border-radius-xl 0 0;
+        background: @gradient-primary;
       }
-      
-      .about-title {
-        font-size: @font-size-xl;
-        color: @text-color;
-        margin: 0;
+
+      .intro-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 14px;
+        border-radius: @border-radius-full;
+        background: @primary-light;
+        color: @primary-color;
+        font-size: @font-size-sm;
         font-weight: 600;
+        margin-bottom: 18px;
+      }
+
+      .intro-text {
+        font-size: @font-size-base;
+        color: @text-color-secondary;
+        line-height: 1.85;
+        margin-bottom: 10px;
+
+        &.last {
+          margin-bottom: 0;
+        }
+
+        strong {
+          color: @primary-color;
+          font-weight: 600;
+        }
       }
     }
-    
-    .about-content {
-      color: @text-color-secondary;
-      font-size: @font-size-base;
-      line-height: 1.8;
-      
-      ul {
-        padding-left: @padding-lg;
-        
-        li {
-          margin-bottom: @margin-sm;
-          
-          strong {
-            color: @text-color;
+  }
+
+  // ─── Tech Stack ───
+  .tech-section {
+    margin-bottom: 36px;
+
+    .tech-group {
+      margin-bottom: 20px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .tech-group-header {
+        margin-bottom: 12px;
+
+        .tech-group-tag {
+          display: inline-flex;
+          align-items: center;
+          padding: 4px 14px;
+          border-radius: @border-radius-full;
+          color: white;
+          font-size: @font-size-sm;
+          font-weight: 600;
+        }
+      }
+
+      .tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        .tech-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 7px 16px;
+          border-radius: @border-radius-full;
+          border: 1.5px solid;
+          background: @background-color-white;
+          font-size: @font-size-sm;
+          font-weight: 600;
+          transition: all @animation-duration-base;
+          cursor: default;
+
+          .chip-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+          }
+
+          &:hover {
+            transform: translateY(-1px);
+            box-shadow: @box-shadow-base;
           }
         }
       }
-      
-      .quote-block {
-        background-color: fade(@primary-color, 5%);
-        border-left: 4px solid @primary-color;
-        padding: @padding-md;
-        margin-bottom: @margin-lg;
-        
-        p {
-          color: @text-color;
-          font-style: italic;
-          font-size: @font-size-lg;
-          margin: 0;
+    }
+  }
+
+  // ─── Services ───
+  .services-section {
+    margin-bottom: 36px;
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+
+      @media (max-width: @screen-md) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .service-card {
+      background: @card-bg;
+      border: 1px solid @border-color-light;
+      border-radius: @border-radius-lg;
+      padding: 24px;
+      transition: all @animation-duration-base;
+
+      &:hover {
+        border-color: @border-color-base;
+        box-shadow: @box-shadow-md;
+        transform: translateY(-2px);
+      }
+
+      .svc-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 46px;
+        border-radius: @border-radius-lg;
+        margin-bottom: 14px;
+      }
+
+      .svc-title {
+        font-size: @font-size-lg;
+        font-weight: 600;
+        color: @text-color;
+        margin-bottom: 12px;
+      }
+
+      .svc-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          font-size: @font-size-base;
+          color: @text-color-secondary;
+          padding: 4px 0;
+
+          .anticon {
+            font-size: 13px;
+            flex-shrink: 0;
+          }
         }
       }
     }
   }
-}
 
-// 动画定义
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.1;
+  // ─── Process ───
+  .process-section {
+    margin-bottom: 36px;
+
+    .process-track {
+      display: flex;
+      align-items: flex-start;
+
+      @media (max-width: @screen-md) {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+
+    .process-node {
+      flex: 1;
+      text-align: center;
+      padding: 16px 12px;
+
+      @media (max-width: @screen-md) {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 16px;
+        padding: 12px 0;
+      }
+
+      .node-circle {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: @primary-light;
+        color: @primary-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        margin: 0 auto 10px;
+        flex-shrink: 0;
+
+        @media (max-width: @screen-md) {
+          margin: 0;
+          width: 44px;
+          height: 44px;
+          font-size: 18px;
+        }
+      }
+
+      .node-step {
+        font-size: 28px;
+        font-weight: 700;
+        color: fade(@primary-color, 18%);
+        margin-bottom: 4px;
+
+        @media (max-width: @screen-md) {
+          display: none;
+        }
+      }
+
+      .node-title {
+        font-size: @font-size-base;
+        font-weight: 600;
+        color: @text-color;
+        margin-bottom: 3px;
+      }
+
+      .node-desc {
+        font-size: @font-size-sm;
+        color: @text-color-muted;
+      }
+    }
+
+    .track-line {
+      width: 40px;
+      height: 2px;
+      background: @border-color-base;
+      margin-top: 40px;
+      flex-shrink: 0;
+
+      @media (max-width: @screen-md) {
+        width: 2px;
+        height: 20px;
+        margin: 0 0 0 21px;
+      }
+    }
   }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.2;
+
+  // ─── Advantages ───
+  .advantage-section {
+    margin-bottom: 36px;
+
+    .advantage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+
+      @media (max-width: @screen-md) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .advantage-item {
+      background: @gradient-hero;
+      border: 1px solid @border-color-light;
+      border-radius: @border-radius-lg;
+      padding: 24px 20px;
+      text-align: center;
+
+      .adv-icon {
+        font-size: 28px;
+        color: @primary-color;
+        margin-bottom: 12px;
+      }
+
+      .adv-title {
+        font-size: @font-size-base;
+        font-weight: 600;
+        color: @text-color;
+        margin-bottom: 6px;
+      }
+
+      .adv-desc {
+        font-size: @font-size-sm;
+        color: @text-color-secondary;
+      }
+    }
+  }
+
+  // ─── Contact ───
+  .contact-section {
+    .contact-card {
+      background: @card-bg;
+      border: 1px solid @border-color-light;
+      border-radius: @border-radius-xl;
+      padding: 36px 32px;
+      text-align: center;
+
+      @media (max-width: @screen-sm) {
+        padding: 28px 20px;
+      }
+
+      .contact-title {
+        font-size: @font-size-xxl;
+        font-weight: 700;
+        color: @primary-color;
+        margin-bottom: 8px;
+      }
+
+      .contact-desc {
+        font-size: @font-size-base;
+        color: @text-color-secondary;
+        margin-bottom: 20px;
+      }
+
+      .contact-rows {
+        display: inline-flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 24px;
+
+        .contact-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: @font-size-base;
+          color: @text-color;
+
+          .anticon {
+            color: @primary-color;
+            font-size: 18px;
+          }
+        }
+      }
+
+      .contact-tip {
+        margin-top: 16px;
+        padding: 12px 16px;
+        background: @primary-light;
+        border-radius: @border-radius-base;
+        font-size: @font-size-sm;
+        color: @text-color-secondary;
+        line-height: 1.6;
+      }
+    }
   }
 }

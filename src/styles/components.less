@@ -1,49 +1,46 @@
 @import './variables.less';
-@import './mixins.less';
 
-// 开发中页面样式组件
 .developing-section {
   min-height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 0;
+  padding: 40px @padding-lg;
   width: 100%;
-  
+
   .developing-card {
-    max-width: 600px;
+    max-width: 480px;
     width: 100%;
     text-align: center;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    
+    padding: 48px 32px;
+    border-radius: @border-radius-xl;
+    background: @card-bg;
+    border: 1px solid @border-color-light;
+
     .developing-content {
       h2 {
-        font-size: 28px;
+        font-size: 24px;
         color: @text-color;
-        margin-bottom: 16px;
+        margin-bottom: 12px;
       }
-      
+
       p {
-        font-size: 16px;
+        font-size: @font-size-base;
         color: @text-color-secondary;
-        margin-bottom: 24px;
+        margin-bottom: 0;
       }
-      
+
       .developing-icon {
-        font-size: 64px;
-        margin-top: 24px;
+        font-size: 56px;
+        margin-top: 20px;
+        color: @text-color-muted;
       }
     }
   }
 }
 
-// 通用页面容器
 .page-container {
-  min-height: 100vh;
-  padding-top: 64px; // 为导航栏留出空间
+  min-height: calc(100vh - @header-height);
   background: @background-color-base;
   width: 100%;
-  overflow-x: hidden;
 }

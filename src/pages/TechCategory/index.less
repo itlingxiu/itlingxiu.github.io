@@ -1,0 +1,131 @@
+@import '../../styles/variables.less';
+
+.tech-category-page {
+  padding: @padding-xl @padding-lg;
+  max-width: 960px;
+  margin: 0 auto;
+
+  @media (max-width: @screen-md) {
+    padding: @padding-lg @padding-md;
+  }
+
+  .page-header {
+    margin-bottom: 36px;
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: @text-color;
+      margin-bottom: 8px;
+    }
+
+    .page-desc {
+      font-size: @font-size-lg;
+      color: @text-color-secondary;
+      margin: 0;
+    }
+  }
+
+  .categories-container {
+    .category-section {
+      margin-bottom: 36px;
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+
+        .section-indicator {
+          width: 4px;
+          height: 36px;
+          border-radius: 2px;
+          flex-shrink: 0;
+        }
+
+        .section-title {
+          font-size: @font-size-xl;
+          font-weight: 600;
+          color: @text-color;
+          margin-bottom: 2px;
+        }
+
+        .section-desc {
+          font-size: @font-size-sm;
+          color: @text-color-muted;
+          margin: 0;
+        }
+      }
+
+      .section-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 12px;
+
+        @media (max-width: @screen-sm) {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .category-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 18px;
+        background: @card-bg;
+        border-radius: @border-radius-lg;
+        border: 1px solid @border-color-light;
+        cursor: pointer;
+        transition: all @animation-duration-base;
+
+        &:hover {
+          border-color: @border-color-base;
+          box-shadow: @box-shadow-md;
+
+          .arrow-icon {
+            opacity: 1;
+            transform: translateX(2px);
+          }
+        }
+
+        .category-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          border-radius: @border-radius-base;
+          font-size: 22px;
+          flex-shrink: 0;
+        }
+
+        .category-info {
+          flex: 1;
+          min-width: 0;
+
+          .category-name {
+            font-size: @font-size-base;
+            font-weight: 600;
+            color: @text-color;
+            margin-bottom: 3px;
+          }
+
+          .category-detail {
+            font-size: @font-size-sm;
+            color: @text-color-muted;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+
+        .arrow-icon {
+          color: @text-color-muted;
+          opacity: 0;
+          transition: all @animation-duration-base;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+}
