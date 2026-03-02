@@ -37,6 +37,9 @@ const frontendTech: TechItem[] = [
   { name: 'TypeScript', color: '#3178c6' },
   { name: 'Tailwind CSS', color: '#06b6d4' },
   { name: 'Sass / Less', color: '#cc6699' },
+  { name: 'HarmonyOS', color: '#0070f5' },
+  { name: 'Flutter', color: '#027dfd' },
+  { name: 'Angular', color: '#dd0031' },
 ];
 
 const backendTech: TechItem[] = [
@@ -48,6 +51,8 @@ const backendTech: TechItem[] = [
   { name: 'MongoDB', color: '#47a248' },
   { name: 'Redis', color: '#dc382d' },
   { name: 'Docker', color: '#2496ed' },
+  { name: '大数据', color: '#ff6f00' },
+  { name: 'Python', color: '#3776ab' },
 ];
 
 const services: ServiceCard[] = [
