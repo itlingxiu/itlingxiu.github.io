@@ -1,5 +1,6 @@
 import React from 'react';
-import TechTutorial, { TutorialSection } from '../../../components/TechTutorial';
+import TechTutorial from '../../../components/TechTutorial';
+import type { TutorialSection } from '../../../components/TechTutorial';
 
 const sections: TutorialSection[] = [
   {
