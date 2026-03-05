@@ -80,6 +80,18 @@ const services: ServiceCard[] = [
     items: ['线上故障排查', '性能优化调优', '代码重构升级', '远程一对一辅导', '技术方案咨询'],
     color: '#ef4444',
   },
+  {
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h2"/><path d="M15 8h2"/></svg>,
+    title: '电脑维修与组装',
+    items: ['台式机 / 笔记本维修', '硬件升级与更换', '系统安装与调试', '组装定制整机', '有合作店铺，线下可达'],
+    color: '#0ea5e9',
+  },
+  {
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>,
+    title: '安防监控工程',
+    items: ['监控方案设计', '设备选型与安装', '远程监控配置', '网络布线施工', '有合作店铺，承接工程'],
+    color: '#8b5cf6',
+  },
 ];
 
 const processSteps = [
@@ -110,6 +122,8 @@ const About: React.FC = () => {
           <span className="ptag" style={{ background: '#10b981' }}>Vue 专家</span>
           <span className="ptag" style={{ background: '#f59e0b' }}>React</span>
           <span className="ptag" style={{ background: '#ef4444' }}>远程服务</span>
+          <span className="ptag" style={{ background: '#0ea5e9' }}>电脑维修</span>
+          <span className="ptag" style={{ background: '#8b5cf6' }}>安防监控</span>
         </div>
       </section>
 
@@ -128,6 +142,9 @@ const About: React.FC = () => {
           </p>
           <p className="intro-text">
             服务端擅长 <strong>Java</strong>、<strong>Nest.js</strong>、<strong>Node.js</strong>、<strong>Golang</strong> 技术栈，可承接后端架构搭建、接口开发与管理系统开发。
+          </p>
+          <p className="intro-text">
+            同时提供<strong>电脑维修与组装</strong>服务，涵盖台式机/笔记本维修、硬件升级、系统安装调试及整机定制组装；以及<strong>安防监控工程</strong>服务，包括监控方案设计、设备选型安装、远程监控配置与网络布线施工，均有合作店铺可线下承接。
           </p>
           <p className="intro-text last">
             合作流程规范，可协助梳理需求、出具专属技术方案，高效响应各类开发需求，欢迎咨询洽谈。

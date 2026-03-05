@@ -1,0 +1,121 @@
+@import '../../styles/variables.less';
+
+.tech-tutorial-page {
+  padding: @padding-lg;
+  max-width: 960px;
+
+  @media (max-width: @screen-md) {
+    padding: @padding-md;
+  }
+
+  .tutorial-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 32px;
+
+    .tutorial-indicator {
+      width: 4px;
+      height: 36px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .tutorial-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: @text-color;
+      margin: 0 0 6px;
+    }
+
+    .tutorial-desc {
+      font-size: @font-size-base;
+      color: @text-color-secondary;
+      margin: 0;
+    }
+  }
+
+  .tutorial-sections {
+    .tutorial-section {
+      margin-bottom: 28px;
+
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 12px;
+        border-radius: @border-radius-full;
+        color: @text-color-white;
+        font-size: @font-size-sm;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .section-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .tutorial-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px;
+        background: @card-bg;
+        border-radius: @border-radius-lg;
+        border: 1px solid @border-color-light;
+        cursor: pointer;
+        transition: all @animation-duration-base;
+
+        &:hover {
+          border-color: @border-color-base;
+          box-shadow: @box-shadow-md;
+
+          .card-arrow {
+            opacity: 1;
+            transform: translate(1px, -1px);
+          }
+        }
+
+        .card-body {
+          flex: 1;
+          min-width: 0;
+
+          .card-title {
+            font-size: @font-size-base;
+            font-weight: 600;
+            color: @text-color;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+          }
+
+          .card-tag {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 1px 8px;
+            border-radius: @border-radius-full;
+            border: 1px solid;
+          }
+
+          .card-desc {
+            font-size: @font-size-sm;
+            color: @text-color-muted;
+            line-height: 1.5;
+          }
+        }
+
+        .card-arrow {
+          color: @text-color-muted;
+          opacity: 0;
+          transition: all @animation-duration-base;
+          flex-shrink: 0;
+          margin-left: 12px;
+        }
+      }
+    }
+  }
+}
