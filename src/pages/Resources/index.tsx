@@ -149,6 +149,8 @@ const resourceSections: ResourceSection[] = [
       { icon: <GlobalOutlined />, title: 'Stack Overflow', desc: '全球开发者问答社区', url: 'https://stackoverflow.com', color: '#f59e0b' },
       { icon: <GlobalOutlined />, title: 'Dev.to', desc: '开发者博客平台', url: 'https://dev.to', color: '#1e293b' },
       { icon: <GlobalOutlined />, title: '思否 (SegmentFault)', desc: '中文开发者社区', url: 'https://segmentfault.com', color: '#10b981' },
+      { icon: <RobotOutlined />, title: 'OpenClaw 中文社区', desc: '开源免费 AI 助手，多端聊天自动化', url: 'https://clawd.org.cn/', color: '#ef4444' },
+      { icon: <MessageOutlined />, title: 'OpenClaw 飞书接入', desc: '飞书机器人保姆级接入教程', url: 'https://openclawchina.com/channels/feishu/', color: '#3b82f6' },
     ],
   },
 ];
