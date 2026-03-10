@@ -7,6 +7,7 @@ import {
   TeamOutlined,
   SafetyCertificateOutlined,
   UserOutlined,
+  CodeOutlined,
   SearchOutlined,
   MenuOutlined,
   CloseOutlined,
@@ -23,6 +24,7 @@ const Header: React.FC = () => {
     { path: '/resources', label: '资源导航', icon: <CompassOutlined /> },
     { path: '/cooperation', label: '资源合作', icon: <TeamOutlined /> },
     { path: '/certificate', label: '证书办理', icon: <SafetyCertificateOutlined /> },
+    { path: '/dev-hub', label: '开发广场', icon: <CodeOutlined /> },
     { path: '/about', label: '关于', icon: <UserOutlined /> },
   ];
 
