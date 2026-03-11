@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  SearchOutlined,
   Html5Outlined,
   BgColorsOutlined,
   ThunderboltOutlined,
@@ -112,14 +111,6 @@ const Home: React.FC = () => {
         <div className="hero-content">
           <h1 className="hero-title">光影博客</h1>
           <p className="hero-subtitle">探索技术之美，分享编程智慧</p>
-          <div className="search-box">
-            <SearchOutlined className="search-icon" />
-            <input
-              type="text"
-              className="search-input"
-              placeholder="搜索技术文档、资源、工具..."
-            />
-          </div>
           <div className="quick-links">
             {quickLinks.map((link) => (
               <span

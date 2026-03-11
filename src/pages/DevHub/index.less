@@ -144,6 +144,7 @@
 
       .qt-col-id { width: 50px; flex-shrink: 0; }
       .qt-col-title { flex: 1; min-width: 0; }
+      .qt-col-date { width: 72px; flex-shrink: 0; text-align: center; }
       .qt-col-acc { width: 80px; flex-shrink: 0; text-align: center; }
       .qt-col-diff { width: 80px; flex-shrink: 0; text-align: center; }
 
@@ -177,6 +178,20 @@
           gap: 8px;
           flex-wrap: wrap;
 
+          .qt-new-badge {
+            display: inline-block;
+            padding: 1px 6px;
+            border-radius: 3px;
+            background: #ff375f;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+            line-height: 16px;
+            animation: fadeIn 0.3s ease;
+          }
+
           .qt-cat-tag {
             display: inline-block;
             padding: 1px 8px;
@@ -189,9 +204,19 @@
           }
         }
 
+        .qt-col-date {
+          font-size: @font-size-xs;
+          color: @text-color-muted;
+        }
+
         .qt-col-acc {
           font-size: @font-size-sm;
           color: @text-color-secondary;
+        }
+
+        &.is-new {
+          background: #fffbeb;
+          &:hover { background: #fef3c7; }
         }
 
         .diff-badge {
@@ -640,8 +665,9 @@
           flex-wrap: wrap; gap: 6px;
           .qt-col-id { width: 30px; }
           .qt-col-title { flex-basis: calc(100% - 40px); order: 1; }
-          .qt-col-acc { width: auto; text-align: left; order: 2; font-size: @font-size-xs; }
-          .qt-col-diff { width: auto; text-align: left; order: 3; }
+          .qt-col-date { width: auto; text-align: left; order: 2; font-size: @font-size-xs; }
+          .qt-col-acc { width: auto; text-align: left; order: 3; font-size: @font-size-xs; }
+          .qt-col-diff { width: auto; text-align: left; order: 4; }
         }
         .qt-answer .qt-answer-inner { padding-left: 20px; }
       }

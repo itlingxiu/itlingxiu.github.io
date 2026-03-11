@@ -179,6 +179,12 @@ const QUIZ_DATA: QuizQuestion[] = [
 const QUIZ_PER_PAGE = 15;
 const NEWS_PER_PAGE = 15;
 
+const CYCLE_DAYS = 28;
+const getDayOfYear = () => Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+const getQuizDayOffset = (id: number, dayOfYear: number) => (id - 1 + dayOfYear) % CYCLE_DAYS;
+const getQuizDate = (id: number, dayOfYear: number) => { const d = new Date(); d.setDate(d.getDate() - (CYCLE_DAYS - 1 - getQuizDayOffset(id, dayOfYear))); return `${d.getMonth() + 1}/${d.getDate()}`; };
+const isNewToday = (id: number, dayOfYear: number) => getQuizDayOffset(id, dayOfYear) === CYCLE_DAYS - 1;
+
 type NewsSource = 'hackernews' | 'reddit' | 'devto';
 const NEWS_SOURCES: { key: NewsSource; label: string }[] = [
   { key: 'hackernews', label: 'Hacker News' },
@@ -241,7 +247,8 @@ const DevHub: React.FC = () => {
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const filteredQuestions = QUIZ_DATA.filter((q) => quizCategory === 'all' || q.category === quizCategory).filter((q) => quizDifficulty === 'all' || q.difficulty === quizDifficulty).filter((q) => !quizSearch || q.question.includes(quizSearch));
+  const dayOfYear = getDayOfYear();
+  const filteredQuestions = QUIZ_DATA.filter((q) => quizCategory === 'all' || q.category === quizCategory).filter((q) => quizDifficulty === 'all' || q.difficulty === quizDifficulty).filter((q) => !quizSearch || q.question.includes(quizSearch)).sort((a, b) => getQuizDayOffset(a.id, dayOfYear) - getQuizDayOffset(b.id, dayOfYear));
   const totalQuizPages = Math.ceil(filteredQuestions.length / QUIZ_PER_PAGE);
   const paginatedQuestions = filteredQuestions.slice((quizPage - 1) * QUIZ_PER_PAGE, quizPage * QUIZ_PER_PAGE);
 
@@ -396,12 +403,13 @@ const DevHub: React.FC = () => {
               </div>
             </div>
             <div className="quiz-table">
-              <div className="qt-header"><span className="qt-col-id">#</span><span className="qt-col-title">题目</span><span className="qt-col-acc">通过率</span><span className="qt-col-diff">难度</span></div>
+              <div className="qt-header"><span className="qt-col-id">#</span><span className="qt-col-title">题目</span><span className="qt-col-date">日期</span><span className="qt-col-acc">通过率</span><span className="qt-col-diff">难度</span></div>
               {paginatedQuestions.length === 0 ? <div className="qt-empty">没有匹配的题目</div> : paginatedQuestions.map((q) => (
                 <React.Fragment key={q.id}>
-                  <div className={`qt-row ${expandedId === q.id ? 'expanded' : ''}`} onClick={() => setExpandedId(expandedId === q.id ? null : q.id)}>
+                  <div className={`qt-row ${expandedId === q.id ? 'expanded' : ''} ${isNewToday(q.id, dayOfYear) ? 'is-new' : ''}`} onClick={() => setExpandedId(expandedId === q.id ? null : q.id)}>
                     <span className="qt-col-id">{q.id}</span>
-                    <span className="qt-col-title">{q.question}<span className="qt-cat-tag">{q.category}</span></span>
+                    <span className="qt-col-title">{isNewToday(q.id, dayOfYear) && <span className="qt-new-badge">NEW</span>}{q.question}<span className="qt-cat-tag">{q.category}</span></span>
+                    <span className="qt-col-date">{getQuizDate(q.id, dayOfYear)}</span>
                     <span className="qt-col-acc">{q.acceptance}%</span>
                     <span className="qt-col-diff"><span className="diff-badge" style={{ color: DIFF_COLORS[q.difficulty] }}>{q.difficulty}</span></span>
                   </div>

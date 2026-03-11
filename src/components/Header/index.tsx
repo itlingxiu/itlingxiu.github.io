@@ -8,7 +8,6 @@ import {
   SafetyCertificateOutlined,
   UserOutlined,
   CodeOutlined,
-  SearchOutlined,
   MenuOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
@@ -68,9 +67,6 @@ const Header: React.FC = () => {
         </nav>
 
         <div className="header-actions">
-          <button className="search-trigger" aria-label="搜索">
-            <SearchOutlined />
-          </button>
           <button
             className="mobile-toggle"
             onClick={() => setMobileMenuVisible(!mobileMenuVisible)}
