@@ -35,9 +35,10 @@ const sections: TutorialSection[] = [
     label: '进阶实战',
     color: '#ef4444',
     links: [
-      { title: 'TypeORM 集成', desc: '数据库 ORM 框架集成与实体定义', url: 'https://docs.nestjs.cn/10/techniques?id=数据库' },
-      { title: 'Swagger 文档', desc: '自动生成 API 文档', url: 'https://docs.nestjs.cn/10/openapi' },
-      { title: 'WebSocket 网关', desc: '实时通信 WebSocket 集成', url: 'https://docs.nestjs.cn/10/websockets' },
+      { title: 'TypeORM 集成', desc: 'TypeORM 中文文档与 ORM 实体映射指南', url: 'https://typeorm.bootcss.com/' },
+      { title: 'Swagger 文档', desc: 'NestJS OpenAPI / Swagger 接口文档', url: 'https://docs.nestjs.cn/openapi/' },
+      { title: 'WebSocket 网关', desc: 'Socket.IO 客户端安装与实时通信文档', url: 'https://socket.io/zh-CN/docs/v4/client-installation/' },
+      { title: 'Prisma ORM', desc: '现代 ORM 与类型安全数据库工作流', url: 'https://www.prisma.io/' },
       { title: '微服务', desc: 'NestJS 微服务架构与消息模式', url: 'https://docs.nestjs.cn/10/microservices' },
     ],
   },

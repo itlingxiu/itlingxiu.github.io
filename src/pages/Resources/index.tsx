@@ -152,6 +152,7 @@ const resourceSections: ResourceSection[] = [
       { icon: <RobotOutlined />, title: 'OpenClaw 中文社区', desc: '开源免费 AI 助手，多端聊天自动化', url: 'https://clawd.org.cn/', color: '#ef4444' },
       { icon: <MessageOutlined />, title: 'OpenClaw 飞书接入', desc: '飞书机器人保姆级接入教程', url: 'https://openclawchina.com/channels/feishu/', color: '#3b82f6' },
       { icon: <ApiOutlined />, title: 'TooBox也盒', desc: '定制化开发工具及 API 调用大模型工具箱', url: 'https://api.toobox.love/', color: '#8b5cf6' },
+      { icon: <ApiOutlined />, title: 'I Code Easy', desc: 'Claude / Codex / Gemini API 中转站，国内直连，便宜好用', url: 'https://icodeeasy.cc/', color: '#d97706' },
     ],
   },
 ];

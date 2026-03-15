@@ -11,17 +11,44 @@ import {
   LinkOutlined,
   ReloadOutlined,
   SearchOutlined,
+  HistoryOutlined,
+  PictureOutlined,
+  MessageOutlined,
 } from '@ant-design/icons';
 import './index.less';
 
 interface QuizQuestion { id: number; category: string; difficulty: '简单' | '中等' | '困难'; question: string; answer: string; acceptance: number; }
 interface NewsArticle { id: string; title: string; description: string; coverImage: string | null; date: string; authorName: string; likeCount: number; commentCount: number; readTime: number; tags: string[]; url: string; source: string; rawId: string; }
 interface ArticleDetail { title: string; coverImage: string | null; authorName: string; date: string; readTime: number; tags: string[]; url: string; bodyHtml: string; }
-interface ChatMessage { role: 'user' | 'assistant'; content: string; }
+interface ChatMessage { role: 'user' | 'assistant'; content: string; imageUrl?: string; }
+interface ChatHistoryItem { id: string; title: string; messages: ChatMessage[]; createdAt: number; }
 
 const GLM_API_KEY = 'd8321274b1624f54aab5c40b5c0ad4f8.tKsEhq9Bzi97ukI6';
 const GLM_ENDPOINT = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
 const GLM_MODEL = 'glm-4-flash';
+const GLM_IMAGE_ENDPOINT = 'https://open.bigmodel.cn/api/paas/v4/images/generations';
+const GLM_IMAGE_MODEL = 'glm-image';
+const HISTORY_STORAGE_KEY = 'devhub-ai-history';
+const MAX_HISTORY_COUNT = 50;
+
+const getHistoryFromStorage = (): ChatHistoryItem[] => {
+  try {
+    const raw = localStorage.getItem(HISTORY_STORAGE_KEY);
+    if (!raw) return [];
+    const list = JSON.parse(raw) as ChatHistoryItem[];
+    return Array.isArray(list) ? list : [];
+  } catch { return []; }
+};
+const saveHistoryToStorage = (list: ChatHistoryItem[]) => {
+  try { localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(list.slice(0, MAX_HISTORY_COUNT))); } catch { /* ignore */ }
+};
+const genId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+const getTitleFromMessages = (messages: ChatMessage[], fallback = '新对话') => {
+  const first = messages.find((m) => m.role === 'user');
+  if (!first?.content) return fallback;
+  const t = first.content.trim();
+  return t.length > 28 ? t.slice(0, 28) + '…' : t;
+};
 
 const QUIZ_CATEGORIES = [
   { key: 'all', label: '全部' },
@@ -244,8 +271,55 @@ const DevHub: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
+  const [historyList, setHistoryList] = useState<ChatHistoryItem[]>(() => getHistoryFromStorage());
+  const [currentHistoryId, setCurrentHistoryId] = useState<string | null>(null);
+  const [aiMode, setAiMode] = useState<'chat' | 'image'>('chat');
+  const [historyPanelOpen, setHistoryPanelOpen] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  const persistHistory = useCallback((list: ChatHistoryItem[]) => {
+    setHistoryList(list);
+    saveHistoryToStorage(list);
+  }, []);
+
+  const saveCurrentToHistory = useCallback(() => {
+    if (messages.length === 0) return;
+    const id = currentHistoryId ?? genId();
+    const title = getTitleFromMessages(messages);
+    const list = historyList.filter((h) => h.id !== id);
+    list.unshift({ id, title, messages: [...messages], createdAt: currentHistoryId ? (historyList.find((h) => h.id === currentHistoryId)?.createdAt ?? Date.now()) : Date.now() });
+    persistHistory(list);
+    setCurrentHistoryId(id);
+  }, [messages, currentHistoryId, historyList, persistHistory]);
+
+  const loadHistory = useCallback((item: ChatHistoryItem | null) => {
+    saveCurrentToHistory();
+    if (!item) {
+      setMessages([]);
+      setCurrentHistoryId(null);
+    } else {
+      setMessages(item.messages);
+      setCurrentHistoryId(item.id);
+    }
+    setHistoryPanelOpen(false);
+  }, [saveCurrentToHistory]);
+
+  const deleteHistoryItem = useCallback((id: string) => {
+    const list = historyList.filter((h) => h.id !== id);
+    persistHistory(list);
+    if (currentHistoryId === id) {
+      setMessages([]);
+      setCurrentHistoryId(null);
+    }
+  }, [historyList, currentHistoryId, persistHistory]);
+
+  const clearAllHistory = useCallback(() => {
+    persistHistory([]);
+    setMessages([]);
+    setCurrentHistoryId(null);
+    setHistoryPanelOpen(false);
+  }, [persistHistory]);
 
   const dayOfYear = getDayOfYear();
   const filteredQuestions = QUIZ_DATA.filter((q) => quizCategory === 'all' || q.category === quizCategory).filter((q) => quizDifficulty === 'all' || q.difficulty === quizDifficulty).filter((q) => !quizSearch || q.question.includes(quizSearch)).sort((a, b) => getQuizDayOffset(a.id, dayOfYear) - getQuizDayOffset(b.id, dayOfYear));
@@ -366,10 +440,39 @@ const DevHub: React.FC = () => {
     finally { setArticleLoading(false); }
   };
 
+  const syncMessagesToHistory = useCallback((msgs: ChatMessage[]) => {
+    if (msgs.length === 0) return;
+    const id = currentHistoryId ?? genId();
+    const title = getTitleFromMessages(msgs);
+    const list = historyList.filter((h) => h.id !== id);
+    list.unshift({ id, title, messages: msgs, createdAt: currentHistoryId ? (historyList.find((h) => h.id === currentHistoryId)?.createdAt ?? Date.now()) : Date.now() });
+    persistHistory(list);
+    if (!currentHistoryId) setCurrentHistoryId(id);
+  }, [currentHistoryId, historyList, persistHistory]);
+
   const handleSendMessage = async (content?: string) => {
     const text = (content || input).trim(); if (!text || aiLoading) return;
     const userMsg: ChatMessage = { role: 'user', content: text }; const newMsgs = [...messages, userMsg];
     setMessages([...newMsgs, { role: 'assistant', content: '' }]); setInput(''); setAiLoading(true);
+    if (aiMode === 'image') {
+      try {
+        const res = await fetch(GLM_IMAGE_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${GLM_API_KEY}` }, body: JSON.stringify({ model: GLM_IMAGE_MODEL, prompt: text, size: '1280x1280' }) });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error?.message || res.status === 401 ? '认证失败' : res.status === 402 ? '余额不足' : `请求失败 (${res.status})`);
+        const imageUrl = data.data?.[0]?.url;
+        if (!imageUrl) throw new Error('未返回图片地址');
+        const final = [...newMsgs, { role: 'assistant' as const, content: '已根据描述生成图片', imageUrl }];
+        setMessages(final);
+        syncMessagesToHistory(final);
+      } catch (err: any) {
+        const final = [...newMsgs, { role: 'assistant' as const, content: err.message || '图片生成失败' }];
+        setMessages(final);
+        syncMessagesToHistory(final);
+      } finally {
+        setAiLoading(false);
+      }
+      return;
+    }
     try {
       const res = await fetch(GLM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${GLM_API_KEY}` }, body: JSON.stringify({ model: GLM_MODEL, messages: [{ role: 'system', content: '你是一个专业的全栈开发技术助手，擅长解答各种编程语言和技术问题。请用中文回答，保持简洁专业有条理。' }, ...newMsgs.map((m) => ({ role: m.role, content: m.content }))], stream: true }) });
       if (!res.ok) { const e = await res.text().catch(() => ''); throw new Error(res.status === 401 ? '认证失败' : res.status === 402 ? '余额不足' : res.status === 429 ? '请求频繁' : `请求失败 (${res.status}) ${e}`); }
@@ -377,9 +480,16 @@ const DevHub: React.FC = () => {
       const decoder = new TextDecoder(); let acc = ''; let buf = '';
       while (true) { const { done, value } = await reader.read(); if (done) break; buf += decoder.decode(value, { stream: true }); const lines = buf.split('\n'); buf = lines.pop() || '';
         for (const line of lines) { const t = line.trim(); if (!t.startsWith('data: ')) continue; const d = t.slice(6); if (d === '[DONE]') continue; try { const p = JSON.parse(d); const delta = p.choices?.[0]?.delta?.content || ''; if (delta) { acc += delta; setMessages([...newMsgs, { role: 'assistant', content: acc }]); } } catch { /* skip */ } } }
-      if (!acc) setMessages([...newMsgs, { role: 'assistant', content: '未收到回复。' }]);
-    } catch (error: any) { setMessages([...newMsgs, { role: 'assistant', content: error.message || '请求失败' }]); }
-    finally { setAiLoading(false); }
+      const final = [...newMsgs, { role: 'assistant' as const, content: acc || '未收到回复。' }];
+      if (!acc) setMessages(final);
+      syncMessagesToHistory(final);
+    } catch (error: any) {
+      const errFinal = [...newMsgs, { role: 'assistant' as const, content: error.message || '请求失败' }];
+      setMessages(errFinal);
+      syncMessagesToHistory(errFinal);
+    } finally {
+      setAiLoading(false);
+    }
   };
   const handleKeyDown = (e: React.KeyboardEvent) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSendMessage(); } };
 
@@ -500,25 +610,82 @@ const DevHub: React.FC = () => {
         {/* ===== AI 助手 ===== */}
         {activeTab === 'ai' && (
           <div className="ai-section">
-            <div className="ai-toolbar"><span className="ai-model-label"><RobotOutlined /> 智谱 GLM-4-Flash</span><div className="ai-actions">{messages.length > 0 && <button className="ai-clear-btn" onClick={() => setMessages([])} title="清空对话"><DeleteOutlined /></button>}</div></div>
-            <div className="chat-container">
-              {messages.length === 0 ? (
-                <div className="chat-welcome"><div className="welcome-icon"><RobotOutlined /></div><h3>AI 开发助手</h3><p>基于智谱 GLM-4-Flash，有任何开发问题，随时向我提问</p><div className="quick-questions">{QUICK_QUESTIONS.map((q) => <button key={q} className="quick-q-btn" onClick={() => handleSendMessage(q)}>{q}</button>)}</div></div>
-              ) : (
-                <div className="chat-messages">
-                  {messages.map((msg, idx) => (
-                    <div key={idx} className={`chat-msg ${msg.role}`}>
-                      <div className="msg-avatar">{msg.role === 'user' ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> : <RobotOutlined />}</div>
-                      <div className="msg-body">{msg.role === 'assistant' ? (msg.content ? <div className="msg-content" dangerouslySetInnerHTML={{ __html: renderAIContent(msg.content) }} /> : <div className="msg-content typing-indicator"><span /><span /><span /></div>) : <div className="msg-content">{msg.content}</div>}</div>
-                    </div>
-                  ))}
-                  <div ref={chatEndRef} />
+            <div className="ai-toolbar">
+              <div className="ai-toolbar-left">
+                <button type="button" className={`ai-history-btn ${historyPanelOpen ? 'active' : ''}`} onClick={() => setHistoryPanelOpen((v) => !v)} title="历史记录"><HistoryOutlined /></button>
+                <span className="ai-model-label"><RobotOutlined /> {aiMode === 'image' ? '智谱 GLM-Image' : '智谱 GLM-4-Flash'}</span>
+                <div className="ai-mode-tabs">
+                  <button type="button" className={aiMode === 'chat' ? 'active' : ''} onClick={() => setAiMode('chat')}><MessageOutlined /> 对话</button>
+                  <button type="button" className={aiMode === 'image' ? 'active' : ''} onClick={() => setAiMode('image')}><PictureOutlined /> 绘图</button>
+                </div>
+              </div>
+              <div className="ai-actions">
+                {messages.length > 0 && <button type="button" className="ai-clear-btn" onClick={() => { setMessages([]); setCurrentHistoryId(null); }} title="清空当前对话"><DeleteOutlined /></button>}
+              </div>
+            </div>
+            <div className="ai-main">
+              {historyPanelOpen && (
+                <div className="ai-history-panel">
+                  <div className="ai-history-header">
+                    <span>历史记录</span>
+                    <button type="button" className="ai-new-chat-btn" onClick={() => loadHistory(null)}>新对话</button>
+                  </div>
+                  <div className="ai-history-list">
+                    {historyList.length === 0 ? <div className="ai-history-empty">暂无记录</div> : historyList.map((item) => (
+                      <div key={item.id} className={`ai-history-item ${currentHistoryId === item.id ? 'active' : ''}`}>
+                        <button type="button" className="ai-history-item-btn" onClick={() => loadHistory(item)} title={item.title}>
+                          <span className="ai-history-item-title">{item.title}</span>
+                          <span className="ai-history-item-time">{new Date(item.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                        </button>
+                        <button type="button" className="ai-history-item-del" onClick={(e) => { e.stopPropagation(); deleteHistoryItem(item.id); }} title="删除"><DeleteOutlined /></button>
+                      </div>
+                    ))}
+                  </div>
+                  {historyList.length > 0 && (
+                    <button type="button" className="ai-history-clear-all" onClick={clearAllHistory}>清空全部历史</button>
+                  )}
                 </div>
               )}
-            </div>
-            <div className="chat-input-area">
-              <textarea ref={inputRef} className="chat-input" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown} placeholder="输入你的问题... (Enter 发送，Shift+Enter 换行)" rows={1} disabled={aiLoading} />
-              <button className="send-btn" onClick={() => handleSendMessage()} disabled={!input.trim() || aiLoading}>{aiLoading ? <LoadingOutlined /> : <SendOutlined />}</button>
+              <div className="chat-wrap">
+                <div className="chat-container">
+                  {messages.length === 0 ? (
+                    <div className="chat-welcome">
+                      <div className="welcome-icon"><RobotOutlined /></div>
+                      <h3>AI 开发助手</h3>
+                      <p>{aiMode === 'image' ? '切换至「绘图」模式，输入描述即可生成图片' : '基于智谱 GLM-4-Flash，有任何开发问题，随时向我提问'}</p>
+                      {aiMode === 'chat' && <div className="quick-questions">{QUICK_QUESTIONS.map((q) => <button key={q} type="button" className="quick-q-btn" onClick={() => handleSendMessage(q)}>{q}</button>)}</div>}
+                      {aiMode === 'image' && <p className="quick-hint">例如：一只在写代码的猫咪、赛博朋克风格的城市夜景</p>}
+                    </div>
+                  ) : (
+                    <div className="chat-messages">
+                      {messages.map((msg, idx) => (
+                        <div key={idx} className={`chat-msg ${msg.role}`}>
+                          <div className="msg-avatar">{msg.role === 'user' ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> : <RobotOutlined />}</div>
+                          <div className="msg-body">
+                            {msg.role === 'assistant' ? (
+                              msg.content || msg.imageUrl ? (
+                                <div className="msg-content">
+                                  {msg.imageUrl && <a href={msg.imageUrl} target="_blank" rel="noopener noreferrer" className="msg-image-wrap"><img src={msg.imageUrl} alt="生成图片" className="msg-image" /></a>}
+                                  {msg.content ? <span dangerouslySetInnerHTML={{ __html: renderAIContent(msg.content) }} /> : null}
+                                </div>
+                              ) : (
+                                <div className="msg-content typing-indicator"><span /><span /><span /></div>
+                              )
+                            ) : (
+                              <div className="msg-content">{msg.content}</div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                      <div ref={chatEndRef} />
+                    </div>
+                  )}
+                </div>
+                <div className="chat-input-area">
+                  <textarea ref={inputRef} className="chat-input" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown} placeholder={aiMode === 'image' ? '描述你想生成的图片... (Enter 发送)' : '输入你的问题... (Enter 发送，Shift+Enter 换行)'} rows={1} disabled={aiLoading} />
+                  <button type="button" className="send-btn" onClick={() => handleSendMessage()} disabled={!input.trim() || aiLoading}>{aiLoading ? <LoadingOutlined /> : <SendOutlined />}</button>
+                </div>
+              </div>
             </div>
           </div>
         )}
