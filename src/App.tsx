@@ -10,6 +10,7 @@ import Resources from './pages/Resources';
 import Cooperation from './pages/Cooperation';
 import Certificate from './pages/Certificate';
 import DevHub from './pages/DevHub';
+import AlgorithmHub from './pages/AlgorithmHub';
 
 import Html from './pages/Frontend/Html';
 import Css from './pages/Frontend/Css';
@@ -48,6 +49,7 @@ function App() {
             <Route path="/cooperation" element={<Cooperation />} />
             <Route path="/certificate" element={<Certificate />} />
             <Route path="/dev-hub" element={<DevHub />} />
+            <Route path="/algorithm" element={<AlgorithmHub />} />
 
             <Route path="/frontend-basic" element={<Html />} />
             <Route path="/frontend-basic/html" element={<Html />} />

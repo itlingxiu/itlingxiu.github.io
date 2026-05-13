@@ -8,6 +8,7 @@ import {
   SafetyCertificateOutlined,
   UserOutlined,
   CodeOutlined,
+  FunctionOutlined,
   MenuOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
@@ -24,6 +25,7 @@ const Header: React.FC = () => {
     { path: '/cooperation', label: '资源合作', icon: <TeamOutlined /> },
     { path: '/certificate', label: '证书办理', icon: <SafetyCertificateOutlined /> },
     { path: '/dev-hub', label: '开发广场', icon: <CodeOutlined /> },
+    { path: '/algorithm', label: '算法', icon: <FunctionOutlined /> },
     { path: '/about', label: '关于', icon: <UserOutlined /> },
   ];
 
