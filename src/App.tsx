@@ -11,6 +11,7 @@ import Cooperation from './pages/Cooperation';
 import Certificate from './pages/Certificate';
 import DevHub from './pages/DevHub';
 import AlgorithmHub from './pages/AlgorithmHub';
+import Roadmap from './pages/Roadmap';
 
 import Html from './pages/Frontend/Html';
 import Css from './pages/Frontend/Css';
@@ -46,6 +47,7 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/tech-category" element={<TechCategory />} />
             <Route path="/resources" element={<Resources />} />
+            <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/cooperation" element={<Cooperation />} />
             <Route path="/certificate" element={<Certificate />} />
             <Route path="/dev-hub" element={<DevHub />} />
