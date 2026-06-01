@@ -9,6 +9,7 @@ import {
   UserOutlined,
   CodeOutlined,
   FunctionOutlined,
+  NodeIndexOutlined,
   MenuOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
@@ -22,9 +23,10 @@ const Header: React.FC = () => {
     { path: '/', label: '主页', icon: <HomeOutlined /> },
     { path: '/tech-category', label: '技术分类', icon: <AppstoreOutlined /> },
     { path: '/resources', label: '资源导航', icon: <CompassOutlined /> },
+    { path: '/roadmap', label: '学习路线', icon: <NodeIndexOutlined /> },
     { path: '/cooperation', label: '资源合作', icon: <TeamOutlined /> },
     { path: '/certificate', label: '证书办理', icon: <SafetyCertificateOutlined /> },
-    { path: '/dev-hub', label: '开发广场', icon: <CodeOutlined /> },
+    { path: '/dev-hub', label: '面试题', icon: <CodeOutlined /> },
     { path: '/algorithm', label: '算法', icon: <FunctionOutlined /> },
     { path: '/about', label: '关于', icon: <UserOutlined /> },
   ];

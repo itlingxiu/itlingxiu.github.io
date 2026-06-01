@@ -7,11 +7,7 @@ import {
   BuildOutlined,
   RocketOutlined,
   DesktopOutlined,
-  ExperimentOutlined,
-  CodeOutlined,
   ApiOutlined,
-  NodeIndexOutlined,
-  ClusterOutlined,
   ToolOutlined,
   SafetyCertificateOutlined,
   TeamOutlined,
@@ -19,17 +15,17 @@ import {
   AppstoreOutlined,
   ReadOutlined,
   CloudServerOutlined,
-  DatabaseOutlined,
-  GlobalOutlined,
   FileTextOutlined,
 } from '@ant-design/icons';
+import { languageEcosystems } from '../../data/languageEcosystems';
 import './index.less';
 
 interface ResourceItem {
   icon: React.ReactNode;
   title: string;
   desc: string;
-  path: string;
+  path?: string;
+  url?: string;
   color: string;
 }
 
@@ -68,18 +64,6 @@ const resourceGroups: ResourceGroup[] = [
     ],
   },
   {
-    tag: '框架技术',
-    tagColor: '#f59e0b',
-    items: [
-      { icon: <ExperimentOutlined />, title: 'React Hooks', desc: '函数组件与自定义 Hook', path: '/react/hooks', color: '#06b6d4' },
-      { icon: <NodeIndexOutlined />, title: '状态管理', desc: 'Redux / Zustand / Jotai', path: '/react/state', color: '#8b5cf6' },
-      { icon: <ClusterOutlined />, title: '性能优化', desc: 'React 渲染与加载优化', path: '/react/perf', color: '#10b981' },
-      { icon: <CodeOutlined />, title: 'Vue 基础', desc: '组合式 API 与响应式', path: '/vue/basic', color: '#22c55e' },
-      { icon: <DatabaseOutlined />, title: 'Pinia', desc: 'Vue 状态管理方案', path: '/vue/pinia', color: '#f59e0b' },
-      { icon: <GlobalOutlined />, title: 'Vue Router', desc: '路由管理与导航守卫', path: '/vue/router', color: '#ef4444' },
-    ],
-  },
-  {
     tag: '后端技术',
     tagColor: '#ef4444',
     items: [
@@ -88,6 +72,17 @@ const resourceGroups: ResourceGroup[] = [
       { icon: <ToolOutlined />, title: 'Node 实践', desc: '项目实战与最佳实践', path: '/node/practice', color: '#3b82f6' },
     ],
   },
+  ...languageEcosystems.map<ResourceGroup>((eco) => ({
+    tag: eco.title,
+    tagColor: eco.color,
+    items: eco.resources.map((r) => ({
+      icon: r.icon,
+      title: r.title,
+      desc: r.desc,
+      url: r.url,
+      color: r.color,
+    })),
+  })),
   {
     tag: '快捷入口',
     tagColor: '#8b5cf6',
@@ -104,6 +99,11 @@ const resourceGroups: ResourceGroup[] = [
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+
+  const handleOpen = (item: ResourceItem) => {
+    if (item.url) window.open(item.url, '_blank', 'noopener,noreferrer');
+    else if (item.path) navigate(item.path);
+  };
 
   return (
     <div className="home-page">
@@ -140,9 +140,9 @@ const Home: React.FC = () => {
               <div className="group-grid">
                 {group.items.map((item) => (
                   <div
-                    key={item.path}
+                    key={item.path ?? item.url ?? item.title}
                     className="resource-card"
-                    onClick={() => navigate(item.path)}
+                    onClick={() => handleOpen(item)}
                   >
                     <div
                       className="card-icon"

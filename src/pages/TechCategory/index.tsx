@@ -7,23 +7,27 @@ import {
   BuildOutlined,
   RocketOutlined,
   DesktopOutlined,
-  ExperimentOutlined,
-  CodeOutlined,
   ApiOutlined,
-  NodeIndexOutlined,
-  ClusterOutlined,
   ToolOutlined,
-  DatabaseOutlined,
-  GlobalOutlined,
   CloudServerOutlined,
 } from '@ant-design/icons';
+import { languageEcosystems } from '../../data/languageEcosystems';
 import './index.less';
+
+interface CategoryItem {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  path?: string;
+  url?: string;
+  color: string;
+}
 
 interface CategorySection {
   title: string;
   description: string;
   color: string;
-  items: { icon: React.ReactNode; title: string; desc: string; path: string; color: string }[];
+  items: CategoryItem[];
 }
 
 const sections: CategorySection[] = [
@@ -48,26 +52,6 @@ const sections: CategorySection[] = [
     ],
   },
   {
-    title: 'React 生态',
-    description: 'React 框架与周边生态',
-    color: '#06b6d4',
-    items: [
-      { icon: <ExperimentOutlined />, title: 'React Hooks', desc: 'useState、useEffect 等核心 Hook', path: '/react/hooks', color: '#06b6d4' },
-      { icon: <NodeIndexOutlined />, title: '状态管理', desc: 'Redux、Zustand、Context', path: '/react/state', color: '#8b5cf6' },
-      { icon: <ClusterOutlined />, title: '性能优化', desc: 'Memo、Virtual List、Code Split', path: '/react/perf', color: '#10b981' },
-    ],
-  },
-  {
-    title: 'Vue 生态',
-    description: 'Vue 框架与周边生态',
-    color: '#22c55e',
-    items: [
-      { icon: <CodeOutlined />, title: 'Vue 基础', desc: '组合式 API、响应式系统', path: '/vue/basic', color: '#22c55e' },
-      { icon: <DatabaseOutlined />, title: 'Pinia', desc: 'Vue 新一代状态管理', path: '/vue/pinia', color: '#f59e0b' },
-      { icon: <GlobalOutlined />, title: 'Vue Router', desc: '路由管理与导航守卫', path: '/vue/router', color: '#ef4444' },
-    ],
-  },
-  {
     title: 'Node.js 后端',
     description: '服务端开发与实践',
     color: '#ef4444',
@@ -77,10 +61,27 @@ const sections: CategorySection[] = [
       { icon: <ToolOutlined />, title: '实践案例', desc: '项目实战与部署方案', path: '/node/practice', color: '#3b82f6' },
     ],
   },
+  ...languageEcosystems.map<CategorySection>((eco) => ({
+    title: eco.title,
+    description: eco.description,
+    color: eco.color,
+    items: eco.resources.map((r) => ({
+      icon: r.icon,
+      title: r.title,
+      desc: r.desc,
+      url: r.url,
+      color: r.color,
+    })),
+  })),
 ];
 
 const TechCategory: React.FC = () => {
   const navigate = useNavigate();
+
+  const handleOpen = (item: CategoryItem) => {
+    if (item.url) window.open(item.url, '_blank', 'noopener,noreferrer');
+    else if (item.path) navigate(item.path);
+  };
 
   return (
     <div className="tech-category-page">
@@ -101,9 +102,9 @@ const TechCategory: React.FC = () => {
             <div className="section-grid">
               {section.items.map((item) => (
                 <div
-                  key={item.path}
+                  key={item.path ?? item.url ?? item.title}
                   className="category-card"
-                  onClick={() => navigate(item.path)}
+                  onClick={() => handleOpen(item)}
                 >
                   <div
                     className="category-icon"

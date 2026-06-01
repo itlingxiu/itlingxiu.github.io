@@ -1,0 +1,226 @@
+import React from 'react';
+import {
+  Html5Outlined,
+  ThunderboltOutlined,
+  CodeOutlined,
+  ExperimentOutlined,
+  AppstoreOutlined,
+  SafetyOutlined,
+  ApiOutlined,
+  DeploymentUnitOutlined,
+  CoffeeOutlined,
+  FunctionOutlined,
+  WindowsOutlined,
+  BlockOutlined,
+  SettingOutlined,
+  MobileOutlined,
+} from '@ant-design/icons';
+
+export type RoadmapLevel = '入门' | '进阶' | '高级' | '实战';
+
+export interface RoadmapStage {
+  level: RoadmapLevel;
+  name: string;
+  topics: string[];
+}
+
+export interface Roadmap {
+  key: string;
+  title: string;
+  color: string;
+  icon: React.ReactNode;
+  desc: string;
+  stages: RoadmapStage[];
+}
+
+export const LEVEL_COLORS: Record<RoadmapLevel, string> = {
+  入门: '#10b981',
+  进阶: '#3b82f6',
+  高级: '#8b5cf6',
+  实战: '#f59e0b',
+};
+
+export const learningRoadmaps: Roadmap[] = [
+  {
+    key: 'frontend',
+    title: '前端基础',
+    color: '#6366f1',
+    icon: <Html5Outlined />,
+    desc: 'HTML / CSS / 布局 / 交互，迈入 Web 开发的第一步',
+    stages: [
+      { level: '入门', name: '认识网页', topics: ['HTML5 语义化标签', '表单与媒体元素', 'CSS 选择器与盒模型', 'Flexbox 弹性布局', 'Grid 网格布局'] },
+      { level: '进阶', name: '样式与适配', topics: ['响应式设计与媒体查询', 'CSS 变量与预处理器(Less/Sass)', 'CSS 动画与过渡', '移动端适配(rem/vw)', 'BFC 与层叠上下文'] },
+      { level: '高级', name: '原理与优化', topics: ['浏览器渲染原理', '重排重绘与性能优化', '可访问性 a11y', '组件化思想', '前端工程化基础'] },
+      { level: '实战', name: '项目落地', topics: ['还原设计稿', '实现常见页面布局', '浏览器兼容处理', 'Git 版本控制', '静态站点部署'] },
+    ],
+  },
+  {
+    key: 'javascript',
+    title: 'JavaScript',
+    color: '#f59e0b',
+    icon: <ThunderboltOutlined />,
+    desc: 'Web 的核心语言，从语法到运行机制全面掌握',
+    stages: [
+      { level: '入门', name: '语法基础', topics: ['变量与数据类型', '运算符与流程控制', '函数与作用域', '数组与对象', 'DOM / BOM 操作'] },
+      { level: '进阶', name: '现代语法', topics: ['ES6+(let/const/箭头函数/解构)', '原型与原型链', 'this 指向与闭包', 'Promise 与 async/await', '模块化(ESM/CommonJS)'] },
+      { level: '高级', name: '运行机制', topics: ['事件循环与宏/微任务', '深浅拷贝与垃圾回收', '防抖节流与函数式', '常见设计模式', '手写 Promise/call/apply/bind'] },
+      { level: '实战', name: '工程应用', topics: ['封装工具库', 'Fetch 网络请求', '本地存储与状态', '错误处理与调试', '前端性能优化'] },
+    ],
+  },
+  {
+    key: 'typescript',
+    title: 'TypeScript',
+    color: '#3178c6',
+    icon: <CodeOutlined />,
+    desc: 'JavaScript 的超集，为大型项目提供类型安全',
+    stages: [
+      { level: '入门', name: '类型基础', topics: ['基础类型与类型注解', 'interface 与 type', '数组/元组/枚举', '函数类型', '联合与交叉类型'] },
+      { level: '进阶', name: '类型进阶', topics: ['泛型 Generics', '类型断言与类型守卫', '工具类型(Partial/Pick/Omit)', '类与访问修饰符', '模块与声明文件 .d.ts'] },
+      { level: '高级', name: '类型体操', topics: ['条件类型与 infer', '映射类型', '模板字面量类型', '装饰器 Decorator', 'tsconfig 配置'] },
+      { level: '实战', name: '工程落地', topics: ['在 React/Vue 中使用 TS', '接口与响应类型定义', '第三方库类型', '类型安全工具函数', '老项目渐进迁移'] },
+    ],
+  },
+  {
+    key: 'react',
+    title: 'React',
+    color: '#149ECA',
+    icon: <ExperimentOutlined />,
+    desc: '声明式 UI 框架，组件化构建现代 Web 应用',
+    stages: [
+      { level: '入门', name: '基础概念', topics: ['JSX 语法', '组件与 Props', 'State 与事件', '条件与列表渲染', '受控组件与表单'] },
+      { level: '进阶', name: 'Hooks 与路由', topics: ['useState / useEffect', 'useRef / useMemo / useCallback', '自定义 Hook', 'Context 状态共享', 'React Router 路由'] },
+      { level: '高级', name: '状态与性能', topics: ['状态管理(Redux/Zustand)', '性能优化(memo/虚拟列表)', 'Fiber 与并发特性', 'Suspense 与懒加载', 'SSR(Next.js)'] },
+      { level: '实战', name: '工程实战', topics: ['组件库封装', '数据请求与缓存(React Query)', '表单方案(RHF)', '项目工程化', '构建与部署'] },
+    ],
+  },
+  {
+    key: 'vue',
+    title: 'Vue',
+    color: '#42B883',
+    icon: <AppstoreOutlined />,
+    desc: '渐进式框架，易上手且生态完善',
+    stages: [
+      { level: '入门', name: '模板与组件', topics: ['模板语法与插值', '指令(v-if/v-for/v-model)', '计算属性与侦听器', '组件与 Props', '事件与 $emit'] },
+      { level: '进阶', name: '组合式 API', topics: ['setup / ref / reactive', '生命周期钩子', '组件通信(provide/inject)', 'Vue Router 路由', 'Pinia 状态管理'] },
+      { level: '高级', name: '原理与优化', topics: ['响应式原理(Proxy)', '自定义指令与插件', 'keep-alive 与性能优化', 'SSR(Nuxt)', '构建工具 Vite'] },
+      { level: '实战', name: '项目实战', topics: ['组件库(Element Plus)', '请求封装(Axios)', '权限与路由守卫', '工程化规范', '项目部署'] },
+    ],
+  },
+  {
+    key: 'angular',
+    title: 'Angular',
+    color: '#DD0031',
+    icon: <SafetyOutlined />,
+    desc: '企业级前端框架，开箱即用的完整方案',
+    stages: [
+      { level: '入门', name: '核心基础', topics: ['TypeScript 基础', '组件与模板', '数据绑定与指令', '服务与依赖注入', '模块 NgModule'] },
+      { level: '进阶', name: '常用能力', topics: ['路由 Router', '表单(模板/响应式)', 'HttpClient 请求', '管道 Pipe', '生命周期钩子'] },
+      { level: '高级', name: '响应式与性能', topics: ['RxJS 响应式编程', '变更检测与 OnPush', '状态管理 NgRx', '惰性加载与性能', '单元测试'] },
+      { level: '实战', name: '工程实战', topics: ['Angular Material UI', '拦截器与鉴权', '模块化架构', '打包优化', '部署上线'] },
+    ],
+  },
+  {
+    key: 'nodejs',
+    title: 'Node.js',
+    color: '#3c873a',
+    icon: <ApiOutlined />,
+    desc: '服务端 JavaScript 运行时，全栈开发利器',
+    stages: [
+      { level: '入门', name: '基础认知', topics: ['Node 运行环境与模块', 'npm 与包管理', '文件系统 fs', 'HTTP 模块', 'Express 基础'] },
+      { level: '进阶', name: '后端开发', topics: ['路由与中间件', 'RESTful API 设计', '数据库(MySQL/MongoDB)', 'JWT 鉴权', '统一错误处理'] },
+      { level: '高级', name: '原理与进阶', topics: ['事件循环与异步', 'Stream 流处理', '进程与集群(cluster/PM2)', '性能与内存调优', 'NestJS 框架'] },
+      { level: '实战', name: '项目实战', topics: ['接口项目实战', 'ORM(Prisma/TypeORM)', '日志与监控', 'Docker 部署', 'CI/CD'] },
+    ],
+  },
+  {
+    key: 'go',
+    title: 'Go',
+    color: '#00ADD8',
+    icon: <DeploymentUnitOutlined />,
+    desc: '高并发、高性能，云原生时代的后端语言',
+    stages: [
+      { level: '入门', name: '语法基础', topics: ['基础语法与类型', '函数与错误处理', '结构体与方法', '接口 interface', '切片与 map'] },
+      { level: '进阶', name: '并发编程', topics: ['Goroutine 并发', 'Channel 与 select', 'sync 包与锁', 'Go Modules 包管理', '常用标准库'] },
+      { level: '高级', name: '原理与调优', topics: ['GMP 调度模型', '内存管理与 GC', '反射与泛型', '性能分析 pprof', '单元测试与基准测试'] },
+      { level: '实战', name: '工程实战', topics: ['Gin Web 开发', 'GORM 操作数据库', 'gRPC 微服务', '项目分层架构', '容器化部署'] },
+    ],
+  },
+  {
+    key: 'java',
+    title: 'Java',
+    color: '#E76F00',
+    icon: <CoffeeOutlined />,
+    desc: '经久不衰的企业级语言，生态极其成熟',
+    stages: [
+      { level: '入门', name: '语法与 OOP', topics: ['基础语法与面向对象', '集合框架', '异常处理', '泛型', 'IO 流'] },
+      { level: '进阶', name: '并发与特性', topics: ['多线程与并发', 'JVM 内存模型', 'Lambda 与 Stream', '反射与注解', '网络编程'] },
+      { level: '高级', name: '底层与优化', topics: ['JVM 调优与 GC', '并发包 JUC', '常见设计模式', 'MySQL 与索引优化', 'Redis 缓存'] },
+      { level: '实战', name: '框架实战', topics: ['Spring / Spring Boot', 'MyBatis 持久层', 'Spring Cloud 微服务', '消息队列(Kafka/RabbitMQ)', '分布式部署'] },
+    ],
+  },
+  {
+    key: 'python',
+    title: 'Python',
+    color: '#3776AB',
+    icon: <FunctionOutlined />,
+    desc: '简洁优雅，Web、数据科学与 AI 的首选',
+    stages: [
+      { level: '入门', name: '语法基础', topics: ['基础语法与数据类型', '列表/字典/集合', '函数与模块', '文件操作', '面向对象'] },
+      { level: '进阶', name: '进阶特性', topics: ['装饰器与生成器', '推导式与迭代器', '异常处理', '常用标准库', '虚拟环境与 pip'] },
+      { level: '高级', name: '并发与原理', topics: ['GIL 与多线程/多进程', 'asyncio 异步编程', '元类与魔术方法', '性能优化', '单元测试'] },
+      { level: '实战', name: '方向实战', topics: ['Web 开发(Django/FastAPI)', '爬虫(requests/scrapy)', '数据分析(NumPy/pandas)', '自动化脚本', '项目部署'] },
+    ],
+  },
+  {
+    key: 'csharp',
+    title: 'C#',
+    color: '#9B4F96',
+    icon: <WindowsOutlined />,
+    desc: '.NET 平台主力语言，Web 与游戏开发通吃',
+    stages: [
+      { level: '入门', name: '语法与 OOP', topics: ['基础语法与类型', '面向对象', '集合与泛型', '委托与事件', '异常处理'] },
+      { level: '进阶', name: '语言特性', topics: ['LINQ 查询', 'async/await 异步', '特性与反射', '文件与序列化', '泛型约束'] },
+      { level: '高级', name: '运行时与并发', topics: ['.NET 运行时与 GC', '并行与多线程(TPL)', '依赖注入', 'EF Core ORM', '单元测试'] },
+      { level: '实战', name: '方向实战', topics: ['ASP.NET Core Web API', 'Blazor 前端', '数据库与缓存', 'Unity 游戏开发', '发布部署'] },
+    ],
+  },
+  {
+    key: 'cpp',
+    title: 'C / C++',
+    color: '#00599C',
+    icon: <BlockOutlined />,
+    desc: '系统级编程基石，追求极致性能与底层掌控',
+    stages: [
+      { level: '入门', name: '语法基础', topics: ['基础语法与数据类型', '指针与数组', '函数与作用域', '结构体与联合', '内存分配'] },
+      { level: '进阶', name: 'C++ 进阶', topics: ['面向对象(类/继承/多态)', '运算符重载', '模板编程', 'STL 容器与算法', '智能指针'] },
+      { level: '高级', name: '底层原理', topics: ['内存模型与 RAII', '移动语义与右值引用', '多线程(thread/mutex)', '编译链接原理', '性能优化'] },
+      { level: '实战', name: '工程实战', topics: ['CMake 构建', 'Qt 图形界面', '网络编程', '数据结构实现', '项目工程实践'] },
+    ],
+  },
+  {
+    key: 'rust',
+    title: 'Rust',
+    color: '#B7410E',
+    icon: <SettingOutlined />,
+    desc: '内存安全 + 高性能，现代系统编程语言',
+    stages: [
+      { level: '入门', name: '语法基础', topics: ['基础语法与变量', '所有权与借用', '数据类型与结构体', '枚举与模式匹配', '错误处理(Result/Option)'] },
+      { level: '进阶', name: '核心特性', topics: ['Trait 与泛型', '生命周期标注', '集合与迭代器', '闭包', '模块与 Cargo'] },
+      { level: '高级', name: '进阶能力', topics: ['智能指针(Box/Rc/RefCell)', '并发与 Send/Sync', '异步 async/await', '宏编程', 'unsafe 与 FFI'] },
+      { level: '实战', name: '方向实战', topics: ['Web 开发(Actix/Axum)', '命令行工具开发', '序列化(Serde)', '性能优化', 'WebAssembly'] },
+    ],
+  },
+  {
+    key: 'flutter',
+    title: 'Flutter',
+    color: '#02569B',
+    icon: <MobileOutlined />,
+    desc: 'Dart 驱动的跨平台框架，一套代码多端运行',
+    stages: [
+      { level: '入门', name: 'Dart 与组件', topics: ['Dart 语言基础', 'Widget 与布局', 'Stateless/StatefulWidget', '常用组件', '路由导航'] },
+      { level: '进阶', name: '数据与状态', topics: ['状态管理(Provider/Riverpod)', '网络请求(Dio)', '本地存储', '异步 Future/Stream', '主题与样式'] },
+      { level: '高级', name: '原理与性能', topics: ['三棵树与渲染原理', '性能优化', '平台通道(原生交互)', '动画', '自定义绘制 CustomPaint'] },
+      { level: '实战', name: '项目实战', topics: ['Bloc 架构', '网络与缓存', '状态持久化', '打包发布(iOS/Android)', '应用上架'] },
+    ],
+  },
+];

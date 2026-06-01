@@ -1,54 +1,19 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   ReadOutlined,
-  GlobalOutlined,
-  RobotOutlined,
-  SendOutlined,
+  AppstoreOutlined,
+  TagsOutlined,
+  FireOutlined,
+  CalendarOutlined,
+  SearchOutlined,
   LeftOutlined,
   RightOutlined,
-  LoadingOutlined,
-  DeleteOutlined,
-  LinkOutlined,
-  ReloadOutlined,
-  SearchOutlined,
-  HistoryOutlined,
-  PictureOutlined,
-  MessageOutlined,
+  CheckCircleOutlined,
 } from '@ant-design/icons';
 import './index.less';
 
 interface QuizQuestion { id: number; category: string; difficulty: '简单' | '中等' | '困难'; question: string; answer: string; acceptance: number; }
-interface NewsArticle { id: string; title: string; description: string; coverImage: string | null; date: string; authorName: string; likeCount: number; commentCount: number; readTime: number; tags: string[]; url: string; source: string; rawId: string; }
-interface ArticleDetail { title: string; coverImage: string | null; authorName: string; date: string; readTime: number; tags: string[]; url: string; bodyHtml: string; }
-interface ChatMessage { role: 'user' | 'assistant'; content: string; imageUrl?: string; }
-interface ChatHistoryItem { id: string; title: string; messages: ChatMessage[]; createdAt: number; }
-
-const GLM_API_KEY = 'd8321274b1624f54aab5c40b5c0ad4f8.tKsEhq9Bzi97ukI6';
-const GLM_ENDPOINT = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
-const GLM_MODEL = 'glm-4-flash';
-const GLM_IMAGE_ENDPOINT = 'https://open.bigmodel.cn/api/paas/v4/images/generations';
-const GLM_IMAGE_MODEL = 'glm-image';
-const HISTORY_STORAGE_KEY = 'devhub-ai-history';
-const MAX_HISTORY_COUNT = 50;
-
-const getHistoryFromStorage = (): ChatHistoryItem[] => {
-  try {
-    const raw = localStorage.getItem(HISTORY_STORAGE_KEY);
-    if (!raw) return [];
-    const list = JSON.parse(raw) as ChatHistoryItem[];
-    return Array.isArray(list) ? list : [];
-  } catch { return []; }
-};
-const saveHistoryToStorage = (list: ChatHistoryItem[]) => {
-  try { localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(list.slice(0, MAX_HISTORY_COUNT))); } catch { /* ignore */ }
-};
-const genId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-const getTitleFromMessages = (messages: ChatMessage[], fallback = '新对话') => {
-  const first = messages.find((m) => m.role === 'user');
-  if (!first?.content) return fallback;
-  const t = first.content.trim();
-  return t.length > 28 ? t.slice(0, 28) + '…' : t;
-};
 
 const QUIZ_CATEGORIES = [
   { key: 'all', label: '全部' },
@@ -204,38 +169,12 @@ const QUIZ_DATA: QuizQuestion[] = [
 ];
 
 const QUIZ_PER_PAGE = 15;
-const NEWS_PER_PAGE = 15;
 
 const CYCLE_DAYS = 28;
 const getDayOfYear = () => Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
 const getQuizDayOffset = (id: number, dayOfYear: number) => (id - 1 + dayOfYear) % CYCLE_DAYS;
 const getQuizDate = (id: number, dayOfYear: number) => { const d = new Date(); d.setDate(d.getDate() - (CYCLE_DAYS - 1 - getQuizDayOffset(id, dayOfYear))); return `${d.getMonth() + 1}/${d.getDate()}`; };
 const isNewToday = (id: number, dayOfYear: number) => getQuizDayOffset(id, dayOfYear) === CYCLE_DAYS - 1;
-
-type NewsSource = 'hackernews' | 'reddit' | 'devto';
-const NEWS_SOURCES: { key: NewsSource; label: string }[] = [
-  { key: 'hackernews', label: 'Hacker News' },
-  { key: 'reddit', label: 'Reddit' },
-  { key: 'devto', label: 'Dev.to' },
-];
-const HN_SORTS = [{ key: 'topstories', label: 'Top' }, { key: 'newstories', label: 'New' }, { key: 'beststories', label: 'Best' }];
-const REDDIT_SUBS = [
-  { key: 'programming', label: '综合' }, { key: 'webdev', label: 'Web' }, { key: 'javascript', label: 'JavaScript' },
-  { key: 'reactjs', label: 'React' }, { key: 'node', label: 'Node.js' }, { key: 'python', label: 'Python' },
-  { key: 'golang', label: 'Go' }, { key: 'rust', label: 'Rust' }, { key: 'java', label: 'Java' },
-];
-const DEVTO_TAGS = ['', 'javascript', 'react', 'vue', 'node', 'typescript', 'css', 'webdev', 'python'];
-const DEVTO_TAG_LABELS: Record<string, string> = { '': '全部', javascript: 'JavaScript', react: 'React', vue: 'Vue', node: 'Node.js', typescript: 'TypeScript', css: 'CSS', webdev: 'Web', python: 'Python' };
-
-const QUICK_QUESTIONS = ['解释 React Hooks 的工作原理', 'Vue3 Composition API 有哪些优势？', '如何优化前端页面性能？', 'TypeScript 中 any 和 unknown 的区别', '什么是微前端？有哪些方案？', '解释 Promise 和 async/await'];
-
-const formatInlineText = (t: string): string => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/`([^`\n]+)`/g, '<code class="ai-inline-code">$1</code>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>');
-
-const renderAIContent = (text: string): string => {
-  const segs: string[] = []; const re = /```(\w*)\n?([\s\S]*?)```/g; let last = 0; let m;
-  while ((m = re.exec(text)) !== null) { if (m.index > last) segs.push(formatInlineText(text.slice(last, m.index))); const c = m[2].trim().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); segs.push(`<pre class="ai-code-block"><code>${c}</code></pre>`); last = m.index + m[0].length; }
-  if (last < text.length) segs.push(formatInlineText(text.slice(last))); return segs.join('');
-};
 
 const PaginationBar: React.FC<{ current: number; total: number; onChange: (p: number) => void }> = ({ current, total, onChange }) => {
   if (total <= 1) return null;
@@ -246,449 +185,150 @@ const PaginationBar: React.FC<{ current: number; total: number; onChange: (p: nu
 };
 
 const DevHub: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'quiz' | 'news' | 'ai'>('quiz');
-  // Quiz state
+  const [searchParams] = useSearchParams();
   const [quizCategory, setQuizCategory] = useState('all');
   const [quizDifficulty, setQuizDifficulty] = useState('all');
   const [quizSearch, setQuizSearch] = useState('');
   const [quizPage, setQuizPage] = useState(1);
   const [expandedId, setExpandedId] = useState<number | null>(null);
-  // News state
-  const [newsSource, setNewsSource] = useState<NewsSource>('hackernews');
-  const [articles, setArticles] = useState<NewsArticle[]>([]);
-  const [newsLoading, setNewsLoading] = useState(false);
-  const [newsError, setNewsError] = useState('');
-  const [newsCategory, setNewsCategory] = useState('topstories');
-  const [newsSort, setNewsSort] = useState<'latest' | 'hot'>('latest');
-  const [newsPage, setNewsPage] = useState(1);
-  const [hasMoreNews, setHasMoreNews] = useState(true);
-  const [selectedArticle, setSelectedArticle] = useState<ArticleDetail | null>(null);
-  const [articleLoading, setArticleLoading] = useState(false);
-  const hnIdsRef = useRef<number[]>([]);
-  const hnSortRef = useRef('');
-  const redditAfterRef = useRef<Record<number, string>>({ 1: '' });
-  // AI state
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [input, setInput] = useState('');
-  const [aiLoading, setAiLoading] = useState(false);
-  const [historyList, setHistoryList] = useState<ChatHistoryItem[]>(() => getHistoryFromStorage());
-  const [currentHistoryId, setCurrentHistoryId] = useState<string | null>(null);
-  const [aiMode, setAiMode] = useState<'chat' | 'image'>('chat');
-  const [historyPanelOpen, setHistoryPanelOpen] = useState(false);
-  const chatEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const persistHistory = useCallback((list: ChatHistoryItem[]) => {
-    setHistoryList(list);
-    saveHistoryToStorage(list);
-  }, []);
-
-  const saveCurrentToHistory = useCallback(() => {
-    if (messages.length === 0) return;
-    const id = currentHistoryId ?? genId();
-    const title = getTitleFromMessages(messages);
-    const list = historyList.filter((h) => h.id !== id);
-    list.unshift({ id, title, messages: [...messages], createdAt: currentHistoryId ? (historyList.find((h) => h.id === currentHistoryId)?.createdAt ?? Date.now()) : Date.now() });
-    persistHistory(list);
-    setCurrentHistoryId(id);
-  }, [messages, currentHistoryId, historyList, persistHistory]);
-
-  const loadHistory = useCallback((item: ChatHistoryItem | null) => {
-    saveCurrentToHistory();
-    if (!item) {
-      setMessages([]);
-      setCurrentHistoryId(null);
-    } else {
-      setMessages(item.messages);
-      setCurrentHistoryId(item.id);
+  useEffect(() => {
+    const cat = searchParams.get('cat');
+    if (cat && QUIZ_CATEGORIES.some((c) => c.key === cat)) {
+      setQuizCategory(cat);
+      setQuizPage(1);
+      setExpandedId(null);
     }
-    setHistoryPanelOpen(false);
-  }, [saveCurrentToHistory]);
-
-  const deleteHistoryItem = useCallback((id: string) => {
-    const list = historyList.filter((h) => h.id !== id);
-    persistHistory(list);
-    if (currentHistoryId === id) {
-      setMessages([]);
-      setCurrentHistoryId(null);
-    }
-  }, [historyList, currentHistoryId, persistHistory]);
-
-  const clearAllHistory = useCallback(() => {
-    persistHistory([]);
-    setMessages([]);
-    setCurrentHistoryId(null);
-    setHistoryPanelOpen(false);
-  }, [persistHistory]);
+  }, [searchParams]);
 
   const dayOfYear = getDayOfYear();
-  const filteredQuestions = QUIZ_DATA.filter((q) => quizCategory === 'all' || q.category === quizCategory).filter((q) => quizDifficulty === 'all' || q.difficulty === quizDifficulty).filter((q) => !quizSearch || q.question.includes(quizSearch)).sort((a, b) => getQuizDayOffset(a.id, dayOfYear) - getQuizDayOffset(b.id, dayOfYear));
+  const filteredQuestions = QUIZ_DATA
+    .filter((q) => quizCategory === 'all' || q.category === quizCategory)
+    .filter((q) => quizDifficulty === 'all' || q.difficulty === quizDifficulty)
+    .filter((q) => !quizSearch || q.question.includes(quizSearch))
+    .sort((a, b) => getQuizDayOffset(a.id, dayOfYear) - getQuizDayOffset(b.id, dayOfYear));
   const totalQuizPages = Math.ceil(filteredQuestions.length / QUIZ_PER_PAGE);
   const paginatedQuestions = filteredQuestions.slice((quizPage - 1) * QUIZ_PER_PAGE, quizPage * QUIZ_PER_PAGE);
 
-  const fetchHackerNews = useCallback(async (page: number, sortKey: string) => {
-    setNewsLoading(true); setNewsError('');
-    try {
-      let ids = hnIdsRef.current;
-      if (ids.length === 0 || hnSortRef.current !== sortKey) {
-        const res = await fetch(`https://hacker-news.firebaseio.com/v0/${sortKey}.json`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        ids = await res.json();
-        hnIdsRef.current = ids;
-        hnSortRef.current = sortKey;
-      }
-      const start = (page - 1) * NEWS_PER_PAGE;
-      const pageIds = ids.slice(start, start + NEWS_PER_PAGE);
-      const items = await Promise.all(pageIds.map((id: number) => fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(r => r.json())));
-      const list: NewsArticle[] = items.filter(Boolean).map((item: any) => ({
-        id: String(item.id), title: item.title || '', description: '',
-        coverImage: null, date: new Date(item.time * 1000).toLocaleDateString('zh-CN'),
-        authorName: item.by || 'anonymous', likeCount: item.score || 0, commentCount: item.descendants || 0,
-        readTime: 0, tags: [],
-        url: item.url || `https://news.ycombinator.com/item?id=${item.id}`,
-        source: 'hackernews', rawId: String(item.id),
-      }));
-      setArticles(list); setHasMoreNews(start + NEWS_PER_PAGE < ids.length);
-    } catch (err: any) { setNewsError(err.message || '加载 Hacker News 失败'); setArticles([]); }
-    finally { setNewsLoading(false); }
-  }, []);
+  const todayNewCount = QUIZ_DATA.filter((q) => isNewToday(q.id, dayOfYear)).length;
+  const categoryCount = QUIZ_CATEGORIES.length - 1;
+  const todayStr = new Date().toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' });
 
-  const fetchReddit = useCallback(async (page: number, sub: string, sort: string) => {
-    setNewsLoading(true); setNewsError('');
-    try {
-      const afterToken = page > 1 ? redditAfterRef.current[page] || '' : '';
-      const sortPath = sort === 'hot' ? 'hot' : 'new';
-      const afterParam = afterToken ? `&after=${afterToken}` : '';
-      const res = await fetch(`https://www.reddit.com/r/${sub || 'programming'}/${sortPath}.json?limit=${NEWS_PER_PAGE}${afterParam}&raw_json=1`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      const children = json.data?.children || [];
-      if (json.data?.after) redditAfterRef.current[page + 1] = json.data.after;
-      const list: NewsArticle[] = children.filter((c: any) => c.data && !c.data.stickied).map((c: any) => {
-        const d = c.data;
-        return {
-          id: d.id, title: d.title || '', description: d.selftext ? d.selftext.slice(0, 200) : '',
-          coverImage: d.thumbnail && d.thumbnail.startsWith('http') ? d.thumbnail : null,
-          date: new Date(d.created_utc * 1000).toLocaleDateString('zh-CN'),
-          authorName: d.author || 'anonymous', likeCount: d.score || 0, commentCount: d.num_comments || 0,
-          readTime: 0, tags: d.link_flair_text ? [d.link_flair_text] : [],
-          url: d.url_overridden_by_dest || d.url || `https://reddit.com${d.permalink}`,
-          source: 'reddit', rawId: d.id,
-        };
-      });
-      setArticles(list); setHasMoreNews(!!json.data?.after);
-    } catch (err: any) { setNewsError(err.message || '加载 Reddit 失败'); setArticles([]); }
-    finally { setNewsLoading(false); }
-  }, []);
-
-  const fetchDevto = useCallback(async (page: number, tag: string, sort: string) => {
-    setNewsLoading(true); setNewsError('');
-    try {
-      const tagP = tag ? `&tag=${tag}` : ''; const sortP = sort === 'hot' ? '&top=7' : '';
-      const res = await fetch(`https://dev.to/api/articles?page=${page}&per_page=${NEWS_PER_PAGE}${tagP}${sortP}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      const list: NewsArticle[] = data.map((item: any) => ({
-        id: String(item.id), title: item.title, description: item.description, coverImage: item.cover_image, date: item.readable_publish_date,
-        authorName: item.user?.name || 'Unknown', likeCount: item.positive_reactions_count || 0, commentCount: item.comments_count || 0,
-        readTime: item.reading_time_minutes || 0, tags: item.tag_list || [], url: item.url, source: 'devto', rawId: String(item.id),
-      }));
-      setArticles(list); setHasMoreNews(data.length >= NEWS_PER_PAGE);
-    } catch (err: any) { setNewsError(err.message || '加载失败'); setArticles([]); }
-    finally { setNewsLoading(false); }
-  }, []);
-
-  const loadNews = useCallback((source: NewsSource, page: number, cat: string, sort: string) => {
-    if (source === 'hackernews') fetchHackerNews(page, cat || 'topstories');
-    else if (source === 'reddit') fetchReddit(page, cat || 'programming', sort);
-    else fetchDevto(page, cat, sort);
-  }, [fetchHackerNews, fetchReddit, fetchDevto]);
-
-  useEffect(() => { if (activeTab === 'news' && articles.length === 0 && !newsLoading) loadNews(newsSource, newsPage, newsCategory, newsSort); }, [activeTab, articles.length, newsLoading, newsSource, newsPage, newsCategory, newsSort, loadNews]);
-  useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
-
-  const handleQuizFilter = (setter: (v: any) => void, value: any) => { setter(value); setQuizPage(1); setExpandedId(null); };
-  const handleSourceChange = (s: NewsSource) => {
-    setNewsSource(s); setNewsSort('latest'); setNewsPage(1); setArticles([]); setSelectedArticle(null);
-    hnIdsRef.current = []; hnSortRef.current = ''; redditAfterRef.current = { 1: '' };
-    if (s === 'hackernews') setNewsCategory('topstories');
-    else if (s === 'reddit') setNewsCategory('programming');
-    else setNewsCategory('');
-  };
-  const handleNewsCatChange = (cat: string) => {
-    setNewsCategory(cat); setNewsPage(1);
-    if (newsSource === 'hackernews') { hnIdsRef.current = []; hnSortRef.current = ''; }
-    if (newsSource === 'reddit') { redditAfterRef.current = { 1: '' }; }
-    loadNews(newsSource, 1, cat, newsSort);
-  };
-  const handleNewsSortChange = (sort: 'latest' | 'hot') => {
-    setNewsSort(sort); setNewsPage(1);
-    if (newsSource === 'reddit') { redditAfterRef.current = { 1: '' }; }
-    loadNews(newsSource, 1, newsCategory, sort);
-  };
-  const handleNewsPageChange = (page: number) => { setNewsPage(page); loadNews(newsSource, page, newsCategory, newsSort); };
-
-  const handleArticleClick = async (article: NewsArticle) => {
-    if (article.source !== 'devto') { window.open(article.url, '_blank', 'noopener,noreferrer'); return; }
-    setArticleLoading(true);
-    try {
-      const res = await fetch(`https://dev.to/api/articles/${article.rawId}`);
-      if (!res.ok) throw new Error('fetch failed');
-      const detail = await res.json();
-      setSelectedArticle({ title: detail.title, coverImage: detail.cover_image, authorName: detail.user?.name || '', date: detail.readable_publish_date, readTime: detail.reading_time_minutes, tags: detail.tag_list || [], url: detail.url, bodyHtml: detail.body_html });
-    } catch { window.open(article.url, '_blank', 'noopener,noreferrer'); }
-    finally { setArticleLoading(false); }
-  };
-
-  const syncMessagesToHistory = useCallback((msgs: ChatMessage[]) => {
-    if (msgs.length === 0) return;
-    const id = currentHistoryId ?? genId();
-    const title = getTitleFromMessages(msgs);
-    const list = historyList.filter((h) => h.id !== id);
-    list.unshift({ id, title, messages: msgs, createdAt: currentHistoryId ? (historyList.find((h) => h.id === currentHistoryId)?.createdAt ?? Date.now()) : Date.now() });
-    persistHistory(list);
-    if (!currentHistoryId) setCurrentHistoryId(id);
-  }, [currentHistoryId, historyList, persistHistory]);
-
-  const handleSendMessage = async (content?: string) => {
-    const text = (content || input).trim(); if (!text || aiLoading) return;
-    const userMsg: ChatMessage = { role: 'user', content: text }; const newMsgs = [...messages, userMsg];
-    setMessages([...newMsgs, { role: 'assistant', content: '' }]); setInput(''); setAiLoading(true);
-    if (aiMode === 'image') {
-      try {
-        const res = await fetch(GLM_IMAGE_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${GLM_API_KEY}` }, body: JSON.stringify({ model: GLM_IMAGE_MODEL, prompt: text, size: '1280x1280' }) });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) throw new Error(data.error?.message || res.status === 401 ? '认证失败' : res.status === 402 ? '余额不足' : `请求失败 (${res.status})`);
-        const imageUrl = data.data?.[0]?.url;
-        if (!imageUrl) throw new Error('未返回图片地址');
-        const final = [...newMsgs, { role: 'assistant' as const, content: '已根据描述生成图片', imageUrl }];
-        setMessages(final);
-        syncMessagesToHistory(final);
-      } catch (err: any) {
-        const final = [...newMsgs, { role: 'assistant' as const, content: err.message || '图片生成失败' }];
-        setMessages(final);
-        syncMessagesToHistory(final);
-      } finally {
-        setAiLoading(false);
-      }
-      return;
-    }
-    try {
-      const res = await fetch(GLM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${GLM_API_KEY}` }, body: JSON.stringify({ model: GLM_MODEL, messages: [{ role: 'system', content: '你是一个专业的全栈开发技术助手，擅长解答各种编程语言和技术问题。请用中文回答，保持简洁专业有条理。' }, ...newMsgs.map((m) => ({ role: m.role, content: m.content }))], stream: true }) });
-      if (!res.ok) { const e = await res.text().catch(() => ''); throw new Error(res.status === 401 ? '认证失败' : res.status === 402 ? '余额不足' : res.status === 429 ? '请求频繁' : `请求失败 (${res.status}) ${e}`); }
-      const reader = res.body?.getReader(); if (!reader) throw new Error('无法读取响应流');
-      const decoder = new TextDecoder(); let acc = ''; let buf = '';
-      while (true) { const { done, value } = await reader.read(); if (done) break; buf += decoder.decode(value, { stream: true }); const lines = buf.split('\n'); buf = lines.pop() || '';
-        for (const line of lines) { const t = line.trim(); if (!t.startsWith('data: ')) continue; const d = t.slice(6); if (d === '[DONE]') continue; try { const p = JSON.parse(d); const delta = p.choices?.[0]?.delta?.content || ''; if (delta) { acc += delta; setMessages([...newMsgs, { role: 'assistant', content: acc }]); } } catch { /* skip */ } } }
-      const final = [...newMsgs, { role: 'assistant' as const, content: acc || '未收到回复。' }];
-      if (!acc) setMessages(final);
-      syncMessagesToHistory(final);
-    } catch (error: any) {
-      const errFinal = [...newMsgs, { role: 'assistant' as const, content: error.message || '请求失败' }];
-      setMessages(errFinal);
-      syncMessagesToHistory(errFinal);
-    } finally {
-      setAiLoading(false);
-    }
-  };
-  const handleKeyDown = (e: React.KeyboardEvent) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSendMessage(); } };
+  const handleQuizFilter = (setter: (v: string) => void, value: string) => { setter(value); setQuizPage(1); setExpandedId(null); };
 
   return (
-    <div className="devhub-page">
-      <div className="page-header"><h1 className="page-title">开发者中心</h1><p className="page-desc">全栈题库 · 开发资讯 · AI 智能问答</p></div>
-      <div className="tab-nav">
-        {([{ key: 'quiz' as const, label: '题库', icon: <ReadOutlined /> }, { key: 'news' as const, label: '开发新闻', icon: <GlobalOutlined /> }, { key: 'ai' as const, label: 'AI 助手', icon: <RobotOutlined /> }]).map((tab) => (
-          <button key={tab.key} className={`tab-item ${activeTab === tab.key ? 'active' : ''}`} onClick={() => setActiveTab(tab.key)}>{tab.icon}<span>{tab.label}</span></button>
-        ))}
+    <div className="interview-page">
+      <section className="iv-hero">
+        <div className="iv-hero-glow" />
+        <div className="iv-hero-inner">
+          <span className="iv-hero-badge"><ReadOutlined /> 每日面试题</span>
+          <h1 className="iv-hero-title">高频面试题库</h1>
+          <p className="iv-hero-sub">覆盖前端 · 后端 · 多语言 · 系统设计，每道题附带参考解析，每日滚动更新</p>
+          <div className="iv-hero-stats">
+            <div className="iv-stat">
+              <span className="iv-stat-icon" style={{ color: '#6366f1', background: 'rgba(99,102,241,0.12)' }}><AppstoreOutlined /></span>
+              <span className="iv-stat-text"><b>{QUIZ_DATA.length}</b><i>精选题目</i></span>
+            </div>
+            <div className="iv-stat">
+              <span className="iv-stat-icon" style={{ color: '#06b6d4', background: 'rgba(6,182,212,0.12)' }}><TagsOutlined /></span>
+              <span className="iv-stat-text"><b>{categoryCount}</b><i>技术分类</i></span>
+            </div>
+            <div className="iv-stat">
+              <span className="iv-stat-icon" style={{ color: '#ff375f', background: 'rgba(255,55,95,0.12)' }}><FireOutlined /></span>
+              <span className="iv-stat-text"><b>{todayNewCount}</b><i>今日新题</i></span>
+            </div>
+            <div className="iv-stat">
+              <span className="iv-stat-icon" style={{ color: '#10b981', background: 'rgba(16,185,129,0.12)' }}><CalendarOutlined /></span>
+              <span className="iv-stat-text"><b>{todayStr}</b><i>持续更新</i></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="iv-toolbar">
+        <div className="iv-categories">
+          {QUIZ_CATEGORIES.map((c) => (
+            <button
+              key={c.key}
+              className={`iv-cat-pill ${quizCategory === c.key ? 'active' : ''}`}
+              onClick={() => handleQuizFilter(setQuizCategory, c.key)}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+        <div className="iv-filters">
+          <div className="iv-diffs">
+            {['all', '简单', '中等', '困难'].map((d) => (
+              <button
+                key={d}
+                className={`iv-diff-btn ${quizDifficulty === d ? 'active' : ''}`}
+                style={d !== 'all' && quizDifficulty === d ? { background: DIFF_COLORS[d], borderColor: DIFF_COLORS[d], color: '#fff' } : undefined}
+                onClick={() => handleQuizFilter(setQuizDifficulty, d)}
+              >
+                {d === 'all' ? '全部难度' : d}
+              </button>
+            ))}
+          </div>
+          <div className="iv-search">
+            <SearchOutlined />
+            <input
+              placeholder="搜索面试题..."
+              value={quizSearch}
+              onChange={(e) => { setQuizSearch(e.target.value); setQuizPage(1); setExpandedId(null); }}
+            />
+          </div>
+        </div>
       </div>
-      <div className="content-area">
-        {/* ===== 题库 ===== */}
-        {activeTab === 'quiz' && (
-          <div className="quiz-section">
-            <div className="quiz-toolbar">
-              <div className="quiz-categories">{QUIZ_CATEGORIES.map((c) => <button key={c.key} className={`qt-cat ${quizCategory === c.key ? 'active' : ''}`} onClick={() => handleQuizFilter(setQuizCategory, c.key)}>{c.label}</button>)}</div>
-              <div className="quiz-filters">
-                <div className="difficulty-btns">{['all', '简单', '中等', '困难'].map((d) => <button key={d} className={`diff-btn ${quizDifficulty === d ? 'active' : ''}`} style={d !== 'all' && quizDifficulty === d ? { background: DIFF_COLORS[d], borderColor: DIFF_COLORS[d] } : {}} onClick={() => handleQuizFilter(setQuizDifficulty, d)}>{d === 'all' ? '全部难度' : d}</button>)}</div>
-                <div className="quiz-search"><SearchOutlined /><input placeholder="搜索题目..." value={quizSearch} onChange={(e) => { setQuizSearch(e.target.value); setQuizPage(1); }} /></div>
-              </div>
-            </div>
-            <div className="quiz-table">
-              <div className="qt-header"><span className="qt-col-id">#</span><span className="qt-col-title">题目</span><span className="qt-col-date">日期</span><span className="qt-col-acc">通过率</span><span className="qt-col-diff">难度</span></div>
-              {paginatedQuestions.length === 0 ? <div className="qt-empty">没有匹配的题目</div> : paginatedQuestions.map((q) => (
-                <React.Fragment key={q.id}>
-                  <div className={`qt-row ${expandedId === q.id ? 'expanded' : ''} ${isNewToday(q.id, dayOfYear) ? 'is-new' : ''}`} onClick={() => setExpandedId(expandedId === q.id ? null : q.id)}>
-                    <span className="qt-col-id">{q.id}</span>
-                    <span className="qt-col-title">{isNewToday(q.id, dayOfYear) && <span className="qt-new-badge">NEW</span>}{q.question}<span className="qt-cat-tag">{q.category}</span></span>
-                    <span className="qt-col-date">{getQuizDate(q.id, dayOfYear)}</span>
-                    <span className="qt-col-acc">{q.acceptance}%</span>
-                    <span className="qt-col-diff"><span className="diff-badge" style={{ color: DIFF_COLORS[q.difficulty] }}>{q.difficulty}</span></span>
-                  </div>
-                  {expandedId === q.id && <div className="qt-answer"><div className="qt-answer-inner"><strong>解析：</strong>{q.answer}</div></div>}
-                </React.Fragment>
-              ))}
-            </div>
-            <div className="quiz-footer"><span className="quiz-count">共 {filteredQuestions.length} 题</span><PaginationBar current={quizPage} total={totalQuizPages} onChange={setQuizPage} /></div>
-          </div>
-        )}
 
-        {/* ===== 新闻 ===== */}
-        {activeTab === 'news' && (
-          <div className="news-section">
-            {selectedArticle ? (
-              <div className="article-reader">
-                <div className="reader-toolbar">
-                  <button className="back-btn" onClick={() => setSelectedArticle(null)}><LeftOutlined /> 返回列表</button>
-                  <a className="original-link" href={selectedArticle.url} target="_blank" rel="noopener noreferrer"><LinkOutlined /> 查看原文</a>
-                </div>
-                {selectedArticle.coverImage && <img className="reader-cover" src={selectedArticle.coverImage} alt={selectedArticle.title} />}
-                <h1 className="reader-title">{selectedArticle.title}</h1>
-                <div className="reader-meta"><span>{selectedArticle.authorName}</span><span className="meta-dot" /><span>{selectedArticle.date}</span>{selectedArticle.readTime > 0 && <><span className="meta-dot" /><span>{selectedArticle.readTime} min</span></>}</div>
-                {selectedArticle.tags.length > 0 && <div className="reader-tags">{selectedArticle.tags.map((t) => <span key={t} className="reader-tag">#{t}</span>)}</div>}
-                <div className="article-body" dangerouslySetInnerHTML={{ __html: selectedArticle.bodyHtml }} />
-              </div>
-            ) : (
-              <>
-                <div className="news-toolbar">
-                  <div className="news-source-tabs">{NEWS_SOURCES.map((s) => <button key={s.key} className={newsSource === s.key ? 'active' : ''} onClick={() => handleSourceChange(s.key)}>{s.label}</button>)}</div>
-                  <div className="news-sub-toolbar">
-                    {newsSource === 'hackernews' ? (
-                      <div className="news-tags">{HN_SORTS.map((s) => <button key={s.key} className={`news-tag-chip ${newsCategory === s.key ? 'active' : ''}`} onClick={() => handleNewsCatChange(s.key)}>{s.label}</button>)}</div>
-                    ) : (
-                      <>
-                        <div className="news-sort-tabs">
-                          <button className={newsSort === 'latest' ? 'active' : ''} onClick={() => handleNewsSortChange('latest')}>最新</button>
-                          <button className={newsSort === 'hot' ? 'active' : ''} onClick={() => handleNewsSortChange('hot')}>热门</button>
-                        </div>
-                        <div className="news-tags">
-                          {newsSource === 'reddit' && REDDIT_SUBS.map((s) => <button key={s.key} className={`news-tag-chip ${newsCategory === s.key ? 'active' : ''}`} onClick={() => handleNewsCatChange(s.key)}>{s.label}</button>)}
-                          {newsSource === 'devto' && DEVTO_TAGS.map((tag) => <button key={tag} className={`news-tag-chip ${newsCategory === tag ? 'active' : ''}`} onClick={() => handleNewsCatChange(tag)}>{DEVTO_TAG_LABELS[tag]}</button>)}
-                        </div>
-                      </>
-                    )}
+      <div className="iv-list">
+        {paginatedQuestions.length === 0 ? (
+          <div className="iv-empty">没有匹配的面试题，换个关键词或分类试试</div>
+        ) : (
+          paginatedQuestions.map((q) => {
+            const isNew = isNewToday(q.id, dayOfYear);
+            const expanded = expandedId === q.id;
+            return (
+              <div
+                key={q.id}
+                className={`iv-card ${expanded ? 'expanded' : ''} ${isNew ? 'is-new' : ''}`}
+                style={{ borderLeftColor: DIFF_COLORS[q.difficulty] }}
+              >
+                <div className="iv-card-head" onClick={() => setExpandedId(expanded ? null : q.id)}>
+                  <span className="iv-id">{String(q.id).padStart(2, '0')}</span>
+                  <div className="iv-card-body">
+                    <div className="iv-q">
+                      {isNew && <span className="iv-new-badge"><FireOutlined /> NEW</span>}
+                      {q.question}
+                    </div>
+                    <div className="iv-q-meta">
+                      <span className="iv-cat-tag">{q.category}</span>
+                      <span className="iv-meta-item"><CalendarOutlined /> {getQuizDate(q.id, dayOfYear)}</span>
+                      <span className="iv-meta-item">通过率 {q.acceptance}%</span>
+                    </div>
                   </div>
+                  <span className="iv-diff-badge" style={{ color: DIFF_COLORS[q.difficulty], background: `${DIFF_COLORS[q.difficulty]}1a` }}>
+                    {q.difficulty}
+                  </span>
+                  <span className={`iv-chevron ${expanded ? 'open' : ''}`}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </span>
                 </div>
-                {newsLoading ? (
-                  <div className="news-loading"><LoadingOutlined /> 加载中...</div>
-                ) : newsError ? (
-                  <div className="news-error">
-                    <p>{newsError}</p>
-                    <button className="retry-btn" onClick={() => loadNews(newsSource, newsPage, newsCategory, newsSort)}><ReloadOutlined /> 重试</button>
-                  </div>
-                ) : (
-                  <div className="news-list">
-                    {articles.map((a) => (
-                      <div key={a.id} className="news-item" onClick={() => handleArticleClick(a)}>
-                        <div className="news-item-content">
-                          <h3 className="news-item-title">{a.title}</h3>
-                          {a.description && <p className="news-item-desc">{a.description}</p>}
-                          <div className="news-item-meta">
-                            <span className="meta-author">{a.authorName}</span><span className="meta-sep" /><span>{a.date}</span>
-                            {a.readTime > 0 && <><span className="meta-sep" /><span>{a.readTime} min</span></>}
-                            {a.likeCount > 0 && <><span className="meta-sep" /><span>{a.likeCount} 赞</span></>}
-                            {a.commentCount > 0 && <><span className="meta-sep" /><span>{a.commentCount} 评论</span></>}
-                            {a.tags.map((t) => <span key={t} className="meta-tag">{t}</span>)}
-                          </div>
-                        </div>
-                        {a.coverImage && <div className="news-item-thumb" style={{ backgroundImage: `url(${a.coverImage})` }} />}
-                      </div>
-                    ))}
+                {expanded && (
+                  <div className="iv-answer">
+                    <div className="iv-answer-head"><CheckCircleOutlined /> 参考解析</div>
+                    <p className="iv-answer-text">{q.answer}</p>
                   </div>
                 )}
-                {!newsLoading && !newsError && (
-                  <div className="news-footer">
-                    <button disabled={newsPage === 1} onClick={() => handleNewsPageChange(newsPage - 1)}><LeftOutlined /> 上一页</button>
-                    <span className="page-info">第 {newsPage} 页</span>
-                    <button disabled={!hasMoreNews} onClick={() => handleNewsPageChange(newsPage + 1)}>下一页 <RightOutlined /></button>
-                  </div>
-                )}
-              </>
-            )}
-            {articleLoading && <div className="article-loading-overlay"><div className="loading-spinner"><LoadingOutlined /> 加载文章中...</div></div>}
-          </div>
+              </div>
+            );
+          })
         )}
+      </div>
 
-        {/* ===== AI 助手 ===== */}
-        {activeTab === 'ai' && (
-          <div className="ai-section">
-            <div className="ai-toolbar">
-              <div className="ai-toolbar-left">
-                <button type="button" className={`ai-history-btn ${historyPanelOpen ? 'active' : ''}`} onClick={() => setHistoryPanelOpen((v) => !v)} title="历史记录"><HistoryOutlined /></button>
-                <span className="ai-model-label"><RobotOutlined /> {aiMode === 'image' ? '智谱 GLM-Image' : '智谱 GLM-4-Flash'}</span>
-                <div className="ai-mode-tabs">
-                  <button type="button" className={aiMode === 'chat' ? 'active' : ''} onClick={() => setAiMode('chat')}><MessageOutlined /> 对话</button>
-                  <button type="button" className={aiMode === 'image' ? 'active' : ''} onClick={() => setAiMode('image')}><PictureOutlined /> 绘图</button>
-                </div>
-              </div>
-              <div className="ai-actions">
-                {messages.length > 0 && <button type="button" className="ai-clear-btn" onClick={() => { setMessages([]); setCurrentHistoryId(null); }} title="清空当前对话"><DeleteOutlined /></button>}
-              </div>
-            </div>
-            <div className="ai-main">
-              {historyPanelOpen && (
-                <div className="ai-history-panel">
-                  <div className="ai-history-header">
-                    <span>历史记录</span>
-                    <button type="button" className="ai-new-chat-btn" onClick={() => loadHistory(null)}>新对话</button>
-                  </div>
-                  <div className="ai-history-list">
-                    {historyList.length === 0 ? <div className="ai-history-empty">暂无记录</div> : historyList.map((item) => (
-                      <div key={item.id} className={`ai-history-item ${currentHistoryId === item.id ? 'active' : ''}`}>
-                        <button type="button" className="ai-history-item-btn" onClick={() => loadHistory(item)} title={item.title}>
-                          <span className="ai-history-item-title">{item.title}</span>
-                          <span className="ai-history-item-time">{new Date(item.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
-                        </button>
-                        <button type="button" className="ai-history-item-del" onClick={(e) => { e.stopPropagation(); deleteHistoryItem(item.id); }} title="删除"><DeleteOutlined /></button>
-                      </div>
-                    ))}
-                  </div>
-                  {historyList.length > 0 && (
-                    <button type="button" className="ai-history-clear-all" onClick={clearAllHistory}>清空全部历史</button>
-                  )}
-                </div>
-              )}
-              <div className="chat-wrap">
-                <div className="chat-container">
-                  {messages.length === 0 ? (
-                    <div className="chat-welcome">
-                      <div className="welcome-icon"><RobotOutlined /></div>
-                      <h3>AI 开发助手</h3>
-                      <p>{aiMode === 'image' ? '切换至「绘图」模式，输入描述即可生成图片' : '基于智谱 GLM-4-Flash，有任何开发问题，随时向我提问'}</p>
-                      {aiMode === 'chat' && <div className="quick-questions">{QUICK_QUESTIONS.map((q) => <button key={q} type="button" className="quick-q-btn" onClick={() => handleSendMessage(q)}>{q}</button>)}</div>}
-                      {aiMode === 'image' && <p className="quick-hint">例如：一只在写代码的猫咪、赛博朋克风格的城市夜景</p>}
-                    </div>
-                  ) : (
-                    <div className="chat-messages">
-                      {messages.map((msg, idx) => (
-                        <div key={idx} className={`chat-msg ${msg.role}`}>
-                          <div className="msg-avatar">{msg.role === 'user' ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> : <RobotOutlined />}</div>
-                          <div className="msg-body">
-                            {msg.role === 'assistant' ? (
-                              msg.content || msg.imageUrl ? (
-                                <div className="msg-content">
-                                  {msg.imageUrl && <a href={msg.imageUrl} target="_blank" rel="noopener noreferrer" className="msg-image-wrap"><img src={msg.imageUrl} alt="生成图片" className="msg-image" /></a>}
-                                  {msg.content ? <span dangerouslySetInnerHTML={{ __html: renderAIContent(msg.content) }} /> : null}
-                                </div>
-                              ) : (
-                                <div className="msg-content typing-indicator"><span /><span /><span /></div>
-                              )
-                            ) : (
-                              <div className="msg-content">{msg.content}</div>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                      <div ref={chatEndRef} />
-                    </div>
-                  )}
-                </div>
-                <div className="chat-input-area">
-                  <textarea ref={inputRef} className="chat-input" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown} placeholder={aiMode === 'image' ? '描述你想生成的图片... (Enter 发送)' : '输入你的问题... (Enter 发送，Shift+Enter 换行)'} rows={1} disabled={aiLoading} />
-                  <button type="button" className="send-btn" onClick={() => handleSendMessage()} disabled={!input.trim() || aiLoading}>{aiLoading ? <LoadingOutlined /> : <SendOutlined />}</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+      <div className="iv-footer">
+        <span className="iv-count">共 <b>{filteredQuestions.length}</b> 道题</span>
+        <PaginationBar current={quizPage} total={totalQuizPages} onChange={(p) => { setQuizPage(p); setExpandedId(null); }} />
       </div>
     </div>
   );

@@ -36,6 +36,12 @@ import {
   CompassOutlined,
   DatabaseOutlined,
   FundOutlined,
+  CoffeeOutlined,
+  MobileOutlined,
+  SafetyOutlined,
+  WindowsOutlined,
+  SettingOutlined,
+  DeploymentUnitOutlined,
 } from '@ant-design/icons';
 import './index.less';
 
@@ -116,6 +122,14 @@ const resourceSections: ResourceSection[] = [
       { icon: <ThunderboltOutlined />, title: 'ES6 入门教程', desc: 'ECMAScript 6 标准入门 (阮一峰)', url: 'https://es6.ruanyifeng.com/', color: '#f97316' },
       { icon: <BgColorsOutlined />, title: 'CSS 教程', desc: 'W3School CSS 样式完整教程', url: 'https://www.w3school.com.cn/css/index.asp', color: '#264de4' },
       { icon: <HighlightOutlined />, title: 'HTML 教程', desc: 'W3School HTML 网页开发基础', url: 'https://www.w3school.com.cn/html/index.asp', color: '#e44d26' },
+      { icon: <DeploymentUnitOutlined />, title: 'Go 官方文档', desc: 'Go 语言官方教程与标准库参考', url: 'https://go.dev/doc/', color: '#00ADD8' },
+      { icon: <CoffeeOutlined />, title: 'Java 教程', desc: '菜鸟教程 Java 基础到进阶完整教程', url: 'https://www.runoob.com/java/java-tutorial.html', color: '#E76F00' },
+      { icon: <MobileOutlined />, title: 'Flutter 中文文档', desc: 'Flutter 跨平台开发官方中文文档', url: 'https://flutter.cn/docs', color: '#02569B' },
+      { icon: <SafetyOutlined />, title: 'Angular 中文文档', desc: 'Angular 企业级前端框架官方中文站', url: 'https://angular.cn/', color: '#DD0031' },
+      { icon: <ApiOutlined />, title: 'Python 官方文档', desc: 'Python 3 官方中文文档与标准库', url: 'https://docs.python.org/zh-cn/3/', color: '#3776AB' },
+      { icon: <WindowsOutlined />, title: 'C# 文档', desc: '微软 .NET 官方 C# 学习文档', url: 'https://learn.microsoft.com/zh-cn/dotnet/csharp/', color: '#9B4F96' },
+      { icon: <CodeOutlined />, title: 'C 语言教程', desc: '菜鸟教程 C 语言基础语法与实战', url: 'https://www.runoob.com/cprogramming/c-tutorial.html', color: '#00599C' },
+      { icon: <SettingOutlined />, title: 'Rust 程序设计语言', desc: 'Rust 官方教程《The Book》中文版', url: 'https://kaisery.github.io/trpl-zh-cn/', color: '#B7410E' },
     ],
   },
   {
