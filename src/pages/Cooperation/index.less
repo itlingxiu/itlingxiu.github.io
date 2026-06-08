@@ -75,6 +75,23 @@
       line-height: 1.6;
       margin: 0;
     }
+
+    .coop-cta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed @border-color-base;
+      font-size: @font-size-sm;
+      font-weight: 600;
+      opacity: 0.85;
+      transition: opacity @animation-duration-base;
+
+      .anticon { font-size: 15px; }
+    }
+
+    &:hover .coop-cta { opacity: 1; }
   }
 
   .contact-section {
@@ -154,4 +171,172 @@
       }
     }
   }
+
+  // ===== 联系方式弹窗 =====
+  .coop-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: @padding-md;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(4px);
+    animation: coopFade @animation-duration-base ease;
+  }
+
+  .coop-modal {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: @card-bg;
+    border-radius: @border-radius-xl;
+    box-shadow: @box-shadow-lg;
+    padding: 28px 24px 24px;
+    animation: coopPop @animation-duration-slow cubic-bezier(0.16, 1, 0.3, 1);
+
+    .coop-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: @border-radius-full;
+      background: @background-color-light;
+      color: @text-color-secondary;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all @animation-duration-base;
+
+      &:hover { background: @border-color-base; color: @text-color; }
+    }
+
+    .coop-modal-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+
+      .coop-modal-icon {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        border-radius: @border-radius-lg;
+        font-size: 26px;
+      }
+
+      .coop-modal-title {
+        font-size: @font-size-xl;
+        font-weight: 700;
+        color: @text-color;
+        margin: 0 0 4px;
+      }
+
+      .coop-modal-sub {
+        font-size: @font-size-sm;
+        color: @text-color-secondary;
+        margin: 0;
+      }
+    }
+
+    .coop-modal-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .coop-contact {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        border: 1px solid @border-color-light;
+        border-radius: @border-radius-lg;
+        background: @background-color-base;
+        transition: border-color @animation-duration-base;
+
+        &:hover { border-color: @border-color-base; }
+
+        .coop-contact-icon {
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          border-radius: @border-radius-base;
+          font-size: 20px;
+          color: #fff;
+
+          &.wechat { background: #07c160; }
+          &.mail { background: @info-color; }
+        }
+
+        .coop-contact-body {
+          flex: 1;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+
+          .coop-contact-label {
+            font-size: @font-size-xs;
+            color: @text-color-muted;
+          }
+
+          .coop-contact-value {
+            font-size: @font-size-base;
+            font-weight: 600;
+            color: @text-color;
+            word-break: break-all;
+          }
+        }
+
+        .coop-contact-copy {
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          padding: 6px 12px;
+          border: 1px solid @border-color-base;
+          border-radius: @border-radius-base;
+          background: @card-bg;
+          color: @text-color-secondary;
+          font-size: @font-size-sm;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all @animation-duration-base;
+
+          &:hover { border-color: @primary-color; color: @primary-color; }
+          &.done { border-color: @success-color; color: @success-color; }
+        }
+      }
+    }
+
+    .coop-modal-tip {
+      margin-top: 18px;
+      padding: 12px 14px;
+      background: @primary-light;
+      border-radius: @border-radius-base;
+      font-size: @font-size-sm;
+      color: @text-color-secondary;
+      line-height: 1.6;
+    }
+  }
+}
+
+@keyframes coopFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes coopPop {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }

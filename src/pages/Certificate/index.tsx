@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafetyCertificateOutlined,
   CheckCircleOutlined,
@@ -9,10 +9,25 @@ import {
   SolutionOutlined,
   WechatOutlined,
   MailOutlined,
+  CloseOutlined,
+  CopyOutlined,
+  CheckOutlined,
 } from '@ant-design/icons';
 import './index.less';
 
-const certificates = [
+const WECHAT_ID = 'IT_zhijia';
+const EMAIL = 'it_zhijia@163.com';
+
+interface CertItem {
+  icon: React.ReactNode;
+  title: string;
+  tags: string[];
+  desc: string;
+  features: string[];
+  color: string;
+}
+
+const certificates: CertItem[] = [
   {
     icon: <FileProtectOutlined />,
     title: '软件著作权',
@@ -71,6 +86,32 @@ const processSteps = [
 ];
 
 const Certificate: React.FC = () => {
+  const [activeCert, setActiveCert] = useState<CertItem | null>(null);
+  const [copied, setCopied] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!activeCert) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveCert(null);
+    };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [activeCert]);
+
+  const handleCopy = async (text: string, key: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(key);
+      setTimeout(() => setCopied((c) => (c === key ? null : c)), 1800);
+    } catch {
+      setCopied(null);
+    }
+  };
+
   return (
     <div className="certificate-page">
       <div className="page-header">
@@ -80,7 +121,19 @@ const Certificate: React.FC = () => {
 
       <div className="cert-grid">
         {certificates.map((cert) => (
-          <div key={cert.title} className="cert-card">
+          <div
+            key={cert.title}
+            className="cert-card"
+            role="button"
+            tabIndex={0}
+            onClick={() => setActiveCert(cert)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setActiveCert(cert);
+              }
+            }}
+          >
             <div className="cert-top">
               <div
                 className="cert-icon"
@@ -103,6 +156,10 @@ const Certificate: React.FC = () => {
                   {f}
                 </span>
               ))}
+            </div>
+            <div className="cert-cta" style={{ color: cert.color }}>
+              <WechatOutlined />
+              点击咨询办理
             </div>
           </div>
         ))}
@@ -142,6 +199,71 @@ const Certificate: React.FC = () => {
           <div className="inquiry-tip">添加微信请备注「证书办理 + 证书类型」，例如"证书办理 软著"，写清来意以便快速响应</div>
         </div>
       </div>
+
+      {activeCert && (
+        <div className="cert-modal-overlay" onClick={() => setActiveCert(null)}>
+          <div
+            className="cert-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`联系办理${activeCert.title}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="cert-modal-close" onClick={() => setActiveCert(null)} aria-label="关闭">
+              <CloseOutlined />
+            </button>
+
+            <div className="cert-modal-head">
+              <div
+                className="cert-modal-icon"
+                style={{ color: activeCert.color, background: `${activeCert.color}14` }}
+              >
+                {activeCert.icon}
+              </div>
+              <div>
+                <h3 className="cert-modal-title">{activeCert.title}</h3>
+                <p className="cert-modal-sub">专业顾问一对一服务，下方任选方式联系</p>
+              </div>
+            </div>
+
+            <div className="cert-modal-contacts">
+              <div className="cert-contact">
+                <span className="cert-contact-icon wechat"><WechatOutlined /></span>
+                <div className="cert-contact-body">
+                  <span className="cert-contact-label">微信</span>
+                  <span className="cert-contact-value">{WECHAT_ID}</span>
+                </div>
+                <button
+                  className={`cert-contact-copy ${copied === 'wechat' ? 'done' : ''}`}
+                  onClick={() => handleCopy(WECHAT_ID, 'wechat')}
+                >
+                  {copied === 'wechat' ? <CheckOutlined /> : <CopyOutlined />}
+                  {copied === 'wechat' ? '已复制' : '复制'}
+                </button>
+              </div>
+
+              <div className="cert-contact">
+                <span className="cert-contact-icon mail"><MailOutlined /></span>
+                <div className="cert-contact-body">
+                  <span className="cert-contact-label">邮箱</span>
+                  <span className="cert-contact-value">{EMAIL}</span>
+                </div>
+                <button
+                  className={`cert-contact-copy ${copied === 'mail' ? 'done' : ''}`}
+                  onClick={() => handleCopy(EMAIL, 'mail')}
+                >
+                  {copied === 'mail' ? <CheckOutlined /> : <CopyOutlined />}
+                  {copied === 'mail' ? '已复制' : '复制'}
+                </button>
+              </div>
+            </div>
+
+            <div className="cert-modal-tip">
+              添加微信请备注「证书办理 {activeCert.title}」，写清来意以便快速响应
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
