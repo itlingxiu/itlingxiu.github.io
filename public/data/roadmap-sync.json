@@ -1,0 +1,64 @@
+{
+  "crawledAt": "2026-06-09T12:49:29.291Z",
+  "updates": [
+    {
+      "id": "harmonyos-docs-sync",
+      "sourceId": "harmonyos-docs",
+      "title": "harmonyos-docs 同步快照",
+      "summary": "于 2026-06-09T12:49:24.727Z 从权威源 https://developer.huawei.com/consumer/cn/doc/ 获取",
+      "url": "https://developer.huawei.com/consumer/cn/doc/",
+      "publishedAt": "2026-06-09T12:49:24.729Z",
+      "roadmapKeys": [
+        "harmonyos"
+      ],
+      "keywords": [
+        "sync"
+      ]
+    },
+    {
+      "id": "nestjs-docs-sync",
+      "sourceId": "nestjs-docs",
+      "title": "nestjs-docs 同步快照",
+      "summary": "于 2026-06-09T12:49:25.894Z 从权威源 https://docs.nestjs.com 获取",
+      "url": "https://docs.nestjs.com",
+      "publishedAt": "2026-06-09T12:49:25.894Z",
+      "roadmapKeys": [
+        "nestjs"
+      ],
+      "keywords": [
+        "sync"
+      ]
+    },
+    {
+      "id": "openai-blog-sync",
+      "sourceId": "openai-blog",
+      "title": "openai-blog 同步快照",
+      "summary": "于 2026-06-09T12:49:26.125Z 从权威源 https://openai.com/blog 获取",
+      "url": "https://openai.com/blog",
+      "publishedAt": "2026-06-09T12:49:26.125Z",
+      "roadmapKeys": [
+        "ai-llm",
+        "ai-agent"
+      ],
+      "keywords": [
+        "sync"
+      ]
+    },
+    {
+      "id": "langchain-docs-sync",
+      "sourceId": "langchain-docs",
+      "title": "langchain-docs 同步快照",
+      "summary": "于 2026-06-09T12:49:29.291Z 从权威源 https://python.langchain.com/ 获取",
+      "url": "https://python.langchain.com/",
+      "publishedAt": "2026-06-09T12:49:29.291Z",
+      "roadmapKeys": [
+        "ai-agent"
+      ],
+      "keywords": [
+        "sync"
+      ]
+    }
+  ],
+  "errors": [],
+  "version": 1
+}

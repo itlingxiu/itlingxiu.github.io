@@ -43,7 +43,32 @@
     }
 
     .rm-hero-title { font-size: 32px; font-weight: 800; margin: 0 0 10px; letter-spacing: 0.5px; }
-    .rm-hero-sub { font-size: @font-size-lg; color: rgba(255, 255, 255, 0.82); margin: 0 0 22px; max-width: 660px; line-height: 1.6; }
+    .rm-hero-sub { font-size: @font-size-lg; color: rgba(255, 255, 255, 0.82); margin: 0 0 22px; max-width: 720px; line-height: 1.6; }
+
+    .rm-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .rm-admin-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: @border-radius-full;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      font-size: @font-size-sm;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      &:hover { background: rgba(255, 255, 255, 0.22); }
+    }
 
     .rm-legend {
       display: flex;
@@ -56,6 +81,42 @@
         font-size: @font-size-sm;
         color: rgba(255, 255, 255, 0.9);
         i { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
+      }
+    }
+  }
+
+  // ===== Category bar =====
+  .rm-category-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+
+    .rm-category-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: @border-radius-full;
+      border: 1.5px solid @border-color-base;
+      background: @card-bg;
+      color: @text-color-secondary;
+      font-size: @font-size-sm;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      .rm-category-count {
+        padding: 1px 8px;
+        border-radius: @border-radius-full;
+        background: @background-color-base;
+        font-size: @font-size-xs;
+      }
+
+      &.active {
+        background: @primary-color;
+        border-color: @primary-color;
+        color: #fff;
+        .rm-category-count { background: rgba(255, 255, 255, 0.2); color: #fff; }
       }
     }
   }
@@ -82,6 +143,15 @@
       transition: all @animation-duration-base ease;
 
       .rm-tab-icon { display: inline-flex; font-size: 15px; }
+
+      .rm-auto-tag {
+        padding: 1px 6px;
+        border-radius: 4px;
+        background: rgba(139, 92, 246, 0.15);
+        color: #7c3aed;
+        font-size: 10px;
+        font-weight: 700;
+      }
 
       &:hover { box-shadow: @box-shadow-sm; transform: translateY(-1px); }
       &.active { color: #fff !important; box-shadow: @box-shadow-md; }
@@ -117,6 +187,7 @@
       min-width: 0;
       .rm-overview-title { font-size: @font-size-xl; font-weight: 700; color: @text-color; margin: 0 0 4px; }
       .rm-overview-desc { font-size: @font-size-base; color: @text-color-secondary; margin: 0; line-height: 1.6; }
+      .rm-updated { display: block; margin-top: 6px; font-size: @font-size-xs; color: @text-color-muted; }
     }
 
     .rm-overview-stats {
