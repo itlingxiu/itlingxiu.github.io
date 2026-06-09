@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   ReadOutlined,
@@ -10,10 +10,20 @@ import {
   LeftOutlined,
   RightOutlined,
   CheckCircleOutlined,
+  HistoryOutlined,
+  UnorderedListOutlined,
 } from '@ant-design/icons';
+import {
+  type QuizQuestion,
+  DAILY_NEW_COUNT,
+  getPublishDate,
+  isPublished,
+  isTodayUpdate,
+  getTodayQuestionIds,
+  formatQuizDate,
+  sortQuestions,
+} from '../../utils/interviewQuiz';
 import './index.less';
-
-interface QuizQuestion { id: number; category: string; difficulty: '简单' | '中等' | '困难'; question: string; answer: string; acceptance: number; }
 
 const QUIZ_CATEGORIES = [
   { key: 'all', label: '全部' },
@@ -170,12 +180,6 @@ const QUIZ_DATA: QuizQuestion[] = [
 
 const QUIZ_PER_PAGE = 15;
 
-const CYCLE_DAYS = 28;
-const getDayOfYear = () => Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
-const getQuizDayOffset = (id: number, dayOfYear: number) => (id - 1 + dayOfYear) % CYCLE_DAYS;
-const getQuizDate = (id: number, dayOfYear: number) => { const d = new Date(); d.setDate(d.getDate() - (CYCLE_DAYS - 1 - getQuizDayOffset(id, dayOfYear))); return `${d.getMonth() + 1}/${d.getDate()}`; };
-const isNewToday = (id: number, dayOfYear: number) => getQuizDayOffset(id, dayOfYear) === CYCLE_DAYS - 1;
-
 const PaginationBar: React.FC<{ current: number; total: number; onChange: (p: number) => void }> = ({ current, total, onChange }) => {
   if (total <= 1) return null;
   const pages: (number | string)[] = [];
@@ -186,11 +190,16 @@ const PaginationBar: React.FC<{ current: number; total: number; onChange: (p: nu
 
 const DevHub: React.FC = () => {
   const [searchParams] = useSearchParams();
+  const [viewMode, setViewMode] = useState<'all' | 'today'>('all');
   const [quizCategory, setQuizCategory] = useState('all');
   const [quizDifficulty, setQuizDifficulty] = useState('all');
   const [quizSearch, setQuizSearch] = useState('');
   const [quizPage, setQuizPage] = useState(1);
   const [expandedId, setExpandedId] = useState<number | null>(null);
+
+  const publishedQuestions = useMemo(() => QUIZ_DATA.filter((q) => isPublished(q.id)), []);
+  const todayIds = useMemo(() => getTodayQuestionIds(QUIZ_DATA), []);
+  const todayNewCount = todayIds.length;
 
   useEffect(() => {
     const cat = searchParams.get('cat');
@@ -201,20 +210,67 @@ const DevHub: React.FC = () => {
     }
   }, [searchParams]);
 
-  const dayOfYear = getDayOfYear();
-  const filteredQuestions = QUIZ_DATA
-    .filter((q) => quizCategory === 'all' || q.category === quizCategory)
-    .filter((q) => quizDifficulty === 'all' || q.difficulty === quizDifficulty)
-    .filter((q) => !quizSearch || q.question.includes(quizSearch))
-    .sort((a, b) => getQuizDayOffset(a.id, dayOfYear) - getQuizDayOffset(b.id, dayOfYear));
+  const filteredQuestions = useMemo(() => {
+    let list = publishedQuestions
+      .filter((q) => quizCategory === 'all' || q.category === quizCategory)
+      .filter((q) => quizDifficulty === 'all' || q.difficulty === quizDifficulty)
+      .filter((q) => !quizSearch || q.question.includes(quizSearch));
+
+    if (viewMode === 'today') {
+      list = list.filter((q) => todayIds.includes(q.id));
+    }
+
+    return sortQuestions(list, todayIds);
+  }, [publishedQuestions, quizCategory, quizDifficulty, quizSearch, viewMode, todayIds]);
+
   const totalQuizPages = Math.ceil(filteredQuestions.length / QUIZ_PER_PAGE);
   const paginatedQuestions = filteredQuestions.slice((quizPage - 1) * QUIZ_PER_PAGE, quizPage * QUIZ_PER_PAGE);
 
-  const todayNewCount = QUIZ_DATA.filter((q) => isNewToday(q.id, dayOfYear)).length;
   const categoryCount = QUIZ_CATEGORIES.length - 1;
   const todayStr = new Date().toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' });
+  const historyCount = publishedQuestions.length - todayNewCount;
 
   const handleQuizFilter = (setter: (v: string) => void, value: string) => { setter(value); setQuizPage(1); setExpandedId(null); };
+  const handleViewMode = (mode: 'all' | 'today') => { setViewMode(mode); setQuizPage(1); setExpandedId(null); };
+
+  const renderQuestionCard = (q: QuizQuestion) => {
+    const isNew = isTodayUpdate(q.id, QUIZ_DATA);
+    const expanded = expandedId === q.id;
+    return (
+      <div
+        key={q.id}
+        className={`iv-card ${expanded ? 'expanded' : ''} ${isNew ? 'is-new' : ''}`}
+        style={{ borderLeftColor: DIFF_COLORS[q.difficulty] }}
+      >
+        <div className="iv-card-head" onClick={() => setExpandedId(expanded ? null : q.id)}>
+          <span className="iv-id">{String(q.id).padStart(3, '0')}</span>
+          <div className="iv-card-body">
+            <div className="iv-q">
+              {isNew && <span className="iv-new-badge"><FireOutlined /> 今日更新</span>}
+              {q.question}
+            </div>
+            <div className="iv-q-meta">
+              <span className="iv-cat-tag">{q.category}</span>
+              <span className="iv-meta-item"><CalendarOutlined /> {formatQuizDate(getPublishDate(q.id))}</span>
+              <span className="iv-meta-item">通过率 {q.acceptance}%</span>
+            </div>
+          </div>
+          <span className="iv-diff-badge" style={{ color: DIFF_COLORS[q.difficulty], background: `${DIFF_COLORS[q.difficulty]}1a` }}>
+            {q.difficulty}
+          </span>
+          <span className={`iv-chevron ${expanded ? 'open' : ''}`}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </span>
+        </div>
+        {expanded && (
+          <div className="iv-answer">
+            <div className="iv-answer-head"><CheckCircleOutlined /> 参考解析</div>
+            <p className="iv-answer-text">{q.answer}</p>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className="interview-page">
@@ -223,11 +279,11 @@ const DevHub: React.FC = () => {
         <div className="iv-hero-inner">
           <span className="iv-hero-badge"><ReadOutlined /> 每日面试题</span>
           <h1 className="iv-hero-title">高频面试题库</h1>
-          <p className="iv-hero-sub">覆盖前端 · 后端 · 多语言 · 系统设计，每道题附带参考解析，每日滚动更新</p>
+          <p className="iv-hero-sub">每日新增 {DAILY_NEW_COUNT} 道面试题，历史题目永久保留，附带参考解析随时复习</p>
           <div className="iv-hero-stats">
             <div className="iv-stat">
               <span className="iv-stat-icon" style={{ color: '#6366f1', background: 'rgba(99,102,241,0.12)' }}><AppstoreOutlined /></span>
-              <span className="iv-stat-text"><b>{QUIZ_DATA.length}</b><i>精选题目</i></span>
+              <span className="iv-stat-text"><b>{publishedQuestions.length}</b><i>题库总量</i></span>
             </div>
             <div className="iv-stat">
               <span className="iv-stat-icon" style={{ color: '#06b6d4', background: 'rgba(6,182,212,0.12)' }}><TagsOutlined /></span>
@@ -235,15 +291,33 @@ const DevHub: React.FC = () => {
             </div>
             <div className="iv-stat">
               <span className="iv-stat-icon" style={{ color: '#ff375f', background: 'rgba(255,55,95,0.12)' }}><FireOutlined /></span>
-              <span className="iv-stat-text"><b>{todayNewCount}</b><i>今日新题</i></span>
+              <span className="iv-stat-text"><b>{todayNewCount}</b><i>今日更新</i></span>
             </div>
             <div className="iv-stat">
-              <span className="iv-stat-icon" style={{ color: '#10b981', background: 'rgba(16,185,129,0.12)' }}><CalendarOutlined /></span>
-              <span className="iv-stat-text"><b>{todayStr}</b><i>持续更新</i></span>
+              <span className="iv-stat-icon" style={{ color: '#10b981', background: 'rgba(16,185,129,0.12)' }}><HistoryOutlined /></span>
+              <span className="iv-stat-text"><b>{historyCount}</b><i>历史保留</i></span>
             </div>
           </div>
         </div>
       </section>
+
+      <div className="iv-daily-banner">
+        <div className="iv-daily-left">
+          <span className="iv-daily-icon"><CalendarOutlined /></span>
+          <div>
+            <b>{todayStr}</b>
+            <span>今日更新 <em>{todayNewCount}</em> 道 · 历史题库 <em>{historyCount}</em> 道永久可查</span>
+          </div>
+        </div>
+        <div className="iv-view-tabs">
+          <button className={`iv-view-tab ${viewMode === 'all' ? 'active' : ''}`} onClick={() => handleViewMode('all')}>
+            <UnorderedListOutlined /> 全部题库
+          </button>
+          <button className={`iv-view-tab ${viewMode === 'today' ? 'active' : ''}`} onClick={() => handleViewMode('today')}>
+            <FireOutlined /> 今日新题
+          </button>
+        </div>
+      </div>
 
       <div className="iv-toolbar">
         <div className="iv-categories">
@@ -283,46 +357,26 @@ const DevHub: React.FC = () => {
 
       <div className="iv-list">
         {paginatedQuestions.length === 0 ? (
-          <div className="iv-empty">没有匹配的面试题，换个关键词或分类试试</div>
+          <div className="iv-empty">
+            {viewMode === 'today' ? '今日暂无匹配的新题，可切换「全部题库」浏览历史题目' : '没有匹配的面试题，换个关键词或分类试试'}
+          </div>
         ) : (
-          paginatedQuestions.map((q) => {
-            const isNew = isNewToday(q.id, dayOfYear);
-            const expanded = expandedId === q.id;
-            return (
-              <div
-                key={q.id}
-                className={`iv-card ${expanded ? 'expanded' : ''} ${isNew ? 'is-new' : ''}`}
-                style={{ borderLeftColor: DIFF_COLORS[q.difficulty] }}
-              >
-                <div className="iv-card-head" onClick={() => setExpandedId(expanded ? null : q.id)}>
-                  <span className="iv-id">{String(q.id).padStart(2, '0')}</span>
-                  <div className="iv-card-body">
-                    <div className="iv-q">
-                      {isNew && <span className="iv-new-badge"><FireOutlined /> NEW</span>}
-                      {q.question}
-                    </div>
-                    <div className="iv-q-meta">
-                      <span className="iv-cat-tag">{q.category}</span>
-                      <span className="iv-meta-item"><CalendarOutlined /> {getQuizDate(q.id, dayOfYear)}</span>
-                      <span className="iv-meta-item">通过率 {q.acceptance}%</span>
-                    </div>
-                  </div>
-                  <span className="iv-diff-badge" style={{ color: DIFF_COLORS[q.difficulty], background: `${DIFF_COLORS[q.difficulty]}1a` }}>
-                    {q.difficulty}
-                  </span>
-                  <span className={`iv-chevron ${expanded ? 'open' : ''}`}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  </span>
-                </div>
-                {expanded && (
-                  <div className="iv-answer">
-                    <div className="iv-answer-head"><CheckCircleOutlined /> 参考解析</div>
-                    <p className="iv-answer-text">{q.answer}</p>
-                  </div>
-                )}
-              </div>
-            );
-          })
+          <>
+            {viewMode === 'all' && quizPage === 1 && !quizSearch && paginatedQuestions.some((q) => todayIds.includes(q.id)) && (
+              <div className="iv-section-label today"><FireOutlined /> 今日更新</div>
+            )}
+            {paginatedQuestions.map((q, idx) => {
+              const showHistoryLabel = viewMode === 'all' && quizPage === 1 && !quizSearch
+                && !todayIds.includes(q.id)
+                && (idx === 0 || todayIds.includes(paginatedQuestions[idx - 1].id));
+              return (
+                <React.Fragment key={q.id}>
+                  {showHistoryLabel && <div className="iv-section-label history"><HistoryOutlined /> 历史题库</div>}
+                  {renderQuestionCard(q)}
+                </React.Fragment>
+              );
+            })}
+          </>
         )}
       </div>
 

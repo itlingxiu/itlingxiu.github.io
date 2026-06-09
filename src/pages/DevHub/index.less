@@ -97,6 +97,80 @@
     }
   }
 
+  // ===== Daily banner & view tabs =====
+  .iv-daily-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, #fff7ed 0%, #fff 60%);
+    border: 1px solid #fed7aa;
+    border-radius: @border-radius-lg;
+
+    .iv-daily-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .iv-daily-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: @border-radius-base;
+        background: #ffedd5;
+        color: #ea580c;
+        font-size: 18px;
+      }
+
+      b {
+        display: block;
+        font-size: @font-size-base;
+        font-weight: 700;
+        color: @text-color;
+        margin-bottom: 2px;
+      }
+
+      span {
+        font-size: @font-size-sm;
+        color: @text-color-secondary;
+        em { font-style: normal; font-weight: 700; color: #ea580c; }
+      }
+    }
+
+    .iv-view-tabs {
+      display: flex;
+      gap: 8px;
+
+      .iv-view-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        border-radius: @border-radius-full;
+        border: 1.5px solid @border-color-base;
+        background: @card-bg;
+        color: @text-color-secondary;
+        font-size: @font-size-sm;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all @animation-duration-base ease;
+
+        .anticon { font-size: 14px; }
+        &:hover { border-color: @primary-color; color: @primary-color; }
+        &.active {
+          background: @primary-color;
+          border-color: @primary-color;
+          color: #fff;
+        }
+      }
+    }
+  }
+
   // ===== Toolbar =====
   .iv-toolbar {
     background: @card-bg;
@@ -185,6 +259,20 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    .iv-section-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 4px 4px;
+      font-size: @font-size-sm;
+      font-weight: 700;
+      color: @text-color-secondary;
+
+      .anticon { font-size: 14px; }
+      &.today { color: #ea580c; .anticon { color: #ff375f; } }
+      &.history { color: @text-color-muted; margin-top: 6px; }
+    }
 
     .iv-empty {
       padding: 64px 20px;
@@ -385,6 +473,12 @@
 @media (max-width: @screen-md) {
   .interview-page {
     padding: @padding-md;
+
+    .iv-daily-banner {
+      flex-direction: column;
+      align-items: stretch;
+      .iv-view-tabs { width: 100%; .iv-view-tab { flex: 1; justify-content: center; } }
+    }
 
     .iv-hero {
       padding: 26px 20px;
