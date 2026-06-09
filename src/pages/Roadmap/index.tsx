@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { NodeIndexOutlined, CheckOutlined, SettingOutlined } from '@ant-design/icons';
+import { NodeIndexOutlined, CheckOutlined } from '@ant-design/icons';
 import { LEVEL_COLORS, type RoadmapLevel } from '../../data/learningRoadmaps';
-import { useRoadmaps } from '../../hooks/useRoadmaps';
+import { useMergedRoadmaps } from '../../hooks/useMergedRoadmaps';
 import './index.less';
 
 const LEVELS: RoadmapLevel[] = ['入门', '进阶', '高级', '实战'];
@@ -15,7 +14,7 @@ const CATEGORY_LABELS: Record<CategoryTab, string> = {
 };
 
 const Roadmap: React.FC = () => {
-  const { roadmaps, languageRoadmaps, techRoadmaps } = useRoadmaps();
+  const { roadmaps, languageRoadmaps, techRoadmaps } = useMergedRoadmaps();
   const [category, setCategory] = useState<CategoryTab>('all');
 
   const filtered =
@@ -43,19 +42,14 @@ const Roadmap: React.FC = () => {
           <span className="rm-hero-badge"><NodeIndexOutlined /> 学习路线</span>
           <h1 className="rm-hero-title">编程语言 & 技术方向学习路线</h1>
           <p className="rm-hero-sub">
-            涵盖编程语言与 11 大技术方向专属路径，由「入门 → 进阶 → 高级 → 实战」四阶段组成，支持自动爬取权威技术动态并迭代更新
+            涵盖编程语言与 11 大技术方向专属路径，由「入门 → 进阶 → 高级 → 实战」四阶段组成，清晰列出每个阶段需要掌握的知识点
           </p>
-          <div className="rm-hero-actions">
-            <div className="rm-legend">
-              {LEVELS.map((lv) => (
-                <span key={lv} className="rm-legend-item">
-                  <i style={{ background: LEVEL_COLORS[lv] }} />{lv}
-                </span>
-              ))}
-            </div>
-            <Link to="/roadmap/admin" className="rm-admin-link">
-              <SettingOutlined /> 管理后台
-            </Link>
+          <div className="rm-legend">
+            {LEVELS.map((lv) => (
+              <span key={lv} className="rm-legend-item">
+                <i style={{ background: LEVEL_COLORS[lv] }} />{lv}
+              </span>
+            ))}
           </div>
         </div>
       </section>

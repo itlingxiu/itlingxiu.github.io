@@ -2,6 +2,12 @@ import type { TechSource, TechUpdate, CrawlResult } from './types';
 
 export type FetchFn = (url: string) => Promise<string>;
 
+function canFetchExternal(): boolean {
+  // 浏览器端禁止跨域爬取；Node/测试环境允许
+  if (import.meta.env.VITEST) return true;
+  return typeof window === 'undefined';
+}
+
 const VERSION_PATTERN = /v?\d+\.\d+(?:\.\d+)?/gi;
 const TECH_KEYWORDS = [
   'release', 'update', 'new', 'deprecated', 'breaking',
@@ -120,7 +126,7 @@ export async function crawlSource(
   useFallback = true,
 ): Promise<{ updates: TechUpdate[]; error?: string }> {
   try {
-    if (source.type === 'rss') {
+    if (canFetchExternal() && source.type === 'rss') {
       const xml = await fetchFn(source.url);
       const updates = parseRssItems(xml, source);
       if (updates.length > 0) return { updates };

@@ -1,5 +1,5 @@
 import type { Roadmap } from '../../data/learningRoadmaps';
-import type { TechSource, PipelineResult } from './types';
+import type { TechSource, PipelineResult, CrawlResult } from './types';
 import { crawlAllSources, type FetchFn } from './crawler';
 import { analyzeUpdates, reorderTopicsByRelevance, applyProposals } from './updater';
 import { detectEmergingTech, generateRoadmapsFromEmerging } from './trendAnalyzer';
@@ -15,11 +15,11 @@ export async function runRoadmapPipeline(
   sources: TechSource[],
   baseRoadmaps: Roadmap[],
   fetchFn: FetchFn,
-  options: { useFallback?: boolean; applyReorder?: boolean } = {},
+  options: { useFallback?: boolean; applyReorder?: boolean; crawl?: CrawlResult } = {},
 ): Promise<PipelineResult> {
-  const { useFallback = true, applyReorder = true } = options;
+  const { useFallback = true, applyReorder = true, crawl: prebuiltCrawl } = options;
 
-  const crawl = await crawlAllSources(sources, fetchFn, useFallback);
+  const crawl = prebuiltCrawl ?? await crawlAllSources(sources, fetchFn, useFallback);
   let proposals = analyzeUpdates(baseRoadmaps, crawl.updates);
 
   if (applyReorder) {

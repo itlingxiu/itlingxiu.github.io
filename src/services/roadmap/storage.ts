@@ -1,5 +1,15 @@
+import { isValidElement } from 'react';
 import type { Roadmap } from '../../data/learningRoadmaps';
 import type { RoadmapChangeProposal, RoadmapSyncState } from './types';
+
+function withValidIcon(roadmap: Roadmap, fallback?: Roadmap): Roadmap {
+  if (isValidElement(roadmap.icon)) return roadmap;
+  if (fallback && isValidElement(fallback.icon)) {
+    return { ...roadmap, icon: fallback.icon };
+  }
+  const { icon: _removed, ...rest } = roadmap;
+  return { ...rest, icon: fallback?.icon ?? null } as Roadmap;
+}
 
 const STORAGE_KEY = 'roadmap-sync-state';
 
@@ -37,16 +47,22 @@ export function mergeRoadmaps(
     map.set(r.key, r);
   }
   for (const r of state.dynamicRoadmaps) {
-    map.set(r.key, r);
+    const base = map.get(r.key) ?? baseRoadmaps.find((b) => b.key === r.key);
+    map.set(r.key, withValidIcon(r, base));
   }
   for (const [key, override] of Object.entries(state.approvedOverrides)) {
     const existing = map.get(key);
     if (existing) {
-      map.set(key, { ...existing, ...override, stages: override.stages ?? existing.stages });
+      const merged = {
+        ...existing,
+        ...override,
+        stages: override.stages ?? existing.stages,
+      };
+      map.set(key, withValidIcon(merged, existing));
     }
   }
 
-  return [...map.values()];
+  return [...map.values()].map((r) => withValidIcon(r, baseRoadmaps.find((b) => b.key === r.key)));
 }
 
 export function addPendingProposals(

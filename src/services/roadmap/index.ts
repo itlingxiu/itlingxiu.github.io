@@ -5,3 +5,4 @@ export * from './trendAnalyzer';
 export * from './roadmapGenerator';
 export * from './storage';
 export * from './pipeline';
+export * from './browserSync';
