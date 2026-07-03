@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import { postJson, fetchJson } from './lib/http.mjs';
 import { beijingDateKey } from './lib/beijing.mjs';
 import { extractAlgoSeed, loadExistingJson, normKey } from './lib/seed.mjs';
+import { enrichLeetCodeProblem } from './lib/leetcode-enrich.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = join(__dirname, '../public/data');
@@ -73,13 +74,17 @@ async function fetchLeetCode(skip, limit) {
   );
   const questions = data?.data?.problemsetQuestionList?.questions;
   if (!questions?.length) throw new Error(data?.errors?.[0]?.message || 'leetcode empty');
-  return questions.map((q) => {
+
+  const seedByTitle = new Map(extractAlgoSeed().map((p) => [normKey(p.title), p.id]));
+  const items = [];
+
+  for (const q of questions) {
     const tags = (q.topicTags ?? []).map((t) => t.nameTranslated || t.name);
     const hotCompanies = (q.extra?.topCompanyTags ?? [])
       .map((c) => COMPANY_LABEL[c.slug] ?? c.slug)
       .slice(0, 3);
     const title = q.titleCn || q.title;
-    return {
+    const base = {
       title,
       titleSlug: q.titleSlug,
       tags,
@@ -87,11 +92,28 @@ async function fetchLeetCode(skip, limit) {
       acceptance: Math.round((q.acRate ?? 0) * 10000) / 100,
       source: 'leetcode',
       sourceUrl: `https://leetcode.cn/problems/${q.titleSlug}/`,
+      hotCompanies: hotCompanies.length ? hotCompanies : ['力扣高频'],
+      solutionRef: seedByTitle.get(normKey(title)),
+    };
+
+    try {
+      const extra = await enrichLeetCodeProblem(q.titleSlug);
+      if (extra) {
+        items.push({ ...base, ...extra });
+        continue;
+      }
+    } catch {
+      /* fallback */
+    }
+
+    items.push({
+      ...base,
       statement: `力扣原题：${title}。完整题面与测试用例请访问力扣官网。`,
       approach: '可参考力扣官方题解与讨论区的高赞思路。',
-      hotCompanies: hotCompanies.length ? hotCompanies : ['力扣高频'],
-    };
-  });
+    });
+  }
+
+  return items;
 }
 
 async function fetchNowcoderCoding(topicId, page, pageSize) {
@@ -113,17 +135,36 @@ async function fetchNowcoderCoding(topicId, page, pageSize) {
 }
 
 function mergeProblems(seed, fetched, existing = []) {
+  const seedByTitle = new Map(seed.map((p) => [normKey(p.title), p.id]));
   const map = new Map();
+
   const put = (p) => {
     const key = normKey(p.title);
-    if (!key || map.has(key)) return;
-    map.set(key, p);
+    if (!key) return;
+    const solutionRef = p.solutionRef ?? seedByTitle.get(key);
+    const next = { ...p, solutionRef };
+    const prev = map.get(key);
+    if (!prev) {
+      map.set(key, next);
+      return;
+    }
+    const prevScore =
+      (prev.statementZh?.length ?? 0) +
+      (prev.approachZh?.length ?? 0) +
+      Object.keys(prev.solutions ?? {}).length * 200;
+    const nextScore =
+      (next.statementZh?.length ?? 0) +
+      (next.approachZh?.length ?? 0) +
+      Object.keys(next.solutions ?? {}).length * 200;
+    map.set(key, nextScore >= prevScore ? { ...prev, ...next, solutionRef: next.solutionRef ?? prev.solutionRef } : prev);
   };
+
   [...seed, ...existing, ...fetched].forEach(put);
   return [...map.values()].map((p, i) => ({
     ...p,
     id: i + 1,
     hotCompanies: p.hotCompanies ?? [],
+    solutionRef: p.solutionRef ?? seedByTitle.get(normKey(p.title)),
   }));
 }
 
@@ -134,7 +175,7 @@ async function main() {
   const skip = (parseInt(dayKey.replace(/-/g, ''), 10) % 40) * 50;
 
   try {
-    const lc = await fetchLeetCode(skip, 50);
+    const lc = await fetchLeetCode(skip, 15);
     fetched.push(...lc);
     console.log(`[algo-sync] 力扣 ${lc.length} 题 (skip=${skip})`);
   } catch (err) {

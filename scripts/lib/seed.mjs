@@ -39,7 +39,9 @@ export function extractQuizSeed() {
 export function extractAlgoSeed() {
   const file = join(ROOT, 'src/pages/AlgorithmHub/index.tsx');
   const src = readFileSync(file, 'utf-8');
-  const block = src.match(/const PROBLEMS: AlgoProblem\[\] = \[([\s\S]*?)\];/);
+  const block =
+    src.match(/const SEED_PROBLEMS: AlgoProblem\[\] = \[([\s\S]*?)\];/) ||
+    src.match(/const PROBLEMS: AlgoProblem\[\] = \[([\s\S]*?)\];/);
   if (!block) return [];
 
   const re =

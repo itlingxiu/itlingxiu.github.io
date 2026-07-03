@@ -1,4 +1,6 @@
 export type AlgoDifficulty = '简单' | '中等' | '困难';
+export type SolutionLang = 'javascript' | 'typescript' | 'python' | 'java' | 'cpp' | 'go';
+export type ProblemSolutions = Partial<Record<SolutionLang, string>>;
 
 export interface AlgoProblem {
   id: number;
@@ -9,6 +11,11 @@ export interface AlgoProblem {
   hotCompanies: string[];
   statement: string;
   approach: string;
+  statementZh?: string;
+  statementEn?: string;
+  approachZh?: string;
+  solutionRef?: number;
+  solutions?: ProblemSolutions;
   source?: 'seed' | 'leetcode' | 'nowcoder';
   sourceUrl?: string;
   titleSlug?: string;

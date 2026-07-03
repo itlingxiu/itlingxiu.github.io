@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-03T00:31:35.845Z",
+  "crawledAt": "2026-07-03T02:03:22.707Z",
   "dateKey": "2026-07-03",
   "sources": [
     "leetcode-cn",
@@ -22,7 +22,8 @@
       ],
       "statement": "在整数数组中找到两个元素，使其和等于目标值 target，返回下标。",
       "approach": "哈希表存 value→index，遍历 x 时查 target−x 是否存在，O(n)。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 1
     },
     {
       "id": 2,
@@ -41,7 +42,8 @@
       ],
       "statement": "求字符串中不含重复字符的最长连续子串长度。",
       "approach": "滑动窗口 + 哈希记录字符最后出现位置，右扩左收，O(n)。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 2
     },
     {
       "id": 3,
@@ -58,7 +60,8 @@
       ],
       "statement": "将两个升序链表合并为一个升序链表。",
       "approach": "哑节点迭代比较头结点；或递归取较小头并链接。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 3
     },
     {
       "id": 4,
@@ -75,7 +78,8 @@
       ],
       "statement": "判断仅含 ()[]{} 的字符串括号是否合法配对。",
       "approach": "栈遇左括号入栈，遇右括号与栈顶匹配否则 false。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 4
     },
     {
       "id": 5,
@@ -93,7 +97,8 @@
       ],
       "statement": "整数数组中找连续子数组使其和最大。",
       "approach": "Kadane：dp[i]=max(nums[i], dp[i−1]+nums[i])，可压缩为单变量。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 5
     },
     {
       "id": 6,
@@ -110,7 +115,8 @@
       ],
       "statement": "若干闭区间合并所有重叠部分。",
       "approach": "按左端排序，扫描合并与上一段重叠的区间。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 6
     },
     {
       "id": 7,
@@ -128,7 +134,8 @@
       ],
       "statement": "返回二叉树按层、从左到右的节点值列表。",
       "approach": "队列 BFS，每层处理固定长度 size。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 7
     },
     {
       "id": 8,
@@ -146,7 +153,8 @@
       ],
       "statement": "求二叉树最大深度（根到叶最长路径边数）。",
       "approach": "递归 max(depth(L), depth(R))+1；或 BFS 层数。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 8
     },
     {
       "id": 9,
@@ -163,24 +171,26 @@
       ],
       "statement": "每次可爬 1 或 2 阶，求 n 阶方案数。",
       "approach": "斐波那契：f(n)=f(n−1)+f(n−2)，滚动数组 O(1) 空间。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 9
     },
     {
       "id": 10,
       "title": "反转链表",
       "tags": [
-        "链表",
-        "递归"
+        "链表"
       ],
       "difficulty": "简单",
-      "acceptance": 74,
+      "acceptance": 40.13,
       "hotCompanies": [
-        "字节",
-        "华为"
+        "牛客高频"
       ],
-      "statement": "反转单链表并返回新头结点。",
-      "approach": "三指针迭代；或递归反转后继再改指向。",
-      "source": "seed"
+      "statement": "牛客编程题 JZ24：反转链表。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "source": "nowcoder",
+      "solutionRef": 10,
+      "titleSlug": "75e878df47f24fdc9dc3e400ec6058ca",
+      "sourceUrl": "https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca"
     },
     {
       "id": 11,
@@ -197,7 +207,8 @@
       ],
       "statement": "判断链表中是否存在环。",
       "approach": "快慢指针，若有环必相遇。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 11
     },
     {
       "id": 12,
@@ -215,7 +226,8 @@
       ],
       "statement": "找出所有不重复三元组使其和为 0。",
       "approach": "排序后固定 i，双指针 j,k 向中间收，去重。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 12
     },
     {
       "id": 13,
@@ -233,7 +245,8 @@
       ],
       "statement": "数组中最长严格递增子序列长度。",
       "approach": "O(n²) DP；或 patience sorting + 二分维护 tails 数组 O(n log n)。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 13
     },
     {
       "id": 14,
@@ -252,7 +265,8 @@
       ],
       "statement": "由 1（陆地）和 0（水）组成的网格，求岛屿个数。",
       "approach": "遍历遇到 1 即 DFS/BFS 标记连通块为 0，计数+1。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 14
     },
     {
       "id": 15,
@@ -269,7 +283,8 @@
       ],
       "statement": "无重复数组，返回所有排列。",
       "approach": "回溯：路径 + used 集合，到达长度 n 收集。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 15
     },
     {
       "id": 16,
@@ -286,7 +301,8 @@
       ],
       "statement": "不同面值硬币无限枚，凑成 amount 最少枚数，无解返回 −1。",
       "approach": "完全背包：dp[i]=min(dp[i−c])+1，BFS 亦可。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 16
     },
     {
       "id": 17,
@@ -304,7 +320,8 @@
       ],
       "statement": "最多一笔交易，求最大利润。",
       "approach": "遍历维护历史最低买价，当日卖价减买价取 max。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 17
     },
     {
       "id": 18,
@@ -323,7 +340,8 @@
       ],
       "statement": "返回出现次数前 k 高的元素。",
       "approach": "小顶堆维护 k 个；或桶按频次倒序收集。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 18
     },
     {
       "id": 19,
@@ -340,7 +358,8 @@
       ],
       "statement": "二叉树中两节点的最近公共祖先。",
       "approach": "递归：若当前为 p/q 之一或左右子树各找到一个则返回当前。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 19
     },
     {
       "id": 20,
@@ -358,7 +377,8 @@
       ],
       "statement": "网格中能否沿相邻格子拼出给定单词。",
       "approach": "回溯 DFS，访问标记回溯，剪枝首字母匹配。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 20
     },
     {
       "id": 21,
@@ -377,7 +397,8 @@
       ],
       "statement": "非负高度数组柱状图，求能接的雨水总量。",
       "approach": "双指针左右 max；或单调栈计算凹槽。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 21
     },
     {
       "id": 22,
@@ -394,7 +415,8 @@
       ],
       "statement": "将 word1 转为 word2 的最少操作数（插入/删除/替换）。",
       "approach": "二维 DP，字符相等则继承左上，否则 1+三方向最小。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 22
     },
     {
       "id": 23,
@@ -412,7 +434,8 @@
       ],
       "statement": "合并 k 个有序链表为一个有序链表。",
       "approach": "小顶堆存节点指针；或分治两两 merge。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 23
     },
     {
       "id": 24,
@@ -430,7 +453,8 @@
       ],
       "statement": "只含 ( ) 的字符串中最长合法括号子串长度。",
       "approach": "栈底压哨兵索引；或 DP[i] 以 i 结尾的最长长度。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 24
     },
     {
       "id": 25,
@@ -448,7 +472,8 @@
       ],
       "statement": "每行每列升序的矩阵中判断 target 是否存在。",
       "approach": "从右上角走「二叉搜索树」式排除行或列，O(m+n)。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 25
     },
     {
       "id": 26,
@@ -465,7 +490,8 @@
       ],
       "statement": "按螺旋顺序返回矩阵所有元素。",
       "approach": "四边界 while 循环，依次向右下左上收缩。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 26
     },
     {
       "id": 27,
@@ -481,7 +507,8 @@
       ],
       "statement": "无符号整数二进制中 1 的个数。",
       "approach": "n &= n-1 每次清除最低位 1；或查表。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 27
     },
     {
       "id": 28,
@@ -499,7 +526,8 @@
       ],
       "statement": "实现 O(1) get/put 的 LRU 缓存。",
       "approach": "哈希 + 双向链表维护顺序；或 OrderedDict 思路自实现。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 28
     },
     {
       "id": 29,
@@ -516,7 +544,8 @@
       ],
       "statement": "实现栈，O(1) 返回当前栈中最小值。",
       "approach": "辅助栈同步压入当前最小值；或栈存 (val, minSoFar)。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 29
     },
     {
       "id": 30,
@@ -535,7 +564,8 @@
       ],
       "statement": "数组中出现次数 > ⌊n/2⌋ 的元素。",
       "approach": "Boyer-Moore 投票；或哈希计数。",
-      "source": "seed"
+      "source": "seed",
+      "solutionRef": 30
     },
     {
       "title": "数组中重复的数字",
@@ -720,7 +750,7 @@
         "递归"
       ],
       "difficulty": "困难",
-      "acceptance": 24.84,
+      "acceptance": 24.85,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8",
       "statement": "牛客编程题 JZ13：机器人的运动范围。完整描述请访问牛客练习页。",
@@ -1049,10 +1079,9 @@
         "滑动窗口"
       ],
       "difficulty": "中等",
-      "acceptance": 56.35,
+      "acceptance": 56.36,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/minimum-swaps-to-group-all-1s-together/",
-      "statement": "力扣原题：最少交换次数来组合所有的 1。完整题面与测试用例请访问力扣官网。",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "亚马逊",
@@ -1074,7 +1103,6 @@
       "acceptance": 44.4,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/analyze-user-website-visit-pattern/",
-      "statement": "力扣原题：用户网站访问行为分析。完整题面与测试用例请访问力扣官网。",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "亚马逊",
@@ -1095,7 +1123,6 @@
       "acceptance": 40.38,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/string-transforms-into-another-string/",
-      "statement": "力扣原题：字符串转化。完整题面与测试用例请访问力扣官网。",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "谷歌",
@@ -1115,14 +1142,23 @@
       "acceptance": 62.28,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/day-of-the-year/",
-      "statement": "力扣原题：一年中的第几天。完整题面与测试用例请访问力扣官网。",
+      "statement": "给你一个字符串 date ，按 YYYY-MM-DD 格式表示一个 现行公元纪年法 日期。返回该日期是当年的第几天。\n\n \n\n示例 1：\n\n输入：date = \"2019-01-09\"\n输出：9\n解释：给定日期是2019年的第九天。\n\n示例 2：\n\n输入：date = \"2019-02-10\"\n输出：41\n\n \n\n提示：\n\n\tdate.length == 10\n\n\tdate[4] == date[7] == '-'，其他的 date[i] 都是数字\n\n\tdate 表示的范围从 1900 年 1 月 1 日至 2019 年 12 月 31 日",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "谷歌",
         "亚马逊",
         "facebook"
       ],
-      "id": 63
+      "id": 63,
+      "statementZh": "给你一个字符串 date ，按 YYYY-MM-DD 格式表示一个 现行公元纪年法 日期。返回该日期是当年的第几天。\n\n \n\n示例 1：\n\n输入：date = \"2019-01-09\"\n输出：9\n解释：给定日期是2019年的第九天。\n\n示例 2：\n\n输入：date = \"2019-02-10\"\n输出：41\n\n \n\n提示：\n\n\tdate.length == 10\n\n\tdate[4] == date[7] == '-'，其他的 date[i] 都是数字\n\n\tdate 表示的范围从 1900 年 1 月 1 日至 2019 年 12 月 31 日",
+      "statementEn": "Given a string date representing a Gregorian calendar date formatted as YYYY-MM-DD, return the day number of the year.\n\n \n\nExample 1:\n\nInput: date = \"2019-01-09\"\nOutput: 9\nExplanation: Given date is the 9th day of the year in 2019.\n\nExample 2:\n\nInput: date = \"2019-02-10\"\nOutput: 41\n\n \n\nConstraints:\n\n\tdate.length == 10\n\n\tdate[4] == date[7] == &#39;-&#39;, and all other date[i]&#39;s are digits\n\n\tdate represents a calendar date between Jan 1st, 1900 and Dec 31st, 2019.",
+      "solutions": {
+        "cpp": "public class Solution {\n    public int DayOfYear(string date) {\n        int year = int.Parse(date.Substring(0, 4));\n        int month = int.Parse(date.Substring(5, 2));\n        int day = int.Parse(date.Substring(8));\n\n        int[] amount = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};\n        if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {\n            ++amount[1];\n        }\n\n        int ans = 0;\n        for (int i = 0; i < month - 1; ++i) {\n            ans += amount[i];\n        }\n        return ans + day;\n    }\n}",
+        "java": "class Solution {\n    public int dayOfYear(String date) {\n        int year = Integer.parseInt(date.substring(0, 4));\n        int month = Integer.parseInt(date.substring(5, 7));\n        int day = Integer.parseInt(date.substring(8));\n\n        int[] amount = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};\n        if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {\n            ++amount[1];\n        }\n\n        int ans = 0;\n        for (int i = 0; i < month - 1; ++i) {\n            ans += amount[i];\n        }\n        return ans + day;\n    }\n}",
+        "python": "class Solution:\n    def dayOfYear(self, date: str) -> int:\n        year, month, day = [int(x) for x in date.split(\"-\")]\n\n        amount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n        if year % 400 == 0 or (year % 4 == 0 and year % 100 != 0):\n            amount[1] += 1\n\n        ans = sum(amount[:month - 1])\n        return ans + day",
+        "go": "func dayOfYear(date string) int {\n    year, _ := strconv.Atoi(date[:4])\n    month, _ := strconv.Atoi(date[5:7])\n    day, _ := strconv.Atoi(date[8:])\n\n    days := []int{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}\n    if year%400 == 0 || (year%4 == 0 && year%100 != 0) {\n        days[1]++\n    }\n\n    ans := day\n    for _, d := range days[:month-1] {\n        ans += d\n    }\n    return ans\n}",
+        "javascript": "var dayOfYear = function(date) {\n    const year = +date.slice(0, 4);\n    const month = +date.slice(5, 7);\n    const day = +date.slice(8);\n\n    const amount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\n        ++amount[1];\n    }\n\n    let ans = 0;\n    for (let i = 0; i < month - 1; ++i) {\n        ans += amount[i];\n    }\n    return ans + day;\n};"
+      }
     },
     {
       "title": "掷骰子等于目标和的方法数",
@@ -1134,14 +1170,23 @@
       "acceptance": 65.91,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum/",
-      "statement": "力扣原题：掷骰子等于目标和的方法数。完整题面与测试用例请访问力扣官网。",
+      "statement": "这里有 n 个一样的骰子，每个骰子上都有 k 个面，分别标号为 1 到 k 。\n\n给定三个整数 n、k 和 target，请返回投掷骰子的所有可能得到的结果（共有 kn 种方式），使得骰子面朝上的数字总和等于 target。\n\n由于答案可能很大，你需要对 109 + 7 取模。\n\n \n\n示例 1：\n\n输入：n = 1, k = 6, target = 3\n输出：1\n解释：你掷了一个有 6 个面的骰子。\n得到总和为 3 的结果的方式只有一种。\n\n示例 2：\n\n输入：n = 2, k = 6, target = 7\n输出：6\n解释：你掷了两个骰子，每个骰子有 6 个面。\n有 6 种方式得到总和为 7 的结果: 1+6, 2+5, 3+4, 4+3, 5+2, 6+1。\n\n示例 3：\n\n输入：n = 30, k = 30, target = 500\n输出：222616187\n解释：返回的结果必须对 109 + 7 取模。\n\n \n\n提示：\n\n\t1 <= n, k <= 30\n\n\t1 <= target <= 1000",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "亚马逊",
         "谷歌",
         "微软"
       ],
-      "id": 64
+      "id": 64,
+      "statementZh": "这里有 n 个一样的骰子，每个骰子上都有 k 个面，分别标号为 1 到 k 。\n\n给定三个整数 n、k 和 target，请返回投掷骰子的所有可能得到的结果（共有 kn 种方式），使得骰子面朝上的数字总和等于 target。\n\n由于答案可能很大，你需要对 109 + 7 取模。\n\n \n\n示例 1：\n\n输入：n = 1, k = 6, target = 3\n输出：1\n解释：你掷了一个有 6 个面的骰子。\n得到总和为 3 的结果的方式只有一种。\n\n示例 2：\n\n输入：n = 2, k = 6, target = 7\n输出：6\n解释：你掷了两个骰子，每个骰子有 6 个面。\n有 6 种方式得到总和为 7 的结果: 1+6, 2+5, 3+4, 4+3, 5+2, 6+1。\n\n示例 3：\n\n输入：n = 30, k = 30, target = 500\n输出：222616187\n解释：返回的结果必须对 109 + 7 取模。\n\n \n\n提示：\n\n\t1 <= n, k <= 30\n\n\t1 <= target <= 1000",
+      "statementEn": "You have n dice, and each dice has k faces numbered from 1 to k.\n\nGiven three integers n, k, and target, return the number of possible ways (out of the kn total ways) to roll the dice, so the sum of the face-up numbers equals target. Since the answer may be too large, return it modulo 109 + 7.\n\n \n\nExample 1:\n\nInput: n = 1, k = 6, target = 3\nOutput: 1\nExplanation: You throw one die with 6 faces.\nThere is only one way to get a sum of 3.\n\nExample 2:\n\nInput: n = 2, k = 6, target = 7\nOutput: 6\nExplanation: You throw two dice, each with 6 faces.\nThere are 6 ways to get a sum of 7: 1+6, 2+5, 3+4, 4+3, 5+2, 6+1.\n\nExample 3:\n\nInput: n = 30, k = 30, target = 500\nOutput: 222616187\nExplanation: The answer must be returned modulo 109 + 7.\n\n \n\nConstraints:\n\n\t1 <= n, k <= 30\n\n\t1 <= target <= 1000",
+      "solutions": {
+        "cpp": "public class Solution {\n    const int MOD = 1000000007;\n\n    public int NumRollsToTarget(int n, int k, int target) {\n        int[][] f = new int[n + 1][];\n        for (int i = 0; i <= n; ++i) {\n            f[i] = new int[target + 1];\n        }\n        f[0][0] = 1;\n        for (int i = 1; i <= n; ++i) {\n            for (int j = 0; j <= target; ++j) {\n                for (int x = 1; x <= k; ++x) {\n                    if (j - x >= 0) {\n                        f[i][j] = (f[i][j] + f[i - 1][j - x]) % MOD;\n                    }\n                }\n            }\n        }\n        return f[n][target];\n    }\n}",
+        "java": "class Solution {\n    static final int MOD = 1000000007;\n\n    public int numRollsToTarget(int n, int k, int target) {\n        int[] f = new int[target + 1];\n        f[0] = 1;\n        for (int i = 1; i <= n; ++i) {\n            int[] g = new int[target + 1];\n            for (int j = 0; j <= target; ++j) {\n                for (int x = 1; x <= k; ++x) {\n                    if (j - x >= 0) {\n                        g[j] = (g[j] + f[j - x]) % MOD;\n                    }\n                }\n            }\n            f = g;\n        }\n        return f[target];\n    }\n}",
+        "python": "class Solution:\n    def numRollsToTarget(self, n: int, k: int, target: int) -> int:\n        mod = 10**9 + 7\n        f = [[0] * (target + 1) for _ in range(n + 1)]\n        f[0][0] = 1\n        for i in range(1, n + 1):\n            for j in range(target + 1):\n                for x in range(1, k + 1):\n                    if j - x >= 0:\n                        f[i][j] = (f[i][j] + f[i - 1][j - x]) % mod\n        return f[n][target]",
+        "go": "func numRollsToTarget(n int, k int, target int) int {\n    mod := int(1e9 + 7)\n    f := make([][]int, n + 1)\n    for i := 0; i <= n; i++ {\n        f[i] = make([]int, target + 1)\n    }\n    f[0][0] = 1;\n    for i := 1; i <= n; i++ {\n        for j := 0; j <= target; j++ {\n            for x := 1; x <= k; x++ {\n                if j - x >= 0 {\n                    f[i][j] = (f[i][j] + f[i - 1][j - x]) % mod\n                }\n            }\n        }\n    }\n    return f[n][target]\n}",
+        "javascript": "var numRollsToTarget = function(n, k, target) {\n    const mod = 1e9 + 7;\n    f = new Array(target + 1).fill(0);\n    f[0] = 1;\n    for (let i = 1; i <= n; i++) {\n        g = new Array(target + 1).fill(0);\n        for (let j = 0; j <= target; j++) {\n            for (let x = 1; x <= k; x++) {\n                if (j - x >= 0) {\n                    g[j] = (g[j] + f[j - x]) % mod;\n                }\n            }\n        }\n        f = g;\n    }\n    return f[target];\n};"
+      }
     },
     {
       "title": "单字符重复子串的最大长度",
@@ -1155,14 +1200,23 @@
       "acceptance": 51.52,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/swap-for-longest-repeated-character-substring/",
-      "statement": "力扣原题：单字符重复子串的最大长度。完整题面与测试用例请访问力扣官网。",
+      "statement": "如果字符串中的所有字符都相同，那么这个字符串是单字符重复的字符串。\n\n给你一个字符串 text，你只能交换其中两个字符一次或者什么都不做，然后得到一些单字符重复的子串。返回其中最长的子串的长度。\n\n \n\n示例 1：\n\n输入：text = \"ababa\"\n输出：3\n\n示例 2：\n\n输入：text = \"aaabaaa\"\n输出：6\n\n示例 3：\n\n输入：text = \"aaabbaaa\"\n输出：4\n\n示例 4：\n\n输入：text = \"aaaaa\"\n输出：5\n\n示例 5：\n\n输入：text = \"abcdef\"\n输出：1\n\n \n\n提示：\n\n\t1 <= text.length <= 20000\n\n\ttext 仅由小写英文字母组成。",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "微软",
         "亚马逊",
         "谷歌"
       ],
-      "id": 65
+      "id": 65,
+      "statementZh": "如果字符串中的所有字符都相同，那么这个字符串是单字符重复的字符串。\n\n给你一个字符串 text，你只能交换其中两个字符一次或者什么都不做，然后得到一些单字符重复的子串。返回其中最长的子串的长度。\n\n \n\n示例 1：\n\n输入：text = \"ababa\"\n输出：3\n\n示例 2：\n\n输入：text = \"aaabaaa\"\n输出：6\n\n示例 3：\n\n输入：text = \"aaabbaaa\"\n输出：4\n\n示例 4：\n\n输入：text = \"aaaaa\"\n输出：5\n\n示例 5：\n\n输入：text = \"abcdef\"\n输出：1\n\n \n\n提示：\n\n\t1 <= text.length <= 20000\n\n\ttext 仅由小写英文字母组成。",
+      "statementEn": "You are given a string text. You can swap two of the characters in the text.\n\nReturn the length of the longest substring with repeated characters.\n\n \n\nExample 1:\n\nInput: text = \"ababa\"\nOutput: 3\nExplanation: We can swap the first &#39;b&#39; with the last &#39;a&#39;, or the last &#39;b&#39; with the first &#39;a&#39;. Then, the longest repeated character substring is \"aaa\" with length 3.\n\nExample 2:\n\nInput: text = \"aaabaaa\"\nOutput: 6\nExplanation: Swap &#39;b&#39; with the last &#39;a&#39; (or the first &#39;a&#39;), and we get longest repeated character substring \"aaaaaa\" with length 6.\n\nExample 3:\n\nInput: text = \"aaaaa\"\nOutput: 5\nExplanation: No need to swap, longest repeated character substring is \"aaaaa\" with length is 5.\n\n \n\nConstraints:\n\n\t1 <= text.length <= 2 * 104\n\n\ttext consist of lowercase English characters only.",
+      "solutions": {
+        "cpp": "public class Solution {\n    public int MaxRepOpt1(string text) {\n        IDictionary<char, int> count = new Dictionary<char, int>();\n        foreach (char c in text) {\n            count.TryAdd(c, 0);\n            count[c]++;\n        }\n\n        int res = 0;\n        for (int i = 0; i < text.Length; ) {\n            // step1: 找出当前连续的一段 [i, j)\n            int j = i;\n            while (j < text.Length && text[j] == text[i]) {\n                j++;\n            }\n            int curCnt = j - i;\n\n            // step2: 如果这一段长度小于该字符出现的总数，并且前面或后面有空位，则使用 curCnt + 1 更新答案\n            if (curCnt < (count.ContainsKey(text[i]) ? count[text[i]] : 0) && (j < text.Length || i > 0)) {\n                res = Math.Max(res, curCnt + 1);\n            }\n\n            // step3: 找到这一段后面与之相隔一个不同字符的另一段 [j + 1, k)，如果不存在则 k = j + 1 \n            int k = j + 1;\n            while (k < text.Length && text[k] == text[i]) {\n                k++;\n            }\n            res = Math.Max(res, Math.Min(k - i, count.ContainsKey(text[i]) ? count[text[i]] : 0));\n            i = j;\n        }\n        return res;\n    }\n}",
+        "java": "class Solution {\n    public int maxRepOpt1(String text) {\n        Map<Character, Integer> count = new HashMap<Character, Integer>();\n        for (int i = 0; i < text.length(); i++) {\n            char c = text.charAt(i);\n            count.put(c, count.getOrDefault(c, 0) + 1);\n        }\n\n        int res = 0;\n        for (int i = 0; i < text.length(); ) {\n            // step1: 找出当前连续的一段 [i, j)\n            int j = i;\n            while (j < text.length() && text.charAt(j) == text.charAt(i)) {\n                j++;\n            }\n            int curCnt = j - i;\n\n            // step2: 如果这一段长度小于该字符出现的总数，并且前面或后面有空位，则使用 curCnt + 1 更新答案\n            if (curCnt < count.getOrDefault(text.charAt(i), 0) && (j < text.length() || i > 0)) {\n                res = Math.max(res, curCnt + 1);\n            }\n\n            // step3: 找到这一段后面与之相隔一个不同字符的另一段 [j + 1, k)，如果不存在则 k = j + 1 \n            int k = j + 1;\n            while (k < text.length() && text.charAt(k) == text.charAt(i)) {\n                k++;\n            }\n            res = Math.max(res, Math.min(k - i, count.getOrDefault(text.charAt(i), 0)));\n            i = j;\n        }\n        return res;\n    }\n}",
+        "python": "class Solution:\n    def maxRepOpt1(self, text: str) -> int:\n        count = Counter(text)\n        res = 0\n        i = 0\n        while i < len(text):\n            # step1: 找出当前连续的一段 [i, j)\n            j = i\n            while j < len(text) and text[j] == text[i]:\n                j += 1\n\n            # step2: 如果这一段长度小于该字符出现的总数，并且前面或后面有空位，则使用 cur_cnt + 1 更新答案\n            cur_cnt = j - i\n            if cur_cnt < count[text[i]] and (j < len(text) or i > 0):\n                res = max(res, cur_cnt + 1)\n\n            # step3: 找到这一段后面与之相隔一个不同字符的另一段 [j + 1, k)，如果不存在则 k = j + 1\n            k = j + 1\n            while k < len(text) and text[k] == text[i]:\n                k += 1\n            res = max(res, min(k - i, count[text[i]]))\n            i = j\n        return res",
+        "go": "func maxRepOpt1(text string) int {\n    count := make(map[rune]int)\n    for _, c := range text {\n        count[c]++\n    }\n\n    res := 0\n    i := 0\n    for i < len(text) {\n         // step1: 找出当前连续的一段 [i, j)\n        j := i\n        for j < len(text) && text[j] == text[i] {\n            j++\n        }\n        curCnt := j - i\n\n        // step2: 如果这一段长度小于该字符出现的总数，并且前面或后面有空位，则使用 cur_cnt + 1 更新答案\n        if curCnt < count[rune(text[i])] && (j < len(text) || i > 0) {\n            res = max(res, curCnt+1)\n        }\n\n        // step3: 找到这一段后面与之相隔一个不同字符的另一段 [j + 1, k)，如果不存在则 k = j + 1\n        k := j + 1\n        for k < len(text) && text[k] == text[i] {\n            k++\n        }\n        res = max(res, min(k-i, count[rune(text[i])]))\n        i = j\n    }\n\n    return res\n}\n\nfunc max(a, b int) int {\n    if a > b {\n        return a\n    }\n    return b\n}\n\nfunc min(a, b int) int {\n    if a < b {\n        return a\n    }\n    return b\n}",
+        "javascript": "var maxRepOpt1 = function(text) {\n    const count = new Map();\n    for (let i = 0; i < text.length; i++) {\n        const c = text[i];\n        count.set(c, (count.get(c) || 0) + 1);\n    }\n\n    let res = 0;\n    for (let i = 0; i < text.length; ) {\n        // step1: 找出当前连续的一段 [i, j)\n        let j = i;\n        while (j < text.length && text[j] === text[i]) {\n            j++;\n        }\n        let curCnt = j - i;\n\n        // step2: 如果这一段长度小于该字符出现的总数，并且前面或后面有空位，则使用 curCnt + 1 更新答案\n        if (curCnt < (count.get(text[i] || 0)) && (j < text.length || i > 0)) {\n            res = Math.max(res, curCnt + 1);\n        }\n\n        // step3: 找到这一段后面与之相隔一个不同字符的另一段 [j + 1, k)，如果不存在则 k = j + 1 \n        let k = j + 1;\n        while (k < text.length && text[k] === text[i]) {\n            k++;\n        }\n        res = Math.max(res, Math.min(k - i, (count.get(text[i]) || 0)));\n        i = j;\n    }\n    return res;\n};"
+      }
     },
     {
       "title": "子数组中占绝大多数的元素",
@@ -1178,14 +1232,23 @@
       "acceptance": 47.24,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/online-majority-element-in-subarray/",
-      "statement": "力扣原题：子数组中占绝大多数的元素。完整题面与测试用例请访问力扣官网。",
+      "statement": "设计一个数据结构，有效地找到给定子数组的 多数元素 。\n\n子数组的 多数元素 是在子数组中出现 threshold 次数或次数以上的元素。\n\n实现 MajorityChecker 类:\n\n\tMajorityChecker(int[] arr) 会用给定的数组 arr 对 MajorityChecker 初始化。\n\n\tint query(int left, int right, int threshold) 返回子数组中的元素  arr[left...right] 至少出现 threshold 次数，如果不存在这样的元素则返回 -1。\n\n \n\n示例 1：\n\n输入:\n[\"MajorityChecker\", \"query\", \"query\", \"query\"]\n[[[1, 1, 2, 2, 1, 1]], [0, 5, 4], [0, 3, 3], [2, 3, 2]]\n输出：\n[null, 1, -1, 2]\n\n解释：\nMajorityChecker majorityChecker = new MajorityChecker([1,1,2,2,1,1]);\nmajorityChecker.query(0,5,4); // 返回 1\nmajorityChecker.query(0,3,3); // 返回 -1\nmajorityChecker.query(2,3,2); // 返回 2\n\n \n\n提示：\n\n\t1 <= arr.length <= 2 * 104\n\n\t1 <= arr[i] <= 2 * 104\n\n\t0 <= left <= right < arr.length\n\n\tthreshold <= right - left + 1\n\n\t2 * threshold > right - left + 1\n\n\t调用 query 的次数最多为 104",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "谷歌",
         "nutanix",
         "字节"
       ],
-      "id": 66
+      "id": 66,
+      "statementZh": "设计一个数据结构，有效地找到给定子数组的 多数元素 。\n\n子数组的 多数元素 是在子数组中出现 threshold 次数或次数以上的元素。\n\n实现 MajorityChecker 类:\n\n\tMajorityChecker(int[] arr) 会用给定的数组 arr 对 MajorityChecker 初始化。\n\n\tint query(int left, int right, int threshold) 返回子数组中的元素  arr[left...right] 至少出现 threshold 次数，如果不存在这样的元素则返回 -1。\n\n \n\n示例 1：\n\n输入:\n[\"MajorityChecker\", \"query\", \"query\", \"query\"]\n[[[1, 1, 2, 2, 1, 1]], [0, 5, 4], [0, 3, 3], [2, 3, 2]]\n输出：\n[null, 1, -1, 2]\n\n解释：\nMajorityChecker majorityChecker = new MajorityChecker([1,1,2,2,1,1]);\nmajorityChecker.query(0,5,4); // 返回 1\nmajorityChecker.query(0,3,3); // 返回 -1\nmajorityChecker.query(2,3,2); // 返回 2\n\n \n\n提示：\n\n\t1 <= arr.length <= 2 * 104\n\n\t1 <= arr[i] <= 2 * 104\n\n\t0 <= left <= right < arr.length\n\n\tthreshold <= right - left + 1\n\n\t2 * threshold > right - left + 1\n\n\t调用 query 的次数最多为 104",
+      "statementEn": "Design a data structure that efficiently finds the majority element of a given subarray.\n\nThe majority element of a subarray is an element that occurs threshold times or more in the subarray.\n\nImplementing the MajorityChecker class:\n\n\tMajorityChecker(int[] arr) Initializes the instance of the class with the given array arr.\n\n\tint query(int left, int right, int threshold) returns the element in the subarray arr[left...right] that occurs at least threshold times, or -1 if no such element exists.\n\n \n\nExample 1:\n\nInput\n[\"MajorityChecker\", \"query\", \"query\", \"query\"]\n[[[1, 1, 2, 2, 1, 1]], [0, 5, 4], [0, 3, 3], [2, 3, 2]]\nOutput\n[null, 1, -1, 2]\n\nExplanation\nMajorityChecker majorityChecker = new MajorityChecker([1, 1, 2, 2, 1, 1]);\nmajorityChecker.query(0, 5, 4); // return 1\nmajorityChecker.query(0, 3, 3); // return -1\nmajorityChecker.query(2, 3, 2); // return 2\n\n \n\nConstraints:\n\n\t1 <= arr.length <= 2 * 104\n\n\t1 <= arr[i] <= 2 * 104\n\n\t0 <= left <= right < arr.length\n\n\tthreshold <= right - left + 1\n\n\t2 * threshold > right - left + 1\n\n\tAt most 104 calls will be made to query.",
+      "solutions": {
+        "cpp": "typedef struct Element {\n    int *arr;\n    int arrSize;\n} Element;\n\ntypedef struct {\n    int key;\n    Element *val;\n    UT_hash_handle hh;\n} HashItem; \n\ntypedef struct Node {\n    int x;\n    int cnt;\n} Node;\n\nHashItem *hashFindItem(HashItem **obj, int key) {\n    HashItem *pEntry = NULL;\n    HASH_FIND_INT(*obj, &key, pEntry);\n    return pEntry;\n}\n\nbool hashAddItem(HashItem **obj, int key, Element *val) {\n    if (hashFindItem(obj, key)) {\n        return false;\n    }\n    HashItem *pEntry = (HashItem *)malloc(sizeof(HashItem));\n    pEntry->key = key;\n    pEntry->val = val;\n    HASH_ADD_INT(*obj, key, pEntry);\n    return true;\n}\n\nElement* hashGetItem(HashItem **obj, int key) {\n    HashItem *pEntry = hashFindItem(obj, key);\n    if (!pEntry) {\n        return NULL;\n    }\n    return pEntry->val;\n}\n\nvoid hashFree(HashItem **obj) {\n    HashItem *curr = NULL, *tmp = NULL;\n    HASH_ITER(hh, *obj, curr, tmp) {\n        HASH_DEL(*obj, curr);  \n        free(curr->val->arr);\n        free(curr->val);\n        free(curr);             \n    }\n}\n\ntypedef struct {\n    int *arr;\n    int arrSize;\n    HashItem *loc;\n    Node *tree;\n} MajorityChecker;\n\nstatic int cmp(const void *pa, const void *pb) {\n    int *a = (int *)pa;\n    int *b = (int *)pb;\n    return a[0] - b[0];\n}\n\nvoid addNode(Node *node, Node *that) {\n    if (node->x == that->x) {\n        node->cnt += that->cnt;\n    } else if (node->cnt > that->cnt) {\n        node->cnt -= that->cnt;\n    } else {\n        node->x = that->x;\n        node->cnt = that->cnt - node->cnt;\n    }\n}\n\nvoid seg_build(Node *tree, const int *arr, int id, int l, int r) {\n    if (l == r) {\n        tree[id].x = arr[l];\n        tree[id].cnt = 1;\n        return;\n    }\n\n    int mid = (l + r) / 2;\n    seg_build(tree, arr, id * 2 + 1, l, mid);\n    seg_build(tree, arr, id * 2 + 2, mid + 1, r);\n    addNode(&tree[id], &tree[id * 2 + 1]);\n    addNode(&tree[id], &tree[id * 2 + 2]);\n}\n\nvoid seg_query(Node *tree, int id, int l, int r, int ql, int qr, Node* ans) {\n    if (l > qr || r < ql) {\n        return;\n    }\n    if (ql <= l && r <= qr) {\n        addNode(ans, &tree[id]);\n        return;\n    }\n    int mid = (l + r) / 2;\n    seg_query(tree, id * 2 + 1, l, mid, ql, qr, ans);\n    seg_query(tree, id * 2 + 2, mid + 1, r, ql, qr, ans);\n}\n\nint searchStart(const int *pos, int posSize, int target) {\n    int low = 0, high = posSize;\n    while (low < high) {\n        int mid = low + (high - low) / 2;\n        if (pos[mid] >= target) {\n            high = mid;\n        } else {\n            low = mid + 1;\n        }\n    }\n    return low;\n}\n\nint searchEnd(const int *pos, int posSize, int target) {\n    int low = 0, high = posSize;\n    while (low < high) {\n        int mid = low + (high - low) / 2;\n        if (pos[mid] > target) {\n            high = mid;\n        } else {\n            low = mid + 1;\n        }\n    }\n    return low;\n}\n\nMajorityChecker* majorityCheckerCreate(int* arr, int arrSize) {\n    MajorityChecker *obj = (MajorityChecker *)malloc(sizeof(MajorityChecker));\n    obj->arr = arr;\n    obj->arrSize = arrSize;\n    obj->loc = NULL;\n    int cnt[arrSize][2];\n    for (int i = 0; i < arrSize; i++) {\n        cnt[i][0] = arr[i];\n        cnt[i][1] = i;\n    }\n    qsort(cnt, arrSize, sizeof(cnt[0]), cmp);\n    for (int i = 0, j = 0; i <= arrSize; i++) {\n        if (i == arrSize || cnt[i][0] != cnt[j][0]) {\n            Element *cur = (Element *)malloc(sizeof(Element));\n            cur->arr = (int *)malloc(sizeof(int) * (i - j));\n            cur->arrSize = i - j;\n            for (int k = 0; k < i - j; k++) {\n                cur->arr[k] = cnt[j + k][1];\n            }            \n            hashAddItem(&obj->loc, cnt[j][0], cur);\n            j = i;\n        }\n    }\n    obj->tree = (Node *)malloc(sizeof(Node) * 4 * arrSize);\n    memset(obj->tree, 0, sizeof(Node) * 4 * arrSize);\n    seg_build(obj->tree, arr, 0, 0, arrSize - 1);\n    return obj;\n}\n\nint majorityCheckerQuery(MajorityChecker* obj, int left, int right, int threshold) {\n    Node ans;\n    memset(&ans, 0, sizeof(ans));\n    seg_query(obj->tree, 0, 0, obj->arrSize - 1, left, right, &ans);\n    Element *cur = hashGetItem(&obj->loc, ans.x);\n    int *pos = cur->arr;\n    int posSize = cur->arrSize;\n    int occ = searchEnd(pos, posSize, right) - searchStart(pos, posSize, left);\n    return (occ >= threshold ? ans.x : -1);\n}\n\nvoid majorityCheckerFree(MajorityChecker* obj) {\n    hashFree(&obj->loc);\n    free(obj->tree);\n    free(obj);\n}",
+        "java": "class MajorityChecker {\n    private int n;\n    private int[] arr;\n    private Map<Integer, List<Integer>> loc;\n    private Node[] tree;\n\n    public MajorityChecker(int[] arr) {\n        this.n = arr.length;\n        this.arr = arr;\n        this.loc = new HashMap<Integer, List<Integer>>();\n        for (int i = 0; i < arr.length; ++i) {\n            loc.putIfAbsent(arr[i], new ArrayList<Integer>());\n            loc.get(arr[i]).add(i);\n        }\n\n        this.tree = new Node[n * 4];\n        for (int i = 0; i < n * 4; i++) {\n            tree[i] = new Node();\n        }\n        segBuild(0, 0, n - 1);\n    }\n\n    public int query(int left, int right, int threshold) {\n        Node ans = new Node();\n        segQuery(0, 0, n - 1, left, right, ans);\n        List<Integer> pos = loc.getOrDefault(ans.x, new ArrayList<Integer>());\n        int occ = searchEnd(pos, right) - searchStart(pos, left);\n        return occ >= threshold ? ans.x : -1;\n    }\n\n    private void segBuild(int id, int l, int r) {\n        if (l == r) {\n            tree[id] = new Node(arr[l], 1);\n            return;\n        }\n\n        int mid = (l + r) / 2;\n        segBuild(id * 2 + 1, l, mid);\n        segBuild(id * 2 + 2, mid + 1, r);\n        tree[id].add(tree[id * 2 + 1]);\n        tree[id].add(tree[id * 2 + 2]);\n    }\n\n    private void segQuery(int id, int l, int r, int ql, int qr, Node ans) {\n        if (l > qr || r < ql) {\n            return;\n        }\n        if (ql <= l && r <= qr) {\n            ans.add(tree[id]);\n            return;\n        }\n\n        int mid = (l + r) / 2;\n        segQuery(id * 2 + 1, l, mid, ql, qr, ans);\n        segQuery(id * 2 + 2, mid + 1, r, ql, qr, ans);\n    }\n\n    private int searchStart(List<Integer> pos, int target) {\n        int low = 0, high = pos.size();\n        while (low < high) {\n            int mid = low + (high - low) / 2;\n            if (pos.get(mid) >= target) {\n                high = mid;\n            } else {\n                low = mid + 1;\n            }\n        }\n        return low;\n    }\n\n    private int searchEnd(List<Integer> pos, int target) {\n        int low = 0, high = pos.size();\n        while (low < high) {\n            int mid = low + (high - low) / 2;\n            if (pos.get(mid) > target) {\n                high = mid;\n            } else {\n                low = mid + 1;\n            }\n        }\n        return low;\n    }\n}\n\nclass Node {\n    int x;\n    int cnt;\n\n    public Node() {\n        this(0, 0);\n    }\n\n    public Node(int x, int cnt) {\n        this.x = x;\n        this.cnt = cnt;\n    }\n\n    public void add(Node that) {\n        if (x == that.x) {\n            cnt += that.cnt;\n        } else if (cnt >= that.cnt) {\n            cnt -= that.cnt;\n        } else {\n            x = that.x;\n            cnt = that.cnt - cnt;\n        }\n    }\n}",
+        "python": "class Node:\n    def __init__(self, x: int = 0, cnt: int = 0):\n        self.x = x\n        self.cnt = cnt\n    \n    def __iadd__(self, that: \"Node\") -> \"Node\":\n        if self.x == that.x:\n            self.cnt += that.cnt\n        elif self.cnt >= that.cnt:\n            self.cnt -= that.cnt\n        else:\n            self.x = that.x\n            self.cnt = that.cnt - self.cnt\n        return self\n\nclass MajorityChecker:\n    def __init__(self, arr: List[int]):\n        self.n = len(arr)\n        self.arr = arr\n        self.loc = defaultdict(list)\n\n        for i, val in enumerate(arr):\n            self.loc[val].append(i)\n        \n        self.tree = [Node() for _ in range(self.n * 4)]\n        self.seg_build(0, 0, self.n - 1)\n\n    def query(self, left: int, right: int, threshold: int) -> int:\n        loc_ = self.loc\n\n        ans = Node()\n        self.seg_query(0, 0, self.n - 1, left, right, ans)\n        pos = loc_[ans.x]\n        occ = bisect_right(pos, right) - bisect_left(pos, left)\n        return ans.x if occ >= threshold else -1\n    \n    def seg_build(self, idx: int, l: int, r: int):\n        arr_ = self.arr\n        tree_ = self.tree\n\n        if l == r:\n            tree_[idx] = Node(arr_[l], 1)\n            return\n        \n        mid = (l + r) // 2\n        self.seg_build(idx * 2 + 1, l, mid)\n        self.seg_build(idx * 2 + 2, mid + 1, r)\n        tree_[idx] += tree_[idx * 2 + 1]\n        tree_[idx] += tree_[idx * 2 + 2]\n\n    def seg_query(self, idx: int, l: int, r: int, ql: int, qr: int, ans: Node):\n        tree_ = self.tree\n\n        if l > qr or r < ql:\n            return\n        \n        if ql <= l and r <= qr:\n            ans += tree_[idx]\n            return\n\n        mid = (l + r) // 2\n        self.seg_query(idx * 2 + 1, l, mid, ql, qr, ans)\n        self.seg_query(idx * 2 + 2, mid + 1, r, ql, qr, ans)",
+        "go": "type MajorityChecker struct {\n    arr []int\n    loc map[int][]int\n}\n\nfunc Constructor(arr []int) MajorityChecker {\n    rand.Seed(time.Now().UnixNano())\n    loc := map[int][]int{}\n    for i, x := range arr {\n        loc[x] = append(loc[x], i)\n    }\n    return MajorityChecker{arr, loc}\n}\n\nfunc (mc *MajorityChecker) Query(left, right, threshold int) int {\n    length := right - left + 1\n    for i := 0; i < 20; i++ {\n        x := mc.arr[rand.Intn(right-left+1)+left]\n        pos := mc.loc[x]\n        occ := sort.SearchInts(pos, right+1) - sort.SearchInts(pos, left)\n        if occ >= threshold {\n            return x\n        }\n        if occ*2 >= length {\n            break\n        }\n    }\n    return -1\n}",
+        "javascript": "const K = 20;\nvar MajorityChecker = function(arr) {\n    this.arr = arr;\n    this.loc = new Map();\n    for (let i = 0; i < arr.length; ++i) {\n        if (!this.loc.has(arr[i])) {\n            this.loc.set(arr[i], []);\n        }\n        this.loc.get(arr[i]).push(i);\n    }\n};\n\nMajorityChecker.prototype.query = function(left, right, threshold) {\n    const length = right - left + 1;\n    for (let i = 0; i < K; ++i) {\n        const x = this.arr[left + Math.floor(Math.random() * length)];\n        const pos = this.loc.get(x);\n        const occ = searchEnd(pos, right) - searchStart(pos, left);\n        if (occ >= threshold) {\n            return x;\n        } else if (occ * 2 >= length) {\n            return -1;\n        }\n    }\n\n    return -1;\n};\n\nconst searchStart = (pos, target) => {\n    let low = 0, high = pos.length;\n    while (low < high) {\n        const mid = low + Math.floor((high - low) / 2);\n        if (pos[mid] >= target) {\n            high = mid;\n        } else {\n            low = mid + 1;\n        }\n    }\n    return low;\n}\n\nconst searchEnd = (pos, target) => {\n    let low = 0, high = pos.length;\n    while (low < high) {\n        const mid = low + Math.floor((high - low) / 2);\n        if (pos[mid] > target) {\n            high = mid;\n        } else {\n            low = mid + 1;\n        }\n    }\n    return low;\n}"
+      }
     },
     {
       "title": "市场分析 I",
@@ -1194,17 +1257,19 @@
         "数据库"
       ],
       "difficulty": "中等",
-      "acceptance": 54,
+      "acceptance": 53.99,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/market-analysis-i/",
-      "statement": "力扣原题：市场分析 I。完整题面与测试用例请访问力扣官网。",
+      "statement": "表： Users\n\n+----------------+---------+\n| Column Name    | Type    |\n+----------------+---------+\n| user_id        | int     |\n| join_date      | date    |\n| favorite_brand | varchar |\n+----------------+---------+\nuser_id 是此表主键（具有唯一值的列）。\n表中描述了购物网站的用户信息，用户可以在此网站上进行商品买卖。\n\n \n\n表： Orders\n\n+---------------+---------+\n| Column Name   | Type    |\n+---------------+---------+\n| order_id      | int     |\n| order_date    | date    |\n| item_id       | int     |\n| buyer_id      | int     |\n| seller_id     | int     |\n+---------------+---------+\norder_id 是此表主键（具有唯一值的列）。\nitem_id 是 Items 表的外键（reference 列）。\n（buyer_id，seller_id）是 User 表的外键。\n\n \n\n表：Items\n\n+---------------+---------+\n| Column Name   | Type    |\n+---------------+---------+\n| item_id       | int     |\n| item_brand    | varchar |\n+---------------+---------+\nitem_id 是此表的主键（具有唯一值的列）。\n\n \n\n编写解决方案找出每个用户的注册日期和在 2019 年作为买家的订单总数。\n\n以 任意顺序 返回结果表。\n\n查询结果格式如下。\n\n \n\n示例 1:\n\n输入：\nUsers 表:\n+---------+------------+----------------+\n| user_id | join_date  | favorite_brand |\n+---------+------------+----------------+\n| 1       | 2018-01-01 | Lenovo         |\n| 2       | 2018-02-09 | Samsung        |\n| 3       | 2018-01-19 | LG             |\n| 4       | 2018-05-21 | HP             |\n+---------+------------+----------------+\nOrders 表:\n+----------+------------+---------+----------+-----------+\n| order_id | order_date | item_id | buyer_id | seller_id |\n+----------+------------+---------+----------+-----------+\n| 1        | 2019-08-01 | 4       | 1        | 2         |\n| 2        | 2018-08-02 | 2       | 1        | 3         |\n| 3        | 2019-08-03 | 3       | 2        | 3         |\n| 4        | 2018-08-04 | 1       | 4        | 2         |\n| 5        | 2018-08-04 | 1       | 3        | 4         |\n| 6        | 2019-08-05 | 2       | 2        | 4         |\n+----------+------------+---------+----------+-----------+\nItems 表:\n+---------+------------+\n| item_id | item_brand |\n+---------+------------+\n| 1       | Samsung    |\n| 2       | Lenovo     |\n| 3       | LG         |\n| 4       | HP         |\n+---------+------------+\n输出：\n+-----------+------------+----------------+\n| buyer_id  | join_date  | orders_in_2019 |\n+-----------+------------+----------------+\n| 1         | 2018-01-01 | 1              |\n| 2         | 2018-02-09 | 2              |\n| 3         | 2018-01-19 | 0              |\n| 4         | 2018-05-21 | 0              |\n+-----------+------------+----------------+",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "亚马逊",
         "谷歌",
         "字节"
       ],
-      "id": 67
+      "id": 67,
+      "statementZh": "表： Users\n\n+----------------+---------+\n| Column Name    | Type    |\n+----------------+---------+\n| user_id        | int     |\n| join_date      | date    |\n| favorite_brand | varchar |\n+----------------+---------+\nuser_id 是此表主键（具有唯一值的列）。\n表中描述了购物网站的用户信息，用户可以在此网站上进行商品买卖。\n\n \n\n表： Orders\n\n+---------------+---------+\n| Column Name   | Type    |\n+---------------+---------+\n| order_id      | int     |\n| order_date    | date    |\n| item_id       | int     |\n| buyer_id      | int     |\n| seller_id     | int     |\n+---------------+---------+\norder_id 是此表主键（具有唯一值的列）。\nitem_id 是 Items 表的外键（reference 列）。\n（buyer_id，seller_id）是 User 表的外键。\n\n \n\n表：Items\n\n+---------------+---------+\n| Column Name   | Type    |\n+---------------+---------+\n| item_id       | int     |\n| item_brand    | varchar |\n+---------------+---------+\nitem_id 是此表的主键（具有唯一值的列）。\n\n \n\n编写解决方案找出每个用户的注册日期和在 2019 年作为买家的订单总数。\n\n以 任意顺序 返回结果表。\n\n查询结果格式如下。\n\n \n\n示例 1:\n\n输入：\nUsers 表:\n+---------+------------+----------------+\n| user_id | join_date  | favorite_brand |\n+---------+------------+----------------+\n| 1       | 2018-01-01 | Lenovo         |\n| 2       | 2018-02-09 | Samsung        |\n| 3       | 2018-01-19 | LG             |\n| 4       | 2018-05-21 | HP             |\n+---------+------------+----------------+\nOrders 表:\n+----------+------------+---------+----------+-----------+\n| order_id | order_date | item_id | buyer_id | seller_id |\n+----------+------------+---------+----------+-----------+\n| 1        | 2019-08-01 | 4       | 1        | 2         |\n| 2        | 2018-08-02 | 2       | 1        | 3         |\n| 3        | 2019-08-03 | 3       | 2        | 3         |\n| 4        | 2018-08-04 | 1       | 4        | 2         |\n| 5        | 2018-08-04 | 1       | 3        | 4         |\n| 6        | 2019-08-05 | 2       | 2        | 4         |\n+----------+------------+---------+----------+-----------+\nItems 表:\n+---------+------------+\n| item_id | item_brand |\n+---------+------------+\n| 1       | Samsung    |\n| 2       | Lenovo     |\n| 3       | LG         |\n| 4       | HP         |\n+---------+------------+\n输出：\n+-----------+------------+----------------+\n| buyer_id  | join_date  | orders_in_2019 |\n+-----------+------------+----------------+\n| 1         | 2018-01-01 | 1              |\n| 2         | 2018-02-09 | 2              |\n| 3         | 2018-01-19 | 0              |\n| 4         | 2018-05-21 | 0              |\n+-----------+------------+----------------+",
+      "statementEn": "Table: Users\n\n+----------------+---------+\n| Column Name    | Type    |\n+----------------+---------+\n| user_id        | int     |\n| join_date      | date    |\n| favorite_brand | varchar |\n+----------------+---------+\nuser_id is the primary key (column with unique values) of this table.\nThis table has the info of the users of an online shopping website where users can sell and buy items.\n\n \n\nTable: Orders\n\n+---------------+---------+\n| Column Name   | Type    |\n+---------------+---------+\n| order_id      | int     |\n| order_date    | date    |\n| item_id       | int     |\n| buyer_id      | int     |\n| seller_id     | int     |\n+---------------+---------+\norder_id is the primary key (column with unique values) of this table.\nitem_id is a foreign key (reference column) to the Items table.\nbuyer_id and seller_id are foreign keys to the Users table.\n\n \n\nTable: Items\n\n+---------------+---------+\n| Column Name   | Type    |\n+---------------+---------+\n| item_id       | int     |\n| item_brand    | varchar |\n+---------------+---------+\nitem_id is the primary key (column with unique values) of this table.\n\n \n\nWrite a solution to find for each user, the join date and the number of orders they made as a buyer in 2019.\n\nReturn the result table in any order.\n\nThe result format is in the following example.\n\n \n\nExample 1:\n\nInput: \nUsers table:\n+---------+------------+----------------+\n| user_id | join_date  | favorite_brand |\n+---------+------------+----------------+\n| 1       | 2018-01-01 | Lenovo         |\n| 2       | 2018-02-09 | Samsung        |\n| 3       | 2018-01-19 | LG             |\n| 4       | 2018-05-21 | HP             |\n+---------+------------+----------------+\nOrders table:\n+----------+------------+---------+----------+-----------+\n| order_id | order_date | item_id | buyer_id | seller_id |\n+----------+------------+---------+----------+-----------+\n| 1        | 2019-08-01 | 4       | 1        | 2         |\n| 2        | 2018-08-02 | 2       | 1        | 3         |\n| 3        | 2019-08-03 | 3       | 2        | 3         |\n| 4        | 2018-08-04 | 1       | 4        | 2         |\n| 5        | 2018-08-04 | 1       | 3        | 4         |\n| 6        | 2019-08-05 | 2       | 2        | 4         |\n+----------+------------+---------+----------+-----------+\nItems table:\n+---------+------------+\n| item_id | item_brand |\n+---------+------------+\n| 1       | Samsung    |\n| 2       | Lenovo     |\n| 3       | LG         |\n| 4       | HP         |\n+---------+------------+\nOutput: \n+-----------+------------+----------------+\n| buyer_id  | join_date  | orders_in_2019 |\n+-----------+------------+----------------+\n| 1         | 2018-01-01 | 1              |\n| 2         | 2018-02-09 | 2              |\n| 3         | 2018-01-19 | 0              |\n| 4         | 2018-05-21 | 0              |\n+-----------+------------+----------------+"
     },
     {
       "title": "市场分析 II",
@@ -1216,7 +1281,6 @@
       "acceptance": 51.46,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/market-analysis-ii/",
-      "statement": "力扣原题：市场分析 II。完整题面与测试用例请访问力扣官网。",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "亚马逊",
@@ -1237,14 +1301,21 @@
       "acceptance": 68.47,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/find-words-that-can-be-formed-by-characters/",
-      "statement": "力扣原题：拼写单词。完整题面与测试用例请访问力扣官网。",
+      "statement": "给定一个字符串数组 words 和一个字符串 chars。\n\n如果字符串可以由 chars 中的字符组成（每个字符在 每个 words 中只能使用一次），则认为它是好的。\n\n返回 words 中所有好的字符串的长度之和。\n\n \n\n示例 1：\n\n输入：words = [\"cat\",\"bt\",\"hat\",\"tree\"], chars = \"atach\"\n输出：6\n解释： \n可以形成字符串 \"cat\" 和 \"hat\"，所以答案是 3 + 3 = 6。\n\n示例 2：\n\n输入：words = [\"hello\",\"world\",\"leetcode\"], chars = \"welldonehoneyr\"\n输出：10\n解释：\n可以形成字符串 \"hello\" 和 \"world\"，所以答案是 5 + 5 = 10。\n\n \n\n提示：\n\n\t1 <= words.length <= 1000\n\n\t1 <= words[i].length, chars.length <= 100\n\n\twords[i] 和 chars 中都仅包含小写英文字母",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "亚马逊",
         "indeed",
         "facebook"
       ],
-      "id": 69
+      "id": 69,
+      "statementZh": "给定一个字符串数组 words 和一个字符串 chars。\n\n如果字符串可以由 chars 中的字符组成（每个字符在 每个 words 中只能使用一次），则认为它是好的。\n\n返回 words 中所有好的字符串的长度之和。\n\n \n\n示例 1：\n\n输入：words = [\"cat\",\"bt\",\"hat\",\"tree\"], chars = \"atach\"\n输出：6\n解释： \n可以形成字符串 \"cat\" 和 \"hat\"，所以答案是 3 + 3 = 6。\n\n示例 2：\n\n输入：words = [\"hello\",\"world\",\"leetcode\"], chars = \"welldonehoneyr\"\n输出：10\n解释：\n可以形成字符串 \"hello\" 和 \"world\"，所以答案是 5 + 5 = 10。\n\n \n\n提示：\n\n\t1 <= words.length <= 1000\n\n\t1 <= words[i].length, chars.length <= 100\n\n\twords[i] 和 chars 中都仅包含小写英文字母",
+      "statementEn": "You are given an array of strings words and a string chars.\n\nA string is good if it can be formed by characters from chars (each character can only be used once for each word in words).\n\nReturn the sum of lengths of all good strings in words.\n\n \n\nExample 1:\n\nInput: words = [\"cat\",\"bt\",\"hat\",\"tree\"], chars = \"atach\"\nOutput: 6\nExplanation: The strings that can be formed are \"cat\" and \"hat\" so the answer is 3 + 3 = 6.\n\nExample 2:\n\nInput: words = [\"hello\",\"world\",\"leetcode\"], chars = \"welldonehoneyr\"\nOutput: 10\nExplanation: The strings that can be formed are \"hello\" and \"world\" so the answer is 5 + 5 = 10.\n\n \n\nConstraints:\n\n\t1 <= words.length <= 1000\n\n\t1 <= words[i].length, chars.length <= 100\n\n\twords[i] and chars consist of lowercase English letters.",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int countCharacters(vector<string>& words, string chars) {\n        unordered_map<char, int> chars_cnt;\n        for (char c : chars) {\n            ++chars_cnt[c];\n        }\n        int ans = 0;\n        for (string word : words) {\n            unordered_map<char, int> word_cnt;\n            for (char c : word) {\n                ++word_cnt[c];\n            }\n            bool is_ans = true;\n            for (char c : word) {\n                if (chars_cnt[c] < word_cnt[c]) {\n                    is_ans = false;\n                    break;\n                }\n            }\n            if (is_ans) {\n                ans += word.size();\n            }\n        }\n        return ans;\n    }\n};",
+        "java": "class Solution {\n    public int countCharacters(String[] words, String chars) {\n        Map<Character, Integer> charsCnt = new HashMap<Character, Integer>();\n        int length = chars.length();\n        for (int i = 0; i < length; ++i) {\n            char c = chars.charAt(i);\n            charsCnt.put(c, charsCnt.getOrDefault(c, 0) + 1);\n        }\n        int ans = 0;\n        for (String word : words) {\n            Map<Character, Integer> wordCnt = new HashMap<Character, Integer>();\n            int wordLength = word.length();\n            for (int i = 0; i < wordLength; ++i) {\n                char c = word.charAt(i);\n                wordCnt.put(c, wordCnt.getOrDefault(c, 0) + 1);\n            }\n            boolean isAns = true;\n            for (int i = 0; i < wordLength; ++i) {\n                char c = word.charAt(i);\n                if (charsCnt.getOrDefault(c, 0) < wordCnt.getOrDefault(c, 0)) {\n                    isAns = false;\n                    break;\n                }\n            }\n            if (isAns) {\n                ans += word.length();\n            }\n        }\n        return ans;\n    }\n}",
+        "python": "class Solution:\n    def countCharacters(self, words: List[str], chars: str) -> int:\n        chars_cnt = collections.Counter(chars)\n        ans = 0\n        for word in words:\n            word_cnt = collections.Counter(word)\n            for c in word_cnt:\n                if chars_cnt[c] < word_cnt[c]:\n                    break\n            else:\n                ans += len(word)\n        return ans"
+      }
     },
     {
       "title": "最大层内元素和",
@@ -1259,14 +1330,24 @@
       "acceptance": 67.69,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/maximum-level-sum-of-a-binary-tree/",
-      "statement": "力扣原题：最大层内元素和。完整题面与测试用例请访问力扣官网。",
+      "statement": "给你一个二叉树的根节点 root。设根节点位于二叉树的第 1 层，而根节点的子节点位于第 2 层，依此类推。\n\n返回总和 最大 的那一层的层号 x。如果有多层的总和一样大，返回其中 最小 的层号 x。\n\n \n\n示例 1：\n\n输入：root = [1,7,0,7,-8,null,null]\n输出：2\n解释：\n第 1 层各元素之和为 1，\n第 2 层各元素之和为 7 + 0 = 7，\n第 3 层各元素之和为 7 + -8 = -1，\n所以我们返回第 2 层的层号，它的层内元素之和最大。\n\n示例 2：\n\n输入：root = [989,null,10250,98693,-89388,null,null,null,-32127]\n输出：2\n\n \n\n提示：\n\n\t树中的节点数在 [1, 104]范围内\n\n\t-105 <= Node.val <= 105",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "facebook",
         "亚马逊",
         "谷歌"
       ],
-      "id": 70
+      "id": 70,
+      "statementZh": "给你一个二叉树的根节点 root。设根节点位于二叉树的第 1 层，而根节点的子节点位于第 2 层，依此类推。\n\n返回总和 最大 的那一层的层号 x。如果有多层的总和一样大，返回其中 最小 的层号 x。\n\n \n\n示例 1：\n\n输入：root = [1,7,0,7,-8,null,null]\n输出：2\n解释：\n第 1 层各元素之和为 1，\n第 2 层各元素之和为 7 + 0 = 7，\n第 3 层各元素之和为 7 + -8 = -1，\n所以我们返回第 2 层的层号，它的层内元素之和最大。\n\n示例 2：\n\n输入：root = [989,null,10250,98693,-89388,null,null,null,-32127]\n输出：2\n\n \n\n提示：\n\n\t树中的节点数在 [1, 104]范围内\n\n\t-105 <= Node.val <= 105",
+      "statementEn": "Given the root of a binary tree, the level of its root is 1, the level of its children is 2, and so on.\n\nReturn the smallest level x such that the sum of all the values of nodes at level x is maximal.\n\n \n\nExample 1:\n\nInput: root = [1,7,0,7,-8,null,null]\nOutput: 2\nExplanation: \nLevel 1 sum = 1.\nLevel 2 sum = 7 + 0 = 7.\nLevel 3 sum = 7 + -8 = -1.\nSo we return the level with the maximum sum which is level 2.\n\nExample 2:\n\nInput: root = [989,null,10250,98693,-89388,null,null,null,-32127]\nOutput: 2\n\n \n\nConstraints:\n\n\tThe number of nodes in the tree is in the range [1, 104].\n\n\t-105 <= Node.val <= 105",
+      "solutions": {
+        "python": "class Solution:\n    def maxLevelSum(self, root: Optional[TreeNode]) -> int:\n        ans, maxSum = 1, root.val\n        level, q = 1, [root]\n        while q:\n            sum, nq = 0, []\n            for node in q:\n                sum += node.val\n                if node.left:\n                    nq.append(node.left)\n                if node.right:\n                    nq.append(node.right)\n            if sum > maxSum:\n                ans, maxSum = level, sum\n            q = nq\n            level += 1\n        return ans",
+        "cpp": "#define MAX_NODE_SIZE 10000\n\nint maxLevelSum(struct TreeNode* root){\n    int ans = 1, maxSum = root->val;\n    struct TreeNode **q = (struct TreeNode **)malloc(sizeof(struct TreeNode *) * MAX_NODE_SIZE);\n    struct TreeNode **nq = (struct TreeNode **)malloc(sizeof(struct TreeNode *) * MAX_NODE_SIZE);\n    int qSize = 0;\n    q[qSize++] = root;\n    for (int level = 1; qSize > 0; ++level) {\n        int sum = 0, nqSize = 0;\n        for (int i = 0; i < qSize; i++) {\n            sum += q[i]->val;\n            if (q[i]->left) {\n                nq[nqSize++] = q[i]->left;\n            }\n            if (q[i]->right) {\n                nq[nqSize++] = q[i]->right;\n            }\n        }\n        if (sum > maxSum) {\n            maxSum = sum;\n            ans = level;\n        }\n        struct TreeNode *tmp = q;\n        q = nq;\n        nq = tmp;\n        qSize = nqSize;\n    }\n    free(q);\n    free(nq);\n    return ans;\n}",
+        "java": "class Solution {\n    public int maxLevelSum(TreeNode root) {\n        int ans = 1, maxSum = root.val;\n        List<TreeNode> q = new ArrayList<TreeNode>();\n        q.add(root);\n        for (int level = 1; !q.isEmpty(); ++level) {\n            List<TreeNode> nq = new ArrayList<TreeNode>();\n            int sum = 0;\n            for (TreeNode node : q) {\n                sum += node.val;\n                if (node.left != null) {\n                    nq.add(node.left);\n                }\n                if (node.right != null) {\n                    nq.add(node.right);\n                }\n            }\n            if (sum > maxSum) {\n                maxSum = sum;\n                ans = level;\n            }\n            q = nq;\n        }\n        return ans;\n    }\n}",
+        "go": "func maxLevelSum(root *TreeNode) (ans int) {\n    sum := []int{}\n    var dfs func(*TreeNode, int)\n    dfs = func(node *TreeNode, level int) {\n        if level == len(sum) {\n            sum = append(sum, node.Val)\n        } else {\n            sum[level] += node.Val\n        }\n        if node.Left != nil {\n            dfs(node.Left, level+1)\n        }\n        if node.Right != nil {\n            dfs(node.Right, level+1)\n        }\n    }\n    dfs(root, 0)\n    for i, s := range sum {\n        if s > sum[ans] {\n            ans = i\n        }\n    }\n    return ans + 1 // 层号从 1 开始\n}",
+        "javascript": "var maxLevelSum = function(root) {\n    const sum = [];\n    const dfs = (node, level) => {\n        if (level === sum.length) {\n            sum.push(node.val);\n        } else {\n            sum.splice(level, 1, sum[level] + node.val);\n        }\n        if (node.left) {\n            dfs(node.left, level + 1);\n        }\n        if (node.right) {\n            dfs(node.right, level + 1);\n        }\n    }\n    dfs(root, 0);\n    let ans = 0;\n    for (let i = 0; i < sum.length; ++i) {\n        if (sum[i] > sum[ans]) {\n            ans = i;\n        }\n    }\n    return ans + 1; // 层号从 1 开始\n};",
+        "typescript": "function maxLevelSum(root: TreeNode | null): number {\n    const sum: number[] = [];\n    const dfs = (node: TreeNode, level: number): void => {\n        if (level === sum.length) {\n            sum.push(node.val);\n        } else {\n            sum[level] += node.val;\n        }\n        \n        if (node.left) {\n            dfs(node.left, level + 1);\n        }\n        if (node.right) {\n            dfs(node.right, level + 1);\n        }\n    };\n    \n    if (root) {\n        dfs(root, 0);\n    }\n    \n    let maxIndex = 0;\n    let maxSum = -Infinity;\n    for (let i = 0; i < sum.length; i++) {\n        if (sum[i] > maxSum) {\n            maxSum = sum[i];\n            maxIndex = i;\n        }\n    }\n    \n    return maxIndex + 1; // 层号从 1 开始\n};"
+      }
     },
     {
       "title": "地图分析",
@@ -1281,14 +1362,20 @@
       "acceptance": 47.83,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/as-far-from-land-as-possible/",
-      "statement": "力扣原题：地图分析。完整题面与测试用例请访问力扣官网。",
+      "statement": "你现在手里有一份大小为 n x n 的 网格 grid，上面的每个 单元格 都用 0 和 1 标记好了。其中 0 代表海洋，1 代表陆地。\n\n请你找出一个海洋单元格，这个海洋单元格到离它最近的陆地单元格的距离是最大的，并返回该距离。如果网格上只有陆地或者海洋，请返回 -1。\n\n我们这里说的距离是「曼哈顿距离」（ Manhattan Distance）：(x0, y0) 和 (x1, y1) 这两个单元格之间的距离是 |x0 - x1| + |y0 - y1| 。\n\n \n\n示例 1：\n\n输入：grid = [[1,0,1],[0,0,0],[1,0,1]]\n输出：2\n解释： \n海洋单元格 (1, 1) 和所有陆地单元格之间的距离都达到最大，最大距离为 2。\n\n示例 2：\n\n输入：grid = [[1,0,0],[0,0,0],[0,0,0]]\n输出：4\n解释： \n海洋单元格 (2, 2) 和所有陆地单元格之间的距离都达到最大，最大距离为 4。\n\n \n\n提示：\n\n\tn == grid.length\n\n\tn == grid[i].length\n\n\t1 <= n <= 100\n\n\tgrid[i][j] 不是 0 就是 1",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "亚马逊",
         "谷歌",
         "微软"
       ],
-      "id": 71
+      "id": 71,
+      "statementZh": "你现在手里有一份大小为 n x n 的 网格 grid，上面的每个 单元格 都用 0 和 1 标记好了。其中 0 代表海洋，1 代表陆地。\n\n请你找出一个海洋单元格，这个海洋单元格到离它最近的陆地单元格的距离是最大的，并返回该距离。如果网格上只有陆地或者海洋，请返回 -1。\n\n我们这里说的距离是「曼哈顿距离」（ Manhattan Distance）：(x0, y0) 和 (x1, y1) 这两个单元格之间的距离是 |x0 - x1| + |y0 - y1| 。\n\n \n\n示例 1：\n\n输入：grid = [[1,0,1],[0,0,0],[1,0,1]]\n输出：2\n解释： \n海洋单元格 (1, 1) 和所有陆地单元格之间的距离都达到最大，最大距离为 2。\n\n示例 2：\n\n输入：grid = [[1,0,0],[0,0,0],[0,0,0]]\n输出：4\n解释： \n海洋单元格 (2, 2) 和所有陆地单元格之间的距离都达到最大，最大距离为 4。\n\n \n\n提示：\n\n\tn == grid.length\n\n\tn == grid[i].length\n\n\t1 <= n <= 100\n\n\tgrid[i][j] 不是 0 就是 1",
+      "statementEn": "Given an n x n grid containing only values 0 and 1, where 0 represents water and 1 represents land, find a water cell such that its distance to the nearest land cell is maximized, and return the distance. If no land or water exists in the grid, return -1.\n\nThe distance used in this problem is the Manhattan distance: the distance between two cells (x0, y0) and (x1, y1) is |x0 - x1| + |y0 - y1|.\n\n \n\nExample 1:\n\nInput: grid = [[1,0,1],[0,0,0],[1,0,1]]\nOutput: 2\nExplanation: The cell (1, 1) is as far as possible from all the land with distance 2.\n\nExample 2:\n\nInput: grid = [[1,0,0],[0,0,0],[0,0,0]]\nOutput: 4\nExplanation: The cell (2, 2) is as far as possible from all the land with distance 4.\n\n \n\nConstraints:\n\n\tn == grid.length\n\n\tn == grid[i].length\n\n\t1 <= n <= 100\n\n\tgrid[i][j] is 0 or 1",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    static constexpr int MAX_N = 100 + 5;\n    static constexpr int INF = int(1E6);\n    static constexpr int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, 1, 0, -1};\n\n    int n;\n    int d[MAX_N][MAX_N];\n\n    struct Coordinate {\n        int x, y;\n    };\n\n    queue <Coordinate> q;\n    bool inq[MAX_N][MAX_N];\n\n    int maxDistance(vector<vector<int>>& grid) {\n        this->n = grid.size();\n        auto &a = grid;\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                d[i][j] = INF;\n            }\n        }\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                if (a[i][j]) {\n                    d[i][j] = 0;\n                    q.push({i, j});\n                    inq[i][j] = 1;\n                }\n            }\n        }\n\n        while (!q.empty()) {\n            auto f = q.front(); q.pop(); inq[f.x][f.y] = 0;\n            for (int i = 0; i < 4; ++i) {\n                int nx = f.x + dx[i], ny = f.y + dy[i];\n                if (!(nx >= 0 && nx <= n - 1 && ny >= 0 && ny <= n - 1)) {\n                    continue;\n                }\n                if (d[nx][ny] > d[f.x][f.y] + 1) {\n                    d[nx][ny] = d[f.x][f.y] + 1;\n                    if (!inq[nx][ny]) {\n                        q.push({nx, ny});\n                        inq[nx][ny] = 1;\n                    }\n                }\n            }\n        }\n\n        int ans = -1;\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                if (!a[i][j]) {\n                    ans = max(ans, d[i][j]);\n                }\n            }\n        }\n\n        return (ans == INF) ? -1 : ans;\n    }\n};",
+        "java": "class Solution {\n    public int maxDistance(int[][] grid) {\n        final int INF = 1000000;\n        int[] dx = {-1, 0, 1, 0};\n        int[] dy = {0, 1, 0, -1};\n        int n = grid.length;\n        int[][] d = new int[n][n];\n        Queue<int[]> queue = new LinkedList<int[]>();\n        boolean[][] inq = new boolean[n][n];\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                d[i][j] = INF;\n            }\n        }\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                if (grid[i][j] == 1) {\n                    d[i][j] = 0;\n                    queue.offer(new int[]{i, j});\n                    inq[i][j] = true;\n                }\n            }\n        }\n\n        while (!queue.isEmpty()) {\n            int[] f = queue.poll();\n            inq[f[0]][f[1]] = false;\n            for (int i = 0; i < 4; ++i) {\n                int nx = f[0] + dx[i], ny = f[1] + dy[i];\n                if (!(nx >= 0 && nx < n && ny >= 0 && ny < n)) {\n                    continue;\n                }\n                if (d[nx][ny] > d[f[0]][f[1]] + 1) {\n                    d[nx][ny] = d[f[0]][f[1]] + 1;\n                    if (!inq[nx][ny]) {\n                        queue.offer(new int[]{nx, ny});\n                        inq[nx][ny] = true;\n                    }\n                }\n            }\n        }\n\n        int ans = -1;\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < n; ++j) {\n                if (grid[i][j] == 0) {\n                    ans = Math.max(ans, d[i][j]);\n                }\n            }\n        }\n\n        return ans == INF ? -1 : ans;\n    }\n}"
+      }
     },
     {
       "title": "按字典序排在最后的子串",
@@ -1301,14 +1388,23 @@
       "acceptance": 36.42,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/last-substring-in-lexicographical-order/",
-      "statement": "力扣原题：按字典序排在最后的子串。完整题面与测试用例请访问力扣官网。",
+      "statement": "给你一个字符串 s ，找出它的所有子串并按字典序排列，返回排在最后的那个子串。\n\n \n\n示例 1：\n\n输入：s = \"abab\"\n输出：\"bab\"\n解释：我们可以找出 7 个子串 [\"a\", \"ab\", \"aba\", \"abab\", \"b\", \"ba\", \"bab\"]。按字典序排在最后的子串是 \"bab\"。\n\n示例 2：\n\n输入：s = \"leetcode\"\n输出：\"tcode\"\n\n \n\n提示：\n\n\t1 <= s.length <= 4 * 105\n\n\ts 仅含有小写英文字符。",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "goldman-sachs",
         "mathworks",
         "roblox"
       ],
-      "id": 72
+      "id": 72,
+      "statementZh": "给你一个字符串 s ，找出它的所有子串并按字典序排列，返回排在最后的那个子串。\n\n \n\n示例 1：\n\n输入：s = \"abab\"\n输出：\"bab\"\n解释：我们可以找出 7 个子串 [\"a\", \"ab\", \"aba\", \"abab\", \"b\", \"ba\", \"bab\"]。按字典序排在最后的子串是 \"bab\"。\n\n示例 2：\n\n输入：s = \"leetcode\"\n输出：\"tcode\"\n\n \n\n提示：\n\n\t1 <= s.length <= 4 * 105\n\n\ts 仅含有小写英文字符。",
+      "statementEn": "Given a string s, return the last substring of s in lexicographical order.\n\n \n\nExample 1:\n\nInput: s = \"abab\"\nOutput: \"bab\"\nExplanation: The substrings are [\"a\", \"ab\", \"aba\", \"abab\", \"b\", \"ba\", \"bab\"]. The lexicographically maximum substring is \"bab\".\n\nExample 2:\n\nInput: s = \"leetcode\"\nOutput: \"tcode\"\n\n \n\nConstraints:\n\n\t1 <= s.length <= 4 * 105\n\n\ts contains only lowercase English letters.",
+      "solutions": {
+        "cpp": "#define MAX(a, b) ((a) > (b) ? (a) : (b))\n\nchar * lastSubstring(char * s) {\n    int i = 0, j = 1, n = strlen(s);\n    while (j < n) {\n        int k = 0;\n        while (j + k < n && s[i + k] == s[j + k]) {\n            k++;\n        }\n        if (j + k < n && s[i + k] < s[j + k]) {\n            int t = i;\n            i = j;\n            j = MAX(j + 1, t + k + 1);\n        } else {\n            j = j + k + 1;\n        }\n    }\n    char *res = (char *)calloc(n - i + 1, sizeof(char));\n    strncpy(res, s + i, n - i);\n    return res;\n}",
+        "java": "class Solution {\n    public String lastSubstring(String s) {\n        int i = 0, j = 1, n = s.length();\n        while (j < n) {\n            int k = 0;\n            while (j + k < n && s.charAt(i + k) == s.charAt(j + k)) {\n                k++;\n            }\n            if (j + k < n && s.charAt(i + k) < s.charAt(j + k)) {\n                int t = i;\n                i = j;\n                j = Math.max(j + 1, t + k + 1);\n            } else {\n                j = j + k + 1;\n            }\n        }\n        return s.substring(i);\n    }\n}",
+        "python": "class Solution:\n    def lastSubstring(self, s: str) -> str:\n        i, j, n = 0, 1, len(s)\n        while j < n:\n            k = 0\n            while j + k < n and s[i + k] == s[j + k]:\n                k += 1\n            if j + k < n and s[i + k] < s[j + k]:\n                i, j = j, max(j + 1, i + k + 1)\n            else:\n                j = j + k + 1\n        return s[i:]",
+        "javascript": "var lastSubstring = function(s) {\n    let i = 0, j = 1, n = s.length;\n    while (j < n) {\n        let k = 0;\n        while (j + k < n && s[i + k] === s[j + k]) {\n            k++;\n        }\n        if (j + k < n && s[i + k] < s[j + k]) {\n            let t = i;\n            i = j;\n            j = Math.max(j + 1, t + k + 1);\n        } else {\n            j = j + k + 1;\n        }\n    }\n    return s.substring(i, n);\n};",
+        "go": "func max(a, b int) int {\n    if a > b {\n        return a\n    }\n    return b\n}\n\nfunc lastSubstring(s string) string {\n    i, j, n := 0, 1, len(s)\n    for j < n {\n        k := 0\n        for j + k < n && s[i + k] == s[j + k] {\n            k++\n        }\n        if j + k < n && s[i + k] < s[j + k] {\n            i, j = j, max(j + 1, i + k + 1)\n        } else {\n            j = j + k + 1\n        }\n    }\n    return s[i:]\n}"
+      }
     },
     {
       "title": "指定日期的产品价格",
@@ -1320,14 +1416,16 @@
       "acceptance": 57.42,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/product-price-at-a-given-date/",
-      "statement": "力扣原题：指定日期的产品价格。完整题面与测试用例请访问力扣官网。",
+      "statement": "产品数据表: Products\n\n+---------------+---------+\n| Column Name   | Type    |\n+---------------+---------+\n| product_id    | int     |\n| new_price     | int     |\n| change_date   | date    |\n+---------------+---------+\n(product_id, change_date) 是此表的主键（具有唯一值的列组合）。\n这张表的每一行分别记录了 某产品 在某个日期 更改后 的新价格。\n\n一开始，所有产品价格都为 10。\n\n编写一个解决方案，找出在 2019-08-16 所有产品的价格。\n\n以 任意顺序 返回结果表。\n\n结果格式如下例所示。\n\n \n\n示例 1:\n\n输入：\nProducts 表:\n+------------+-----------+-------------+\n| product_id | new_price | change_date |\n+------------+-----------+-------------+\n| 1          | 20        | 2019-08-14  |\n| 2          | 50        | 2019-08-14  |\n| 1          | 30        | 2019-08-15  |\n| 1          | 35        | 2019-08-16  |\n| 2          | 65        | 2019-08-17  |\n| 3          | 20        | 2019-08-18  |\n+------------+-----------+-------------+\n输出：\n+------------+-------+\n| product_id | price |\n+------------+-------+\n| 2          | 50    |\n| 1          | 35    |\n| 3          | 10    |\n+------------+-------+",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "亚马逊",
         "谷歌",
         "字节"
       ],
-      "id": 73
+      "id": 73,
+      "statementZh": "产品数据表: Products\n\n+---------------+---------+\n| Column Name   | Type    |\n+---------------+---------+\n| product_id    | int     |\n| new_price     | int     |\n| change_date   | date    |\n+---------------+---------+\n(product_id, change_date) 是此表的主键（具有唯一值的列组合）。\n这张表的每一行分别记录了 某产品 在某个日期 更改后 的新价格。\n\n一开始，所有产品价格都为 10。\n\n编写一个解决方案，找出在 2019-08-16 所有产品的价格。\n\n以 任意顺序 返回结果表。\n\n结果格式如下例所示。\n\n \n\n示例 1:\n\n输入：\nProducts 表:\n+------------+-----------+-------------+\n| product_id | new_price | change_date |\n+------------+-----------+-------------+\n| 1          | 20        | 2019-08-14  |\n| 2          | 50        | 2019-08-14  |\n| 1          | 30        | 2019-08-15  |\n| 1          | 35        | 2019-08-16  |\n| 2          | 65        | 2019-08-17  |\n| 3          | 20        | 2019-08-18  |\n+------------+-----------+-------------+\n输出：\n+------------+-------+\n| product_id | price |\n+------------+-------+\n| 2          | 50    |\n| 1          | 35    |\n| 3          | 10    |\n+------------+-------+",
+      "statementEn": "Table: Products\n\n+---------------+---------+\n| Column Name   | Type    |\n+---------------+---------+\n| product_id    | int     |\n| new_price     | int     |\n| change_date   | date    |\n+---------------+---------+\n(product_id, change_date) is the primary key (combination of columns with unique values) of this table.\nEach row of this table indicates that the price of some product was changed to a new price at some date.\n\nInitially, all products have price 10.\n\nWrite a solution to find the prices of all products on the date 2019-08-16.\n\nReturn the result table in any order.\n\nThe result format is in the following example.\n\n \n\nExample 1:\n\nInput: \nProducts table:\n+------------+-----------+-------------+\n| product_id | new_price | change_date |\n+------------+-----------+-------------+\n| 1          | 20        | 2019-08-14  |\n| 2          | 50        | 2019-08-14  |\n| 1          | 30        | 2019-08-15  |\n| 1          | 35        | 2019-08-16  |\n| 2          | 65        | 2019-08-17  |\n| 3          | 20        | 2019-08-18  |\n+------------+-----------+-------------+\nOutput: \n+------------+-------+\n| product_id | price |\n+------------+-------+\n| 2          | 50    |\n| 1          | 35    |\n| 3          | 10    |\n+------------+-------+"
     },
     {
       "title": "单行键盘",
@@ -1340,7 +1438,6 @@
       "acceptance": 86.09,
       "source": "leetcode",
       "sourceUrl": "https://leetcode.cn/problems/single-row-keyboard/",
-      "statement": "力扣原题：单行键盘。完整题面与测试用例请访问力扣官网。",
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "hotCompanies": [
         "谷歌",
@@ -1434,7 +1531,10 @@
         "亚马逊",
         "微软"
       ],
-      "id": 78
+      "id": 78,
+      "solutions": {
+        "java": "class Solution {\n\n\n\tpublic List<String> invalidTransactions(String[] transactions) {\n\t\tint len = transactions.length;\n\t\tString[][] infos = new String[len][4];\n\t\tMap<String, List<Integer>> map = new HashMap<>();\n\t\tSet<Integer> set = new HashSet<>();\n\t\tfor (int i = 0; i < len; i++) {\n\t\t\tinfos[i] = transactions[i].split(\",\");\n\t\t\tString name = infos[i][0], time = infos[i][1], amount = infos[i][2], city = infos[i][3];\n\t\t\tif (Integer.valueOf(amount) > 1000) {\n\t\t\t\tset.add(i);\n\t\t\t}\n\t\t\tList<Integer> sameNames = map.getOrDefault(name, new ArrayList<>());\n\t\t\tfor (int sameName : sameNames) {\n\t\t\t\tString[] info = infos[sameName];\n\t\t\t\tif (!info[3].equals(city) && Math.abs(Integer.valueOf(info[1]) - Integer.valueOf(time)) <= 60) {\n\t\t\t\t\tset.add(sameName);\n\t\t\t\t\tset.add(i);\n\t\t\t\t}\n\t\t\t}\n\t\t\tsameNames.add(i);\n\t\t\tmap.put(name, sameNames);\n\t\t}\n\t\tList<String> ans = new ArrayList<>();\n\t\tfor (int index : set) {\n\t\t\tans.add(transactions[index]);\n\t\t}\n\t\treturn ans;\n\t}\n\n\n}"
+      }
     },
     {
       "title": "比较字符串最小字母出现频次",
@@ -1457,7 +1557,14 @@
         "亚马逊",
         "字节"
       ],
-      "id": 79
+      "id": 79,
+      "solutions": {
+        "cpp": "public class Solution {\n    public int[] NumSmallerByFrequency(string[] queries, string[] words) {\n        int[] count = new int[12];\n        foreach (string s in words) {\n            count[F(s)]++;\n        }\n        for (int i = 9; i >= 1; i--) {\n            count[i] += count[i + 1];\n        }\n        int[] res = new int[queries.Length];\n        for (int i = 0; i < queries.Length; i++) {\n            string s = queries[i];\n            res[i] = count[F(s) + 1];\n        }\n        return res;\n    }\n\n    public int F(string s) {\n        int cnt = 0;\n        char ch = 'z';\n        foreach (char c in s) {\n            if (c < ch) {\n                ch = c;\n                cnt = 1;\n            } else if (c == ch) {\n                cnt++;\n            }\n        }\n        return cnt;\n    }\n}",
+        "java": "class Solution {\n    public int[] numSmallerByFrequency(String[] queries, String[] words) {\n        int[] count = new int[12];\n        for (String s : words) {\n            count[f(s)]++;\n        }\n        for (int i = 9; i >= 1; i--) {\n            count[i] += count[i + 1];\n        }\n        int[] res = new int[queries.length];\n        for (int i = 0; i < queries.length; i++) {\n            String s = queries[i];\n            res[i] = count[f(s) + 1];\n        }\n        return res;\n    }\n\n    public int f(String s) {\n        int cnt = 0;\n        char ch = 'z';\n        for (int i = 0; i < s.length(); i++) {\n            char c = s.charAt(i);\n            if (c < ch) {\n                ch = c;\n                cnt = 1;\n            } else if (c == ch) {\n                cnt++;\n            }\n        }\n        return cnt;\n    }\n}",
+        "python": "class Solution:\n    def f(self, s: str) -> int:\n        cnt = 0\n        ch = 'z'\n        for c in s:\n            if c < ch:\n                ch = c\n                cnt = 1\n            elif c == ch:\n                cnt += 1\n        return cnt\n\n    def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:\n        count = [0] * 12\n        for s in words:\n            count[self.f(s)] += 1\n        for i in range(9, 0, -1):\n            count[i] += count[i + 1]\n        res = []\n        for s in queries:\n            res.append(count[self.f(s) + 1])\n        return res",
+        "go": "func f(s string) int {\n    cnt := 0\n    ch := 'z'\n    for _, c := range s {\n        if c < ch {\n        ch = c\n        cnt = 1\n        } else if c == ch {\n        cnt++\n        }\n    }\n    return cnt\n}\n\nfunc numSmallerByFrequency(queries []string, words []string) []int {\n    count := make([]int, 12)\n    for _, s := range words {\n        count[f(s)] += 1\n    }\n    for i := 9; i >= 1; i-- {\n        count[i] += count[i + 1]\n    }\n    res := make([]int, len(queries))\n    for i, s := range queries {\n        res[i] = count[f(s) + 1]\n    }\n    return res\n}",
+        "javascript": "function f(s) {\n    let cnt = 0;\n    let ch = 'z';\n    for (let c of s) {\n      if (c < ch) {\n        ch = c;\n        cnt = 1;\n      } else if (c == ch) {\n        cnt++;\n      }\n    }\n    return cnt;\n}\n\nvar numSmallerByFrequency = function(queries, words) {\n    let count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];\n    for (let s of words) {\n      count[f(s)]++;\n    }\n    for (let i = 9; i >= 0; i--) {\n      count[i] += count[i + 1];\n    }\n    res = [];\n    for (let s of queries) {\n      res.push(count[f(s) + 1]);\n    }\n    return res;\n};"
+      }
     },
     {
       "title": "从链表中删去总和值为零的连续节点",
@@ -1477,7 +1584,14 @@
         "字节",
         "谷歌"
       ],
-      "id": 80
+      "id": 80,
+      "solutions": {
+        "cpp": "typedef struct {\n    int key;\n    struct ListNode *val;\n    UT_hash_handle hh;\n} HashItem; \n\nHashItem *hashFindItem(HashItem **obj, int key) {\n    HashItem *pEntry = NULL;\n    HASH_FIND_INT(*obj, &key, pEntry);\n    return pEntry;\n}\n\nbool hashAddItem(HashItem **obj, int key, const struct ListNode* val) {\n    if (hashFindItem(obj, key)) {\n        return false;\n    }\n    HashItem *pEntry = (HashItem *)malloc(sizeof(HashItem));\n    pEntry->key = key;\n    pEntry->val = val;\n    HASH_ADD_INT(*obj, key, pEntry);\n    return true;\n}\n\nbool hashSetItem(HashItem **obj, int key, const struct ListNode* val) {\n    HashItem *pEntry = hashFindItem(obj, key);\n    if (!pEntry) {\n        hashAddItem(obj, key, val);\n    } else {\n        pEntry->val = val;\n    }\n    return true;\n}\n\nstruct ListNode * hashGetItem(HashItem **obj, int key) {\n    HashItem *pEntry = hashFindItem(obj, key);\n    if (!pEntry) {\n        return NULL;\n    }\n    return pEntry->val;\n}\n\nvoid hashFree(HashItem **obj) {\n    HashItem *curr = NULL, *tmp = NULL;\n    HASH_ITER(hh, *obj, curr, tmp) {\n        HASH_DEL(*obj, curr);  \n        free(curr);\n    }\n}\n\nstruct ListNode* createListNode(int val) {\n    struct ListNode *obj = (struct ListNode *)malloc(sizeof(struct ListNode));\n    obj->val = val;\n    obj->next = NULL;\n    return obj;\n}\n\nstruct ListNode* removeZeroSumSublists(struct ListNode* head) {\n    struct ListNode* dummy = createListNode(0);\n    dummy->next = head;\n    int prefix = 0;\n    HashItem *seen = NULL;\n    for (struct ListNode* node = dummy; node; node = node->next) {\n        prefix += node->val;\n        hashSetItem(&seen, prefix, node);\n    }\n    prefix = 0;\n    for (struct ListNode* node = dummy; node; node = node->next) {\n        prefix += node->val;\n        struct ListNode *curr = hashGetItem(&seen, prefix);\n        if (curr) {\n            node->next = curr->next;\n        }\n    }\n    hashFree(&seen);\n    struct ListNode* ret = dummy->next;\n    free(dummy);\n    return ret;\n}",
+        "java": "class Solution {\n    public ListNode removeZeroSumSublists(ListNode head) {\n        ListNode dummy = new ListNode(0);\n        dummy.next = head;\n        Map<Integer, ListNode> seen = new HashMap<>();\n        int prefix = 0;\n        for (ListNode node = dummy; node != null; node = node.next) {\n            prefix += node.val;\n            seen.put(prefix, node);\n        }\n        prefix = 0;\n        for (ListNode node = dummy; node != null; node = node.next) {\n            prefix += node.val;\n            node.next = seen.get(prefix).next;\n        }\n        return dummy.next;\n    }\n}",
+        "python": "class Solution:\n    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        prefix = 0\n        seen = {}\n        seen[0] = dummy = ListNode(0)\n        dummy.next = head\n        while head:\n            prefix += head.val\n            seen[prefix] = head\n            head = head.next\n        head = dummy\n        prefix = 0\n        while head:\n            prefix += head.val\n            head.next = seen[prefix].next\n            head = head.next\n        return dummy.next",
+        "javascript": "var removeZeroSumSublists = function(head) {\n    let dummy = new ListNode(0);\n    dummy.next = head;\n    let seen = {};\n    let prefix = 0;\n    for (let node = dummy; node !== null; node = node.next) {\n        prefix += node.val;\n        seen[prefix] = node;\n    }\n    prefix = 0;\n    for (let node = dummy; node !== null; node = node.next) {\n        prefix += node.val;\n        node.next = seen[prefix].next;\n    }\n    return dummy.next;\n};",
+        "go": "func removeZeroSumSublists(head *ListNode) *ListNode {\n    dummy := &ListNode{Val: 0}\n    dummy.Next = head\n    seen := map[int]*ListNode{}\n    prefix := 0\n    for node := dummy; node != nil; node = node.Next {\n        prefix += node.Val\n        seen[prefix] = node\n    }\n    prefix = 0\n    for node := dummy; node != nil; node = node.Next {\n        prefix += node.Val\n        node.Next = seen[prefix].Next\n    }\n    return dummy.Next\n}"
+      }
     },
     {
       "title": "餐盘栈",
@@ -1499,7 +1613,14 @@
         "谷歌",
         "字节"
       ],
-      "id": 81
+      "id": 81,
+      "solutions": {
+        "java": "class DinnerPlates {\n    int capacity;\n    List<Integer> stack;\n    List<Integer> top;\n    TreeSet<Integer> poppedPos;\n\n    public DinnerPlates(int capacity) {\n        this.capacity = capacity;\n        stack = new LinkedList<>();\n        top = new ArrayList<>();\n        poppedPos = new TreeSet<>();\n    }\n\n    public void push(int val) {\n        if (poppedPos.isEmpty()) {\n            int pos = stack.size();\n            stack.add(val);\n            if (pos % capacity == 0) {\n                top.add(0);\n            }\n            else {\n                int stackPos = top.size()-1;\n                int stackTop = top.get(stackPos);\n                top.set(stackPos, stackTop + 1);\n            }\n        } else {\n            int pos = poppedPos.pollFirst();\n            stack.set(pos, val);\n            int index = pos / capacity;\n            int stackTop = top.get(index);\n            top.set(index, stackTop + 1);\n        }\n    }\n\n    public int pop() {\n        while (!stack.isEmpty() && poppedPos.contains(stack.size()-1)) {\n            stack.remove(stack.size()-1);\n            int pos = poppedPos.pollLast();\n            if (pos % capacity == 0) {\n                top.remove(top.size()-1);\n            }\n        }\n        if (stack.isEmpty()) {\n            return -1;\n        } else {\n            int pos = stack.size() - 1;\n            int val = stack.get(pos);\n            stack.remove(pos);\n            int index = top.size()-1;\n            if (pos % capacity == 0) {\n                top.remove(index);\n            } else {\n                top.set(index, index - 1);\n            }\n            return val;\n        }\n    }\n\n    public int popAtStack(int index) {\n        if (index >= top.size()) {\n            return -1;\n        }\n        int stackTop = top.get(index);\n        if (stackTop < 0) {\n            return -1;\n        }\n        top.set(index, stackTop - 1);\n        int pos = index * capacity + stackTop;\n        poppedPos.add(pos);\n        return stack.get(pos);\n    }\n}",
+        "cpp": "class DinnerPlates {\npublic:\n    DinnerPlates(int capacity) {\n        this->capacity = capacity;\n    }\n\n    void push(int val) {\n        if (poppedPos.empty()) {\n            int pos = stk.size();\n            stk.emplace_back(val);\n            if (pos % capacity == 0) {\n                top.emplace_back(0);\n            } else {\n                top.back()++;\n            }\n        } else {\n            int pos = *poppedPos.begin();\n            poppedPos.erase(pos);\n            stk[pos] = val;\n            int index = pos / capacity;\n            top[index]++;\n        }\n    }\n    \n    int pop() {\n        while (!stk.empty() && poppedPos.count(stk.size() - 1)) {\n            stk.pop_back();\n            int pos = *poppedPos.rbegin();\n            poppedPos.erase(pos);\n            if (pos % capacity == 0) {\n                top.pop_back();\n            }\n        }\n        if (stk.empty()) {\n            return -1;\n        } else {\n            int pos = stk.size() - 1;\n            int val = stk.back();\n            stk.pop_back();\n            if (pos % capacity == 0) {\n                top.pop_back();\n            } else {\n                top.back() = top.size() - 2;\n            }\n            return val;\n        }\n    }\n    \n    int popAtStack(int index) {\n        if (index >= top.size()) {\n            return -1;\n        }\n        int stackTop = top[index];\n        if (stackTop < 0) {\n            return -1;\n        }\n        top[index]--;\n        int pos = index * capacity + stackTop;\n        poppedPos.emplace(pos);\n        return stk[pos];\n    }\nprivate:\n    int capacity;\n    vector<int> stk;\n    vector<int> top;\n    set<int> poppedPos;\n};",
+        "python": "from sortedcontainers import *\nclass DinnerPlates:\n\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.stack = []\n        self.top = []\n        self.poppedPos = SortedSet()\n\n    def push(self, val: int) -> None:\n        if not self.poppedPos:\n            pos = len(self.stack)\n            self.stack.append(val)\n            if pos % self.capacity == 0:\n                self.top.append(0)\n            else:\n                stackPos = len(self.top) - 1\n                stackTop = self.top[stackPos]\n                self.top[stackPos] = stackTop + 1\n        else:\n            pos = self.poppedPos.pop(0)\n            self.stack[pos] = val\n            index = pos // self.capacity\n            stackTop = self.top[index]\n            self.top[index] = stackTop + 1\n\n    def pop(self) -> int:\n        while self.stack and self.poppedPos and self.poppedPos[-1] == len(self.stack) - 1:\n            self.stack.pop()\n            pos = self.poppedPos.pop()\n            if pos % self.capacity == 0:\n                self.top.pop()\n        if not self.stack:\n            return -1\n        else:\n            pos = len(self.stack) - 1\n            val = self.stack[pos]\n            self.stack.pop()\n            if pos % self.capacity == 0 and self.top:\n                self.top.pop()\n            elif self.top:\n                self.top[-1] -= 1\n            return val\n\n    def popAtStack(self, index: int) -> int:\n        if index >= len(self.top):\n            return -1\n        stackTop = self.top[index]\n        if stackTop < 0:\n            return -1\n        self.top[index] = stackTop - 1\n        pos = index * self.capacity + stackTop\n        self.poppedPos.add(pos)\n        return self.stack[pos]",
+        "go": "type DinnerPlates struct {\n    capacity int\n    stack []int\n    top []int\n    poppedPos []int\n}\n\nfunc Constructor(capacity int) DinnerPlates {\n    return DinnerPlates{capacity, []int{}, []int{}, []int{}}\n}\n\nfunc (this *DinnerPlates) Push(val int) {\n    if len(this.poppedPos) == 0 {\n        pos := len(this.stack)\n        this.stack = append(this.stack, val)\n        if pos % this.capacity == 0 {\n            this.top = append(this.top, 0)\n        } else {\n            stackPos := len(this.top) - 1\n            stackTop := this.top[stackPos]\n            this.top[stackPos] = stackTop + 1\n        }\n    } else {\n        pos := this.poppedPos[0]\n        this.poppedPos = this.poppedPos[1:]\n        this.stack[pos] = val\n        index := pos / this.capacity\n        stackTop := this.top[index]\n        this.top[index] = stackTop + 1\n    }\n}\n\nfunc (this *DinnerPlates) Pop() int {\n    for len(this.stack) > 0 && len(this.poppedPos) > 0 && this.poppedPos[len(this.poppedPos) - 1] == len(this.stack) - 1 {\n        this.stack = this.stack[:len(this.stack) - 1]\n        pos := this.poppedPos[len(this.poppedPos) - 1]\n        this.poppedPos = this.poppedPos[:len(this.poppedPos) - 1]\n        if pos % this.capacity == 0 {\n            this.top = this.top[:len(this.top) - 1]\n        }\n    }\n    if len(this.stack) == 0 {\n        return -1\n    } else {\n        pos := len(this.stack) - 1\n        val := this.stack[pos]\n        this.stack = this.stack[:pos]\n        if pos % this.capacity == 0 && len(this.top) > 0 {\n            this.top = this.top[:len(this.top) - 1]\n        } else if len(this.top) > 0 {\n            this.top[len(this.top) - 1] -= 1\n        }\n        return val\n    }\n}\n\nfunc (this *DinnerPlates) PopAtStack(index int) int {\n    if index >= len(this.top) {\n        return -1\n    }\n    stackTop := this.top[index]\n    if stackTop < 0 {\n        return -1\n    }\n    this.top[index] = stackTop - 1\n    pos := index * this.capacity + stackTop\n    i := sort.SearchInts(this.poppedPos, pos)\n    this.poppedPos = append(this.poppedPos, 0)\n    copy(this.poppedPos[i+1:], this.poppedPos[i:])\n    this.poppedPos[i] = pos\n    return this.stack[pos]\n}",
+        "javascript": "class TreeSet {\n    constructor(comparator) {\n        this.set = new Set();\n        this.comparator = comparator || ((a, b) => a - b);\n        this.array = [];\n    }\n\n    add(item) {\n        if (!this.set.has(item)) {\n            this.set.add(item);\n            this.array.push(item);\n            this.array.sort(this.comparator);\n        }\n    }\n\n    delete(item) {\n        if (this.set.has(item)) {\n            this.set.delete(item);\n            this.array.splice(this.array.indexOf(item), 1);\n        }\n    }\n\n    has(item) {\n        return this.set.has(item);\n    }\n\n    get size() {\n        return this.set.size;\n    }\n\n    toArray() {\n        return [...this.array];\n    }\n\n    pollFirst() {\n        const item = this.array.shift();\n        this.set.delete(item);\n        return item;\n    }\n\n    pollLast() {\n        const item = this.array.pop();\n        this.set.delete(item);\n        return item;\n    }\n}\n\nvar DinnerPlates = function(capacity) {\n    this.capacity = capacity;\n    this.stack = [];\n    this.top = [];\n    this.poppedPos = new TreeSet();\n};\n\nDinnerPlates.prototype.push = function(val) {\n    if (this.poppedPos.size === 0) {\n        const pos = this.stack.length;\n        this.stack.push(val);\n        if (pos % this.capacity === 0) {\n            this.top.push(0);\n        }\n        else {\n            const stackPos = this.top.length - 1;\n            const stackTop = this.top[stackPos];\n            this.top.splice(stackPos, 1 , stackTop + 1);\n        }\n    } else {\n        const pos = this.poppedPos.pollFirst();\n        this.stack.splice(pos, 1 , val);\n        const index = Math.floor(pos / this.capacity);\n        const stackTop = this.top[index];\n        this.top.splice(index, 1 ,stackTop + 1);\n    }\n};\n\nDinnerPlates.prototype.pop = function() {\n    while (this.stack.length !== 0 && this.poppedPos.has(this.stack.length - 1)) {\n        this.stack.splice(this.stack.length - 1,1);\n        const pos = this.poppedPos.pollLast();\n        if (pos % this.capacity === 0) {\n            this.top.splice(this.top.length - 1, 1);\n        }\n    }\n    if (this.stack.length === 0) {\n        return -1;\n    } else {\n        const pos = this.stack.length - 1;\n        const val = this.stack[pos];\n        this.stack.splice(pos, 1);\n        const index = this.top.length - 1;\n        if (pos % this.capacity === 0) {\n            this.top.splice(index, 1);\n        } else {\n            this.top.splice(index, 1 , index - 1);\n        }\n        return val;\n    }\n};\n\nDinnerPlates.prototype.popAtStack = function(index) {\n    if (index >= this.top.length) {\n        return -1;\n    }\n    const stackTop = this.top[index];\n    if (stackTop < 0) {\n        return -1;\n    }\n    this.top.splice(index,  1, stackTop - 1);\n    const pos = index * this.capacity + stackTop;\n    this.poppedPos.add(pos);\n    return this.stack[pos];\n};"
+      }
     },
     {
       "title": "即时食物配送 I",
@@ -1556,7 +1677,14 @@
         "苹果",
         "facebook"
       ],
-      "id": 84
+      "id": 84,
+      "solutions": {
+        "python": "class Solution:\n    def numPrimeArrangements(self, n: int) -> int:\n        numPrimes = sum(self.isPrime(i) for i in range(1, n + 1))\n        return self.factorial(numPrimes) * self.factorial(n - numPrimes) % (10 ** 9 + 7)\n\n    def isPrime(self, n: int) -> int:\n        if n == 1:\n            return 0\n        for i in range(2, int(sqrt(n)) + 1):\n            if n % i == 0:\n                return 0\n        return 1\n\n    def factorial(self, n: int) -> int:\n        res = 1\n        for i in range(1, n + 1):\n            res *= i\n            res %= (10 ** 9 + 7)\n        return res",
+        "java": "class Solution {\n    static final int MOD = 1000000007;\n\n    public int numPrimeArrangements(int n) {\n        int numPrimes = 0;\n        for (int i = 1; i <= n; i++) {\n            if (isPrime(i)) {\n                numPrimes++;\n            }\n        }\n        return (int) (factorial(numPrimes) * factorial(n - numPrimes) % MOD);\n    }\n\n    public boolean isPrime(int n) {\n        if (n == 1) {\n            return false;\n        }\n        for (int i = 2; i * i <= n; i++) {\n            if (n % i == 0) {\n                return false;\n            }\n        }\n        return true;\n    }\n\n    public long factorial(int n) {\n        long res = 1;\n        for (int i = 1; i <= n; i++) {\n            res *= i;\n            res %= MOD;\n        }\n        return res;\n    }\n}",
+        "cpp": "public class Solution {\n    const int MOD = 1000000007;\n\n    public int NumPrimeArrangements(int n) {\n        int numPrimes = 0;\n        for (int i = 1; i <= n; i++) {\n            if (IsPrime(i)) {\n                numPrimes++;\n            }\n        }\n        return (int) (Factorial(numPrimes) * Factorial(n - numPrimes) % MOD);\n    }\n\n    public bool IsPrime(int n) {\n        if (n == 1) {\n            return false;\n        }\n        for (int i = 2; i * i <= n; i++) {\n            if (n % i == 0) {\n                return false;\n            }\n        }\n        return true;\n    }\n\n    public long Factorial(int n) {\n        long res = 1;\n        for (int i = 1; i <= n; i++) {\n            res *= i;\n            res %= MOD;\n        }\n        return res;\n    }\n}",
+        "go": "const mod int = 1e9 + 7\n\nfunc numPrimeArrangements(n int) int {\n    numPrimes := 0\n    for i := 2; i <= n; i++ {\n        if isPrime(i) {\n            numPrimes++\n        }\n    }\n    return factorial(numPrimes) * factorial(n-numPrimes) % mod\n}\n\nfunc isPrime(n int) bool {\n    for i := 2; i*i <= n; i++ {\n        if n%i == 0 {\n            return false\n        }\n    }\n    return true\n}\n\nfunc factorial(n int) int {\n    f := 1\n    for i := 1; i <= n; i++ {\n        f = f * i % mod\n    }\n    return f\n}",
+        "javascript": "const MOD = 1000000007;\nvar numPrimeArrangements = function(n) {\n    let numPrimes = 0;\n    for (let i = 2 ; i <= n ; i++) {\n        if (isPrime(i)) {\n            numPrimes++;\n        }\n    }\n    let res = 1;\n    let m = n - numPrimes;\n    while (numPrimes > 0) {\n        res = res % MOD;\n        res *= numPrimes;\n        numPrimes--;\n    }\n    while (m > 0) {\n        res = res % MOD;\n        res *= m;\n        m--;\n    }\n    return res;\n};\n\nconst isPrime = (n) => {\n    if (n === 1) {\n        return false;\n    }\n    for (let i = 2; i * i <= n; i++) {\n        if (n % i === 0) {\n            return false;\n        }\n    }\n    return true;\n}"
+      }
     },
     {
       "title": "健身计划评估",
@@ -1598,7 +1726,14 @@
         "akuna-capital",
         "亚马逊"
       ],
-      "id": 86
+      "id": 86,
+      "solutions": {
+        "cpp": "bool* canMakePaliQueries(char * s, int** queries, int queriesSize, int* queriesColSize, int* returnSize) {\n    int n = strlen(s);\n    int* count = (int*)malloc((n + 1) * sizeof(int));\n    memset(count, 0, (n + 1) * sizeof(int));\n    for (int i = 0; i < n; i++) {\n        count[i + 1] = count[i] ^ (1 << (s[i] - 'a'));\n    }\n    bool* res = (bool*)malloc(queriesSize * sizeof(bool));\n    for (int i = 0; i < queriesSize; i++) {\n        int l = queries[i][0], r = queries[i][1], k = queries[i][2];\n        int bits = 0, x = count[r + 1] ^ count[l];\n        while (x > 0) {\n            x &= x - 1;\n            bits++;\n        }\n        res[i] = bits / 2 <= k;\n    }\n    *returnSize = queriesSize;\n    free(count);\n    return res;\n}",
+        "java": "class Solution {\n    public List<Boolean> canMakePaliQueries(String s, int[][] queries) {\n        int n = s.length();\n        int[] count = new int[n + 1];\n        for (int i = 0; i < n; i++) {\n            count[i + 1] = count[i] ^ (1 << (s.charAt(i) - 'a'));\n        }\n        List<Boolean> res = new ArrayList<>();\n        for (int i = 0; i < queries.length; i++) {\n            int l = queries[i][0], r = queries[i][1], k = queries[i][2];\n            int bits = 0, x = count[r + 1] ^ count[l];\n            while (x > 0) {\n                x &= x - 1;\n                bits++;\n            }\n            res.add(bits <= k * 2 + 1);\n        }\n        return res;\n    }\n}",
+        "python": "class Solution:\n    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:\n        n = len(s)\n        count = [0] * (n + 1)\n        for i in range(n):\n            count[i + 1] = count[i] ^ (1 << (ord(s[i]) - ord('a')))\n        res = []\n        for l, r, k in queries:\n            bits = (count[r + 1] ^ count[l]).bit_count()\n            res.append(bits <= k * 2 + 1)\n        return res",
+        "javascript": "var canMakePaliQueries = function(s, queries) {\n    const n = s.length;\n    const count = Array(n + 1).fill(0);\n    for (let i = 0; i < n; i++) {\n        count[i + 1] = count[i] ^ (1 << (s[i].charCodeAt(0) - 'a'.charCodeAt(0)));\n    }\n    const res = [];\n    for (const query of queries) {\n        const l = query[0], r = query[1], k = query[2];\n        let bits = 0, x = count[r + 1] ^ count[l];\n        while (x > 0) {\n            x &= x - 1;\n            bits++;\n        }\n        res.push(bits <= k * 2 + 1);\n    }\n    return res;\n}",
+        "go": "func canMakePaliQueries(s string, queries [][]int) []bool {\n    n := len(s)\n    count := make([]int, n + 1)\n    for i := 0; i < n; i++ {\n        count[i + 1] = count[i] ^ (1 << (s[i] - 'a'))\n    }\n    res := make([]bool, len(queries))\n    for i, query := range queries {\n        l := query[0]\n        r := query[1]\n        k := query[2]\n        bits := 0\n        x := count[r + 1] ^ count[l]\n        for x > 0 {\n            x &= x - 1\n            bits++\n        }\n        res[i] = bits <= k * 2 + 1\n    }\n    return res\n}"
+      }
     },
     {
       "title": "猜字谜",
@@ -1621,7 +1756,14 @@
         "亚马逊",
         "yahoo"
       ],
-      "id": 87
+      "id": 87,
+      "solutions": {
+        "cpp": "struct TrieNode {\n    int frequency;\n    struct TrieNode* child[26];\n};\n\nvoid init(struct TrieNode* obj) {\n    obj->frequency = 0;\n    for (int i = 0; i < 26; ++i) {\n        obj->child[i] = NULL;\n    }\n}\n\n// 在回溯的过程中枚举 puzzle 的所有子集并统计答案\n// find(puzzle, required, cur, pos) 表示 puzzle 的首字母为 required, 当前搜索到字典树上的 cur 节点，并且准备枚举 puzzle 的第 pos\n// 个字母是否选择（放入子集中） find 函数的返回值即为谜底的数量\nvoid add(struct TrieNode** root, char* word, int wordSize) {\n    struct TrieNode* cur = *root;\n    for (int i = 0; i < wordSize; ++i) {\n        if (!cur->child[word[i] - 'a']) {\n            cur->child[word[i] - 'a'] = malloc(sizeof(struct TrieNode));\n            init(cur->child[word[i] - 'a']);\n        }\n        cur = cur->child[word[i] - 'a'];\n    }\n    ++cur->frequency;\n}\n\nint find(char* puzzle, char required, struct TrieNode* cur, int pos) {\n    // 搜索到空节点，不合法，返回 0\n    if (!cur) {\n        return 0;\n    }\n    // 整个 puzzle 搜索完毕，返回谜底的数量\n    if (pos == 7) {\n        return cur->frequency;\n    }\n\n    // 选择第 pos 个字母\n    int ret = find(puzzle, required, cur->child[puzzle[pos] - 'a'], pos + 1);\n\n    // 当 puzzle[pos] 不为首字母时，可以不选择第 pos 个字母\n    if (puzzle[pos] != required) {\n        ret += find(puzzle, required, cur, pos + 1);\n    }\n\n    return ret;\n};\n\nint cmp(char* a, char* b) {\n    return *a - *b;\n}\n\nint* findNumOfValidWords(char** words, int wordsSize, char** puzzles, int puzzlesSize, int* returnSize) {\n    struct TrieNode* root = malloc(sizeof(struct TrieNode));\n    init(root);\n\n    for (int i = 0; i < wordsSize; i++) {\n        // 将 word 中的字母按照字典序排序并去重\n        int len = strlen(words[i]);\n        char* word = malloc(sizeof(char) * (len + 1));\n        strcpy(word, words[i]);\n        qsort(word, len, sizeof(char), cmp);\n        int wordSize = 1;\n        for (int j = 1; j < len; j++) {\n            if (word[wordSize - 1] != word[j]) {\n                word[wordSize++] = word[j];\n            }\n        }\n\n        // 加入字典树中\n        add(&root, word, wordSize);\n    }\n\n    int* ans = malloc(sizeof(int) * puzzlesSize);\n    *returnSize = 0;\n\n    for (int i = 0; i < puzzlesSize; i++) {\n        int len = strlen(puzzles[i]);\n        char* puzzle = malloc(sizeof(char) * (len + 1));\n        strcpy(puzzle, puzzles[i]);\n        char required = puzzle[0];\n        qsort(puzzle, len, sizeof(char), cmp);\n        ans[(*returnSize)++] = find(puzzle, required, root, 0);\n    }\n    return ans;\n}",
+        "java": "class Solution {\n    TrieNode root;\n\n    public List<Integer> findNumOfValidWords(String[] words, String[] puzzles) {\n        root = new TrieNode();\n        \n        for (String word : words) {\n            // 将 word 中的字母按照字典序排序并去重\n            char[] arr = word.toCharArray();\n            Arrays.sort(arr);\n            StringBuffer sb = new StringBuffer();\n            for (int i = 0; i < arr.length; ++i) {\n                if (i == 0 || arr[i] != arr[i - 1]) {\n                    sb.append(arr[i]);\n                }\n            }\n            // 加入字典树中\n            add(root, sb.toString());\n        }\n\n        List<Integer> ans = new ArrayList<Integer>();\n        for (String puzzle : puzzles) {\n            char required = puzzle.charAt(0);\n            char[] arr = puzzle.toCharArray();\n            Arrays.sort(arr);\n            ans.add(find(new String(arr), required, root, 0));\n        }\n        return ans;\n    }\n\n    public void add(TrieNode root, String word) {\n        TrieNode cur = root;\n        for (int i = 0; i < word.length(); ++i) {\n            char ch = word.charAt(i);\n            if (cur.child[ch - 'a'] == null) {\n                cur.child[ch - 'a'] = new TrieNode();\n            }\n            cur = cur.child[ch - 'a'];\n        }\n        ++cur.frequency;\n    }\n\n    // 在回溯的过程中枚举 puzzle 的所有子集并统计答案\n    // find(puzzle, required, cur, pos) 表示 puzzle 的首字母为 required, 当前搜索到字典树上的 cur 节点，并且准备枚举 puzzle 的第 pos 个字母是否选择（放入子集中）\n    // find 函数的返回值即为谜底的数量\n    public int find(String puzzle, char required, TrieNode cur, int pos) {\n        // 搜索到空节点，不合法，返回 0\n        if (cur == null) {\n            return 0;\n        }\n        // 整个 puzzle 搜索完毕，返回谜底的数量\n        if (pos == 7) {\n            return cur.frequency;\n        }\n\n        // 选择第 pos 个字母\n        int ret = find(puzzle, required, cur.child[puzzle.charAt(pos) - 'a'], pos + 1);\n\n        // 当 puzzle.charAt(pos) 不为首字母时，可以不选择第 pos 个字母\n        if (puzzle.charAt(pos) != required) {\n            ret += find(puzzle, required, cur, pos + 1);\n        }\n\n        return ret;\n    }\n}\n\nclass TrieNode {\n    int frequency;\n    TrieNode[] child;\n\n    public TrieNode() {\n        frequency = 0;\n        child = new TrieNode[26];\n    }\n}",
+        "python": "class TrieNode:\n    def __init__(self):\n        self.frequency = 0\n        self.child = dict()\n\nclass Solution:\n    def findNumOfValidWords(self, words: List[str], puzzles: List[str]) -> List[int]:\n        root = TrieNode()\n\n        def add(word: List[str]):\n            cur = root\n            for ch in word:\n                idx = ord(ch) - ord(\"a\")\n                if idx not in cur.child:\n                    cur.child[idx] = TrieNode()\n                cur = cur.child[idx]\n            cur.frequency += 1\n\n        # 在回溯的过程中枚举 puzzle 的所有子集并统计答案\n        # find(puzzle, required, cur, pos) 表示 puzzle 的首字母为 required, 当前搜索到字典树上的 cur 节点，并且准备枚举 puzzle 的第 pos 个字母是否选择（放入子集中）\n        # find 函数的返回值即为谜底的数量\n        def find(puzzle: List[str], required: str, cur: TrieNode, pos: int) -> int:\n            # 搜索到空节点，不合法，返回 0\n            if not cur:\n                return 0\n            # 整个 puzzle 搜索完毕，返回谜底的数量\n            if pos == 7:\n                return cur.frequency\n            \n            ret = 0\n            # 选择第 pos 个字母\n            if (idx := ord(puzzle[pos]) - ord(\"a\")) in cur.child:\n                ret += find(puzzle, required, cur.child[idx], pos + 1)\n\n            # 当 puzzle[pos] 不为首字母时，可以不选择第 pos 个字母\n            if puzzle[pos] != required:\n                ret += find(puzzle, required, cur, pos + 1)\n            \n            return ret\n        \n        for word in words:\n            # 将 word 中的字母按照字典序排序并去重\n            word = sorted(set(word))\n            # 加入字典树中\n            add(word)\n\n        ans = list()\n        for puzzle in puzzles:\n            required = puzzle[0]\n            puzzle = sorted(puzzle)\n            ans.append(find(puzzle, required, root, 0))\n        \n        return ans",
+        "javascript": "var findNumOfValidWords = function(words, puzzles) {\n    const frequency = new Map();\n\n    for (const word of words) {\n        let mask = 0;\n        for (const ch of word) {\n            mask |= (1 << (ch.charCodeAt() - 'a'.charCodeAt()));\n        }\n        if (CountOne(mask) <= 7) {\n            frequency.set(mask, (frequency.get(mask) || 0) + 1);\n        }\n    }\n\n    const ans = [];\n    for (const puzzle of puzzles) {\n        let total = 0;\n\n        // 枚举子集方法一\n        // for (let choose = 0; choose < (1 << 6); ++choose) {\n        //     let mask = 0;\n        //     for (let i = 0; i < 6; ++i) {\n        //         if (choose & (1 << i)) {\n        //             mask |= (1 << (puzzle[i + 1].charCodeAt() - 'a'.charCodeAt()));\n        //         }\n        //     }\n        //     mask |= (1 << (puzzle[0].charCodeAt() - 'a'.charCodeAt()));\n        //     if (frequency.has(mask)) {\n        //         total += frequency.get(mask);\n        //     }\n        // }\n        // 枚举子集方法二\n        let mask = 0;\n        for (let i = 1; i < 7; ++i) {\n            mask |= (1 << (puzzle[i].charCodeAt() - 'a'.charCodeAt()));\n        }\n        let subset = mask;\n        while (subset) {\n            let s = subset | (1 << (puzzle[0].charCodeAt() - 'a'.charCodeAt()));\n            if (frequency.has(s)) {\n                total += frequency.get(s);\n            }\n            subset = (subset - 1) & mask;\n        }\n        // 在枚举子集的过程中，要么会漏掉全集 mask，要么会漏掉空集\n        // 这里会漏掉空集，因此需要额外判断空集\n        if (frequency.has(1 << (puzzle[0].charCodeAt() - 'a'.charCodeAt()))) {\n            total += frequency.get(1 << (puzzle[0].charCodeAt() - 'a'.charCodeAt()));\n        }\n        ans.push(total);\n    }\n    return ans;\n};\n\nfunction CountOne(n) {\n    const str = n.toString(2);\n    let count = 0;\n    for (const ch of str) {\n        if (parseInt(ch) === 1) {\n            count++;\n        }\n    }\n    return count;\n}",
+        "go": "type trieNode struct {\n    son [26]*trieNode\n    cnt int\n}\n\nfunc findNumOfValidWords(words []string, puzzles []string) []int {\n    root := &trieNode{}\n    for _, word := range words {\n        // 将 word 中的字母按照字典序排序并去重\n        w := []byte(word)\n        sort.Slice(w, func(i, j int) bool { return w[i] < w[j] })\n        i := 0\n        for _, ch := range w[1:] {\n            if w[i] != ch {\n                i++\n                w[i] = ch\n            }\n        }\n        w = w[:i+1]\n\n        // 加入字典树中\n        cur := root\n        for _, ch := range w {\n            ch -= 'a'\n            if cur.son[ch] == nil {\n                cur.son[ch] = &trieNode{}\n            }\n            cur = cur.son[ch]\n        }\n        cur.cnt++\n    }\n\n    ans := make([]int, len(puzzles))\n    for i, puzzle := range puzzles {\n        pz := []byte(puzzle)\n        first := pz[0]\n        sort.Slice(pz, func(i, j int) bool { return pz[i] < pz[j] })\n\n        // 在回溯的过程中枚举 pz 的所有子集并统计答案\n        var find func(int, *trieNode) int\n        find = func(pos int, cur *trieNode) int {\n            // 搜索到空节点，不合法，返回 0\n            if cur == nil {\n                return 0\n            }\n\n            // 整个 pz 搜索完毕，返回谜底的数量\n            if pos == len(pz) {\n                return cur.cnt\n            }\n\n            // 选择第 pos 个字母\n            res := find(pos+1, cur.son[pz[pos]-'a'])\n\n            // 当 pz[pos] 不为首字母时，可以不选择第 pos 个字母\n            if pz[pos] != first {\n                res += find(pos+1, cur)\n            }\n\n            return res\n        }\n\n        ans[i] = find(0, root)\n    }\n\n    return ans\n}"
+      }
     },
     {
       "title": "重新格式化部门表",
@@ -1742,7 +1884,15 @@
         "微软",
         "facebook"
       ],
-      "id": 93
+      "id": 93,
+      "solutions": {
+        "python": "class Solution:\n    def distanceBetweenBusStops(self, distance: List[int], start: int, destination: int) -> int:\n        if start > destination:\n            start, destination = destination, start\n        return min(sum(distance[start:destination]), sum(distance[:start]) + sum(distance[destination:]))",
+        "cpp": "public class Solution {\n    public int DistanceBetweenBusStops(int[] distance, int start, int destination) {\n        if (start > destination) {\n            int temp = start;\n            start = destination;\n            destination = temp;\n        }\n        int sum1 = 0, sum2 = 0;\n        for (int i = 0; i < distance.Length; i++) {\n            if (i >= start && i < destination) {\n                sum1 += distance[i];\n            } else {\n                sum2 += distance[i];\n            }\n        }\n        return Math.Min(sum1, sum2);\n    }\n}",
+        "java": "class Solution {\n    public int distanceBetweenBusStops(int[] distance, int start, int destination) {\n        if (start > destination) {\n            int temp = start;\n            start = destination;\n            destination = temp;\n        }\n        int sum1 = 0, sum2 = 0;\n        for (int i = 0; i < distance.length; i++) {\n            if (i >= start && i < destination) {\n                sum1 += distance[i];\n            } else {\n                sum2 += distance[i];\n            }\n        }\n        return Math.min(sum1, sum2);\n    }\n}",
+        "go": "func distanceBetweenBusStops(distance []int, start, destination int) int {\n    if start > destination {\n        start, destination = destination, start\n    }\n    sum1, sum2 := 0, 0\n    for i, d := range distance {\n        if start <= i && i < destination {\n            sum1 += d\n        } else {\n            sum2 += d\n        }\n    }\n    return min(sum1, sum2)\n}\n\nfunc min(a, b int) int {\n    if a > b {\n        return b\n    }\n    return a\n}",
+        "javascript": "var distanceBetweenBusStops = function(distance, start, destination) {\n    if (start > destination) {\n        [start, destination] = [destination, start]\n    }\n    let sum1 = 0, sum2 = 0;\n    for (let i = 0; i < distance.length; i++) {\n        if (i >= start && i < destination) {\n            sum1 += distance[i];\n        } else {\n            sum2 += distance[i];\n        }\n    }\n    return Math.min(sum1, sum2);\n};",
+        "typescript": "function distanceBetweenBusStops(distance: number[], start: number, destination: number): number {\n    if (start > destination) {\n        [start, destination] = [destination, start]\n    }\n    let sum1 = 0, sum2 = 0;\n    for (let i = 0; i < distance.length; i++) {\n        if (i >= start && i < destination) {\n            sum1 += distance[i];\n        } else {\n            sum2 += distance[i];\n        }\n    }\n    return Math.min(sum1, sum2);\n};"
+      }
     },
     {
       "title": "一周中的第几天",
@@ -1761,7 +1911,14 @@
         "亚马逊",
         "字节"
       ],
-      "id": 94
+      "id": 94,
+      "solutions": {
+        "python": "class Solution:\n    def dayOfTheWeek(self, day: int, month: int, year: int) -> str:\n        week = [\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"]\n        monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30]\n        days = 0\n        # 输入年份之前的年份的天数贡献\n        days += 365 * (year - 1971) + (year - 1969) // 4\n        # 输入年份中，输入月份之前的月份的天数贡献\n        days += sum(monthDays[:month-1])\n        if (year % 400 == 0 or (year % 4 == 0 and year % 100 != 0)) and month >= 3:\n            days += 1\n        # 输入月份中的天数贡献\n        days += day\n\n        return week[(days + 3) % 7]",
+        "cpp": "class Solution {\npublic:\n    string dayOfTheWeek(int day, int month, int year) {\n        vector<string> week = {\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"};\n        vector<int> monthDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30};\n        /* 输入年份之前的年份的天数贡献 */\n        int days = 365 * (year - 1971) + (year - 1969) / 4;\n        /* 输入年份中，输入月份之前的月份的天数贡献 */\n        for (int i = 0; i < month - 1; ++i) {\n            days += monthDays[i];\n        }\n        if ((year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) && month >= 3) {\n            days += 1;\n        }\n        /* 输入月份中的天数贡献 */\n        days += day;\n        return week[(days + 3) % 7];\n    }\n};",
+        "java": "class Solution {\n    public String dayOfTheWeek(int day, int month, int year) {\n        String[] week = {\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"};\n        int[] monthDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30};\n        /* 输入年份之前的年份的天数贡献 */\n        int days = 365 * (year - 1971) + (year - 1969) / 4;\n        /* 输入年份中，输入月份之前的月份的天数贡献 */\n        for (int i = 0; i < month - 1; ++i) {\n            days += monthDays[i];\n        }\n        if ((year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) && month >= 3) {\n            days += 1;\n        }\n        /* 输入月份中的天数贡献 */\n        days += day;\n        return week[(days + 3) % 7];\n    }\n}",
+        "javascript": "var dayOfTheWeek = function(day, month, year) {\n    const week = [\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"];\n    const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30];\n    /* 输入年份之前的年份的天数贡献 */\n    let days = 365 * (year - 1971) + Math.floor((year - 1969) / 4);\n    /* 输入年份中，输入月份之前的月份的天数贡献 */\n    for (let i = 0; i < month - 1; ++i) {\n        days += monthDays[i];\n    }\n    if ((year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) && month >= 3) {\n        days += 1;\n    }\n    /* 输入月份中的天数贡献 */\n    days += day;\n    return week[(days + 3) % 7];\n};",
+        "go": "var week = []string{\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"}\nvar monthDays = []int{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30}\n\nfunc dayOfTheWeek(day, month, year int) string {\n    days := 0\n    // 输入年份之前的年份的天数贡献\n    days += 365*(year-1971) + (year-1969)/4\n    // 输入年份中，输入月份之前的月份的天数贡献\n    for _, d := range monthDays[:month-1] {\n        days += d\n    }\n    if month >= 3 && (year%400 == 0 || year%4 == 0 && year%100 != 0) {\n        days++\n    }\n    // 输入月份中的天数贡献\n    days += day\n    return week[(days+3)%7]\n}"
+      }
     },
     {
       "title": "删除一次得到子数组最大和",
@@ -1781,7 +1938,14 @@
         "谷歌",
         "goldman-sachs"
       ],
-      "id": 95
+      "id": 95,
+      "solutions": {
+        "cpp": "public class Solution {\n    public int MaximumSum(int[] arr) {\n        int dp0 = arr[0], dp1 = 0, res = arr[0];\n        for (int i = 1; i < arr.Length; i++) {\n            dp1 = Math.Max(dp0, dp1 + arr[i]);\n            dp0 = Math.Max(dp0, 0) + arr[i];\n            res = Math.Max(res, Math.Max(dp0, dp1));\n        }\n        return res;\n    }\n}",
+        "java": "class Solution {\n    public int maximumSum(int[] arr) {\n        int dp0 = arr[0], dp1 = 0, res = arr[0];\n        for (int i = 1; i < arr.length; i++) {\n            dp1 = Math.max(dp0, dp1 + arr[i]);\n            dp0 = Math.max(dp0, 0) + arr[i];\n            res = Math.max(res, Math.max(dp0, dp1));\n        }\n        return res;\n    }\n}",
+        "go": "func max(a, b int) int {\n    if a > b {\n        return a\n    }\n    return b\n}\n\nfunc maximumSum(arr []int) int {\n    dp0, dp1, res := arr[0], 0, arr[0]\n    for i := 1; i < len(arr); i++ {\n        dp0, dp1 = max(dp0, 0) + arr[i], max(dp1 + arr[i], dp0)\n        res = max(res, max(dp0, dp1))\n    }\n    return res\n}",
+        "python": "class Solution:\n    def maximumSum(self, arr: List[int]) -> bool:\n        dp0, dp1, res = arr[0], 0, arr[0]\n        for i in range(1, len(arr)):\n            dp1 = max(dp0, dp1 + arr[i])\n            dp0 = max(dp0, 0) + arr[i]\n            res = max(res, max(dp0, dp1))\n        return res",
+        "javascript": "var maximumSum = function(arr) {\n    let dp0 = arr[0], dp1 = 0, res = arr[0];\n    for (let i = 1; i < arr.length; i++) {\n        dp1 = Math.max(dp0, dp1 + arr[i]);\n        dp0 = Math.max(dp0, 0) + arr[i];\n        res = Math.max(res, Math.max(dp0, dp1));\n    }\n    return res;\n};"
+      }
     },
     {
       "title": "使数组严格递增",
@@ -1803,7 +1967,14 @@
         "微软",
         "谷歌"
       ],
-      "id": 96
+      "id": 96,
+      "solutions": {
+        "cpp": "public class Solution {\n    const int INF = 0x3f3f3f3f;\n\n    public int MakeArrayIncreasing(int[] arr1, int[] arr2) {\n        Array.Sort(arr2);\n        IList<int> list = new List<int>();\n        int prev = -1;\n        foreach (int num in arr2) {\n            if (num != prev) {\n                list.Add(num);\n                prev = num;\n            }\n        }\n        int n = arr1.Length;\n        int m = list.Count;\n        int[][] dp = new int[n + 1][];\n        for (int i = 0; i <= n; i++) {\n            dp[i] = new int[Math.Min(m, n) + 1];\n            Array.Fill(dp[i], INF);\n        }\n        dp[0][0] = -1;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= Math.Min(i, m); j++) {\n                /* 如果当前元素大于序列的最后一个元素 */\n                if (arr1[i - 1] > dp[i - 1][j]) {\n                    dp[i][j] = arr1[i - 1];\n                }\n                if (j > 0 && dp[i - 1][j - 1] != INF) {\n                    /* 查找严格大于 dp[i - 1][j - 1] 的最小元素 */\n                    int idx = BinarySearch(list, j - 1, dp[i - 1][j - 1]);\n                    if (idx != list.Count) {\n                        dp[i][j] = Math.Min(dp[i][j], list[idx]);\n                    }\n                }\n                if (i == n && dp[i][j] != INF) {\n                    return j;\n                }\n            }\n        }\n        return -1;\n    }\n\n    public int BinarySearch(IList<int> list, int low, int target) {\n        int high = list.Count;\n        while (low < high) {\n            int mid = low + (high - low) / 2;\n            if (list[mid] > target) {\n                high = mid;\n            } else {\n                low = mid + 1;\n            }\n        }\n        return low;\n    }\n}",
+        "java": "class Solution {\n    static final int INF = 0x3f3f3f3f;\n\n    public int makeArrayIncreasing(int[] arr1, int[] arr2) {\n        Arrays.sort(arr2);\n        List<Integer> list = new ArrayList<Integer>();\n        int prev = -1;\n        for (int num : arr2) {\n            if (num != prev) {\n                list.add(num);\n                prev = num;\n            }\n        }\n        int[] temp = new int[arr1.length + 2];\n        System.arraycopy(arr1, 0, temp, 1, arr1.length);\n        /* 右侧哨兵 inf */\n        temp[arr1.length + 1] = INF;\n        /* 左侧哨兵 -1 */\n        temp[0] = -1;\n        arr1 = temp;\n        int n = arr1.length;\n        int m = list.size();\n\n        int[] dp = new int[n];\n        Arrays.fill(dp, INF);\n        dp[0] = 0;\n        for (int i = 1; i < n; i++) {\n            /* arr1[i] 左侧的元素不进行替换 */\n            if (arr1[i - 1] < arr1[i]) {\n                dp[i] = Math.min(dp[i], dp[i - 1]);\n            }\n            /* 替换 arr1[i] 左边的连续 j 个元素 */\n            for (int j = 1; j < i; j++) { \n                /* arr2 的最优替换的起点为大于 arr1[i - j - 1] 的最小元素 */\n                int k = binarySearch(list, arr1[i - j - 1]);\n                /* arr2 的最优替换的终点必须满足小于 arr1[i] */\n                if (k + j - 1 < m && list.get(k + j - 1) < arr1[i]) {\n                    dp[i] = Math.min(dp[i], dp[i - j - 1] + j);\n                }\n            }\n            \n        }\n        return dp[n - 1] == INF ? -1 : dp[n - 1];\n    }\n\n    public int binarySearch(List<Integer> list, int target) {\n        int low = 0, high = list.size();\n        while (low < high) {\n            int mid = low + (high - low) / 2;\n            if (list.get(mid) > target) {\n                high = mid;\n            } else {\n                low = mid + 1;\n            }\n        }\n        return low;\n    }\n}",
+        "python": "class Solution:\n    def makeArrayIncreasing(self, arr1: List[int], arr2: List[int]) -> int:\n        arr2 = sorted(set(arr2))\n        n = len(arr1)\n        m = len(arr2)\n        dp = [[inf] *(min(m, n)+1) for _ in range(n + 1)]\n        dp[0][0] = -1\n        for i in range(1, n + 1):\n            for j in range(min(i, m) + 1):\n                if arr1[i - 1] > dp[i - 1][j]:\n                    dp[i][j] = arr1[i - 1]\n                if j and dp[i - 1][j - 1] != inf:\n                    k = bisect_right(arr2, dp[i - 1][j - 1], j - 1)\n                    if k < m:\n                        dp[i][j] = min(dp[i][j], arr2[k])\n                if i == n and dp[i][j] != inf:\n                    return j\n        return -1",
+        "javascript": "const INF = 0x3f3f3f3f;\nvar makeArrayIncreasing = function(arr1, arr2) {\n    arr2.sort((a, b) => a - b);\n    const list = [];\n    let prev = -1;\n    for (const num of arr2) {\n        if (num !== prev) {\n            list.push(num);\n            prev = num;\n        }\n    }\n    const temp = new Array(arr1.length + 2).fill(0);\n    temp.splice(1, arr1.length, ...arr1);\n    /* 右侧哨兵 inf */\n    temp[arr1.length + 1] = INF;\n    /* 左侧哨兵 -1 */\n    temp[0] = -1;\n    arr1 = temp;\n    const n = arr1.length;\n    const m = list.length;\n\n    const dp = new Array(n).fill(INF);\n    dp[0] = 0;\n    for (let i = 1; i < n; i++) {\n        /* arr1[i] 左侧的元素不进行替换 */\n        if (arr1[i - 1] < arr1[i]) {\n            dp[i] = Math.min(dp[i], dp[i - 1]);\n        }\n        /* 替换 arr1[i] 左边的连续 j 个元素 */\n        for (let j = 1; j < i; j++) {\n            /* arr2 的最优替换的起点为大于 arr1[i - j - 1] 的最小元素 */\n            const k = binarySearch(list, arr1[i - j - 1]);\n            /* arr2 的最优替换的终点必须满足小于 arr1[i] */\n            if (k + j - 1 < m && list[k + j - 1] < arr1[i]) {\n                dp[i] = Math.min(dp[i], dp[i - j - 1] + j);\n            }\n        }\n\n    }\n    return dp[n - 1] === INF ? -1 : dp[n - 1];\n}\n\nconst binarySearch = (list, target) => {\n    let low = 0, high = list.length;\n    while (low < high) {\n        const mid = low + Math.floor((high - low) / 2);\n        if (list[mid] > target) {\n            high = mid;\n        } else {\n            low = mid + 1;\n        }\n    }\n    return low;\n};",
+        "go": "func makeArrayIncreasing(arr1 []int, arr2 []int) int {\n    sort.Ints(arr2)\n    n := len(arr1)\n    m := len(arr2)\n    dp := make([][]int, n+1)\n    for i := range dp {\n        dp[i] = make([]int, min(m, n)+1)\n        for j := range dp[i] {\n            dp[i][j] = math.MaxInt\n        }\n    }\n    dp[0][0] = -1\n    for i := 1; i <= len(arr1); i++ {\n        for j := 0; j <= min(i, m); j++ {\n            if arr1[i-1] > dp[i-1][j] {\n                dp[i][j] = arr1[i-1]\n            }\n            if j > 0 && dp[i-1][j-1] != math.MaxInt {\n                k := j - 1 + sort.SearchInts(arr2[j-1:], dp[i-1][j-1]+1)\n                if k < m {\n                    dp[i][j] = min(dp[i][j], arr2[k])\n                }\n            }\n            if i == n && dp[i][j] != math.MaxInt {\n                return j\n            }\n        }\n    }\n    return -1\n}\n\nfunc min(a, b int) int {\n    if a > b {\n        return b\n    }\n    return a\n}"
+      }
     },
     {
       "title": "设计有限阻塞队列",
@@ -1843,7 +2014,14 @@
         "微软",
         "亚马逊"
       ],
-      "id": 98
+      "id": 98,
+      "solutions": {
+        "python": "class Solution:\n    def maxNumberOfBalloons(self, text: str) -> int:\n        cnt = Counter(ch for ch in text if ch in \"balon\")\n        cnt['l'] //= 2\n        cnt['o'] //= 2\n        return min(cnt.values()) if len(cnt) == 5 else 0",
+        "cpp": "#define MIN(a, b) ((a) < (b) ? (a) : (b))\n\nint maxNumberOfBalloons(char * text) {\n    int cnt[5];\n    int n = strlen(text);\n    memset(cnt, 0, sizeof(int) * 5);\n    for (int i = 0; i < n; i++) {\n        if (text[i] == 'b') {\n            cnt[0]++;\n        } else if (text[i] == 'a') {\n            cnt[1]++;\n        } else if (text[i] == 'l') {\n            cnt[2]++;\n        } else if (text[i] == 'o') {\n            cnt[3]++;\n        } else if (text[i] == 'n') {\n            cnt[4]++;\n        }\n    }\n    cnt[2] /= 2;\n    cnt[3] /= 2;\n    int res = INT_MAX;\n    for (int i = 0; i < 5; i++) {\n        res = MIN(res, cnt[i]);\n    }\n    return res;\n}",
+        "java": "class Solution {\n    public int maxNumberOfBalloons(String text) {\n        int[] cnt = new int[5];\n        for (int i = 0; i < text.length(); ++i) {\n            char ch = text.charAt(i);\n            if (ch == 'b') {\n                cnt[0]++;\n            } else if (ch == 'a') {\n                cnt[1]++;\n            } else if (ch == 'l') {\n                cnt[2]++;\n            } else if (ch == 'o') {\n                cnt[3]++;\n            } else if (ch == 'n') {\n                cnt[4]++;\n            }\n        }\n        cnt[2] /= 2;\n        cnt[3] /= 2;\n        return Arrays.stream(cnt).min().getAsInt();\n    }\n}",
+        "go": "func maxNumberOfBalloons(text string) int {\n    cnt := [5]int{}\n    for _, ch := range text {\n        if ch == 'b' {\n            cnt[0]++\n        } else if ch == 'a' {\n            cnt[1]++\n        } else if ch == 'l' {\n            cnt[2]++\n        } else if ch == 'o' {\n            cnt[3]++\n        } else if ch == 'n' {\n            cnt[4]++\n        }\n    }\n    cnt[2] /= 2\n    cnt[3] /= 2\n    ans := cnt[0]\n    for _, v := range cnt[1:] {\n        if v < ans {\n            ans = v\n        }\n    }\n    return ans\n}",
+        "javascript": "var maxNumberOfBalloons = function(text) {\n    const cnt = new Array(5).fill(0);\n    for (const ch of text) {\n        if (ch === 'b') {\n            cnt[0]++;\n        } else if (ch === 'a') {\n            cnt[1]++;\n        } else if (ch === 'l') {\n            cnt[2]++;\n        } else if (ch === 'o') {\n            cnt[3]++;\n        } else if (ch === 'n') {\n            cnt[4]++;\n        }\n    }\n    cnt[2] = Math.floor(cnt[2] / 2);\n    cnt[3] = Math.floor(cnt[3] / 2);\n    return _.min(cnt);\n};"
+      }
     },
     {
       "title": "反转每对括号间的子串",
@@ -1863,7 +2041,13 @@
         "亚马逊",
         "微软"
       ],
-      "id": 99
+      "id": 99,
+      "solutions": {
+        "cpp": "void reverse(char* str, int strSize) {\n    for (int j = 0; j < strSize / 2; j++) {\n        char tmp = str[j];\n        str[j] = str[strSize - j - 1], str[strSize - j - 1] = tmp;\n    }\n}\n\nchar* reverseParentheses(char* s) {\n    int n = strlen(s);\n    char* stk[n];\n    int top = 0;\n    char* str = malloc(sizeof(char) * (n + 1));\n    str[0] = '\\0';\n    int strSize = 0;\n    for (int i = 0; i < n; i++) {\n        if (s[i] == '(') {\n            stk[top] = malloc(sizeof(char) * (strSize + 1));\n            memcpy(stk[top], str, sizeof(char) * (strSize + 1));\n            top++;\n            str[0] = '\\0';\n            strSize = 0;\n        } else if (s[i] == ')') {\n            reverse(str, strSize);\n            int len = strlen(stk[top - 1]);\n            for (int j = strSize; j >= 0; j--) {\n                str[j + len] = str[j];\n            }\n            memcpy(str, stk[top - 1], sizeof(char) * len);\n            strSize += len;\n            top--;\n        } else {\n            str[strSize++] = s[i];\n            str[strSize] = '\\0';\n        }\n    }\n    return str;\n}",
+        "java": "class Solution {\n    public String reverseParentheses(String s) {\n        int n = s.length();\n        int[] pair = new int[n];\n        Deque<Integer> stack = new LinkedList<Integer>();\n        for (int i = 0; i < n; i++) {\n            if (s.charAt(i) == '(') {\n                stack.push(i);\n            } else if (s.charAt(i) == ')') {\n                int j = stack.pop();\n                pair[i] = j;\n                pair[j] = i;\n            }\n        }\n\n        StringBuffer sb = new StringBuffer();\n        int index = 0, step = 1;\n        while (index < n) {\n            if (s.charAt(index) == '(' || s.charAt(index) == ')') {\n                index = pair[index];\n                step = -step;\n            } else {\n                sb.append(s.charAt(index));\n            }\n            index += step;\n        }\n        return sb.toString();\n    }\n}",
+        "javascript": "var reverseParentheses = function(s) {\n    const n = s.length;\n    const pair = new Array(n).fill(0);\n    const stack = [];\n    for (let i = 0; i < n; i++) {\n        if (s[i] === '(') {\n            stack.push(i);\n        } else if (s[i] == ')') {\n            const j = stack.pop();\n            pair[i] = j;\n            pair[j] = i;\n        }\n    }\n\n    const sb = [];\n    let index = 0, step = 1;\n    while (index < n) {\n        if (s[index] === '(' || s[index] === ')') {\n            index = pair[index];\n            step = -step;\n        } else {\n            sb.push(s[index]);\n        }\n        index += step;\n    }\n    return sb.join('');\n};",
+        "go": "func reverseParentheses(s string) string {\n    n := len(s)\n    pair := make([]int, n)\n    stack := []int{}\n    for i, b := range s {\n        if b == '(' {\n            stack = append(stack, i)\n        } else if b == ')' {\n            j := stack[len(stack)-1]\n            stack = stack[:len(stack)-1]\n            pair[i], pair[j] = j, i\n        }\n    }\n\n    ans := []byte{}\n    for i, step := 0, 1; i < n; i += step {\n        if s[i] == '(' || s[i] == ')' {\n            i = pair[i]\n            step = -step\n        } else {\n            ans = append(ans, s[i])\n        }\n    }\n    return string(ans)\n}"
+      }
     },
     {
       "title": "K 次串联后最大子数组之和",
@@ -1883,7 +2067,12 @@
         "亚马逊",
         "adobe"
       ],
-      "id": 100
+      "id": 100,
+      "solutions": {
+        "java": "class Solution {\n    // 53. 最大子数组和（遍历 nums repeat 次）\n    private int maxSubArray(int[] nums, int repeat) {\n        int ans = 0; // 本题允许子数组为空，ans 可以初始化成 0\n        int f = 0;\n        while (repeat-- > 0) {\n            for (int x : nums) {\n                f = Math.max(f, 0) + x;\n                ans = Math.max(ans, f);\n            }\n        }\n        return ans;\n    }\n\n    public int kConcatenationMaxSum(int[] arr, int k) {\n        if (k == 1) {\n            return maxSubArray(arr, 1); // arr 的最大子数组和\n        }\n        long ans = maxSubArray(arr, 2); // arr+arr 的最大子数组和\n        int s = 0;\n        for (int x : arr) {\n            s += x;\n        }\n        ans += (long) Math.max(s, 0) * (k - 2);\n        return (int) (ans % 1_000_000_007);\n    }\n}",
+        "cpp": "class Solution {\n    // 53. 最大子数组和（遍历 nums repeat 次）\n    int maxSubArray(vector<int>& nums, int repeat) {\n        int ans = 0, f = 0; // 本题允许子数组为空，ans 可以初始化成 0\n        while (repeat--) {\n            for (int x : nums) {\n                f = max(f, 0) + x;\n                ans = max(ans, f);\n            }\n        }\n        return ans;\n    }\n\npublic:\n    int kConcatenationMaxSum(vector<int>& arr, int k) {\n        if (k == 1) {\n            return maxSubArray(arr, 1); // arr 的最大子数组和\n        }\n        long long ans = maxSubArray(arr, 2); // arr+arr 的最大子数组和\n        int s = reduce(arr.begin(), arr.end());\n        ans += 1LL * max(s, 0) * (k - 2);\n        return ans % 1'000'000'007;\n    }\n};",
+        "go": "// 53. 最大子数组和（遍历 nums repeat 次）\n// 本题允许子数组为空，ans 可以初始化成 0\nfunc maxSubArray(nums []int, repeat int) (ans int) {\n\tf := 0\n\tfor range repeat {\n\t\tfor _, x := range nums {\n\t\t\tf = max(f, 0) + x\n\t\t\tans = max(ans, f)\n\t\t}\n\t}\n\treturn\n}\n\nfunc kConcatenationMaxSum(arr []int, k int) int {\n\tif k == 1 {\n\t\treturn maxSubArray(arr, 1) // arr 的最大子数组和\n\t}\n\tans := maxSubArray(arr, 2) // arr+arr 的最大子数组和\n\ts := 0\n\tfor _, x := range arr {\n\t\ts += x\n\t}\n\tans += max(s, 0) * (k - 2)\n\treturn ans % 1_000_000_007\n}"
+      }
     },
     {
       "title": "查找集群内的关键连接",
@@ -1961,7 +2150,12 @@
         "字节",
         "亚马逊"
       ],
-      "id": 104
+      "id": 104,
+      "solutions": {
+        "java": "class FizzBuzz {\n    private static final int FIZZ = 3, BUZZ = 5, FIZZBUZZ = 15;\n    private int n;\n    private CompletableFuture<Void>[] completableFutureFizz;\n    private CompletableFuture<Void>[] completableFutureBuzz;\n    private CompletableFuture<Void>[] completableFutureFizzBuzz;\n    private CompletableFuture<Void>[] completableFutureNumber;\n\n    public FizzBuzz(int n) {\n        this.n = n;\n        this.completableFutureFizz = new CompletableFuture[n + 1];\n        this.completableFutureBuzz = new CompletableFuture[n + 1];\n        this.completableFutureFizzBuzz = new CompletableFuture[n + 1];\n        this.completableFutureNumber = new CompletableFuture[n + 1];\n        for (int i = 1; i <= n; i++) {\n            completableFutureNumber[i] = new CompletableFuture<Void>();\n            if (i % FIZZBUZZ == 0) {\n                completableFutureFizzBuzz[i] = new CompletableFuture<Void>();\n            } else if (i % FIZZ == 0) {\n                completableFutureFizz[i] = new CompletableFuture<Void>();\n            } else if (i % BUZZ == 0) {\n                completableFutureBuzz[i] = new CompletableFuture<Void>();\n            }\n        }\n        completableFutureNumber[1].complete(null);\n    }\n\n    public void fizz(Runnable printFizz) throws InterruptedException {\n        for (int i = 1; i <= n; i++) {\n            if (i % FIZZ == 0 && i % BUZZ != 0) {\n                try {\n                    completableFutureFizz[i].get();\n                } catch (ExecutionException e) {\n                    Thread.currentThread().interrupt();\n                    return;\n                }\n                printFizz.run();\n                if (i < n) {\n                    completableFutureNumber[i + 1].complete(null);\n                }\n            }\n        }\n    }\n\n    public void buzz(Runnable printBuzz) throws InterruptedException {\n        for (int i = 1; i <= n; i++) {\n            if (i % BUZZ == 0 && i % FIZZ != 0) {\n                try {\n                    completableFutureBuzz[i].get();\n                } catch (ExecutionException e) {\n                    Thread.currentThread().interrupt();\n                    return;\n                }\n                printBuzz.run();\n                if (i < n) {\n                    completableFutureNumber[i + 1].complete(null);\n                }\n            }\n        }\n    }\n\n    public void fizzbuzz(Runnable printFizzBuzz) throws InterruptedException {\n        for (int i = 1; i <= n; i++) {\n            if (i % FIZZBUZZ == 0) {\n                try {\n                    completableFutureFizzBuzz[i].get();\n                } catch (ExecutionException e) {\n                    Thread.currentThread().interrupt();\n                    return;\n                }\n                printFizzBuzz.run();\n                if (i < n) {\n                    completableFutureNumber[i + 1].complete(null);\n                }\n            }\n        }\n    }\n\n    public void number(IntConsumer printNumber) throws InterruptedException {\n        for (int i = 1; i <= n; i++) {\n            try {\n                completableFutureNumber[i].get();\n            } catch (ExecutionException e) {\n                Thread.currentThread().interrupt();\n                return;\n            }\n            if (i % FIZZ != 0 && i % BUZZ != 0) {\n                printNumber.accept(i);\n                if (i < n) {\n                    completableFutureNumber[i + 1].complete(null);\n                }\n            } else if (i % FIZZBUZZ == 0) {\n                completableFutureFizzBuzz[i].complete(null);\n            } else if (i % FIZZ == 0) {\n                completableFutureFizz[i].complete(null);\n            } else if (i % BUZZ == 0) {\n                completableFutureBuzz[i].complete(null);\n            }\n        }\n    }\n}",
+        "cpp": "using System.Threading.Tasks;\n\npublic class FizzBuzz {\n    private const int FIZZ = 3, BUZZ = 5, FIZZBUZZ = 15;\n    private int n;\n    private TaskCompletionSource<object>[] taskCompletionSourceFizz;\n    private TaskCompletionSource<object>[] taskCompletionSourceBuzz;\n    private TaskCompletionSource<object>[] taskCompletionSourceFizzBuzz;\n    private TaskCompletionSource<object>[] taskCompletionSourceNumber;\n\n    public FizzBuzz(int n) {\n        this.n = n;\n        this.taskCompletionSourceFizz = new TaskCompletionSource<object>[n + 1];\n        this.taskCompletionSourceBuzz = new TaskCompletionSource<object>[n + 1];\n        this.taskCompletionSourceFizzBuzz = new TaskCompletionSource<object>[n + 1];\n        this.taskCompletionSourceNumber = new TaskCompletionSource<object>[n + 1];\n        for (int i = 1; i <= n; i++) {\n            taskCompletionSourceNumber[i] = new TaskCompletionSource<object>();\n            if (i % FIZZBUZZ == 0) {\n                taskCompletionSourceFizzBuzz[i] = new TaskCompletionSource<object>();\n            } else if (i % FIZZ == 0) {\n                taskCompletionSourceFizz[i] = new TaskCompletionSource<object>();\n            } else if (i % BUZZ == 0) {\n                taskCompletionSourceBuzz[i] = new TaskCompletionSource<object>();\n            }\n        }\n        taskCompletionSourceNumber[1].SetResult(null);\n    }\n\n    public void Fizz(Action printFizz) {\n        for (int i = 1; i <= n; i++) {\n            if (i % FIZZ == 0 && i % BUZZ != 0) {\n                taskCompletionSourceFizz[i].Task.Wait();\n                printFizz();\n                if (i < n) {\n                    taskCompletionSourceNumber[i + 1].SetResult(null);\n                }\n            }\n        }\n    }\n\n    public void Buzz(Action printBuzz) {\n        for (int i = 1; i <= n; i++) {\n            if (i % BUZZ == 0 && i % FIZZ != 0) {\n                taskCompletionSourceBuzz[i].Task.Wait();\n                printBuzz();\n                if (i < n) {\n                    taskCompletionSourceNumber[i + 1].SetResult(null);\n                }\n            }\n        }\n    }\n\n    public void Fizzbuzz(Action printFizzBuzz) {\n        for (int i = 1; i <= n; i++) {\n            if (i % FIZZBUZZ == 0) {\n                taskCompletionSourceFizzBuzz[i].Task.Wait();\n                printFizzBuzz();\n                if (i < n) {\n                    taskCompletionSourceNumber[i + 1].SetResult(null);\n                }\n            }\n        }\n    }\n\n    public void Number(Action<int> printNumber) {\n        for (int i = 1; i <= n; i++) {\n            taskCompletionSourceNumber[i].Task.Wait();\n            if (i % FIZZ != 0 && i % BUZZ != 0) {\n                printNumber(i);\n                if (i < n) {\n                    taskCompletionSourceNumber[i + 1].SetResult(null);\n                }\n            } else if (i % FIZZBUZZ == 0) {\n                taskCompletionSourceFizzBuzz[i].SetResult(null);\n            } else if (i % FIZZ == 0) {\n                taskCompletionSourceFizz[i].SetResult(null);\n            } else if (i % BUZZ == 0) {\n                taskCompletionSourceBuzz[i].SetResult(null);\n            }\n        }\n    }\n}",
+        "python": "class FizzBuzz:\n    FIZZ, BUZZ, FIZZBUZZ, NUMBER = 3, 5, 15, 0\n\n    def __init__(self, n: int):\n        self.n = n\n        self.stage = self.NUMBER\n        self.cond = threading.Condition()\n\n    def fizz(self, printFizz: 'Callable[[], None]') -> None:\n        for i in range(1, self.n + 1):\n            if not i % self.FIZZ and i % self.BUZZ:\n                with self.cond:\n                    while self.stage != self.FIZZ:\n                        self.cond.wait()\n                    printFizz()\n                    self.stage = self.NUMBER\n                    self.cond.notify_all()\n\n    def buzz(self, printBuzz: 'Callable[[], None]') -> None:\n        for i in range(1, self.n + 1):\n            if not i % self.BUZZ and i % self.FIZZ:\n                with self.cond:\n                    while self.stage != self.BUZZ:\n                        self.cond.wait()\n                    printBuzz()\n                    self.stage = self.NUMBER\n                    self.cond.notify_all()\n\n    def fizzbuzz(self, printFizzBuzz: 'Callable[[], None]') -> None:\n        for i in range(1, self.n + 1):\n            if not i % self.FIZZBUZZ:\n                with self.cond:\n                    while self.stage != self.FIZZBUZZ:\n                        self.cond.wait()\n                    printFizzBuzz()\n                    self.stage = self.NUMBER\n                    self.cond.notify_all()\n\n    def number(self, printNumber: 'Callable[[int], None]') -> None:\n        for i in range(1, self.n + 1):\n            with self.cond:\n                while self.stage != self.NUMBER:\n                    self.cond.wait()\n                if i % self.FIZZ and i % self.BUZZ:\n                    printNumber(i)\n                elif not i % self.FIZZBUZZ:\n                    self.stage = self.FIZZBUZZ\n                elif not i % self.FIZZ:\n                    self.stage = self.FIZZ\n                elif not i % self.BUZZ:\n                    self.stage = self.BUZZ\n                self.cond.notify_all()"
+      }
     },
     {
       "title": "最多可以买到的苹果数量",
@@ -2063,7 +2257,14 @@
         "jpmorgan",
         "bloomberg"
       ],
-      "id": 109
+      "id": 109,
+      "solutions": {
+        "cpp": "static inline int cmp(const void *pa, const void *pb) {\n    return *(int *)pa - *(int *)pb;\n}\n\nint** minimumAbsDifference(int* arr, int arrSize, int* returnSize, int** returnColumnSizes){\n    qsort(arr, arrSize, sizeof(int), cmp);\n    int best = INT_MAX;\n    int **ans = (int **)malloc(sizeof(int *) * (arrSize - 1));\n    int pos = 0;\n    for (int i = 0; i < arrSize - 1; ++i) {\n        int delta = arr[i + 1] - arr[i];\n        if (delta < best) {\n            best = delta;\n            for (int j = 0; j < pos; j++) {\n                free(ans[j]);\n            }\n            pos = 0;\n            ans[pos] = (int *)malloc(sizeof(int) * 2);\n            memcpy(ans[pos], arr + i, sizeof(int) * 2);\n            pos++;\n        }\n        else if (delta == best) {\n            ans[pos] = (int *)malloc(sizeof(int) * 2);\n            memcpy(ans[pos], arr + i, sizeof(int) * 2);\n            pos++;\n        }\n    }\n    *returnSize = pos;\n    *returnColumnSizes = (int *)malloc(sizeof(int) * pos);\n    for (int i = 0; i < pos; i++) {\n        (*returnColumnSizes)[i] = 2;\n    }\n    return ans;\n}",
+        "java": "class Solution {\n    public List<List<Integer>> minimumAbsDifference(int[] arr) {\n        int n = arr.length;\n        Arrays.sort(arr);\n\n        int best = Integer.MAX_VALUE;\n        List<List<Integer>> ans = new ArrayList<List<Integer>>();\n        for (int i = 0; i < n - 1; ++i) {\n            int delta = arr[i + 1] - arr[i];\n            if (delta < best) {\n                best = delta;\n                ans.clear();\n                List<Integer> pair = new ArrayList<Integer>();\n                pair.add(arr[i]);\n                pair.add(arr[i + 1]);\n                ans.add(pair);\n            } else if (delta == best) {\n                List<Integer> pair = new ArrayList<Integer>();\n                pair.add(arr[i]);\n                pair.add(arr[i + 1]);\n                ans.add(pair);\n            }\n        }\n\n        return ans;\n    }\n}",
+        "python": "class Solution:\n    def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:\n        n = len(arr)\n        arr.sort()\n\n        best, ans = float('inf'), list()\n        for i in range(n - 1):\n            if (delta := arr[i + 1] - arr[i]) < best:\n                best = delta\n                ans = [[arr[i], arr[i + 1]]]\n            elif delta == best:\n                ans.append([arr[i], arr[i + 1]])\n        \n        return ans",
+        "javascript": "var minimumAbsDifference = function(arr) {\n    const n = arr.length;\n    arr.sort((a, b) => a - b);\n\n    let best = Number.MAX_VALUE;\n    let ans = [];\n    for (let i = 0; i < n - 1; ++i) {\n        let delta = arr[i + 1] - arr[i];\n        if (delta < best) {\n            best = delta;\n            ans = [];\n            const pair = [];\n            pair.push(arr[i]);\n            pair.push(arr[i + 1]);\n            ans.push(pair);\n        } else if (delta === best) {\n            const pair = [];\n            pair.push(arr[i]);\n            pair.push(arr[i + 1]);\n            ans.push(pair);\n        }\n    }\n\n    return ans;\n};",
+        "go": "func minimumAbsDifference(arr []int) (ans [][]int) {\n    sort.Ints(arr)\n    for i, best := 0, math.MaxInt32; i < len(arr)-1; i++ {\n        if delta := arr[i+1] - arr[i]; delta < best {\n            best = delta\n            ans = [][]int{{arr[i], arr[i+1]}}\n        } else if delta == best {\n            ans = append(ans, []int{arr[i], arr[i+1]})\n        }\n    }\n    return\n}"
+      }
     }
   ],
   "errors": []

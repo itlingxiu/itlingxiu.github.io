@@ -13,6 +13,7 @@
     "roadmap:sync": "node scripts/roadmap-sync.mjs",
     "quiz:sync": "node scripts/quiz-sync.mjs",
     "algo:sync": "node scripts/algo-sync.mjs",
+    "algo:backfill": "node scripts/backfill-lc-solutions.mjs",
     "data:sync": "node scripts/quiz-sync.mjs && node scripts/algo-sync.mjs",
     "data:seed": "node scripts/extract-seed.mjs"
   },

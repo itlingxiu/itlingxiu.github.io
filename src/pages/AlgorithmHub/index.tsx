@@ -6,7 +6,7 @@ import {
   UnorderedListOutlined,
   CheckCircleOutlined,
 } from '@ant-design/icons';
-import SolutionCodePanel from './SolutionCodePanel';
+import AlgoProblemDetail from './AlgoProblemDetail';
 import type { AlgoProblem } from '../../data/algoBank';
 import { useAlgoBank } from '../../hooks/useAlgoBank';
 import './index.less';
@@ -263,15 +263,7 @@ const AlgorithmHub: React.FC = () => {
       {expandedId === p.id && (
         <div className="algo-detail">
           <div className="detail-inner">
-            <p className="detail-block">
-              <strong>题目描述</strong>
-              {p.statement}
-            </p>
-            <p className="detail-block">
-              <strong>思路要点</strong>
-              {p.approach}
-            </p>
-            <SolutionCodePanel problemId={p.id} compact />
+            <AlgoProblemDetail problem={p} compact />
           </div>
         </div>
       )}
@@ -346,12 +338,7 @@ const AlgorithmHub: React.FC = () => {
                     </span>
                   ))}
                 </div>
-                <p className="daily-statement">{dailyFeatured.statement}</p>
-                <p className="daily-approach">
-                  <strong>思路：</strong>
-                  {dailyFeatured.approach}
-                </p>
-                <SolutionCodePanel problemId={dailyFeatured.id} />
+                <AlgoProblemDetail problem={dailyFeatured} />
               </div>
 
               <div className="subsection-head">
