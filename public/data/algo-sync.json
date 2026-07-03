@@ -1,0 +1,2070 @@
+{
+  "version": 1,
+  "crawledAt": "2026-07-03T00:31:35.845Z",
+  "dateKey": "2026-07-03",
+  "sources": [
+    "leetcode-cn",
+    "nowcoder"
+  ],
+  "problems": [
+    {
+      "id": 1,
+      "title": "两数之和",
+      "tags": [
+        "数组",
+        "哈希"
+      ],
+      "difficulty": "简单",
+      "acceptance": 72,
+      "hotCompanies": [
+        "字节",
+        "腾讯"
+      ],
+      "statement": "在整数数组中找到两个元素，使其和等于目标值 target，返回下标。",
+      "approach": "哈希表存 value→index，遍历 x 时查 target−x 是否存在，O(n)。",
+      "source": "seed"
+    },
+    {
+      "id": 2,
+      "title": "无重复字符的最长子串",
+      "tags": [
+        "字符串",
+        "哈希",
+        "双指针",
+        "滑动窗口"
+      ],
+      "difficulty": "中等",
+      "acceptance": 38,
+      "hotCompanies": [
+        "阿里",
+        "美团"
+      ],
+      "statement": "求字符串中不含重复字符的最长连续子串长度。",
+      "approach": "滑动窗口 + 哈希记录字符最后出现位置，右扩左收，O(n)。",
+      "source": "seed"
+    },
+    {
+      "id": 3,
+      "title": "合并两个有序链表",
+      "tags": [
+        "链表",
+        "递归"
+      ],
+      "difficulty": "简单",
+      "acceptance": 65,
+      "hotCompanies": [
+        "华为",
+        "百度"
+      ],
+      "statement": "将两个升序链表合并为一个升序链表。",
+      "approach": "哑节点迭代比较头结点；或递归取较小头并链接。",
+      "source": "seed"
+    },
+    {
+      "id": 4,
+      "title": "有效的括号",
+      "tags": [
+        "栈与队列",
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 58,
+      "hotCompanies": [
+        "京东",
+        "网易"
+      ],
+      "statement": "判断仅含 ()[]{} 的字符串括号是否合法配对。",
+      "approach": "栈遇左括号入栈，遇右括号与栈顶匹配否则 false。",
+      "source": "seed"
+    },
+    {
+      "id": 5,
+      "title": "最大子数组和",
+      "tags": [
+        "数组",
+        "动态规划",
+        "贪心"
+      ],
+      "difficulty": "中等",
+      "acceptance": 55,
+      "hotCompanies": [
+        "字节",
+        "拼多多"
+      ],
+      "statement": "整数数组中找连续子数组使其和最大。",
+      "approach": "Kadane：dp[i]=max(nums[i], dp[i−1]+nums[i])，可压缩为单变量。",
+      "source": "seed"
+    },
+    {
+      "id": 6,
+      "title": "合并区间",
+      "tags": [
+        "数组",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 48,
+      "hotCompanies": [
+        "微软",
+        "Shopee"
+      ],
+      "statement": "若干闭区间合并所有重叠部分。",
+      "approach": "按左端排序，扫描合并与上一段重叠的区间。",
+      "source": "seed"
+    },
+    {
+      "id": 7,
+      "title": "二叉树的层序遍历",
+      "tags": [
+        "树",
+        "栈与队列",
+        "BFS"
+      ],
+      "difficulty": "中等",
+      "acceptance": 62,
+      "hotCompanies": [
+        "腾讯",
+        "阿里"
+      ],
+      "statement": "返回二叉树按层、从左到右的节点值列表。",
+      "approach": "队列 BFS，每层处理固定长度 size。",
+      "source": "seed"
+    },
+    {
+      "id": 8,
+      "title": "二叉树的最大深度",
+      "tags": [
+        "树",
+        "DFS",
+        "递归"
+      ],
+      "difficulty": "简单",
+      "acceptance": 70,
+      "hotCompanies": [
+        "小米",
+        "携程"
+      ],
+      "statement": "求二叉树最大深度（根到叶最长路径边数）。",
+      "approach": "递归 max(depth(L), depth(R))+1；或 BFS 层数。",
+      "source": "seed"
+    },
+    {
+      "id": 9,
+      "title": "爬楼梯",
+      "tags": [
+        "动态规划",
+        "数学"
+      ],
+      "difficulty": "简单",
+      "acceptance": 52,
+      "hotCompanies": [
+        "谷歌",
+        "苹果"
+      ],
+      "statement": "每次可爬 1 或 2 阶，求 n 阶方案数。",
+      "approach": "斐波那契：f(n)=f(n−1)+f(n−2)，滚动数组 O(1) 空间。",
+      "source": "seed"
+    },
+    {
+      "id": 10,
+      "title": "反转链表",
+      "tags": [
+        "链表",
+        "递归"
+      ],
+      "difficulty": "简单",
+      "acceptance": 74,
+      "hotCompanies": [
+        "字节",
+        "华为"
+      ],
+      "statement": "反转单链表并返回新头结点。",
+      "approach": "三指针迭代；或递归反转后继再改指向。",
+      "source": "seed"
+    },
+    {
+      "id": 11,
+      "title": "环形链表",
+      "tags": [
+        "链表",
+        "双指针"
+      ],
+      "difficulty": "简单",
+      "acceptance": 45,
+      "hotCompanies": [
+        "美团",
+        "滴滴"
+      ],
+      "statement": "判断链表中是否存在环。",
+      "approach": "快慢指针，若有环必相遇。",
+      "source": "seed"
+    },
+    {
+      "id": 12,
+      "title": "三数之和",
+      "tags": [
+        "数组",
+        "双指针",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 33,
+      "hotCompanies": [
+        "字节",
+        "微软"
+      ],
+      "statement": "找出所有不重复三元组使其和为 0。",
+      "approach": "排序后固定 i，双指针 j,k 向中间收，去重。",
+      "source": "seed"
+    },
+    {
+      "id": 13,
+      "title": "最长递增子序列",
+      "tags": [
+        "数组",
+        "动态规划",
+        "二分查找"
+      ],
+      "difficulty": "中等",
+      "acceptance": 28,
+      "hotCompanies": [
+        "阿里",
+        "谷歌"
+      ],
+      "statement": "数组中最长严格递增子序列长度。",
+      "approach": "O(n²) DP；或 patience sorting + 二分维护 tails 数组 O(n log n)。",
+      "source": "seed"
+    },
+    {
+      "id": 14,
+      "title": "岛屿数量",
+      "tags": [
+        "数组",
+        "DFS",
+        "BFS",
+        "图"
+      ],
+      "difficulty": "中等",
+      "acceptance": 56,
+      "hotCompanies": [
+        "腾讯",
+        "亚马逊"
+      ],
+      "statement": "由 1（陆地）和 0（水）组成的网格，求岛屿个数。",
+      "approach": "遍历遇到 1 即 DFS/BFS 标记连通块为 0，计数+1。",
+      "source": "seed"
+    },
+    {
+      "id": 15,
+      "title": "全排列",
+      "tags": [
+        "数组",
+        "回溯"
+      ],
+      "difficulty": "中等",
+      "acceptance": 41,
+      "hotCompanies": [
+        "百度",
+        "微软"
+      ],
+      "statement": "无重复数组，返回所有排列。",
+      "approach": "回溯：路径 + used 集合，到达长度 n 收集。",
+      "source": "seed"
+    },
+    {
+      "id": 16,
+      "title": "零钱兑换",
+      "tags": [
+        "动态规划",
+        "BFS"
+      ],
+      "difficulty": "中等",
+      "acceptance": 43,
+      "hotCompanies": [
+        "字节",
+        "Airbnb"
+      ],
+      "statement": "不同面值硬币无限枚，凑成 amount 最少枚数，无解返回 −1。",
+      "approach": "完全背包：dp[i]=min(dp[i−c])+1，BFS 亦可。",
+      "source": "seed"
+    },
+    {
+      "id": 17,
+      "title": "买卖股票的最佳时机",
+      "tags": [
+        "数组",
+        "贪心",
+        "动态规划"
+      ],
+      "difficulty": "简单",
+      "acceptance": 54,
+      "hotCompanies": [
+        "高盛",
+        "摩根"
+      ],
+      "statement": "最多一笔交易，求最大利润。",
+      "approach": "遍历维护历史最低买价，当日卖价减买价取 max。",
+      "source": "seed"
+    },
+    {
+      "id": 18,
+      "title": "前 K 个高频元素",
+      "tags": [
+        "数组",
+        "哈希",
+        "堆",
+        "桶排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 46,
+      "hotCompanies": [
+        "Uber",
+        "字节"
+      ],
+      "statement": "返回出现次数前 k 高的元素。",
+      "approach": "小顶堆维护 k 个；或桶按频次倒序收集。",
+      "source": "seed"
+    },
+    {
+      "id": 19,
+      "title": "二叉树的最近公共祖先",
+      "tags": [
+        "树",
+        "递归"
+      ],
+      "difficulty": "中等",
+      "acceptance": 57,
+      "hotCompanies": [
+        "脸书",
+        "阿里"
+      ],
+      "statement": "二叉树中两节点的最近公共祖先。",
+      "approach": "递归：若当前为 p/q 之一或左右子树各找到一个则返回当前。",
+      "source": "seed"
+    },
+    {
+      "id": 20,
+      "title": "单词搜索",
+      "tags": [
+        "数组",
+        "回溯",
+        "DFS"
+      ],
+      "difficulty": "中等",
+      "acceptance": 39,
+      "hotCompanies": [
+        "亚马逊",
+        "苹果"
+      ],
+      "statement": "网格中能否沿相邻格子拼出给定单词。",
+      "approach": "回溯 DFS，访问标记回溯，剪枝首字母匹配。",
+      "source": "seed"
+    },
+    {
+      "id": 21,
+      "title": "接雨水",
+      "tags": [
+        "数组",
+        "双指针",
+        "栈与队列",
+        "动态规划"
+      ],
+      "difficulty": "困难",
+      "acceptance": 31,
+      "hotCompanies": [
+        "谷歌",
+        "字节"
+      ],
+      "statement": "非负高度数组柱状图，求能接的雨水总量。",
+      "approach": "双指针左右 max；或单调栈计算凹槽。",
+      "source": "seed"
+    },
+    {
+      "id": 22,
+      "title": "编辑距离",
+      "tags": [
+        "字符串",
+        "动态规划"
+      ],
+      "difficulty": "困难",
+      "acceptance": 29,
+      "hotCompanies": [
+        "微软",
+        "谷歌"
+      ],
+      "statement": "将 word1 转为 word2 的最少操作数（插入/删除/替换）。",
+      "approach": "二维 DP，字符相等则继承左上，否则 1+三方向最小。",
+      "source": "seed"
+    },
+    {
+      "id": 23,
+      "title": "合并 K 个升序链表",
+      "tags": [
+        "链表",
+        "堆",
+        "分治"
+      ],
+      "difficulty": "困难",
+      "acceptance": 27,
+      "hotCompanies": [
+        "字节",
+        "亚马逊"
+      ],
+      "statement": "合并 k 个有序链表为一个有序链表。",
+      "approach": "小顶堆存节点指针；或分治两两 merge。",
+      "source": "seed"
+    },
+    {
+      "id": 24,
+      "title": "最长有效括号",
+      "tags": [
+        "字符串",
+        "栈与队列",
+        "动态规划"
+      ],
+      "difficulty": "困难",
+      "acceptance": 34,
+      "hotCompanies": [
+        "华为",
+        "腾讯"
+      ],
+      "statement": "只含 ( ) 的字符串中最长合法括号子串长度。",
+      "approach": "栈底压哨兵索引；或 DP[i] 以 i 结尾的最长长度。",
+      "source": "seed"
+    },
+    {
+      "id": 25,
+      "title": "搜索二维矩阵 II",
+      "tags": [
+        "数组",
+        "二分查找",
+        "分治"
+      ],
+      "difficulty": "中等",
+      "acceptance": 49,
+      "hotCompanies": [
+        "苹果",
+        "美团"
+      ],
+      "statement": "每行每列升序的矩阵中判断 target 是否存在。",
+      "approach": "从右上角走「二叉搜索树」式排除行或列，O(m+n)。",
+      "source": "seed"
+    },
+    {
+      "id": 26,
+      "title": "螺旋矩阵",
+      "tags": [
+        "数组",
+        "模拟"
+      ],
+      "difficulty": "中等",
+      "acceptance": 44,
+      "hotCompanies": [
+        "微软",
+        "Adobe"
+      ],
+      "statement": "按螺旋顺序返回矩阵所有元素。",
+      "approach": "四边界 while 循环，依次向右下左上收缩。",
+      "source": "seed"
+    },
+    {
+      "id": 27,
+      "title": "位 1 的个数",
+      "tags": [
+        "位运算"
+      ],
+      "difficulty": "简单",
+      "acceptance": 61,
+      "hotCompanies": [
+        "苹果",
+        "英特尔"
+      ],
+      "statement": "无符号整数二进制中 1 的个数。",
+      "approach": "n &= n-1 每次清除最低位 1；或查表。",
+      "source": "seed"
+    },
+    {
+      "id": 28,
+      "title": "LRU 缓存",
+      "tags": [
+        "设计",
+        "哈希",
+        "链表"
+      ],
+      "difficulty": "中等",
+      "acceptance": 40,
+      "hotCompanies": [
+        "字节",
+        "谷歌"
+      ],
+      "statement": "实现 O(1) get/put 的 LRU 缓存。",
+      "approach": "哈希 + 双向链表维护顺序；或 OrderedDict 思路自实现。",
+      "source": "seed"
+    },
+    {
+      "id": 29,
+      "title": "最小栈",
+      "tags": [
+        "栈与队列",
+        "设计"
+      ],
+      "difficulty": "中等",
+      "acceptance": 52,
+      "hotCompanies": [
+        "亚马逊",
+        "阿里"
+      ],
+      "statement": "实现栈，O(1) 返回当前栈中最小值。",
+      "approach": "辅助栈同步压入当前最小值；或栈存 (val, minSoFar)。",
+      "source": "seed"
+    },
+    {
+      "id": 30,
+      "title": "多数元素",
+      "tags": [
+        "数组",
+        "哈希",
+        "分治",
+        "随机化"
+      ],
+      "difficulty": "简单",
+      "acceptance": 65,
+      "hotCompanies": [
+        "谷歌",
+        "百度"
+      ],
+      "statement": "数组中出现次数 > ⌊n/2⌋ 的元素。",
+      "approach": "Boyer-Moore 投票；或哈希计数。",
+      "source": "seed"
+    },
+    {
+      "title": "数组中重复的数字",
+      "titleSlug": "6fe361ede7e54db1b84adc81d09d8524",
+      "tags": [
+        "数组"
+      ],
+      "difficulty": "简单",
+      "acceptance": 46.46,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/6fe361ede7e54db1b84adc81d09d8524",
+      "statement": "牛客编程题 JZ3：数组中重复的数字。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 31
+    },
+    {
+      "title": "二维数组中的查找",
+      "titleSlug": "abc3fe2ce8e146608e868a70efebf62e",
+      "tags": [
+        "数组"
+      ],
+      "difficulty": "中等",
+      "acceptance": 26.37,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e",
+      "statement": "牛客编程题 JZ4：二维数组中的查找。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 32
+    },
+    {
+      "title": "替换空格",
+      "titleSlug": "0e26e5551f2b489b9f58bc83aa4b6c68",
+      "tags": [
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 55.88,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/0e26e5551f2b489b9f58bc83aa4b6c68",
+      "statement": "牛客编程题 JZ5：替换空格。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 33
+    },
+    {
+      "title": "从尾到头打印链表",
+      "titleSlug": "d0267f7f55b3412ba93bd35cfa8e8035",
+      "tags": [
+        "链表"
+      ],
+      "difficulty": "简单",
+      "acceptance": 29.27,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035",
+      "statement": "牛客编程题 JZ6：从尾到头打印链表。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 34
+    },
+    {
+      "title": "重建二叉树",
+      "titleSlug": "8a19cbe657394eeaac2f6ea9b0f6fcf6",
+      "tags": [
+        "数组",
+        "树",
+        "dfs"
+      ],
+      "difficulty": "中等",
+      "acceptance": 28.05,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/8a19cbe657394eeaac2f6ea9b0f6fcf6",
+      "statement": "牛客编程题 JZ7：重建二叉树。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 35
+    },
+    {
+      "title": "二叉树的下一个结点",
+      "titleSlug": "9023a0c988684a53960365b889ceaf5e",
+      "tags": [
+        "树"
+      ],
+      "difficulty": "中等",
+      "acceptance": 30.82,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/9023a0c988684a53960365b889ceaf5e",
+      "statement": "牛客编程题 JZ8：二叉树的下一个结点。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 36
+    },
+    {
+      "title": "用两个栈实现队列",
+      "titleSlug": "54275ddae22f475981afa2244dd448c6",
+      "tags": [
+        "栈"
+      ],
+      "difficulty": "简单",
+      "acceptance": 41.92,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6",
+      "statement": "牛客编程题 JZ9：用两个栈实现队列。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 37
+    },
+    {
+      "title": "斐波那契数列",
+      "titleSlug": "c6c7742f5ba7442aada113136ddea0c3",
+      "tags": [
+        "数组",
+        "递归",
+        "动态规划",
+        "快速幂",
+        "记忆化搜索"
+      ],
+      "difficulty": "简单",
+      "acceptance": 37.09,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/c6c7742f5ba7442aada113136ddea0c3",
+      "statement": "牛客编程题 JZ10：斐波那契数列。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 38
+    },
+    {
+      "title": "旋转数组的最小数字",
+      "titleSlug": "9f3231a991af4f55b95579b44b7a01ba",
+      "tags": [
+        "二分"
+      ],
+      "difficulty": "简单",
+      "acceptance": 32.95,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba",
+      "statement": "牛客编程题 JZ11：旋转数组的最小数字。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 39
+    },
+    {
+      "title": "矩阵中的路径",
+      "titleSlug": "2a49359695a544b8939c77358d29b7e6",
+      "tags": [
+        "dfs"
+      ],
+      "difficulty": "中等",
+      "acceptance": 31.25,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/2a49359695a544b8939c77358d29b7e6",
+      "statement": "牛客编程题 JZ12：矩阵中的路径。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 40
+    },
+    {
+      "title": "机器人的运动范围",
+      "titleSlug": "6e5207314b5241fb83f2329e89fdecc8",
+      "tags": [
+        "递归"
+      ],
+      "difficulty": "困难",
+      "acceptance": 24.84,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8",
+      "statement": "牛客编程题 JZ13：机器人的运动范围。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 41
+    },
+    {
+      "title": "剪绳子",
+      "titleSlug": "57d85990ba5b440ab888fc72b0751bf8",
+      "tags": [
+        "基础数学"
+      ],
+      "difficulty": "中等",
+      "acceptance": 36.16,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/57d85990ba5b440ab888fc72b0751bf8",
+      "statement": "牛客编程题 JZ14：剪绳子。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 42
+    },
+    {
+      "title": "二进制中1的个数",
+      "titleSlug": "8ee967e43c2c4ec193b040ea7fbb10b8",
+      "tags": [
+        "基础数学"
+      ],
+      "difficulty": "简单",
+      "acceptance": 35.28,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/8ee967e43c2c4ec193b040ea7fbb10b8",
+      "statement": "牛客编程题 JZ15：二进制中1的个数。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 43
+    },
+    {
+      "title": "数值的整数次方",
+      "titleSlug": "1a834e5e3e1a4b7ba251417554e07c00",
+      "tags": [
+        "基础数学"
+      ],
+      "difficulty": "中等",
+      "acceptance": 33.75,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/1a834e5e3e1a4b7ba251417554e07c00",
+      "statement": "牛客编程题 JZ16：数值的整数次方。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 44
+    },
+    {
+      "title": "打印从1到最大的n位数",
+      "titleSlug": "4436c93e568c48f6b28ff436173b997f",
+      "tags": [
+        "数组"
+      ],
+      "difficulty": "简单",
+      "acceptance": 44.34,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/4436c93e568c48f6b28ff436173b997f",
+      "statement": "牛客编程题 JZ17：打印从1到最大的n位数。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 45
+    },
+    {
+      "title": "删除链表的节点",
+      "titleSlug": "f9f78ca89ad643c99701a7142bd59f5d",
+      "tags": [
+        "链表"
+      ],
+      "difficulty": "简单",
+      "acceptance": 47.31,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/f9f78ca89ad643c99701a7142bd59f5d",
+      "statement": "牛客编程题 JZ18：删除链表的节点。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 46
+    },
+    {
+      "title": "正则表达式匹配",
+      "titleSlug": "28970c15befb4ff3a264189087b99ad4",
+      "tags": [
+        "字符串",
+        "递归",
+        "动态规划"
+      ],
+      "difficulty": "困难",
+      "acceptance": 27.13,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/28970c15befb4ff3a264189087b99ad4",
+      "statement": "牛客编程题 JZ19：正则表达式匹配。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 47
+    },
+    {
+      "title": "表示数值的字符串",
+      "titleSlug": "e69148f8528c4039ad89bb2546fd4ff8",
+      "tags": [
+        "字符串"
+      ],
+      "difficulty": "困难",
+      "acceptance": 21.92,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/e69148f8528c4039ad89bb2546fd4ff8",
+      "statement": "牛客编程题 JZ20：表示数值的字符串。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 48
+    },
+    {
+      "title": "调整数组顺序使奇数位于偶数前面(一)",
+      "titleSlug": "ef1f53ef31ca408cada5093c8780f44b",
+      "tags": [
+        "数组"
+      ],
+      "difficulty": "中等",
+      "acceptance": 50.65,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/ef1f53ef31ca408cada5093c8780f44b",
+      "statement": "牛客编程题 JZ21：调整数组顺序使奇数位于偶数前面(一)。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 49
+    },
+    {
+      "title": "链表中倒数最后k个结点",
+      "titleSlug": "886370fe658f41b498d40fb34ae76ff9",
+      "tags": [
+        "链表"
+      ],
+      "difficulty": "简单",
+      "acceptance": 31.78,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/886370fe658f41b498d40fb34ae76ff9",
+      "statement": "牛客编程题 JZ22：链表中倒数最后k个结点。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 50
+    },
+    {
+      "title": "链表中环的入口结点",
+      "titleSlug": "253d2c59ec3e4bc68da16833f79a38e4",
+      "tags": [
+        "链表",
+        "哈希",
+        "双指针"
+      ],
+      "difficulty": "中等",
+      "acceptance": 36.03,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/253d2c59ec3e4bc68da16833f79a38e4",
+      "statement": "牛客编程题 JZ23：链表中环的入口结点。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 51
+    },
+    {
+      "title": "合并两个排序的链表",
+      "titleSlug": "d8b6b4358f774294a89de2a6ac4d9337",
+      "tags": [
+        "链表"
+      ],
+      "difficulty": "简单",
+      "acceptance": 32.74,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337",
+      "statement": "牛客编程题 JZ25：合并两个排序的链表。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 52
+    },
+    {
+      "title": "树的子结构",
+      "titleSlug": "6e196c44c7004d15b1610b9afca8bd88",
+      "tags": [
+        "树"
+      ],
+      "difficulty": "中等",
+      "acceptance": 25.4,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/6e196c44c7004d15b1610b9afca8bd88",
+      "statement": "牛客编程题 JZ26：树的子结构。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 53
+    },
+    {
+      "title": "二叉树的镜像",
+      "titleSlug": "a9d0ecbacef9410ca97463e4a5c83be7",
+      "tags": [
+        "树"
+      ],
+      "difficulty": "简单",
+      "acceptance": 65.69,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/a9d0ecbacef9410ca97463e4a5c83be7",
+      "statement": "牛客编程题 JZ27：二叉树的镜像。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 54
+    },
+    {
+      "title": "对称的二叉树",
+      "titleSlug": "ff05d44dfdb04e1d83bdbdab320efbcb",
+      "tags": [
+        "树"
+      ],
+      "difficulty": "简单",
+      "acceptance": 32.69,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/ff05d44dfdb04e1d83bdbdab320efbcb",
+      "statement": "牛客编程题 JZ28：对称的二叉树。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 55
+    },
+    {
+      "title": "顺时针打印矩阵",
+      "titleSlug": "9b4c81a02cd34f76be2659fa0d54342a",
+      "tags": [
+        "数组"
+      ],
+      "difficulty": "简单",
+      "acceptance": 19.8,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/9b4c81a02cd34f76be2659fa0d54342a",
+      "statement": "牛客编程题 JZ29：顺时针打印矩阵。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 56
+    },
+    {
+      "title": "包含min函数的栈",
+      "titleSlug": "4c776177d2c04c2494f2555c9fcc1e49",
+      "tags": [
+        "栈"
+      ],
+      "difficulty": "简单",
+      "acceptance": 35.23,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/4c776177d2c04c2494f2555c9fcc1e49",
+      "statement": "牛客编程题 JZ30：包含min函数的栈。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 57
+    },
+    {
+      "title": "栈的压入、弹出序列",
+      "titleSlug": "d77d11405cc7470d82554cb392585106",
+      "tags": [
+        "栈"
+      ],
+      "difficulty": "中等",
+      "acceptance": 31.09,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106",
+      "statement": "牛客编程题 JZ31：栈的压入、弹出序列。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 58
+    },
+    {
+      "title": "从上往下打印二叉树",
+      "titleSlug": "7fe2212963db4790b57431d9ed259701",
+      "tags": [
+        "队列",
+        "树"
+      ],
+      "difficulty": "简单",
+      "acceptance": 29.97,
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/practice/7fe2212963db4790b57431d9ed259701",
+      "statement": "牛客编程题 JZ32：从上往下打印二叉树。完整描述请访问牛客练习页。",
+      "approach": "可参考牛客题解区与讨论区的常见解法。",
+      "hotCompanies": [
+        "牛客高频"
+      ],
+      "id": 59
+    },
+    {
+      "title": "最少交换次数来组合所有的 1",
+      "titleSlug": "minimum-swaps-to-group-all-1s-together",
+      "tags": [
+        "数组",
+        "滑动窗口"
+      ],
+      "difficulty": "中等",
+      "acceptance": 56.35,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-swaps-to-group-all-1s-together/",
+      "statement": "力扣原题：最少交换次数来组合所有的 1。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "ibm",
+        "微软"
+      ],
+      "id": 60
+    },
+    {
+      "title": "用户网站访问行为分析",
+      "titleSlug": "analyze-user-website-visit-pattern",
+      "tags": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 44.4,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/analyze-user-website-visit-pattern/",
+      "statement": "力扣原题：用户网站访问行为分析。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "uber",
+        "谷歌"
+      ],
+      "id": 61
+    },
+    {
+      "title": "字符串转化",
+      "titleSlug": "string-transforms-into-another-string",
+      "tags": [
+        "图",
+        "哈希表",
+        "字符串"
+      ],
+      "difficulty": "困难",
+      "acceptance": 40.38,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/string-transforms-into-another-string/",
+      "statement": "力扣原题：字符串转化。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "谷歌",
+        "字节",
+        "亚马逊"
+      ],
+      "id": 62
+    },
+    {
+      "title": "一年中的第几天",
+      "titleSlug": "day-of-the-year",
+      "tags": [
+        "数学",
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 62.28,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/day-of-the-year/",
+      "statement": "力扣原题：一年中的第几天。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "facebook"
+      ],
+      "id": 63
+    },
+    {
+      "title": "掷骰子等于目标和的方法数",
+      "titleSlug": "number-of-dice-rolls-with-target-sum",
+      "tags": [
+        "动态规划"
+      ],
+      "difficulty": "中等",
+      "acceptance": 65.91,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum/",
+      "statement": "力扣原题：掷骰子等于目标和的方法数。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "微软"
+      ],
+      "id": 64
+    },
+    {
+      "title": "单字符重复子串的最大长度",
+      "titleSlug": "swap-for-longest-repeated-character-substring",
+      "tags": [
+        "哈希表",
+        "字符串",
+        "滑动窗口"
+      ],
+      "difficulty": "中等",
+      "acceptance": 51.52,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/swap-for-longest-repeated-character-substring/",
+      "statement": "力扣原题：单字符重复子串的最大长度。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "微软",
+        "亚马逊",
+        "谷歌"
+      ],
+      "id": 65
+    },
+    {
+      "title": "子数组中占绝大多数的元素",
+      "titleSlug": "online-majority-element-in-subarray",
+      "tags": [
+        "设计",
+        "树状数组",
+        "线段树",
+        "数组",
+        "二分查找"
+      ],
+      "difficulty": "困难",
+      "acceptance": 47.24,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/online-majority-element-in-subarray/",
+      "statement": "力扣原题：子数组中占绝大多数的元素。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "谷歌",
+        "nutanix",
+        "字节"
+      ],
+      "id": 66
+    },
+    {
+      "title": "市场分析 I",
+      "titleSlug": "market-analysis-i",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 54,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/market-analysis-i/",
+      "statement": "力扣原题：市场分析 I。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "字节"
+      ],
+      "id": 67
+    },
+    {
+      "title": "市场分析 II",
+      "titleSlug": "market-analysis-ii",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "困难",
+      "acceptance": 51.46,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/market-analysis-ii/",
+      "statement": "力扣原题：市场分析 II。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "字节"
+      ],
+      "id": 68
+    },
+    {
+      "title": "拼写单词",
+      "titleSlug": "find-words-that-can-be-formed-by-characters",
+      "tags": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "计数"
+      ],
+      "difficulty": "简单",
+      "acceptance": 68.47,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/find-words-that-can-be-formed-by-characters/",
+      "statement": "力扣原题：拼写单词。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "indeed",
+        "facebook"
+      ],
+      "id": 69
+    },
+    {
+      "title": "最大层内元素和",
+      "titleSlug": "maximum-level-sum-of-a-binary-tree",
+      "tags": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "二叉树"
+      ],
+      "difficulty": "中等",
+      "acceptance": 67.69,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-level-sum-of-a-binary-tree/",
+      "statement": "力扣原题：最大层内元素和。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "facebook",
+        "亚马逊",
+        "谷歌"
+      ],
+      "id": 70
+    },
+    {
+      "title": "地图分析",
+      "titleSlug": "as-far-from-land-as-possible",
+      "tags": [
+        "广度优先搜索",
+        "数组",
+        "动态规划",
+        "矩阵"
+      ],
+      "difficulty": "中等",
+      "acceptance": 47.83,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/as-far-from-land-as-possible/",
+      "statement": "力扣原题：地图分析。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "微软"
+      ],
+      "id": 71
+    },
+    {
+      "title": "按字典序排在最后的子串",
+      "titleSlug": "last-substring-in-lexicographical-order",
+      "tags": [
+        "双指针",
+        "字符串"
+      ],
+      "difficulty": "困难",
+      "acceptance": 36.42,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/last-substring-in-lexicographical-order/",
+      "statement": "力扣原题：按字典序排在最后的子串。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "goldman-sachs",
+        "mathworks",
+        "roblox"
+      ],
+      "id": 72
+    },
+    {
+      "title": "指定日期的产品价格",
+      "titleSlug": "product-price-at-a-given-date",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 57.42,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/product-price-at-a-given-date/",
+      "statement": "力扣原题：指定日期的产品价格。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "字节"
+      ],
+      "id": 73
+    },
+    {
+      "title": "单行键盘",
+      "titleSlug": "single-row-keyboard",
+      "tags": [
+        "哈希表",
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 86.09,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/single-row-keyboard/",
+      "statement": "力扣原题：单行键盘。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "谷歌",
+        "字节",
+        "huawei"
+      ],
+      "id": 74
+    },
+    {
+      "title": "设计文件系统",
+      "titleSlug": "design-file-system",
+      "tags": [
+        "设计",
+        "字典树",
+        "哈希表",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 50.23,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/design-file-system/",
+      "statement": "力扣原题：设计文件系统。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "airbnb",
+        "coinbase"
+      ],
+      "id": 75
+    },
+    {
+      "title": "连接木棍的最低费用",
+      "titleSlug": "minimum-cost-to-connect-sticks",
+      "tags": [
+        "贪心",
+        "数组",
+        "堆（优先队列）"
+      ],
+      "difficulty": "中等",
+      "acceptance": 59.49,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-cost-to-connect-sticks/",
+      "statement": "力扣原题：连接木棍的最低费用。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "jpmorgan"
+      ],
+      "id": 76
+    },
+    {
+      "title": "水资源分配优化",
+      "titleSlug": "optimize-water-distribution-in-a-village",
+      "tags": [
+        "并查集",
+        "图",
+        "最小生成树",
+        "堆（优先队列）"
+      ],
+      "difficulty": "困难",
+      "acceptance": 64.95,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/optimize-water-distribution-in-a-village/",
+      "statement": "力扣原题：水资源分配优化。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "谷歌",
+        "facebook",
+        "微软"
+      ],
+      "id": 77
+    },
+    {
+      "title": "查询无效交易",
+      "titleSlug": "invalid-transactions",
+      "tags": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 35.01,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/invalid-transactions/",
+      "statement": "力扣原题：查询无效交易。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "bloomberg",
+        "亚马逊",
+        "微软"
+      ],
+      "id": 78
+    },
+    {
+      "title": "比较字符串最小字母出现频次",
+      "titleSlug": "compare-strings-by-frequency-of-the-smallest-character",
+      "tags": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "二分查找",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 67.04,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/compare-strings-by-frequency-of-the-smallest-character/",
+      "statement": "力扣原题：比较字符串最小字母出现频次。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "字节"
+      ],
+      "id": 79
+    },
+    {
+      "title": "从链表中删去总和值为零的连续节点",
+      "titleSlug": "remove-zero-sum-consecutive-nodes-from-linked-list",
+      "tags": [
+        "哈希表",
+        "链表"
+      ],
+      "difficulty": "中等",
+      "acceptance": 53.8,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/remove-zero-sum-consecutive-nodes-from-linked-list/",
+      "statement": "力扣原题：从链表中删去总和值为零的连续节点。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "字节",
+        "谷歌"
+      ],
+      "id": 80
+    },
+    {
+      "title": "餐盘栈",
+      "titleSlug": "dinner-plate-stacks",
+      "tags": [
+        "栈",
+        "设计",
+        "哈希表",
+        "堆（优先队列）"
+      ],
+      "difficulty": "困难",
+      "acceptance": 39.65,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/dinner-plate-stacks/",
+      "statement": "力扣原题：餐盘栈。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "字节"
+      ],
+      "id": 81
+    },
+    {
+      "title": "即时食物配送 I",
+      "titleSlug": "immediate-food-delivery-i",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "简单",
+      "acceptance": 76.19,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/immediate-food-delivery-i/",
+      "statement": "力扣原题：即时食物配送 I。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "facebook",
+        "uber",
+        "bloomberg"
+      ],
+      "id": 82
+    },
+    {
+      "title": "即时食物配送 II",
+      "titleSlug": "immediate-food-delivery-ii",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 54.03,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/immediate-food-delivery-ii/",
+      "statement": "力扣原题：即时食物配送 II。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "bloomberg"
+      ],
+      "id": 83
+    },
+    {
+      "title": "质数排列",
+      "titleSlug": "prime-arrangements",
+      "tags": [
+        "数学"
+      ],
+      "difficulty": "简单",
+      "acceptance": 57.55,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/prime-arrangements/",
+      "statement": "力扣原题：质数排列。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "苹果",
+        "facebook"
+      ],
+      "id": 84
+    },
+    {
+      "title": "健身计划评估",
+      "titleSlug": "diet-plan-performance",
+      "tags": [
+        "数组",
+        "滑动窗口"
+      ],
+      "difficulty": "简单",
+      "acceptance": 56.4,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/diet-plan-performance/",
+      "statement": "力扣原题：健身计划评估。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "字节"
+      ],
+      "id": 85
+    },
+    {
+      "title": "构建回文串检测",
+      "titleSlug": "can-make-palindrome-from-substring",
+      "tags": [
+        "位运算",
+        "数组",
+        "哈希表",
+        "字符串",
+        "前缀和"
+      ],
+      "difficulty": "中等",
+      "acceptance": 46.65,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/can-make-palindrome-from-substring/",
+      "statement": "力扣原题：构建回文串检测。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "sap",
+        "akuna-capital",
+        "亚马逊"
+      ],
+      "id": 86
+    },
+    {
+      "title": "猜字谜",
+      "titleSlug": "number-of-valid-words-for-each-puzzle",
+      "tags": [
+        "位运算",
+        "字典树",
+        "数组",
+        "哈希表",
+        "字符串"
+      ],
+      "difficulty": "困难",
+      "acceptance": 47.37,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/number-of-valid-words-for-each-puzzle/",
+      "statement": "力扣原题：猜字谜。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "dropbox",
+        "亚马逊",
+        "yahoo"
+      ],
+      "id": 87
+    },
+    {
+      "title": "重新格式化部门表",
+      "titleSlug": "reformat-department-table",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "简单",
+      "acceptance": 66.92,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/reformat-department-table/",
+      "statement": "力扣原题：重新格式化部门表。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "字节",
+        "谷歌"
+      ],
+      "id": 88
+    },
+    {
+      "title": "统计只含单一字母的子串",
+      "titleSlug": "count-substrings-with-only-one-distinct-letter",
+      "tags": [
+        "数学",
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 80.75,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/count-substrings-with-only-one-distinct-letter/",
+      "statement": "力扣原题：统计只含单一字母的子串。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "virtu",
+        "亚马逊",
+        "微软"
+      ],
+      "id": 89
+    },
+    {
+      "title": "前后拼接",
+      "titleSlug": "before-and-after-puzzle",
+      "tags": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 43,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/before-and-after-puzzle/",
+      "statement": "力扣原题：前后拼接。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "clutter",
+        "谷歌",
+        "苹果"
+      ],
+      "id": 90
+    },
+    {
+      "title": "与目标颜色间的最短距离",
+      "titleSlug": "shortest-distance-to-target-color",
+      "tags": [
+        "数组",
+        "二分查找",
+        "动态规划"
+      ],
+      "difficulty": "中等",
+      "acceptance": 50.34,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/shortest-distance-to-target-color/",
+      "statement": "力扣原题：与目标颜色间的最短距离。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "谷歌",
+        "uber",
+        "亚马逊"
+      ],
+      "id": 91
+    },
+    {
+      "title": "矩阵中 1 的最大数量",
+      "titleSlug": "maximum-number-of-ones",
+      "tags": [
+        "贪心",
+        "数学",
+        "排序",
+        "堆（优先队列）"
+      ],
+      "difficulty": "困难",
+      "acceptance": 62.02,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-number-of-ones/",
+      "statement": "力扣原题：矩阵中 1 的最大数量。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "qualcomm"
+      ],
+      "id": 92
+    },
+    {
+      "title": "公交站间的距离",
+      "titleSlug": "distance-between-bus-stops",
+      "tags": [
+        "数组"
+      ],
+      "difficulty": "简单",
+      "acceptance": 63.33,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/distance-between-bus-stops/",
+      "statement": "力扣原题：公交站间的距离。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "谷歌",
+        "微软",
+        "facebook"
+      ],
+      "id": 93
+    },
+    {
+      "title": "一周中的第几天",
+      "titleSlug": "day-of-the-week",
+      "tags": [
+        "数学"
+      ],
+      "difficulty": "简单",
+      "acceptance": 63.61,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/day-of-the-week/",
+      "statement": "力扣原题：一周中的第几天。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "微软",
+        "亚马逊",
+        "字节"
+      ],
+      "id": 94
+    },
+    {
+      "title": "删除一次得到子数组最大和",
+      "titleSlug": "maximum-subarray-sum-with-one-deletion",
+      "tags": [
+        "数组",
+        "动态规划"
+      ],
+      "difficulty": "中等",
+      "acceptance": 52.84,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-subarray-sum-with-one-deletion/",
+      "statement": "力扣原题：删除一次得到子数组最大和。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "goldman-sachs"
+      ],
+      "id": 95
+    },
+    {
+      "title": "使数组严格递增",
+      "titleSlug": "make-array-strictly-increasing",
+      "tags": [
+        "数组",
+        "二分查找",
+        "动态规划",
+        "排序"
+      ],
+      "difficulty": "困难",
+      "acceptance": 60.27,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/make-array-strictly-increasing/",
+      "statement": "力扣原题：使数组严格递增。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "dji",
+        "微软",
+        "谷歌"
+      ],
+      "id": 96
+    },
+    {
+      "title": "设计有限阻塞队列",
+      "titleSlug": "design-bounded-blocking-queue",
+      "tags": [
+        "多线程"
+      ],
+      "difficulty": "中等",
+      "acceptance": 71.83,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/design-bounded-blocking-queue/",
+      "statement": "力扣原题：设计有限阻塞队列。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "linkedin",
+        "微软",
+        "bloomberg"
+      ],
+      "id": 97
+    },
+    {
+      "title": "“气球” 的最大数量",
+      "titleSlug": "maximum-number-of-balloons",
+      "tags": [
+        "哈希表",
+        "字符串",
+        "计数"
+      ],
+      "difficulty": "简单",
+      "acceptance": 69.26,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-number-of-balloons/",
+      "statement": "力扣原题：“气球” 的最大数量。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "tesla",
+        "微软",
+        "亚马逊"
+      ],
+      "id": 98
+    },
+    {
+      "title": "反转每对括号间的子串",
+      "titleSlug": "reverse-substrings-between-each-pair-of-parentheses",
+      "tags": [
+        "栈",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 65.95,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/reverse-substrings-between-each-pair-of-parentheses/",
+      "statement": "力扣原题：反转每对括号间的子串。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "huawei",
+        "亚马逊",
+        "微软"
+      ],
+      "id": 99
+    },
+    {
+      "title": "K 次串联后最大子数组之和",
+      "titleSlug": "k-concatenation-maximum-sum",
+      "tags": [
+        "数组",
+        "动态规划"
+      ],
+      "difficulty": "中等",
+      "acceptance": 29.16,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/k-concatenation-maximum-sum/",
+      "statement": "力扣原题：K 次串联后最大子数组之和。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "字节",
+        "亚马逊",
+        "adobe"
+      ],
+      "id": 100
+    },
+    {
+      "title": "查找集群内的关键连接",
+      "titleSlug": "critical-connections-in-a-network",
+      "tags": [
+        "深度优先搜索",
+        "图",
+        "双连通分量"
+      ],
+      "difficulty": "困难",
+      "acceptance": 58.27,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/critical-connections-in-a-network/",
+      "statement": "力扣原题：查找集群内的关键连接。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "微软"
+      ],
+      "id": 101
+    },
+    {
+      "title": "每月交易 I",
+      "titleSlug": "monthly-transactions-i",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 59.74,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/monthly-transactions-i/",
+      "statement": "力扣原题：每月交易 I。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "bloomberg"
+      ],
+      "id": 102
+    },
+    {
+      "title": "锦标赛优胜者",
+      "titleSlug": "tournament-winners",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "困难",
+      "acceptance": 51.81,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/tournament-winners/",
+      "statement": "力扣原题：锦标赛优胜者。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "wayfair",
+        "亚马逊",
+        "uber"
+      ],
+      "id": 103
+    },
+    {
+      "title": "多线程 Fizz Buzz",
+      "titleSlug": "fizz-buzz-multithreaded",
+      "tags": [
+        "多线程"
+      ],
+      "difficulty": "中等",
+      "acceptance": 66.22,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/fizz-buzz-multithreaded/",
+      "statement": "力扣原题：多线程 Fizz Buzz。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "微软",
+        "字节",
+        "亚马逊"
+      ],
+      "id": 104
+    },
+    {
+      "title": "最多可以买到的苹果数量",
+      "titleSlug": "how-many-apples-can-you-put-into-the-basket",
+      "tags": [
+        "贪心",
+        "数组",
+        "排序"
+      ],
+      "difficulty": "简单",
+      "acceptance": 68.98,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/how-many-apples-can-you-put-into-the-basket/",
+      "statement": "力扣原题：最多可以买到的苹果数量。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "virtu",
+        "facebook"
+      ],
+      "id": 105
+    },
+    {
+      "title": "进击的骑士",
+      "titleSlug": "minimum-knight-moves",
+      "tags": [
+        "广度优先搜索"
+      ],
+      "difficulty": "中等",
+      "acceptance": 42.11,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-knight-moves/",
+      "statement": "力扣原题：进击的骑士。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "facebook",
+        "谷歌",
+        "亚马逊"
+      ],
+      "id": 106
+    },
+    {
+      "title": "找出所有行中最小公共元素",
+      "titleSlug": "find-smallest-common-element-in-all-rows",
+      "tags": [
+        "数组",
+        "哈希表",
+        "二分查找",
+        "计数",
+        "矩阵"
+      ],
+      "difficulty": "中等",
+      "acceptance": 74.79,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/find-smallest-common-element-in-all-rows/",
+      "statement": "力扣原题：找出所有行中最小公共元素。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "亚马逊",
+        "walmart-labs",
+        "微软"
+      ],
+      "id": 107
+    },
+    {
+      "title": "建造街区的最短时间",
+      "titleSlug": "minimum-time-to-build-blocks",
+      "tags": [
+        "贪心",
+        "数组",
+        "数学",
+        "堆（优先队列）"
+      ],
+      "difficulty": "困难",
+      "acceptance": 48.23,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-time-to-build-blocks/",
+      "statement": "力扣原题：建造街区的最短时间。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "谷歌"
+      ],
+      "id": 108
+    },
+    {
+      "title": "最小绝对差",
+      "titleSlug": "minimum-absolute-difference",
+      "tags": [
+        "数组",
+        "排序"
+      ],
+      "difficulty": "简单",
+      "acceptance": 73.95,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-absolute-difference/",
+      "statement": "力扣原题：最小绝对差。完整题面与测试用例请访问力扣官网。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "hotCompanies": [
+        "paypal",
+        "jpmorgan",
+        "bloomberg"
+      ],
+      "id": 109
+    }
+  ],
+  "errors": []
+}

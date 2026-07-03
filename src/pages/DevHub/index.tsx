@@ -23,6 +23,7 @@ import {
   formatQuizDate,
   sortQuestions,
 } from '../../utils/interviewQuiz';
+import { useQuizBank } from '../../hooks/useQuizBank';
 import './index.less';
 
 const QUIZ_CATEGORIES = [
@@ -190,6 +191,7 @@ const PaginationBar: React.FC<{ current: number; total: number; onChange: (p: nu
 
 const DevHub: React.FC = () => {
   const [searchParams] = useSearchParams();
+  const { questions: quizData, crawledAt, sources: quizSources } = useQuizBank(QUIZ_DATA);
   const [viewMode, setViewMode] = useState<'all' | 'today'>('all');
   const [quizCategory, setQuizCategory] = useState('all');
   const [quizDifficulty, setQuizDifficulty] = useState('all');
@@ -197,8 +199,8 @@ const DevHub: React.FC = () => {
   const [quizPage, setQuizPage] = useState(1);
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
-  const publishedQuestions = useMemo(() => QUIZ_DATA.filter((q) => isPublished(q.id)), []);
-  const todayIds = useMemo(() => getTodayQuestionIds(QUIZ_DATA), []);
+  const publishedQuestions = useMemo(() => quizData.filter((q) => isPublished(q.id)), [quizData]);
+  const todayIds = useMemo(() => getTodayQuestionIds(quizData), [quizData]);
   const todayNewCount = todayIds.length;
 
   useEffect(() => {
@@ -234,7 +236,7 @@ const DevHub: React.FC = () => {
   const handleViewMode = (mode: 'all' | 'today') => { setViewMode(mode); setQuizPage(1); setExpandedId(null); };
 
   const renderQuestionCard = (q: QuizQuestion) => {
-    const isNew = isTodayUpdate(q.id, QUIZ_DATA);
+    const isNew = isTodayUpdate(q.id, quizData);
     const expanded = expandedId === q.id;
     return (
       <div
@@ -279,7 +281,14 @@ const DevHub: React.FC = () => {
         <div className="iv-hero-inner">
           <span className="iv-hero-badge"><ReadOutlined /> 每日面试题</span>
           <h1 className="iv-hero-title">高频面试题库</h1>
-          <p className="iv-hero-sub">每日新增 {DAILY_NEW_COUNT} 道面试题，历史题目永久保留，附带参考解析随时复习</p>
+          <p className="iv-hero-sub">
+            每日新增 {DAILY_NEW_COUNT} 道面试题，数据同步自
+            {quizSources.includes('nowcoder') ? '牛客' : ''}
+            {quizSources.includes('nowcoder') && quizSources.includes('leetcode') ? ' + ' : ''}
+            {quizSources.includes('leetcode') ? '力扣' : ''}
+            ，历史题目永久保留
+            {crawledAt ? `（最近同步 ${new Date(crawledAt).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}）` : ''}
+          </p>
           <div className="iv-hero-stats">
             <div className="iv-stat">
               <span className="iv-stat-icon" style={{ color: '#6366f1', background: 'rgba(99,102,241,0.12)' }}><AppstoreOutlined /></span>

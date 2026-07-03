@@ -7,20 +7,11 @@ import {
   CheckCircleOutlined,
 } from '@ant-design/icons';
 import SolutionCodePanel from './SolutionCodePanel';
+import type { AlgoProblem } from '../../data/algoBank';
+import { useAlgoBank } from '../../hooks/useAlgoBank';
 import './index.less';
 
 type Difficulty = '简单' | '中等' | '困难';
-
-interface AlgoProblem {
-  id: number;
-  title: string;
-  tags: string[];
-  difficulty: Difficulty;
-  acceptance: number;
-  hotCompanies: string[];
-  statement: string;
-  approach: string;
-}
 
 const DIFF_COLORS: Record<Difficulty, string> = {
   简单: '#00b8a3',
@@ -93,7 +84,7 @@ function seededShuffle<T>(items: T[], seedStr: string): T[] {
   return arr;
 }
 
-const PROBLEMS: AlgoProblem[] = [
+const SEED_PROBLEMS: AlgoProblem[] = [
   { id: 1, title: '两数之和', tags: ['数组', '哈希'], difficulty: '简单', acceptance: 72, hotCompanies: ['字节', '腾讯'], statement: '在整数数组中找到两个元素，使其和等于目标值 target，返回下标。', approach: '哈希表存 value→index，遍历 x 时查 target−x 是否存在，O(n)。' },
   { id: 2, title: '无重复字符的最长子串', tags: ['字符串', '哈希', '双指针', '滑动窗口'], difficulty: '中等', acceptance: 38, hotCompanies: ['阿里', '美团'], statement: '求字符串中不含重复字符的最长连续子串长度。', approach: '滑动窗口 + 哈希记录字符最后出现位置，右扩左收，O(n)。' },
   { id: 3, title: '合并两个有序链表', tags: ['链表', '递归'], difficulty: '简单', acceptance: 65, hotCompanies: ['华为', '百度'], statement: '将两个升序链表合并为一个升序链表。', approach: '哑节点迭代比较头结点；或递归取较小头并链接。' },
@@ -141,6 +132,7 @@ function loadDoneIds(): Set<number> {
 
 const AlgorithmHub: React.FC = () => {
   const dateKey = useMemo(() => getBeijingDateKey(), []);
+  const { problems, crawledAt } = useAlgoBank(SEED_PROBLEMS);
   const [mainTab, setMainTab] = useState<MainTab>('daily');
   const [topic, setTopic] = useState('all');
   const [difficulty, setDifficulty] = useState<'all' | Difficulty>('all');
@@ -158,15 +150,15 @@ const AlgorithmHub: React.FC = () => {
 
   const dailyFeatured = useMemo(() => {
     const h = hashSeed(`daily-${dateKey}`);
-    return PROBLEMS[h % PROBLEMS.length];
-  }, [dateKey]);
+    return problems[h % problems.length];
+  }, [dateKey, problems]);
 
   const dailyPack = useMemo(() => {
-    const shuffled = seededShuffle(PROBLEMS, `pack-${dateKey}`);
+    const shuffled = seededShuffle(problems, `pack-${dateKey}`);
     return shuffled.slice(0, 8);
-  }, [dateKey]);
+  }, [dateKey, problems]);
 
-  const bankOrder = useMemo(() => seededShuffle(PROBLEMS, `bank-${dateKey}`), [dateKey]);
+  const bankOrder = useMemo(() => seededShuffle(problems, `bank-${dateKey}`), [dateKey, problems]);
 
   const toggleDone = useCallback((id: number, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -192,14 +184,14 @@ const AlgorithmHub: React.FC = () => {
   }, [bankOrder, difficulty, topic, search]);
 
   const interviewList = useMemo(() => {
-    const scored = PROBLEMS.map((p) => ({
+    const scored = problems.map((p) => ({
       p,
-      score: p.hotCompanies.length * 10 + p.acceptance * 0.1,
+      score: (p.hotCompanies?.length ?? 0) * 10 + p.acceptance * 0.1,
     }));
     scored.sort((a, b) => b.score - a.score);
     const rotated = seededShuffle(scored, `interview-${dateKey}`);
     return rotated.slice(0, 12).map((x) => x.p);
-  }, [dateKey]);
+  }, [dateKey, problems]);
 
   const dailyPackFiltered = useMemo(
     () => dailyPack.filter((p) => tagsMatchTopic(p.tags, topic)),
@@ -254,7 +246,7 @@ const AlgorithmHub: React.FC = () => {
         </span>
         {showHot && (
           <span className="col-hot">
-            {p.hotCompanies.slice(0, 2).map((c) => (
+            {(p.hotCompanies ?? []).slice(0, 2).map((c) => (
               <span key={c} className="co-tag">
                 {c}
               </span>
@@ -290,13 +282,16 @@ const AlgorithmHub: React.FC = () => {
     <div className="algo-hub-page">
       <div className="algo-page-header">
         <h1 className="algo-page-title">算法题库</h1>
-        <p className="algo-page-desc">力扣风格题单 · 面试高频 · 每日轮换 · 多语言参考答案（北京时间 {dateKey}）</p>
+        <p className="algo-page-desc">
+          力扣 + 牛客同步题单 · 面试高频 · 每日轮换 · 多语言参考答案（北京时间 {dateKey}
+          {crawledAt ? ` · 同步于 ${new Date(crawledAt).toLocaleDateString('zh-CN', { timeZone: 'Asia/Shanghai' })}` : ''}）
+        </p>
       </div>
 
       <div className="algo-top-banner">
         <span className="banner-dot" aria-hidden />
         <span>
-          今日题库已更新：题单顺序、每日一题与面试推荐位均按日期重新编排。参考答案支持多语言切换；代码高亮使用 cdnjs 提供的 highlight.js（需联网加载样式与脚本）。
+          题库数据每日从力扣 GraphQL 与牛客编程题 API 增量同步；题单顺序、每日一题与面试推荐位按北京时间重新编排。
         </span>
       </div>
 

@@ -10,7 +10,11 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "roadmap:sync": "node scripts/roadmap-sync.mjs"
+    "roadmap:sync": "node scripts/roadmap-sync.mjs",
+    "quiz:sync": "node scripts/quiz-sync.mjs",
+    "algo:sync": "node scripts/algo-sync.mjs",
+    "data:sync": "node scripts/quiz-sync.mjs && node scripts/algo-sync.mjs",
+    "data:seed": "node scripts/extract-seed.mjs"
   },
   "dependencies": {
     "@types/node": "^24.5.2",
