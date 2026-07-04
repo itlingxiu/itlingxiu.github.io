@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-03T17:57:03.739Z",
-  "dateKey": "2026-07-04",
+  "crawledAt": "2026-07-04T17:34:04.671Z",
+  "dateKey": "2026-07-05",
   "sources": [
     "nowcoder",
     "leetcode"
@@ -1016,6 +1016,16 @@
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/ta/review-java/review?page=14",
       "id": 112
+    },
+    {
+      "category": "Java",
+      "difficulty": "简单",
+      "acceptance": 58,
+      "question": "HashMap和Hashtable有什么区别？",
+      "answer": "HashMap和Hashtable都实现了Map接口，因此很多特性非常相似。但是，他们有以下不同点： HashMap允许键和值是null，而Hashtable不允许键或者值是null。 Hashtable是同步的，而HashMap不是。因此，HashMap更适合于单线程环境，而Hashtable适合于多线程环境。 HashMap提供了可供应用迭代的键的集合，因此，HashMap是快速失败的。另一方面，Hashtable提供了对键的列举(Enumeration)。 一般认为Hashtable是一个遗留的类。 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-java/review?page=13",
+      "id": 113
     }
   ],
   "errors": []
