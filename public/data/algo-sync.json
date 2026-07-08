@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-07T18:29:52.328Z",
-  "dateKey": "2026-07-08",
+  "crawledAt": "2026-07-08T17:59:57.717Z",
+  "dateKey": "2026-07-09",
   "sources": [
     "leetcode-cn",
     "nowcoder"
@@ -818,7 +818,7 @@
         "数组"
       ],
       "difficulty": "简单",
-      "acceptance": 44.34,
+      "acceptance": 44.35,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/4436c93e568c48f6b28ff436173b997f",
       "statement": "牛客编程题 JZ17：打印从1到最大的n位数。完整描述请访问牛客练习页。",
@@ -4266,6 +4266,420 @@
         "javascript": "var getHappyString = function(n, k) {\n    const chs = ['a', 'b', 'c'];\n    let res = [];\n    if (k > 3 * (1 << (n - 1))) {\n        return res.join(\"\");\n    }\n    for (let i = 0; i < n; i++) {\n        let count = 1 << (n - i - 1);\n        for (let c of chs) {\n            if (res.length > 0 && res[res.length - 1] === c) {\n                continue;\n            }\n            if (k <= count) {\n                res.push(c);\n                break;\n            }\n            k -= count;\n        }\n    }\n    return res.join(\"\");\n};"
       },
       "id": 184
+    },
+    {
+      "title": "重新排列句子中的单词",
+      "titleSlug": "rearrange-words-in-a-sentence",
+      "tags": [
+        "字符串",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 56.01,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/rearrange-words-in-a-sentence/",
+      "hotCompanies": [
+        "vmware",
+        "谷歌",
+        "jpmorgan"
+      ],
+      "statementZh": "「句子」是一个用空格分隔单词的字符串。给你一个满足下述格式的句子 text :\n\n\t句子的首字母大写\n\n\ttext 中的每个单词都用单个空格分隔。\n\n请你重新排列 text 中的单词，使所有单词按其长度的升序排列。如果两个单词的长度相同，则保留其在原句子中的相对顺序。\n\n请同样按上述格式返回新的句子。\n\n \n\n示例 1：\n\n输入：text = \"Leetcode is cool\"\n输出：\"Is cool leetcode\"\n解释：句子中共有 3 个单词，长度为 8 的 \"Leetcode\" ，长度为 2 的 \"is\" 以及长度为 4 的 \"cool\" 。\n输出需要按单词的长度升序排列，新句子中的第一个单词首字母需要大写。\n\n示例 2：\n\n输入：text = \"Keep calm and code on\"\n输出：\"On and keep calm code\"\n解释：输出的排序情况如下：\n\"On\" 2 个字母。\n\"and\" 3 个字母。\n\"keep\" 4 个字母，因为存在长度相同的其他单词，所以它们之间需要保留在原句子中的相对顺序。\n\"calm\" 4 个字母。\n\"code\" 4 个字母。\n\n示例 3：\n\n输入：text = \"To be or not to be\"\n输出：\"To be or to be not\"\n\n \n\n提示：\n\n\ttext 以大写字母开头，然后包含若干小写字母以及单词间的单个空格。\n\n\t1 <= text.length <= 10^5",
+      "statementEn": "Given a sentence text (A sentence is a string of space-separated words) in the following format:\n\n\tFirst letter is in upper case.\n\n\tEach word in text are separated by a single space.\n\nYour task is to rearrange the words in text such that all words are rearranged in an increasing order of their lengths. If two words have the same length, arrange them in their original order.\n\nReturn the new text following the format shown above.\n\n \n\nExample 1:\n\nInput: text = \"Leetcode is cool\"\nOutput: \"Is cool leetcode\"\nExplanation: There are 3 words, \"Leetcode\" of length 8, \"is\" of length 2 and \"cool\" of length 4.\nOutput is ordered by length and the new first word starts with capital letter.\n\nExample 2:\n\nInput: text = \"Keep calm and code on\"\nOutput: \"On and keep calm code\"\nExplanation: Output is ordered as follows:\n\"On\" 2 letters.\n\"and\" 3 letters.\n\"keep\" 4 letters in case of tie order by position in original text.\n\"calm\" 4 letters.\n\"code\" 4 letters.\n\nExample 3:\n\nInput: text = \"To be or not to be\"\nOutput: \"To be or to be not\"\n\n \n\nConstraints:\n\n\ttext begins with a capital letter and then contains lowercase letters and single space between words.\n\n\t1 <= text.length <= 10^5",
+      "statement": "「句子」是一个用空格分隔单词的字符串。给你一个满足下述格式的句子 text :\n\n\t句子的首字母大写\n\n\ttext 中的每个单词都用单个空格分隔。\n\n请你重新排列 text 中的单词，使所有单词按其长度的升序排列。如果两个单词的长度相同，则保留其在原句子中的相对顺序。\n\n请同样按上述格式返回新的句子。\n\n \n\n示例 1：\n\n输入：text = \"Leetcode is cool\"\n输出：\"Is cool leetcode\"\n解释：句子中共有 3 个单词，长度为 8 的 \"Leetcode\" ，长度为 2 的 \"is\" 以及长度为 4 的 \"cool\" 。\n输出需要按单词的长度升序排列，新句子中的第一个单词首字母需要大写。\n\n示例 2：\n\n输入：text = \"Keep calm and code on\"\n输出：\"On and keep calm code\"\n解释：输出的排序情况如下：\n\"On\" 2 个字母。\n\"and\" 3 个字母。\n\"keep\" 4 个字母，因为存在长度相同的其他单词，所以它们之间需要保留在原句子中的相对顺序。\n\"calm\" 4 个字母。\n\"code\" 4 个字母。\n\n示例 3：\n\n输入：text = \"To be or not to be\"\n输出：\"To be or to be not\"\n\n \n\n提示：\n\n\ttext 以大写字母开头，然后包含若干小写字母以及单词间的单个空格。\n\n\t1 <= text.length <= 10^5",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "java": "class Solution {\n    public String arrangeWords(String text) {\n        String[] s = text.toLowerCase().split(\" \");\n        Arrays.sort(s, Comparator.comparingInt(String::length));\n        s[0] = s[0].substring(0, 1).toUpperCase() + s[0].substring(1);\n        return String.join(\" \", s);\n    }\n}"
+      },
+      "id": 185
+    },
+    {
+      "title": "收藏清单",
+      "titleSlug": "people-whose-list-of-favorite-companies-is-not-a-subset-of-another-list",
+      "tags": [
+        "数组",
+        "哈希表",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 52.64,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/people-whose-list-of-favorite-companies-is-not-a-subset-of-another-list/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "adobe"
+      ],
+      "statementZh": "给你一个数组 favoriteCompanies ，其中 favoriteCompanies[i] 是第 i 名用户收藏的公司清单（下标从 0 开始）。\n\n请找出不是其他任何人收藏的公司清单的子集的收藏清单，并返回该清单下标。下标需要按升序排列。\n\n \n\n示例 1：\n\n输入：favoriteCompanies = [[\"leetcode\",\"google\",\"facebook\"],[\"google\",\"microsoft\"],[\"google\",\"facebook\"],[\"google\"],[\"amazon\"]]\n输出：[0,1,4] \n解释：\nfavoriteCompanies[2]=[\"google\",\"facebook\"] 是 favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] 的子集。\nfavoriteCompanies[3]=[\"google\"] 是 favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] 和 favoriteCompanies[1]=[\"google\",\"microsoft\"] 的子集。\n其余的收藏清单均不是其他任何人收藏的公司清单的子集，因此，答案为 [0,1,4] 。\n\n示例 2：\n\n输入：favoriteCompanies = [[\"leetcode\",\"google\",\"facebook\"],[\"leetcode\",\"amazon\"],[\"facebook\",\"google\"]]\n输出：[0,1] \n解释：favoriteCompanies[2]=[\"facebook\",\"google\"] 是 favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] 的子集，因此，答案为 [0,1] 。\n\n示例 3：\n\n输入：favoriteCompanies = [[\"leetcode\"],[\"google\"],[\"facebook\"],[\"amazon\"]]\n输出：[0,1,2,3]\n\n \n\n提示：\n\n\t1 <= favoriteCompanies.length <= 100\n\n\t1 <= favoriteCompanies[i].length <= 500\n\n\t1 <= favoriteCompanies[i][j].length <= 20\n\n\tfavoriteCompanies[i] 中的所有字符串 各不相同 。\n\n\t用户收藏的公司清单也 各不相同 ，也就是说，即便我们按字母顺序排序每个清单， favoriteCompanies[i] != favoriteCompanies[j] 仍然成立。\n\n\t所有字符串仅包含小写英文字母。",
+      "statementEn": "Given the array favoriteCompanies where favoriteCompanies[i] is the list of favorites companies for the ith person (indexed from 0).\n\nReturn the indices of people whose list of favorite companies is not a subset of any other list of favorites companies. You must return the indices in increasing order.\n\n \n\nExample 1:\n\nInput: favoriteCompanies = [[\"leetcode\",\"google\",\"facebook\"],[\"google\",\"microsoft\"],[\"google\",\"facebook\"],[\"google\"],[\"amazon\"]]\nOutput: [0,1,4] \nExplanation: \nPerson with index=2 has favoriteCompanies[2]=[\"google\",\"facebook\"] which is a subset of favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] corresponding to the person with index 0. \nPerson with index=3 has favoriteCompanies[3]=[\"google\"] which is a subset of favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] and favoriteCompanies[1]=[\"google\",\"microsoft\"]. \nOther lists of favorite companies are not a subset of another list, therefore, the answer is [0,1,4].\n\nExample 2:\n\nInput: favoriteCompanies = [[\"leetcode\",\"google\",\"facebook\"],[\"leetcode\",\"amazon\"],[\"facebook\",\"google\"]]\nOutput: [0,1] \nExplanation: In this case favoriteCompanies[2]=[\"facebook\",\"google\"] is a subset of favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"], therefore, the answer is [0,1].\n\nExample 3:\n\nInput: favoriteCompanies = [[\"leetcode\"],[\"google\"],[\"facebook\"],[\"amazon\"]]\nOutput: [0,1,2,3]\n\n \n\nConstraints:\n\n\t1 <= favoriteCompanies.length <= 100\n\n\t1 <= favoriteCompanies[i].length <= 500\n\n\t1 <= favoriteCompanies[i][j].length <= 20\n\n\tAll strings in favoriteCompanies[i] are distinct.\n\n\tAll lists of favorite companies are distinct, that is, If we sort alphabetically each list then favoriteCompanies[i] != favoriteCompanies[j].\n\n\tAll strings consist of lowercase English letters only.",
+      "statement": "给你一个数组 favoriteCompanies ，其中 favoriteCompanies[i] 是第 i 名用户收藏的公司清单（下标从 0 开始）。\n\n请找出不是其他任何人收藏的公司清单的子集的收藏清单，并返回该清单下标。下标需要按升序排列。\n\n \n\n示例 1：\n\n输入：favoriteCompanies = [[\"leetcode\",\"google\",\"facebook\"],[\"google\",\"microsoft\"],[\"google\",\"facebook\"],[\"google\"],[\"amazon\"]]\n输出：[0,1,4] \n解释：\nfavoriteCompanies[2]=[\"google\",\"facebook\"] 是 favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] 的子集。\nfavoriteCompanies[3]=[\"google\"] 是 favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] 和 favoriteCompanies[1]=[\"google\",\"microsoft\"] 的子集。\n其余的收藏清单均不是其他任何人收藏的公司清单的子集，因此，答案为 [0,1,4] 。\n\n示例 2：\n\n输入：favoriteCompanies = [[\"leetcode\",\"google\",\"facebook\"],[\"leetcode\",\"amazon\"],[\"facebook\",\"google\"]]\n输出：[0,1] \n解释：favoriteCompanies[2]=[\"facebook\",\"google\"] 是 favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] 的子集，因此，答案为 [0,1] 。\n\n示例 3：\n\n输入：favoriteCompanies = [[\"leetcode\"],[\"google\"],[\"facebook\"],[\"amazon\"]]\n输出：[0,1,2,3]\n\n \n\n提示：\n\n\t1 <= favoriteCompanies.length <= 100\n\n\t1 <= favoriteCompanies[i].length <= 500\n\n\t1 <= favoriteCompanies[i][j].length <= 20\n\n\tfavoriteCompanies[i] 中的所有字符串 各不相同 。\n\n\t用户收藏的公司清单也 各不相同 ，也就是说，即便我们按字母顺序排序每个清单， favoriteCompanies[i] != favoriteCompanies[j] 仍然成立。\n\n\t所有字符串仅包含小写英文字母。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    unordered_set <string> s[100 + 5];\n    vector<int> peopleIndexes(vector<vector<string>>& favoriteCompanies) {\n        int n = favoriteCompanies.size();\n        vector <int> ans;\n\n        for (int i = 0; i < n; ++i) {\n            for (const auto &com: favoriteCompanies[i]) {\n                s[i].insert(com);\n            }\n        }\n\n        auto check = [=] (int x, int y) -> bool {\n            for (const auto &com: favoriteCompanies[x]) {\n                if (s[y].find(com) == s[y].end()) {\n                    return false;\n                }\n            }\n            return true;\n        };\n\n        for (int i = 0; i < n; ++i) {\n            bool isSub = false;\n            for (int j = 0; j < n; ++j) {\n                if (i == j) {\n                    continue;\n                }\n                isSub |= check(i, j);\n            }\n            if (!isSub) {\n                ans.push_back(i);\n            }\n        }\n\n        return ans;\n    }\n};",
+        "java": "class Solution {\n    Set<String>[] s = new Set[105];\n\n    public List<Integer> peopleIndexes(List<List<String>> favoriteCompanies) {\n        for (int i = 0; i < 105; ++i) {\n            s[i] = new HashSet<String>();\n        }\n        int n = favoriteCompanies.size();\n        List<Integer> ans = new ArrayList<Integer>();\n\n        for (int i = 0; i < n; ++i) {\n            for (String com : favoriteCompanies.get(i)) {\n                s[i].add(com);\n            }\n        }\n\n        for (int i = 0; i < n; ++i) {\n            boolean isSub = false;\n            for (int j = 0; j < n; ++j) {\n                if (i == j) {\n                    continue;\n                }\n                isSub |= check(favoriteCompanies, i, j);\n            }\n            if (!isSub) {\n                ans.add(i);\n            }\n        }\n\n        return ans;\n    }\n\n    public boolean check(List<List<String>> favoriteCompanies, int x, int y) {\n        for (String com : favoriteCompanies.get(x)) {\n            if (!s[y].contains(com)) {\n                return false;\n            }\n        }\n        return true;\n    }\n}"
+      },
+      "id": 186
+    },
+    {
+      "title": "圆形靶内的最大飞镖数量",
+      "titleSlug": "maximum-number-of-darts-inside-of-a-circular-dartboard",
+      "tags": [
+        "几何",
+        "数组",
+        "数学"
+      ],
+      "difficulty": "困难",
+      "acceptance": 40.12,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-number-of-darts-inside-of-a-circular-dartboard/",
+      "hotCompanies": [
+        "facebook",
+        "微软",
+        "bloomberg"
+      ],
+      "statementZh": "Alice 向一面非常大的墙上掷出 n 支飞镖。给你一个数组 darts ，其中 darts[i] = [xi, yi] 表示 Alice 掷出的第 i 支飞镖落在墙上的位置。\n\nBob 知道墙上所有 n 支飞镖的位置。他想要往墙上放置一个半径为 r 的圆形靶。使 Alice 掷出的飞镖尽可能多地落在靶上。\n\n给你整数 r ，请返回能够落在 任意 半径为 r 的圆形靶内或靶上的最大飞镖数。\n\n \n\n示例 1 ：\n\n输入：darts = [[-2,0],[2,0],[0,2],[0,-2]], r = 2\n输出：4\n解释：如果圆形靶的圆心为 (0,0) ，半径为 2 ，所有的飞镖都落在靶上，此时落在靶上的飞镖数最大，值为 4 。\n\n示例 2 ：\n\n输入：darts = [[-3,0],[3,0],[2,6],[5,4],[0,9],[7,8]], r = 5\n输出：5\n解释：如果圆形靶的圆心为 (0,4) ，半径为 5 ，则除了 (7,8) 之外的飞镖都落在靶上，此时落在靶上的飞镖数最大，值为 5 。\n\n \n\n提示：\n\n\t1 <= darts.length <= 100\n\n\tdarts[i].length == 2\n\n\t-104 <= xi, yi <= 104\n\n\tdarts 中的元素互不相同\n\n\t1 <= r <= 5000",
+      "statementEn": "Alice is throwing n darts on a very large wall. You are given an array darts where darts[i] = [xi, yi] is the position of the ith dart that Alice threw on the wall.\n\nBob knows the positions of the n darts on the wall. He wants to place a dartboard of radius r on the wall so that the maximum number of darts that Alice throws lie on the dartboard.\n\nGiven the integer r, return the maximum number of darts that can lie on the dartboard.\n\n \n\nExample 1:\n\nInput: darts = [[-2,0],[2,0],[0,2],[0,-2]], r = 2\nOutput: 4\nExplanation: Circle dartboard with center in (0,0) and radius = 2 contain all points.\n\nExample 2:\n\nInput: darts = [[-3,0],[3,0],[2,6],[5,4],[0,9],[7,8]], r = 5\nOutput: 5\nExplanation: Circle dartboard with center in (0,4) and radius = 5 contain all points except the point (7,8).\n\n \n\nConstraints:\n\n\t1 <= darts.length <= 100\n\n\tdarts[i].length == 2\n\n\t-104 <= xi, yi <= 104\n\n\tAll the darts are unique\n\n\t1 <= r <= 5000",
+      "statement": "Alice 向一面非常大的墙上掷出 n 支飞镖。给你一个数组 darts ，其中 darts[i] = [xi, yi] 表示 Alice 掷出的第 i 支飞镖落在墙上的位置。\n\nBob 知道墙上所有 n 支飞镖的位置。他想要往墙上放置一个半径为 r 的圆形靶。使 Alice 掷出的飞镖尽可能多地落在靶上。\n\n给你整数 r ，请返回能够落在 任意 半径为 r 的圆形靶内或靶上的最大飞镖数。\n\n \n\n示例 1 ：\n\n输入：darts = [[-2,0],[2,0],[0,2],[0,-2]], r = 2\n输出：4\n解释：如果圆形靶的圆心为 (0,0) ，半径为 2 ，所有的飞镖都落在靶上，此时落在靶上的飞镖数最大，值为 4 。\n\n示例 2 ：\n\n输入：darts = [[-3,0],[3,0],[2,6],[5,4],[0,9],[7,8]], r = 5\n输出：5\n解释：如果圆形靶的圆心为 (0,4) ，半径为 5 ，则除了 (7,8) 之外的飞镖都落在靶上，此时落在靶上的飞镖数最大，值为 5 。\n\n \n\n提示：\n\n\t1 <= darts.length <= 100\n\n\tdarts[i].length == 2\n\n\t-104 <= xi, yi <= 104\n\n\tdarts 中的元素互不相同\n\n\t1 <= r <= 5000",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 187
+    },
+    {
+      "title": "活跃用户",
+      "titleSlug": "active-users",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 38.24,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/active-users/",
+      "hotCompanies": [
+        "亚马逊",
+        "facebook",
+        "字节"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 188
+    },
+    {
+      "title": "检查单词是否为句中其他单词的前缀",
+      "titleSlug": "check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence",
+      "tags": [
+        "双指针",
+        "字符串",
+        "字符串匹配"
+      ],
+      "difficulty": "简单",
+      "acceptance": 64.26,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "yelp"
+      ],
+      "statementZh": "给你一个字符串 sentence 作为句子并指定检索词为 searchWord ，其中句子由若干用 单个空格 分隔的单词组成。请你检查检索词 searchWord 是否为句子 sentence 中任意单词的前缀。\n\n如果 searchWord 是某一个单词的前缀，则返回句子 sentence 中该单词所对应的下标（下标从 1 开始）。如果 searchWord 是多个单词的前缀，则返回匹配的第一个单词的下标（最小下标）。如果 searchWord 不是任何单词的前缀，则返回 -1 。\n\n字符串 s 的 前缀 是 s 的任何前导连续子字符串。\n\n \n\n示例 1：\n\n输入：sentence = \"i love eating burger\", searchWord = \"burg\"\n输出：4\n解释：\"burg\" 是 \"burger\" 的前缀，而 \"burger\" 是句子中第 4 个单词。\n\n示例 2：\n\n输入：sentence = \"this problem is an easy problem\", searchWord = \"pro\"\n输出：2\n解释：\"pro\" 是 \"problem\" 的前缀，而 \"problem\" 是句子中第 2 个也是第 6 个单词，但是应该返回最小下标 2 。\n\n示例 3：\n\n输入：sentence = \"i am tired\", searchWord = \"you\"\n输出：-1\n解释：\"you\" 不是句子中任何单词的前缀。\n\n \n\n提示：\n\n\t1 <= sentence.length <= 100\n\n\t1 <= searchWord.length <= 10\n\n\tsentence 由小写英文字母和空格组成。\n\n\tsearchWord 由小写英文字母组成。",
+      "statementEn": "Given a sentence that consists of some words separated by a single space, and a searchWord, check if searchWord is a prefix of any word in sentence.\n\nReturn the index of the word in sentence (1-indexed) where searchWord is a prefix of this word. If searchWord is a prefix of more than one word, return the index of the first word (minimum index). If there is no such word return -1.\n\nA prefix of a string s is any leading contiguous substring of s.\n\n \n\nExample 1:\n\nInput: sentence = \"i love eating burger\", searchWord = \"burg\"\nOutput: 4\nExplanation: \"burg\" is prefix of \"burger\" which is the 4th word in the sentence.\n\nExample 2:\n\nInput: sentence = \"this problem is an easy problem\", searchWord = \"pro\"\nOutput: 2\nExplanation: \"pro\" is prefix of \"problem\" which is the 2nd and the 6th word in the sentence, but we return 2 as it&#39;s the minimal index.\n\nExample 3:\n\nInput: sentence = \"i am tired\", searchWord = \"you\"\nOutput: -1\nExplanation: \"you\" is not a prefix of any word in the sentence.\n\n \n\nConstraints:\n\n\t1 <= sentence.length <= 100\n\n\t1 <= searchWord.length <= 10\n\n\tsentence consists of lowercase English letters and spaces.\n\n\tsearchWord consists of lowercase English letters.",
+      "statement": "给你一个字符串 sentence 作为句子并指定检索词为 searchWord ，其中句子由若干用 单个空格 分隔的单词组成。请你检查检索词 searchWord 是否为句子 sentence 中任意单词的前缀。\n\n如果 searchWord 是某一个单词的前缀，则返回句子 sentence 中该单词所对应的下标（下标从 1 开始）。如果 searchWord 是多个单词的前缀，则返回匹配的第一个单词的下标（最小下标）。如果 searchWord 不是任何单词的前缀，则返回 -1 。\n\n字符串 s 的 前缀 是 s 的任何前导连续子字符串。\n\n \n\n示例 1：\n\n输入：sentence = \"i love eating burger\", searchWord = \"burg\"\n输出：4\n解释：\"burg\" 是 \"burger\" 的前缀，而 \"burger\" 是句子中第 4 个单词。\n\n示例 2：\n\n输入：sentence = \"this problem is an easy problem\", searchWord = \"pro\"\n输出：2\n解释：\"pro\" 是 \"problem\" 的前缀，而 \"problem\" 是句子中第 2 个也是第 6 个单词，但是应该返回最小下标 2 。\n\n示例 3：\n\n输入：sentence = \"i am tired\", searchWord = \"you\"\n输出：-1\n解释：\"you\" 不是句子中任何单词的前缀。\n\n \n\n提示：\n\n\t1 <= sentence.length <= 100\n\n\t1 <= searchWord.length <= 10\n\n\tsentence 由小写英文字母和空格组成。\n\n\tsearchWord 由小写英文字母组成。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def isPrefixOfWord(self, sentence: str, searchWord: str) -> int:\n        i, index, n = 0, 1, len(sentence)\n        while i < n:\n            start = i\n            while i < n and sentence[i] != ' ':\n                i += 1\n            end = i\n            if sentence[start:end].startswith(searchWord):\n                return index\n            index += 1\n            i += 1\n        return -1",
+        "cpp": "class Solution {\npublic:\n    bool isPrefix(const string &sentence, int start, int end, const string &searchWord) {\n        for (int i = 0; i < searchWord.size(); i++) {\n            if (start + i >= end || sentence[start + i] != searchWord[i]) {\n                return false;\n            }\n        }\n        return true;\n    }\n\n    int isPrefixOfWord(string sentence, string searchWord) {\n        int n = sentence.size(), index = 1, start = 0, end = 0;\n        while (start < n) {\n            while (end < n && sentence[end] != ' ') {\n                end++;\n            }\n            if (isPrefix(sentence, start, end, searchWord)) {\n                return index;\n            }\n\n            index++;\n            end++;\n            start = end;\n        }\n        return -1;\n    }\n};",
+        "java": "class Solution {\n    public int isPrefixOfWord(String sentence, String searchWord) {\n        int n = sentence.length(), index = 1, start = 0, end = 0;\n        while (start < n) {\n            while (end < n && sentence.charAt(end) != ' ') {\n                end++;\n            }\n            if (isPrefix(sentence, start, end, searchWord)) {\n                return index;\n            }\n\n            index++;\n            end++;\n            start = end;\n        }\n        return -1;\n    }\n\n    public boolean isPrefix(String sentence, int start, int end, String searchWord) {\n        for (int i = 0; i < searchWord.length(); i++) {\n            if (start + i >= end || sentence.charAt(start + i) != searchWord.charAt(i)) {\n                return false;\n            }\n        }\n        return true;\n    }\n}",
+        "javascript": "var isPrefixOfWord = function(sentence, searchWord) {\n    let n = sentence.length, index = 1, start = 0, end = 0;\n    while (start < n) {\n        while (end < n && sentence[end] !== ' ') {\n            end++;\n        }\n        if (isPrefix(sentence, start, end, searchWord)) {\n            return index;\n        }\n\n        index++;\n        end++;\n        start = end;\n    }\n    return -1;\n}\n\nconst isPrefix = (sentence, start, end, searchWord) => {\n    for (let i = 0; i < searchWord.length; i++) {\n        if (start + i >= end || sentence[start + i] !== searchWord[i]) {\n            return false;\n        }\n    }\n    return true;\n};",
+        "go": "func isPrefixOfWord(sentence, searchWord string) int {\n    for i, index, n := 0, 1, len(sentence); i < n; i++ {\n        start := i\n        for i < n && sentence[i] != ' ' {\n            i++\n        }\n        end := i\n        if strings.HasPrefix(sentence[start:end], searchWord) {\n            return index\n        }\n        index++\n    }\n    return -1\n}"
+      },
+      "id": 189
+    },
+    {
+      "title": "定长子串中元音的最大数目",
+      "titleSlug": "maximum-number-of-vowels-in-a-substring-of-given-length",
+      "tags": [
+        "字符串",
+        "滑动窗口"
+      ],
+      "difficulty": "中等",
+      "acceptance": 61.96,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-number-of-vowels-in-a-substring-of-given-length/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "微软"
+      ],
+      "statementZh": "给你字符串 s 和整数 k 。\n\n请返回字符串 s 中长度为 k 的单个子字符串中可能包含的最大元音字母数。\n\n英文中的 元音字母 为（a, e, i, o, u）。\n\n \n\n示例 1：\n\n输入：s = \"abciiidef\", k = 3\n输出：3\n解释：子字符串 \"iii\" 包含 3 个元音字母。\n\n示例 2：\n\n输入：s = \"aeiou\", k = 2\n输出：2\n解释：任意长度为 2 的子字符串都包含 2 个元音字母。\n\n示例 3：\n\n输入：s = \"leetcode\", k = 3\n输出：2\n解释：\"lee\"、\"eet\" 和 \"ode\" 都包含 2 个元音字母。\n\n示例 4：\n\n输入：s = \"rhythms\", k = 4\n输出：0\n解释：字符串 s 中不含任何元音字母。\n\n示例 5：\n\n输入：s = \"tryhard\", k = 4\n输出：1\n\n \n\n提示：\n\n\t1 <= s.length <= 10^5\n\n\ts 由小写英文字母组成\n\n\t1 <= k <= s.length",
+      "statementEn": "Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k.\n\nVowel letters in English are &#39;a&#39;, &#39;e&#39;, &#39;i&#39;, &#39;o&#39;, and &#39;u&#39;.\n\n \n\nExample 1:\n\nInput: s = \"abciiidef\", k = 3\nOutput: 3\nExplanation: The substring \"iii\" contains 3 vowel letters.\n\nExample 2:\n\nInput: s = \"aeiou\", k = 2\nOutput: 2\nExplanation: Any substring of length 2 contains 2 vowels.\n\nExample 3:\n\nInput: s = \"leetcode\", k = 3\nOutput: 2\nExplanation: \"lee\", \"eet\" and \"ode\" contain 2 vowels.\n\n \n\nConstraints:\n\n\t1 <= s.length <= 105\n\n\ts consists of lowercase English letters.\n\n\t1 <= k <= s.length",
+      "statement": "给你字符串 s 和整数 k 。\n\n请返回字符串 s 中长度为 k 的单个子字符串中可能包含的最大元音字母数。\n\n英文中的 元音字母 为（a, e, i, o, u）。\n\n \n\n示例 1：\n\n输入：s = \"abciiidef\", k = 3\n输出：3\n解释：子字符串 \"iii\" 包含 3 个元音字母。\n\n示例 2：\n\n输入：s = \"aeiou\", k = 2\n输出：2\n解释：任意长度为 2 的子字符串都包含 2 个元音字母。\n\n示例 3：\n\n输入：s = \"leetcode\", k = 3\n输出：2\n解释：\"lee\"、\"eet\" 和 \"ode\" 都包含 2 个元音字母。\n\n示例 4：\n\n输入：s = \"rhythms\", k = 4\n输出：0\n解释：字符串 s 中不含任何元音字母。\n\n示例 5：\n\n输入：s = \"tryhard\", k = 4\n输出：1\n\n \n\n提示：\n\n\t1 <= s.length <= 10^5\n\n\ts 由小写英文字母组成\n\n\t1 <= k <= s.length",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    bool isVowel(char ch) {\n        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'; \n    }\n    \n    int maxVowels(string s, int k) {\n        int n = s.size();\n        int vowel_count = 0;\n        for (int i = 0; i < k; ++i) {\n            vowel_count += isVowel(s[i]);\n        }\n        int ans = vowel_count;\n        for (int i = k; i < n; ++i) {\n            vowel_count += isVowel(s[i]) - isVowel(s[i - k]);\n            ans = max(ans, vowel_count);\n        }\n        return ans;\n    }\n};",
+        "python": "class Solution:\n    def maxVowels(self, s: str, k: int) -> int:\n        def isVowel(ch):\n            return int(ch in \"aeiou\")\n        \n        n = len(s)\n        vowel_count = sum(1 for i in range(k) if isVowel(s[i]))\n        ans = vowel_count\n        for i in range(k, n):\n            vowel_count += isVowel(s[i]) - isVowel(s[i - k])\n            ans = max(ans, vowel_count)\n        return ans",
+        "java": "class Solution {\n    public int maxVowels(String s, int k) {\n        int n = s.length();\n        int vowel_count = 0;\n        for (int i = 0; i < k; ++i) {\n            vowel_count += isVowel(s.charAt(i));\n        }\n        int ans = vowel_count;\n        for (int i = k; i < n; ++i) {\n            vowel_count += isVowel(s.charAt(i)) - isVowel(s.charAt(i - k));\n            ans = Math.max(ans, vowel_count);\n        }\n        return ans;\n    }\n\n    public int isVowel(char ch) {\n        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' ? 1 : 0;\n    }\n}"
+      },
+      "id": 190
+    },
+    {
+      "title": "二叉树中的伪回文路径",
+      "titleSlug": "pseudo-palindromic-paths-in-a-binary-tree",
+      "tags": [
+        "位运算",
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "二叉树"
+      ],
+      "difficulty": "中等",
+      "acceptance": 68.77,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/pseudo-palindromic-paths-in-a-binary-tree/",
+      "hotCompanies": [
+        "亚马逊",
+        "bloomberg",
+        "微软"
+      ],
+      "statementZh": "给你一棵二叉树，每个节点的值为 1 到 9 。我们称二叉树中的一条路径是 「伪回文」的，当它满足：路径经过的所有节点值的排列中，存在一个回文序列。\n\n请你返回从根到叶子节点的所有路径中 伪回文 路径的数目。\n\n \n\n示例 1：\n\n输入：root = [2,3,1,3,1,null,1]\n输出：2 \n解释：上图为给定的二叉树。总共有 3 条从根到叶子的路径：红色路径 [2,3,3] ，绿色路径 [2,1,1] 和路径 [2,3,1] 。\n     在这些路径中，只有红色和绿色的路径是伪回文路径，因为红色路径 [2,3,3] 存在回文排列 [3,2,3] ，绿色路径 [2,1,1] 存在回文排列 [1,2,1] 。\n\n示例 2：\n\n输入：root = [2,1,1,1,3,null,null,null,null,null,1]\n输出：1 \n解释：上图为给定二叉树。总共有 3 条从根到叶子的路径：绿色路径 [2,1,1] ，路径 [2,1,3,1] 和路径 [2,1] 。\n     这些路径中只有绿色路径是伪回文路径，因为 [2,1,1] 存在回文排列 [1,2,1] 。\n\n示例 3：\n\n输入：root = [9]\n输出：1\n\n \n\n提示：\n\n\t给定二叉树的节点数目在范围 [1, 105] 内\n\n\t1 <= Node.val <= 9",
+      "statementEn": "Given a binary tree where node values are digits from 1 to 9. A path in the binary tree is said to be pseudo-palindromic if at least one permutation of the node values in the path is a palindrome.\n\nReturn the number of pseudo-palindromic paths going from the root node to leaf nodes.\n\n \n\nExample 1:\n\nInput: root = [2,3,1,3,1,null,1]\nOutput: 2 \nExplanation: The figure above represents the given binary tree. There are three paths going from the root node to leaf nodes: the red path [2,3,3], the green path [2,1,1], and the path [2,3,1]. Among these paths only red path and green path are pseudo-palindromic paths since the red path [2,3,3] can be rearranged in [3,2,3] (palindrome) and the green path [2,1,1] can be rearranged in [1,2,1] (palindrome).\n\nExample 2:\n\nInput: root = [2,1,1,1,3,null,null,null,null,null,1]\nOutput: 1 \nExplanation: The figure above represents the given binary tree. There are three paths going from the root node to leaf nodes: the green path [2,1,1], the path [2,1,3,1], and the path [2,1]. Among these paths only the green path is pseudo-palindromic since [2,1,1] can be rearranged in [1,2,1] (palindrome).\n\nExample 3:\n\nInput: root = [9]\nOutput: 1\n\n \n\nConstraints:\n\n\tThe number of nodes in the tree is in the range [1, 105].\n\n\t1 <= Node.val <= 9",
+      "statement": "给你一棵二叉树，每个节点的值为 1 到 9 。我们称二叉树中的一条路径是 「伪回文」的，当它满足：路径经过的所有节点值的排列中，存在一个回文序列。\n\n请你返回从根到叶子节点的所有路径中 伪回文 路径的数目。\n\n \n\n示例 1：\n\n输入：root = [2,3,1,3,1,null,1]\n输出：2 \n解释：上图为给定的二叉树。总共有 3 条从根到叶子的路径：红色路径 [2,3,3] ，绿色路径 [2,1,1] 和路径 [2,3,1] 。\n     在这些路径中，只有红色和绿色的路径是伪回文路径，因为红色路径 [2,3,3] 存在回文排列 [3,2,3] ，绿色路径 [2,1,1] 存在回文排列 [1,2,1] 。\n\n示例 2：\n\n输入：root = [2,1,1,1,3,null,null,null,null,null,1]\n输出：1 \n解释：上图为给定二叉树。总共有 3 条从根到叶子的路径：绿色路径 [2,1,1] ，路径 [2,1,3,1] 和路径 [2,1] 。\n     这些路径中只有绿色路径是伪回文路径，因为 [2,1,1] 存在回文排列 [1,2,1] 。\n\n示例 3：\n\n输入：root = [9]\n输出：1\n\n \n\n提示：\n\n\t给定二叉树的节点数目在范围 [1, 105] 内\n\n\t1 <= Node.val <= 9",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:\n        counter = [0] * 10\n        return self.dfs(root, counter)\n\n    def dfs(self, root: Optional[TreeNode], counter: list[int]) -> int:\n        if not root:\n            return 0\n        counter[root.val] += 1\n        res = 0\n        if not root.left and not root.right:\n            if self.isPseudoPalindrome(counter):\n                res = 1\n        else:\n            res = self.dfs(root.left, counter) + self.dfs(root.right, counter)\n        counter[root.val] -= 1\n        return res\n\n    def isPseudoPalindrome(self, counter: list[int]) -> bool:\n        odd = 0\n        for value in counter:\n            if value % 2 == 1:\n                odd += 1\n        return odd <= 1",
+        "cpp": "class Solution {\npublic:\n    int pseudoPalindromicPaths(TreeNode *root) {\n        vector<int> counter(10);\n        return dfs(root, counter);\n    }\n\n    int dfs(TreeNode *root, vector<int> &counter) {\n        if (root == nullptr) {\n            return 0;\n        }\n        counter[root->val]++;\n        int res = 0;\n        if (root->left == nullptr && root->right == nullptr) {\n            if (isPseudoPalindrome(counter)) {\n                res = 1;\n            }\n        } else {\n            res = dfs(root->left, counter) + dfs(root->right, counter);\n        }\n        counter[root->val]--;\n        return res;\n    }\n\n    bool isPseudoPalindrome(const vector<int> &counter) {\n        int odd = 0;\n        for (int value : counter) {\n            if (value % 2 == 1) {\n                odd++;\n            }\n        }\n        return odd <= 1;\n    }\n};",
+        "java": "class Solution {\n    public int pseudoPalindromicPaths (TreeNode root) {\n        int[] counter = new int[10];\n        return dfs(root, counter);\n    }\n\n    public int dfs(TreeNode root, int[] counter) {\n        if (root == null) {\n            return 0;\n        }\n        counter[root.val]++;\n        int res = 0;\n        if (root.left == null && root.right == null) {\n            if (isPseudoPalindrome(counter)) {\n                res = 1;\n            }\n        } else {\n            res = dfs(root.left, counter) + dfs(root.right, counter);\n        }\n        counter[root.val]--;\n        return res;\n    }\n\n    public boolean isPseudoPalindrome(int[] counter) {\n        int odd = 0;\n        for (int value : counter) {\n            if (value % 2 == 1) {\n                odd++;\n            }\n        }\n        return odd <= 1;\n    }\n}",
+        "go": "func pseudoPalindromicPaths (root *TreeNode) int {\n    counter := make([]int, 10)\n    return dfs(root, counter)\n}\n\nfunc dfs(root *TreeNode, counter []int) int {\n    if root == nil {\n        return 0\n    }\n    counter[root.Val]++\n    res := 0\n    if root.Left == nil && root.Right == nil {\n        if isPseudoPalindrome(counter) {\n            res = 1\n        }\n    } else {\n        res = dfs(root.Left, counter) + dfs(root.Right, counter)\n    }\n    counter[root.Val]--\n    return res\n}\n\nfunc isPseudoPalindrome(counter []int) bool {\n    odd := 0\n    for _, value := range counter {\n        if value % 2 == 1 {\n            odd++\n        }\n    }\n    return odd <= 1\n}",
+        "javascript": "var pseudoPalindromicPaths  = function(root) {\n    let counter = new Array(10).fill(0);\n    return dfs(root, counter);\n};\n\nvar dfs = function(root, counter) {\n    if (!root) {\n        return 0;\n    }\n    counter[root.val]++;\n    let res = 0;\n    if (!root.left && !root.right) {\n        if (isPseudoPalindrome(counter)) {\n            res = 1;\n        }\n    } else {\n        res = dfs(root.left, counter) + dfs(root.right, counter);\n    }\n    counter[root.val]--;\n    return res;\n}\n\nvar isPseudoPalindrome = function(counter) {\n    let odd = 0;\n    for (value of counter) {\n        if (value % 2 == 1) {\n            odd++;\n        }\n    }\n    return odd <= 1;\n}"
+      },
+      "id": 191
+    },
+    {
+      "title": "两个子序列的最大点积",
+      "titleSlug": "max-dot-product-of-two-subsequences",
+      "tags": [
+        "数组",
+        "动态规划"
+      ],
+      "difficulty": "困难",
+      "acceptance": 61.08,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/max-dot-product-of-two-subsequences/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "bloomberg"
+      ],
+      "statementZh": "给你两个数组 nums1 和 nums2 。\n\n请你返回 nums1 和 nums2 中两个长度相同的 非空 子序列的最大点积。\n\n数组的非空子序列是通过删除原数组中某些元素（可能一个也不删除）后剩余数字组成的序列，但不能改变数字间相对顺序。比方说，[2,3,5] 是 [1,2,3,4,5] 的一个子序列而 [1,5,3] 不是。\n\n \n\n示例 1：\n\n输入：nums1 = [2,1,-2,5], nums2 = [3,0,-6]\n输出：18\n解释：从 nums1 中得到子序列 [2,-2] ，从 nums2 中得到子序列 [3,-6] 。\n它们的点积为 (2*3 + (-2)*(-6)) = 18 。\n\n示例 2：\n\n输入：nums1 = [3,-2], nums2 = [2,-6,7]\n输出：21\n解释：从 nums1 中得到子序列 [3] ，从 nums2 中得到子序列 [7] 。\n它们的点积为 (3*7) = 21 。\n\n示例 3：\n\n输入：nums1 = [-1,-1], nums2 = [1,1]\n输出：-1\n解释：从 nums1 中得到子序列 [-1] ，从 nums2 中得到子序列 [1] 。\n它们的点积为 -1 。\n\n \n\n提示：\n\n\t1 <= nums1.length, nums2.length <= 500\n\n\t-1000 <= nums1[i], nums2[i] <= 1000\n\n \n\n点积：\n\n定义 a = [a1, a2,…, an] 和 b = [b1, b2,…, bn] 的点积为：\n\n这里的 Σ 指示总和符号。",
+      "statementEn": "Given two arrays nums1 and nums2.\n\nReturn the maximum dot product between non-empty subsequences of nums1 and nums2 with the same length.\n\nA subsequence of an array is a new array which is formed from the original array by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, [2,3,5] is a subsequence of [1,2,3,4,5] while [1,5,3] is not).\n\n \n\nExample 1:\n\nInput: nums1 = [2,1,-2,5], nums2 = [3,0,-6]\nOutput: 18\nExplanation: Take subsequence [2,-2] from nums1 and subsequence [3,-6] from nums2.\nTheir dot product is (2*3 + (-2)*(-6)) = 18.\n\nExample 2:\n\nInput: nums1 = [3,-2], nums2 = [2,-6,7]\nOutput: 21\nExplanation: Take subsequence [3] from nums1 and subsequence [7] from nums2.\nTheir dot product is (3*7) = 21.\n\nExample 3:\n\nInput: nums1 = [-1,-1], nums2 = [1,1]\nOutput: -1\nExplanation: Take subsequence [-1] from nums1 and subsequence [1] from nums2.\nTheir dot product is -1.\n\n \n\nConstraints:\n\n\t1 <= nums1.length, nums2.length <= 500\n\n\t-1000 <= nums1[i], nums2[i] <= 1000",
+      "statement": "给你两个数组 nums1 和 nums2 。\n\n请你返回 nums1 和 nums2 中两个长度相同的 非空 子序列的最大点积。\n\n数组的非空子序列是通过删除原数组中某些元素（可能一个也不删除）后剩余数字组成的序列，但不能改变数字间相对顺序。比方说，[2,3,5] 是 [1,2,3,4,5] 的一个子序列而 [1,5,3] 不是。\n\n \n\n示例 1：\n\n输入：nums1 = [2,1,-2,5], nums2 = [3,0,-6]\n输出：18\n解释：从 nums1 中得到子序列 [2,-2] ，从 nums2 中得到子序列 [3,-6] 。\n它们的点积为 (2*3 + (-2)*(-6)) = 18 。\n\n示例 2：\n\n输入：nums1 = [3,-2], nums2 = [2,-6,7]\n输出：21\n解释：从 nums1 中得到子序列 [3] ，从 nums2 中得到子序列 [7] 。\n它们的点积为 (3*7) = 21 。\n\n示例 3：\n\n输入：nums1 = [-1,-1], nums2 = [1,1]\n输出：-1\n解释：从 nums1 中得到子序列 [-1] ，从 nums2 中得到子序列 [1] 。\n它们的点积为 -1 。\n\n \n\n提示：\n\n\t1 <= nums1.length, nums2.length <= 500\n\n\t-1000 <= nums1[i], nums2[i] <= 1000\n\n \n\n点积：\n\n定义 a = [a1, a2,…, an] 和 b = [b1, b2,…, bn] 的点积为：\n\n这里的 Σ 指示总和符号。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "int maxDotProduct(int* nums1, int nums1Size, int* nums2, int nums2Size) {\n    int m = nums1Size;\n    int n = nums2Size;\n    int** f = (int**)malloc(m * sizeof(int*));\n    for (int i = 0; i < m; i++) {\n        f[i] = (int*)malloc(n * sizeof(int));\n    }\n\n    for (int i = 0; i < m; ++i) {\n        for (int j = 0; j < n; ++j) {\n            int xij = nums1[i] * nums2[j];\n            f[i][j] = xij;\n            if (i > 0) {\n                f[i][j] = fmax(f[i][j], f[i - 1][j]);\n            }\n            if (j > 0) {\n                f[i][j] = fmax(f[i][j], f[i][j - 1]);\n            }\n            if (i > 0 && j > 0) {\n                f[i][j] = fmax(f[i][j], f[i - 1][j - 1] + xij);\n            }\n        }\n    }\n\n    int result = f[m-1][n-1];\n    \n    // 释放内存\n    for (int i = 0; i < m; i++) {\n        free(f[i]);\n    }\n    free(f);\n    \n    return result;\n}",
+        "python": "class Solution:\n    def maxDotProduct(self, nums1: List[int], nums2: List[int]) -> int:\n        m, n = len(nums1), len(nums2)\n        f = [[0] * n for _ in range(m)]\n        \n        for i in range(m):\n            for j in range(n):\n                xij = nums1[i] * nums2[j]\n                f[i][j] = xij\n                if i > 0:\n                    f[i][j] = max(f[i][j], f[i - 1][j])\n                if j > 0:\n                    f[i][j] = max(f[i][j], f[i][j - 1])\n                if i > 0 and j > 0:\n                    f[i][j] = max(f[i][j], f[i - 1][j - 1] + xij)\n        \n        return f[m - 1][n - 1]",
+        "java": "class Solution {\n    public int maxDotProduct(int[] nums1, int[] nums2) {\n        int m = nums1.length;\n        int n = nums2.length;\n        int[][] f = new int[m][n];\n\n        for (int i = 0; i < m; ++i) {\n            for (int j = 0; j < n; ++j) {\n                int xij = nums1[i] * nums2[j];\n                f[i][j] = xij;\n                if (i > 0) {\n                    f[i][j] = Math.max(f[i][j], f[i - 1][j]);\n                }\n                if (j > 0) {\n                    f[i][j] = Math.max(f[i][j], f[i][j - 1]);\n                }\n                if (i > 0 && j > 0) {\n                    f[i][j] = Math.max(f[i][j], f[i - 1][j - 1] + xij);\n                }\n            }\n        }\n\n        return f[m - 1][n - 1];\n    }\n}",
+        "go": "func maxDotProduct(nums1 []int, nums2 []int) int {\n    m := len(nums1)\n    n := len(nums2)\n    f := make([][]int, m)\n    for i := range f {\n        f[i] = make([]int, n)\n    }\n\n    for i := 0; i < m; i++ {\n        for j := 0; j < n; j++ {\n            xij := nums1[i] * nums2[j]\n            f[i][j] = xij\n            if i > 0 {\n                f[i][j] = max(f[i][j], f[i-1][j])\n            }\n            if j > 0 {\n                f[i][j] = max(f[i][j], f[i][j-1])\n            }\n            if i > 0 && j > 0 {\n                f[i][j] = max(f[i][j], f[i-1][j-1] + xij)\n            }\n        }\n    }\n\n    return f[m-1][n-1]\n}",
+        "javascript": "var maxDotProduct = function(nums1, nums2) {\n    const m = nums1.length;\n    const n = nums2.length;\n    const f = Array.from({ length: m }, () => new Array(n).fill(0));\n\n    for (let i = 0; i < m; ++i) {\n        for (let j = 0; j < n; ++j) {\n            const xij = nums1[i] * nums2[j];\n            f[i][j] = xij;\n            if (i > 0) {\n                f[i][j] = Math.max(f[i][j], f[i - 1][j]);\n            }\n            if (j > 0) {\n                f[i][j] = Math.max(f[i][j], f[i][j - 1]);\n            }\n            if (i > 0 && j > 0) {\n                f[i][j] = Math.max(f[i][j], f[i - 1][j - 1] + xij);\n            }\n        }\n    }\n\n    return f[m - 1][n - 1];\n};",
+        "typescript": "function maxDotProduct(nums1: number[], nums2: number[]): number {\n    const m = nums1.length;\n    const n = nums2.length;\n    const f: number[][] = Array.from({ length: m }, () => new Array(n).fill(0));\n\n    for (let i = 0; i < m; ++i) {\n        for (let j = 0; j < n; ++j) {\n            const xij = nums1[i] * nums2[j];\n            f[i][j] = xij;\n            if (i > 0) {\n                f[i][j] = Math.max(f[i][j], f[i - 1][j]);\n            }\n            if (j > 0) {\n                f[i][j] = Math.max(f[i][j], f[i][j - 1]);\n            }\n            if (i > 0 && j > 0) {\n                f[i][j] = Math.max(f[i][j], f[i - 1][j - 1] + xij);\n            }\n        }\n    }\n\n    return f[m - 1][n - 1];\n}"
+      },
+      "id": 192
+    },
+    {
+      "title": "矩形面积",
+      "titleSlug": "rectangles-area",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 62.99,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/rectangles-area/",
+      "hotCompanies": [
+        "twitter",
+        "微软"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 193
+    },
+    {
+      "title": "通过翻转子数组使两个数组相等",
+      "titleSlug": "make-two-arrays-equal-by-reversing-subarrays",
+      "tags": [
+        "数组",
+        "哈希表",
+        "排序"
+      ],
+      "difficulty": "简单",
+      "acceptance": 77.38,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/make-two-arrays-equal-by-reversing-subarrays/",
+      "hotCompanies": [
+        "facebook",
+        "谷歌",
+        "bloomberg"
+      ],
+      "statementZh": "给你两个长度相同的整数数组 target 和 arr 。每一步中，你可以选择 arr 的任意 非空子数组 并将它翻转。你可以执行此过程任意次。\n\n如果你能让 arr 变得与 target 相同，返回 True；否则，返回 False 。\n\n \n\n示例 1：\n\n输入：target = [1,2,3,4], arr = [2,4,1,3]\n输出：true\n解释：你可以按照如下步骤使 arr 变成 target：\n1- 翻转子数组 [2,4,1] ，arr 变成 [1,4,2,3]\n2- 翻转子数组 [4,2] ，arr 变成 [1,2,4,3]\n3- 翻转子数组 [4,3] ，arr 变成 [1,2,3,4]\n上述方法并不是唯一的，还存在多种将 arr 变成 target 的方法。\n\n示例 2：\n\n输入：target = [7], arr = [7]\n输出：true\n解释：arr 不需要做任何翻转已经与 target 相等。\n\n示例 3：\n\n输入：target = [3,7,9], arr = [3,7,11]\n输出：false\n解释：arr 没有数字 9 ，所以无论如何也无法变成 target 。\n\n \n\n提示：\n\n\ttarget.length == arr.length\n\n\t1 <= target.length <= 1000\n\n\t1 <= target[i] <= 1000\n\n\t1 <= arr[i] <= 1000",
+      "statementEn": "You are given two integer arrays of equal length target and arr. In one step, you can select any non-empty subarray of arr and reverse it. You are allowed to make any number of steps.\n\nReturn true if you can make arr equal to target or false otherwise.\n\n \n\nExample 1:\n\nInput: target = [1,2,3,4], arr = [2,4,1,3]\nOutput: true\nExplanation: You can follow the next steps to convert arr to target:\n1- Reverse subarray [2,4,1], arr becomes [1,4,2,3]\n2- Reverse subarray [4,2], arr becomes [1,2,4,3]\n3- Reverse subarray [4,3], arr becomes [1,2,3,4]\nThere are multiple ways to convert arr to target, this is not the only way to do so.\n\nExample 2:\n\nInput: target = [7], arr = [7]\nOutput: true\nExplanation: arr is equal to target without any reverses.\n\nExample 3:\n\nInput: target = [3,7,9], arr = [3,7,11]\nOutput: false\nExplanation: arr does not have value 9 and it can never be converted to target.\n\n \n\nConstraints:\n\n\ttarget.length == arr.length\n\n\t1 <= target.length <= 1000\n\n\t1 <= target[i] <= 1000\n\n\t1 <= arr[i] <= 1000",
+      "statement": "给你两个长度相同的整数数组 target 和 arr 。每一步中，你可以选择 arr 的任意 非空子数组 并将它翻转。你可以执行此过程任意次。\n\n如果你能让 arr 变得与 target 相同，返回 True；否则，返回 False 。\n\n \n\n示例 1：\n\n输入：target = [1,2,3,4], arr = [2,4,1,3]\n输出：true\n解释：你可以按照如下步骤使 arr 变成 target：\n1- 翻转子数组 [2,4,1] ，arr 变成 [1,4,2,3]\n2- 翻转子数组 [4,2] ，arr 变成 [1,2,4,3]\n3- 翻转子数组 [4,3] ，arr 变成 [1,2,3,4]\n上述方法并不是唯一的，还存在多种将 arr 变成 target 的方法。\n\n示例 2：\n\n输入：target = [7], arr = [7]\n输出：true\n解释：arr 不需要做任何翻转已经与 target 相等。\n\n示例 3：\n\n输入：target = [3,7,9], arr = [3,7,11]\n输出：false\n解释：arr 没有数字 9 ，所以无论如何也无法变成 target 。\n\n \n\n提示：\n\n\ttarget.length == arr.length\n\n\t1 <= target.length <= 1000\n\n\t1 <= target[i] <= 1000\n\n\t1 <= arr[i] <= 1000",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def canBeEqual(self, target: List[int], arr: List[int]) -> bool:\n        target.sort()\n        arr.sort()\n        return target == arr",
+        "java": "class Solution {\n    public boolean canBeEqual(int[] target, int[] arr) {\n        Map<Integer, Integer> counts1 = new HashMap<Integer, Integer>();\n        Map<Integer, Integer> counts2 = new HashMap<Integer, Integer>();\n        for (int num : target) {\n            counts1.put(num, counts1.getOrDefault(num, 0) + 1);\n        }\n        for (int num : arr) {\n            counts2.put(num, counts2.getOrDefault(num, 0) + 1);\n        }\n        if (counts1.size() != counts2.size()) {\n            return false;\n        }\n        for (Map.Entry<Integer, Integer> entry : counts1.entrySet()) {\n            int key = entry.getKey(), value = entry.getValue();\n            if (!counts2.containsKey(key) || counts2.get(key) != value) {\n                return false;\n            }\n        }\n        return true;\n    }\n}",
+        "cpp": "typedef struct {\n    int key;\n    int val;\n    UT_hash_handle hh;\n} HashItem; \n\nHashItem *hashFindItem(HashItem **obj, int key) {\n    HashItem *pEntry = NULL;\n    HASH_FIND_INT(*obj, &key, pEntry);\n    return pEntry;\n}\n\nbool hashAddItem(HashItem **obj, int key, int val) {\n    if (hashFindItem(obj, key)) {\n        return false;\n    }\n    HashItem *pEntry = (HashItem *)malloc(sizeof(HashItem));\n    pEntry->key = key;\n    pEntry->val = val;\n    HASH_ADD_INT(*obj, key, pEntry);\n    return true;\n}\n\nbool hashSetItem(HashItem **obj, int key, int val) {\n    HashItem *pEntry = hashFindItem(obj, key);\n    if (!pEntry) {\n        hashAddItem(obj, key, val);\n    } else {\n        pEntry->val = val;\n    }\n    return true;\n}\n\nint hashGetItem(HashItem **obj, int key, int defaultVal) {\n    HashItem *pEntry = hashFindItem(obj, key);\n    if (!pEntry) {\n        return defaultVal;\n    }\n    return pEntry->val;\n}\n\nvoid hashFree(HashItem **obj) {\n    HashItem *curr = NULL, *tmp = NULL;\n    HASH_ITER(hh, *obj, curr, tmp) {\n        HASH_DEL(*obj, curr);  \n        free(curr);             \n    }\n}\n\nbool canBeEqual(int* target, int targetSize, int* arr, int arrSize){\n    HashItem *counts1 = NULL, *counts2 = NULL;\n    for (int i = 0; i < targetSize; i++) {\n        hashSetItem(&counts1, target[i], hashGetItem(&counts1, target[i], 0) + 1);\n    }\n    for (int i = 0; i < arrSize; i++) {\n        hashSetItem(&counts2, arr[i], hashGetItem(&counts2, arr[i], 0) + 1);\n    }\n    if (HASH_COUNT(counts1) != HASH_COUNT(counts2)) {\n        return false;\n    }\n    for (HashItem *pEntry = counts1; pEntry != NULL; pEntry = pEntry->hh.next) {\n        int key = pEntry->key, value = pEntry->val;\n        if (hashGetItem(&counts2, key, 0) != value) {\n            return false;\n        }\n    }\n    hashFree(&counts1);\n    hashFree(&counts2);\n    return true;\n}",
+        "javascript": "var canBeEqual = function(target, arr) {\n    const counts1 = new Map();\n    const counts2 = new Map();\n    for (const num of target) {\n        counts1.set(num, (counts1.get(num) || 0) + 1);\n    }\n    for (const num of arr) {\n        counts2.set(num, (counts2.get(num) || 0) + 1);   \n    }\n    if (counts1.size !== counts2.size) {\n        return false;\n    }\n    for (const [key, value] of counts1.entries()) {\n        if (!counts2.has(key) || counts2.get(key) !== value) {\n            return false;\n        }\n    }\n    return true;\n};",
+        "go": "func canBeEqual(target, arr []int) bool {\n    cnt := map[int]int{}\n    for i, x := range target {\n        cnt[x]++\n        cnt[arr[i]]--\n    }\n    for _, c := range cnt {\n        if c != 0 {\n            return false\n        }\n    }\n    return true\n}"
+      },
+      "id": 194
+    },
+    {
+      "title": "检查一个字符串是否包含所有长度为 K 的二进制子串",
+      "titleSlug": "check-if-a-string-contains-all-binary-codes-of-size-k",
+      "tags": [
+        "位运算",
+        "哈希表",
+        "字符串",
+        "哈希函数",
+        "滚动哈希"
+      ],
+      "difficulty": "中等",
+      "acceptance": 62.54,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/check-if-a-string-contains-all-binary-codes-of-size-k/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "微软"
+      ],
+      "statementZh": "给你一个二进制字符串 s 和一个整数 k 。如果所有长度为 k 的二进制字符串都是 s 的子串，请返回 true ，否则请返回 false 。\n\n \n\n示例 1：\n\n输入：s = \"00110110\", k = 2\n输出：true\n解释：长度为 2 的二进制串包括 \"00\"，\"01\"，\"10\" 和 \"11\"。它们分别是 s 中下标为 0，1，3，2 开始的长度为 2 的子串。\n\n示例 2：\n\n输入：s = \"0110\", k = 1\n输出：true\n解释：长度为 1 的二进制串包括 \"0\" 和 \"1\"，显然它们都是 s 的子串。\n\n示例 3：\n\n输入：s = \"0110\", k = 2\n输出：false\n解释：长度为 2 的二进制串 \"00\" 没有出现在 s 中。\n\n \n\n提示：\n\n\t1 <= s.length <= 5 * 105\n\n\ts[i] 不是'0' 就是 '1'\n\n\t1 <= k <= 20",
+      "statementEn": "Given a binary string s and an integer k, return true if every binary code of length k is a substring of s. Otherwise, return false.\n\n \n\nExample 1:\n\nInput: s = \"00110110\", k = 2\nOutput: true\nExplanation: The binary codes of length 2 are \"00\", \"01\", \"10\" and \"11\". They can be all found as substrings at indices 0, 1, 3 and 2 respectively.\n\nExample 2:\n\nInput: s = \"0110\", k = 1\nOutput: true\nExplanation: The binary codes of length 1 are \"0\" and \"1\", it is clear that both exist as a substring. \n\nExample 3:\n\nInput: s = \"0110\", k = 2\nOutput: false\nExplanation: The binary code \"00\" is of length 2 and does not exist in the array.\n\n \n\nConstraints:\n\n\t1 <= s.length <= 5 * 105\n\n\ts[i] is either &#39;0&#39; or &#39;1&#39;.\n\n\t1 <= k <= 20",
+      "statement": "给你一个二进制字符串 s 和一个整数 k 。如果所有长度为 k 的二进制字符串都是 s 的子串，请返回 true ，否则请返回 false 。\n\n \n\n示例 1：\n\n输入：s = \"00110110\", k = 2\n输出：true\n解释：长度为 2 的二进制串包括 \"00\"，\"01\"，\"10\" 和 \"11\"。它们分别是 s 中下标为 0，1，3，2 开始的长度为 2 的子串。\n\n示例 2：\n\n输入：s = \"0110\", k = 1\n输出：true\n解释：长度为 1 的二进制串包括 \"0\" 和 \"1\"，显然它们都是 s 的子串。\n\n示例 3：\n\n输入：s = \"0110\", k = 2\n输出：false\n解释：长度为 2 的二进制串 \"00\" 没有出现在 s 中。\n\n \n\n提示：\n\n\t1 <= s.length <= 5 * 105\n\n\ts[i] 不是'0' 就是 '1'\n\n\t1 <= k <= 20",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "typedef struct {\n    int key;        \n    UT_hash_handle hh;\n} HashItem;\n\nHashItem *hashFindItem(HashItem **obj, int key) {\n    HashItem *pEntry = NULL;\n    HASH_FIND_INT(*obj, &key, pEntry);\n    return pEntry;\n}\n\nbool hashAddItem(HashItem **obj, int key) {\n    if (hashFindItem(obj, key)) {\n        return false;\n    }\n    HashItem *pEntry = (HashItem *)malloc(sizeof(HashItem));\n    pEntry->key = key;\n    HASH_ADD_INT(*obj, key, pEntry);\n    return true;\n}\n\nvoid hashFree(HashItem **obj) {\n    HashItem *curr = NULL, *tmp = NULL;\n    HASH_ITER(hh, *obj, curr, tmp) {\n        HASH_DEL(*obj, curr);\n        free(curr);\n    }\n}\n\nbool hasAllCodes(char* s, int k) {\n    int len = strlen(s);\n    int total = 1 << k;\n    if (len < total + k - 1) {\n        return false;\n    }\n\n    int num = 0;\n    for (int i = 0; i < k; i++) {\n        num = (num << 1) | (s[i] - '0');\n    }\n    \n    HashItem *exists = NULL;\n    hashAddItem(&exists, num);\n    for (int i = k; i < len; i++) {\n        int mask = (1 << k) - 1;\n        num = ((num << 1) | (s[i] - '0')) & mask;\n        hashAddItem(&exists, num);\n    }\n\n    bool ret = HASH_COUNT(exists) == total;\n    hashFree(&exists);\n    return ret;\n}",
+        "python": "class Solution:\n    def hasAllCodes(self, s: str, k: int) -> bool:\n        if len(s) < (1 << k) + k - 1:\n            return False\n        \n        num = int(s[:k], base=2)\n        exists = set([num])\n\n        for i in range(1, len(s) - k + 1):\n            num = (num - ((ord(s[i - 1]) - 48) << (k - 1))) * 2 + (ord(s[i + k - 1]) - 48)\n            exists.add(num)\n        \n        return len(exists) == (1 << k)",
+        "java": "class Solution {\n    public boolean hasAllCodes(String s, int k) {\n        if (s.length() < (1 << k) + k - 1) {\n            return false;\n        }\n\n        int num = Integer.parseInt(s.substring(0, k), 2);\n        Set<Integer> exists = new HashSet<Integer>();\n        exists.add(num);\n        \n        for (int i = 1; i + k <= s.length(); ++i) {\n            num = (num - ((s.charAt(i - 1) - '0') << (k - 1))) * 2 + (s.charAt(i + k - 1) - '0');\n            exists.add(num);\n        }\n        return exists.size() == (1 << k);\n    }\n}",
+        "go": "func hasAllCodes(s string, k int) bool {\n    if len(s) < (1 << k) + k - 1 {\n        return false\n    }\n\n    num := 0\n    for i := 0; i < k; i++ {\n        num = num << 1\n        if s[i] == '1' {\n            num |= 1\n        }\n    }\n    \n    exists := make(map[int]bool)\n    exists[num] = true\n    for i := 1; i + k <= len(s); i++ {\n        num = (num - (int(s[i-1]-'0') << (k-1))) * 2 + int(s[i+k-1]-'0')\n        exists[num] = true\n    }\n    return len(exists) == (1 << k)\n}",
+        "javascript": "var hasAllCodes = function(s, k) {\n    if (s.length < (1 << k) + k - 1) {\n        return false;\n    }\n\n    let num = parseInt(s.substring(0, k), 2);\n    const exists = new Set([num]);\n    for (let i = 1; i + k <= s.length; ++i) {\n        num = (num - (parseInt(s[i - 1]) << (k - 1))) * 2 + parseInt(s[i + k - 1]);\n        exists.add(num);\n    }\n    return exists.size === (1 << k);\n};",
+        "typescript": "function hasAllCodes(s: string, k: number): boolean {\n    if (s.length < (1 << k) + k - 1) {\n        return false;\n    }\n\n    let num = parseInt(s.substring(0, k), 2);\n    const exists = new Set<number>([num]);\n    for (let i = 1; i + k <= s.length; ++i) {\n        num = (num - (parseInt(s[i - 1]) << (k - 1))) * 2 + parseInt(s[i + k - 1]);\n        exists.add(num);\n    }\n    return exists.size === (1 << k);\n}"
+      },
+      "id": 195
+    },
+    {
+      "title": "课程表 IV",
+      "titleSlug": "course-schedule-iv",
+      "tags": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "拓扑排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 52.46,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/course-schedule-iv/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "facebook"
+      ],
+      "statementZh": "你总共需要上 numCourses 门课，课程编号依次为 0 到 numCourses-1 。你会得到一个数组 prerequisite ，其中 prerequisites[i] = [ai, bi] 表示如果你想选 bi 课程，你 必须 先选 ai 课程。\n\n\t有的课会有直接的先修课程，比如如果想上课程 1 ，你必须先上课程 0 ，那么会以 [0,1] 数对的形式给出先修课程数对。\n\n先决条件也可以是 间接 的。如果课程 a 是课程 b 的先决条件，课程 b 是课程 c 的先决条件，那么课程 a 就是课程 c 的先决条件。\n\n你也得到一个数组 queries ，其中 queries[j] = [uj, vj]。对于第 j 个查询，您应该回答课程 uj 是否是课程 vj 的先决条件。\n\n返回一个布尔数组 answer ，其中 answer[j] 是第 j 个查询的答案。\n\n \n\n示例 1：\n\n输入：numCourses = 2, prerequisites = [[1,0]], queries = [[0,1],[1,0]]\n输出：[false,true]\n解释：[1, 0] 数对表示在你上课程 0 之前必须先上课程 1。\n课程 0 不是课程 1 的先修课程，但课程 1 是课程 0 的先修课程。\n\n示例 2：\n\n输入：numCourses = 2, prerequisites = [], queries = [[1,0],[0,1]]\n输出：[false,false]\n解释：没有先修课程对，所以每门课程之间是独立的。\n\n示例 3：\n\n输入：numCourses = 3, prerequisites = [[1,2],[1,0],[2,0]], queries = [[1,0],[1,2]]\n输出：[true,true]\n\n \n\n提示：\n\n\t2 <= numCourses <= 100\n\n\t0 <= prerequisites.length <= (numCourses * (numCourses - 1) / 2)\n\n\tprerequisites[i].length == 2\n\n\t0 <= ai, bi <= numCourses - 1\n\n\tai != bi\n\n\t每一对 [ai, bi] 都 不同\n\n\t先修课程图中没有环。\n\n\t1 <= queries.length <= 104\n\n\t0 <= ui, vi <= numCourses - 1\n\n\tui != vi",
+      "statementEn": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course ai first if you want to take course bi.\n\n\tFor example, the pair [0, 1] indicates that you have to take course 0 before you can take course 1.\n\nPrerequisites can also be indirect. If course a is a prerequisite of course b, and course b is a prerequisite of course c, then course a is a prerequisite of course c.\n\nYou are also given an array queries where queries[j] = [uj, vj]. For the jth query, you should answer whether course uj is a prerequisite of course vj or not.\n\nReturn a boolean array answer, where answer[j] is the answer to the jth query.\n\n \n\nExample 1:\n\nInput: numCourses = 2, prerequisites = [[1,0]], queries = [[0,1],[1,0]]\nOutput: [false,true]\nExplanation: The pair [1, 0] indicates that you have to take course 1 before you can take course 0.\nCourse 0 is not a prerequisite of course 1, but the opposite is true.\n\nExample 2:\n\nInput: numCourses = 2, prerequisites = [], queries = [[1,0],[0,1]]\nOutput: [false,false]\nExplanation: There are no prerequisites, and each course is independent.\n\nExample 3:\n\nInput: numCourses = 3, prerequisites = [[1,2],[1,0],[2,0]], queries = [[1,0],[1,2]]\nOutput: [true,true]\n\n \n\nConstraints:\n\n\t2 <= numCourses <= 100\n\n\t0 <= prerequisites.length <= (numCourses * (numCourses - 1) / 2)\n\n\tprerequisites[i].length == 2\n\n\t0 <= ai, bi <= numCourses - 1\n\n\tai != bi\n\n\tAll the pairs [ai, bi] are unique.\n\n\tThe prerequisites graph has no cycles.\n\n\t1 <= queries.length <= 104\n\n\t0 <= ui, vi <= numCourses - 1\n\n\tui != vi",
+      "statement": "你总共需要上 numCourses 门课，课程编号依次为 0 到 numCourses-1 。你会得到一个数组 prerequisite ，其中 prerequisites[i] = [ai, bi] 表示如果你想选 bi 课程，你 必须 先选 ai 课程。\n\n\t有的课会有直接的先修课程，比如如果想上课程 1 ，你必须先上课程 0 ，那么会以 [0,1] 数对的形式给出先修课程数对。\n\n先决条件也可以是 间接 的。如果课程 a 是课程 b 的先决条件，课程 b 是课程 c 的先决条件，那么课程 a 就是课程 c 的先决条件。\n\n你也得到一个数组 queries ，其中 queries[j] = [uj, vj]。对于第 j 个查询，您应该回答课程 uj 是否是课程 vj 的先决条件。\n\n返回一个布尔数组 answer ，其中 answer[j] 是第 j 个查询的答案。\n\n \n\n示例 1：\n\n输入：numCourses = 2, prerequisites = [[1,0]], queries = [[0,1],[1,0]]\n输出：[false,true]\n解释：[1, 0] 数对表示在你上课程 0 之前必须先上课程 1。\n课程 0 不是课程 1 的先修课程，但课程 1 是课程 0 的先修课程。\n\n示例 2：\n\n输入：numCourses = 2, prerequisites = [], queries = [[1,0],[0,1]]\n输出：[false,false]\n解释：没有先修课程对，所以每门课程之间是独立的。\n\n示例 3：\n\n输入：numCourses = 3, prerequisites = [[1,2],[1,0],[2,0]], queries = [[1,0],[1,2]]\n输出：[true,true]\n\n \n\n提示：\n\n\t2 <= numCourses <= 100\n\n\t0 <= prerequisites.length <= (numCourses * (numCourses - 1) / 2)\n\n\tprerequisites[i].length == 2\n\n\t0 <= ai, bi <= numCourses - 1\n\n\tai != bi\n\n\t每一对 [ai, bi] 都 不同\n\n\t先修课程图中没有环。\n\n\t1 <= queries.length <= 104\n\n\t0 <= ui, vi <= numCourses - 1\n\n\tui != vi",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "void dfs(const int** g, const int* gColSize, bool** isPre, bool* vi, int cur, int numCourses) {\n    if (vi[cur]) {\n        return;\n    }\n    vi[cur] = true;\n    for (int j = 0; j < gColSize[cur]; j++) {\n        int ne = g[cur][j];\n        dfs(g, gColSize, isPre, vi, ne, numCourses);\n        isPre[cur][ne] = true;\n        for (int i = 0; i < numCourses; ++i) {\n            isPre[cur][i] = isPre[cur][i] | isPre[ne][i];\n        }\n    }\n}\n\nbool* checkIfPrerequisite(int numCourses, int** prerequisites, int prerequisitesSize, int* prerequisitesColSize, int** queries, int queriesSize, int* queriesColSize, int* returnSize) {\n    int *g[numCourses], gColSize[numCourses];\n    bool vi[numCourses];\n    bool *isPre[numCourses];\n\n    memset(gColSize, 0, sizeof(gColSize));\n    memset(vi, 0, sizeof(vi));\n    for (int i = 0; i < numCourses; i++) {\n        g[i] = (int *)calloc(numCourses, sizeof(int));\n        isPre[i] = (bool *)calloc(numCourses, sizeof(bool));\n    }\n    for (int i = 0; i < prerequisitesSize; i++) {\n        int *p = prerequisites[i];\n        g[p[0]][gColSize[p[0]]++] = p[1];\n    }\n    for (int i = 0; i < numCourses; ++i) {\n        dfs(g, gColSize, isPre, vi, i, numCourses);\n    }\n    bool *res = (bool *)malloc(sizeof(bool) * queriesSize);\n    for (int i = 0; i < queriesSize; i++) {\n        int *query = queries[i];\n        res[i] = isPre[query[0]][query[1]];\n    }\n    for (int i = 0; i < numCourses; i++) {\n        free(g[i]);\n        free(isPre[i]);\n    }\n    *returnSize = queriesSize;\n    return res;\n}",
+        "java": "class Solution {\n    public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {\n        List<Integer>[] g = new List[numCourses];\n        for (int i = 0; i < numCourses; i++) {\n            g[i] = new ArrayList<Integer>();\n        }\n        int[] indgree = new int[numCourses];\n        boolean[][] isPre = new boolean[numCourses][numCourses];\n        for (int[] p : prerequisites) {\n            ++indgree[p[1]];\n            g[p[0]].add(p[1]);\n        }\n        Queue<Integer> queue = new ArrayDeque<Integer>();\n        for (int i = 0; i < numCourses; ++i) {\n            if (indgree[i] == 0) {\n                queue.offer(i);\n            }\n        }\n        while (!queue.isEmpty()) {\n            int cur = queue.poll();\n            for (int ne : g[cur]) {\n                isPre[cur][ne] = true;\n                for (int i = 0; i < numCourses; ++i) {\n                    isPre[i][ne] = isPre[i][ne] | isPre[i][cur];\n                }\n                --indgree[ne];\n                if (indgree[ne] == 0) {\n                    queue.offer(ne);\n                }\n            }\n        }\n        List<Boolean> res = new ArrayList<Boolean>();\n        for (int[] query : queries) {\n            res.add(isPre[query[0]][query[1]]);\n        }\n        return res;\n    }\n}",
+        "python": "class Solution:\n    def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:\n        g = [[] for _ in range(numCourses)]\n        indgree = [0] * numCourses\n        isPre = [[False] * numCourses for _ in range(numCourses)]\n        for p in prerequisites:\n            indgree[p[1]] += 1\n            g[p[0]].append(p[1])\n\n        q = []\n        for i in range(numCourses):\n            if indgree[i] == 0:\n                q.append(i)\n        while len(q) > 0:\n            cur = q[0]\n            q.pop(0)\n            for ne in g[cur]:\n                isPre[cur][ne] = True\n                for i in range(numCourses):\n                    isPre[i][ne] = isPre[i][ne] or isPre[i][cur]\n                indgree[ne] -= 1\n                if indgree[ne] == 0:\n                    q.append(ne)\n        res = []\n        for query in queries:\n            res.append(isPre[query[0]][query[1]])\n        return res",
+        "go": "func checkIfPrerequisite(numCourses int, prerequisites [][]int, queries [][]int) []bool {\n    g := make([][]int, numCourses)\n    indgree := make([]int, numCourses)\n    isPre := make([][]bool, numCourses)\n    for i, _ := range isPre {\n        isPre[i] = make([]bool, numCourses)\n        g[i] = []int{}\n    }\n    for _, p := range prerequisites {\n        indgree[p[1]]++\n        g[p[0]] = append(g[p[0]], p[1])\n    }\n\n    q := []int{}\n    for i := 0; i < numCourses; i++ {\n        if indgree[i] == 0 {\n            q = append(q, i)\n        }\n    }\n            \n    for len(q) > 0 {\n        cur := q[0]\n        q = q[1:]\n        for _, ne:= range g[cur] {\n            isPre[cur][ne] = true\n            for i := 0; i < numCourses; i++ {\n                isPre[i][ne] = isPre[i][ne] || isPre[i][cur]\n            }\n            indgree[ne]--\n            if indgree[ne] == 0 {\n                q = append(q, ne)\n            }\n        }\n    }\n    res := []bool{}\n    for _, query := range queries {\n        res = append(res, isPre[query[0]][query[1]])\n    }\n    return res\n}",
+        "javascript": "var checkIfPrerequisite = function(numCourses, prerequisites, queries) {\n    let g = new Array(numCourses).fill(0).map(() => new Array());\n    let indgree = new Array(numCourses).fill(0); \n    let isPre = new Array(numCourses).fill(0).map(() => new Array(numCourses).fill(false));\n    for (let p of prerequisites) {\n        ++indgree[p[1]];\n        g[p[0]].push(p[1]);\n    }\n    let q = [];\n    for (let i = 0; i < numCourses; ++i) {\n        if (indgree[i] == 0) {\n            q.push(i);\n        }\n    }\n\n    while (q.length) {\n        let cur = q.shift();\n        for (let ne of g[cur]) {\n            isPre[cur][ne] = true;\n            for (let i = 0; i < numCourses; ++i) {\n                isPre[i][ne] = isPre[i][ne] || isPre[i][cur];\n            }\n            --indgree[ne];\n            if (indgree[ne] == 0) {\n                q.push(ne);\n            }\n        }\n    }\n    res = [];\n    for (let query of queries) {\n        res.push(isPre[query[0]][query[1]]);\n    }\n    return res;\n};"
+      },
+      "id": 196
+    },
+    {
+      "title": "摘樱桃 II",
+      "titleSlug": "cherry-pickup-ii",
+      "tags": [
+        "数组",
+        "动态规划",
+        "矩阵"
+      ],
+      "difficulty": "困难",
+      "acceptance": 71.88,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/cherry-pickup-ii/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "苹果"
+      ],
+      "statementZh": "给你一个 rows x cols 的矩阵 grid 来表示一块樱桃地。 grid 中每个格子的数字表示你能获得的樱桃数目。\n\n你有两个机器人帮你收集樱桃，机器人 1 从左上角格子 (0,0) 出发，机器人 2 从右上角格子 (0, cols-1) 出发。\n\n请你按照如下规则，返回两个机器人能收集的最多樱桃数目：\n\n\t从格子 (i,j) 出发，机器人可以移动到格子 (i+1, j-1)，(i+1, j) 或者 (i+1, j+1) 。\n\n\t当一个机器人经过某个格子时，它会把该格子内所有的樱桃都摘走，然后这个位置会变成空格子，即没有樱桃的格子。\n\n\t当两个机器人同时到达同一个格子时，它们中只有一个可以摘到樱桃。\n\n\t两个机器人在任意时刻都不能移动到 grid 外面。\n\n\t两个机器人最后都要到达 grid 最底下一行。\n\n \n\n示例 1：\n\n输入：grid = [[3,1,1],[2,5,1],[1,5,5],[2,1,1]]\n输出：24\n解释：机器人 1 和机器人 2 的路径在上图中分别用绿色和蓝色表示。\n机器人 1 摘的樱桃数目为 (3 + 2 + 5 + 2) = 12 。\n机器人 2 摘的樱桃数目为 (1 + 5 + 5 + 1) = 12 。\n樱桃总数为： 12 + 12 = 24 。\n\n示例 2：\n\n输入：grid = [[1,0,0,0,0,0,1],[2,0,0,0,0,3,0],[2,0,9,0,0,0,0],[0,3,0,5,4,0,0],[1,0,2,3,0,0,6]]\n输出：28\n解释：机器人 1 和机器人 2 的路径在上图中分别用绿色和蓝色表示。\n机器人 1 摘的樱桃数目为 (1 + 9 + 5 + 2) = 17 。\n机器人 2 摘的樱桃数目为 (1 + 3 + 4 + 3) = 11 。\n樱桃总数为： 17 + 11 = 28 。\n\n示例 3：\n\n输入：grid = [[1,0,0,3],[0,0,0,3],[0,0,3,3],[9,0,3,3]]\n输出：22\n\n示例 4：\n\n输入：grid = [[1,1],[1,1]]\n输出：4\n\n \n\n提示：\n\n\trows == grid.length\n\n\tcols == grid[i].length\n\n\t2 <= rows, cols <= 70\n\n\t0 <= grid[i][j] <= 100",
+      "statementEn": "You are given a rows x cols matrix grid representing a field of cherries where grid[i][j] represents the number of cherries that you can collect from the (i, j) cell.\n\nYou have two robots that can collect cherries for you:\n\n\tRobot #1 is located at the top-left corner (0, 0), and\n\n\tRobot #2 is located at the top-right corner (0, cols - 1).\n\nReturn the maximum number of cherries collection using both robots by following the rules below:\n\n\tFrom a cell (i, j), robots can move to cell (i + 1, j - 1), (i + 1, j), or (i + 1, j + 1).\n\n\tWhen any robot passes through a cell, It picks up all cherries, and the cell becomes an empty cell.\n\n\tWhen both robots stay in the same cell, only one takes the cherries.\n\n\tBoth robots cannot move outside of the grid at any moment.\n\n\tBoth robots should reach the bottom row in grid.\n\n \n\nExample 1:\n\nInput: grid = [[3,1,1],[2,5,1],[1,5,5],[2,1,1]]\nOutput: 24\nExplanation: Path of robot #1 and #2 are described in color green and blue respectively.\nCherries taken by Robot #1, (3 + 2 + 5 + 2) = 12.\nCherries taken by Robot #2, (1 + 5 + 5 + 1) = 12.\nTotal of cherries: 12 + 12 = 24.\n\nExample 2:\n\nInput: grid = [[1,0,0,0,0,0,1],[2,0,0,0,0,3,0],[2,0,9,0,0,0,0],[0,3,0,5,4,0,0],[1,0,2,3,0,0,6]]\nOutput: 28\nExplanation: Path of robot #1 and #2 are described in color green and blue respectively.\nCherries taken by Robot #1, (1 + 9 + 5 + 2) = 17.\nCherries taken by Robot #2, (1 + 3 + 4 + 3) = 11.\nTotal of cherries: 17 + 11 = 28.\n\n \n\nConstraints:\n\n\trows == grid.length\n\n\tcols == grid[i].length\n\n\t2 <= rows, cols <= 70\n\n\t0 <= grid[i][j] <= 100",
+      "statement": "给你一个 rows x cols 的矩阵 grid 来表示一块樱桃地。 grid 中每个格子的数字表示你能获得的樱桃数目。\n\n你有两个机器人帮你收集樱桃，机器人 1 从左上角格子 (0,0) 出发，机器人 2 从右上角格子 (0, cols-1) 出发。\n\n请你按照如下规则，返回两个机器人能收集的最多樱桃数目：\n\n\t从格子 (i,j) 出发，机器人可以移动到格子 (i+1, j-1)，(i+1, j) 或者 (i+1, j+1) 。\n\n\t当一个机器人经过某个格子时，它会把该格子内所有的樱桃都摘走，然后这个位置会变成空格子，即没有樱桃的格子。\n\n\t当两个机器人同时到达同一个格子时，它们中只有一个可以摘到樱桃。\n\n\t两个机器人在任意时刻都不能移动到 grid 外面。\n\n\t两个机器人最后都要到达 grid 最底下一行。\n\n \n\n示例 1：\n\n输入：grid = [[3,1,1],[2,5,1],[1,5,5],[2,1,1]]\n输出：24\n解释：机器人 1 和机器人 2 的路径在上图中分别用绿色和蓝色表示。\n机器人 1 摘的樱桃数目为 (3 + 2 + 5 + 2) = 12 。\n机器人 2 摘的樱桃数目为 (1 + 5 + 5 + 1) = 12 。\n樱桃总数为： 12 + 12 = 24 。\n\n示例 2：\n\n输入：grid = [[1,0,0,0,0,0,1],[2,0,0,0,0,3,0],[2,0,9,0,0,0,0],[0,3,0,5,4,0,0],[1,0,2,3,0,0,6]]\n输出：28\n解释：机器人 1 和机器人 2 的路径在上图中分别用绿色和蓝色表示。\n机器人 1 摘的樱桃数目为 (1 + 9 + 5 + 2) = 17 。\n机器人 2 摘的樱桃数目为 (1 + 3 + 4 + 3) = 11 。\n樱桃总数为： 17 + 11 = 28 。\n\n示例 3：\n\n输入：grid = [[1,0,0,3],[0,0,0,3],[0,0,3,3],[9,0,3,3]]\n输出：22\n\n示例 4：\n\n输入：grid = [[1,1],[1,1]]\n输出：4\n\n \n\n提示：\n\n\trows == grid.length\n\n\tcols == grid[i].length\n\n\t2 <= rows, cols <= 70\n\n\t0 <= grid[i][j] <= 100",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "int cherryPickup(int** grid, int gridSize, int* gridColSize) {\n    int m = gridSize;\n    int n = gridColSize[0];\n    \n    int** f = (int**)malloc(n * sizeof(int*));\n    int** g = (int**)malloc(n * sizeof(int*));\n    for (int i = 0; i < n; ++i) {\n        f[i] = (int*)malloc(n * sizeof(int));\n        g[i] = (int*)malloc(n * sizeof(int));\n        for (int j = 0; j < n; ++j) {\n            f[i][j] = -1;\n            g[i][j] = -1;\n        }\n    }\n\n    f[0][n - 1] = grid[0][0] + grid[0][n - 1];\n    for (int i = 1; i < m; ++i) {\n        for (int j1 = 0; j1 < n; ++j1) {\n            for (int j2 = 0; j2 < n; ++j2) {\n                int best = -1;\n                for (int dj1 = j1 - 1; dj1 <= j1 + 1; ++dj1) {\n                    for (int dj2 = j2 - 1; dj2 <= j2 + 1; ++dj2) {\n                        if (dj1 >= 0 && dj1 < n && dj2 >= 0 && dj2 < n && f[dj1][dj2] != -1) {\n                            best = fmax(best, f[dj1][dj2] + (j1 == j2 ? grid[i][j1] : grid[i][j1] + grid[i][j2]));\n                        }\n                    }\n                }\n                g[j1][j2] = best;\n            }\n        }\n        int** temp = f;\n        f = g;\n        g = temp;\n    }\n\n    int ans = 0;\n    for (int j1 = 0; j1 < n; ++j1) {\n        for (int j2 = 0; j2 < n; ++j2) {\n            ans = fmax(ans, f[j1][j2]);\n        }\n    }\n\n    for (int i = 0; i < n; ++i) {\n        free(f[i]);\n        free(g[i]);\n    }\n    free(f);\n    free(g);\n    return ans;\n}",
+        "java": "class Solution {\n    public int cherryPickup(int[][] grid) {\n        int m = grid.length;\n        int n = grid[0].length;\n        \n        int[][] f = new int[n][n];\n        int[][] g = new int[n][n];\n        for (int i = 0; i < n; i++) {\n            Arrays.fill(f[i], -1);\n            Arrays.fill(g[i], -1);\n        }\n        f[0][n - 1] = grid[0][0] + grid[0][n - 1];\n        for (int i = 1; i < m; ++i) {\n            for (int j1 = 0; j1 < n; ++j1) {\n                for (int j2 = 0; j2 < n; ++j2) {\n                    int best = -1;\n                    for (int dj1 = j1 - 1; dj1 <= j1 + 1; ++dj1) {\n                        for (int dj2 = j2 - 1; dj2 <= j2 + 1; ++dj2) {\n                            if (dj1 >= 0 && dj1 < n && dj2 >= 0 && dj2 < n && f[dj1][dj2] != -1) {\n                                best = Math.max(best, f[dj1][dj2] + (j1 == j2 ? grid[i][j1] : grid[i][j1] + grid[i][j2]));\n                            }\n                        }\n                    }\n                    g[j1][j2] = best;\n                }\n            }\n            int[][] temp = f;\n            f = g;\n            g = temp;\n        }\n\n        int ans = 0;\n        for (int j1 = 0; j1 < n; ++j1) {\n            for (int j2 = 0; j2 < n; ++j2) {\n                ans = Math.max(ans, f[j1][j2]);\n            }\n        }\n        return ans;\n\n    }\n}",
+        "python": "class Solution:\n    def cherryPickup(self, grid: List[List[int]]) -> int:\n        m, n = len(grid), len(grid[0])\n\n        def getValue(i, j1, j2):\n            return grid[i][j1] + grid[i][j2] if j1 != j2 else grid[i][j1]\n\n        @lru_cache(None)\n        def dfs(i, j1, j2):\n            if i == m - 1:\n                return getValue(i, j1, j2)\n            \n            best = 0\n            for dj1 in [j1 - 1, j1, j1 + 1]:\n                for dj2 in [j2 - 1, j2, j2 + 1]:\n                    if 0 <= dj1 < n and 0 <= dj2 < n:\n                        best = max(best, dfs(i + 1, dj1, dj2))\n\n            return best + getValue(i, j1, j2)\n        \n        return dfs(0, 0, n - 1)",
+        "go": "func cherryPickup(grid [][]int) int {\n    m, n := len(grid), len(grid[0])\n    f := make([][]int, n)\n    g := make([][]int, n)\n    for i := range f {\n        f[i] = make([]int, n)\n        g[i] = make([]int, n)\n        for j := range f[i] {\n            f[i][j] = -1\n            g[i][j] = -1\n        }\n    }\n\n    f[0][n - 1] = grid[0][0] + grid[0][n - 1]\n    for i := 1; i < m; i++ {\n        for j1 := 0; j1 < n; j1++ {\n            for j2 := 0; j2 < n; j2++ {\n                best := -1\n                for dj1 := j1 - 1; dj1 <= j1 + 1; dj1++ {\n                    for dj2 := j2 - 1; dj2 <= j2 + 1; dj2++ {\n                        if dj1 >= 0 && dj1 < n && dj2 >= 0 && dj2 < n && f[dj1][dj2] != -1 {\n                            if j1 == j2 {\n                                best = max(best, f[dj1][dj2] + grid[i][j1])\n                            } else {\n                                best = max(best, f[dj1][dj2] + grid[i][j1] + grid[i][j2])\n                            }\n                        }\n                    }\n                }\n                g[j1][j2] = best\n            }\n        }\n        f, g = g, f\n    }\n\n    ans := 0\n    for _, row := range f {\n        for _, v := range row {\n            ans = max(ans, v)\n        }\n    }\n    return ans\n}",
+        "javascript": "var cherryPickup = function(grid) {\n    const m = grid.length;\n    const n = grid[0].length;\n\n    let f = Array.from({ length: n }, () => Array(n).fill(-1));\n    let g = Array.from({ length: n }, () => Array(n).fill(-1));\n\n    f[0][n - 1] = grid[0][0] + grid[0][n - 1];\n    for (let i = 1; i < m; ++i) {\n        for (let j1 = 0; j1 < n; ++j1) {\n            for (let j2 = 0; j2 < n; ++j2) {\n                let best = -1;\n                for (let dj1 = j1 - 1; dj1 <= j1 + 1; ++dj1) {\n                    for (let dj2 = j2 - 1; dj2 <= j2 + 1; ++dj2) {\n                        if (dj1 >= 0 && dj1 < n && dj2 >= 0 && dj2 < n && f[dj1][dj2] != -1) {\n                            best = Math.max(best, f[dj1][dj2] + (j1 == j2 ? grid[i][j1] : grid[i][j1] + grid[i][j2]));\n                        }\n                    }\n                }\n                g[j1][j2] = best;\n            }\n        }\n        [f, g] = [g, f];\n    }\n    let ans = 0;\n    for (let j1 = 0; j1 < n; ++j1) {\n        ans = Math.max(ans, Math.max(...f[j1]));\n    }\n    return ans;\n};",
+        "typescript": "function cherryPickup(grid: number[][]): number {\n    const m = grid.length;\n    const n = grid[0].length;\n    let f: number[][] = Array.from({ length: n }, () => Array(n).fill(-1));\n    let g: number[][] = Array.from({ length: n }, () => Array(n).fill(-1));\n\n    f[0][n - 1] = grid[0][0] + grid[0][n - 1];\n    for (let i = 1; i < m; ++i) {\n        for (let j1 = 0; j1 < n; ++j1) {\n            for (let j2 = 0; j2 < n; ++j2) {\n                let best = -1;\n                for (let dj1 = j1 - 1; dj1 <= j1 + 1; ++dj1) {\n                    for (let dj2 = j2 - 1; dj2 <= j2 + 1; ++dj2) {\n                        if (dj1 >= 0 && dj1 < n && dj2 >= 0 && dj2 < n && f[dj1][dj2] != -1) {\n                            best = Math.max(best, f[dj1][dj2] + (j1 == j2 ? grid[i][j1] : grid[i][j1] + grid[i][j2]));\n                        }\n                    }\n                }\n                g[j1][j2] = best;\n            }\n        }\n        [f, g] = [g, f];\n    }\n\n    let ans = 0;\n    for (let j1 = 0; j1 < n; ++j1) {\n        ans = Math.max(ans, Math.max(...f[j1]));\n    }\n    return ans;\n};"
+      },
+      "id": 197
+    },
+    {
+      "title": "数组中两元素的最大乘积",
+      "titleSlug": "maximum-product-of-two-elements-in-an-array",
+      "tags": [
+        "数组",
+        "排序",
+        "堆（优先队列）"
+      ],
+      "difficulty": "简单",
+      "acceptance": 77.8,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-product-of-two-elements-in-an-array/",
+      "hotCompanies": [
+        "亚马逊",
+        "facebook",
+        "微软"
+      ],
+      "statementZh": "给你一个整数数组 nums，请你选择数组的两个不同下标 i 和 j，使 (nums[i]-1)*(nums[j]-1) 取得最大值。\n\n请你计算并返回该式的最大值。\n\n \n\n示例 1：\n\n输入：nums = [3,4,5,2]\n输出：12 \n解释：如果选择下标 i=1 和 j=2（下标从 0 开始），则可以获得最大值，(nums[1]-1)*(nums[2]-1) = (4-1)*(5-1) = 3*4 = 12 。 \n\n示例 2：\n\n输入：nums = [1,5,4,5]\n输出：16\n解释：选择下标 i=1 和 j=3（下标从 0 开始），则可以获得最大值 (5-1)*(5-1) = 16 。\n\n示例 3：\n\n输入：nums = [3,7]\n输出：12\n\n \n\n提示：\n\n\t2 <= nums.length <= 500\n\n\t1 <= nums[i] <= 10^3",
+      "statementEn": "Given the array of integers nums, you will choose two different indices i and j of that array. Return the maximum value of (nums[i]-1)*(nums[j]-1).\n \n\nExample 1:\n\nInput: nums = [3,4,5,2]\nOutput: 12 \nExplanation: If you choose the indices i=1 and j=2 (indexed from 0), you will get the maximum value, that is, (nums[1]-1)*(nums[2]-1) = (4-1)*(5-1) = 3*4 = 12. \n\nExample 2:\n\nInput: nums = [1,5,4,5]\nOutput: 16\nExplanation: Choosing the indices i=1 and j=3 (indexed from 0), you will get the maximum value of (5-1)*(5-1) = 16.\n\nExample 3:\n\nInput: nums = [3,7]\nOutput: 12\n\n \n\nConstraints:\n\n\t2 <= nums.length <= 500\n\n\t1 <= nums[i] <= 10^3",
+      "statement": "给你一个整数数组 nums，请你选择数组的两个不同下标 i 和 j，使 (nums[i]-1)*(nums[j]-1) 取得最大值。\n\n请你计算并返回该式的最大值。\n\n \n\n示例 1：\n\n输入：nums = [3,4,5,2]\n输出：12 \n解释：如果选择下标 i=1 和 j=2（下标从 0 开始），则可以获得最大值，(nums[1]-1)*(nums[2]-1) = (4-1)*(5-1) = 3*4 = 12 。 \n\n示例 2：\n\n输入：nums = [1,5,4,5]\n输出：16\n解释：选择下标 i=1 和 j=3（下标从 0 开始），则可以获得最大值 (5-1)*(5-1) = 16 。\n\n示例 3：\n\n输入：nums = [3,7]\n输出：12\n\n \n\n提示：\n\n\t2 <= nums.length <= 500\n\n\t1 <= nums[i] <= 10^3",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def maxProduct(self, nums: List[int]) -> int:\n        a, b = nums[0], nums[1]\n        if a < b:\n            a, b = b, a\n        for i in range(2, len(nums)):\n            num = nums[i]\n            if num > a:\n                a, b = num, a\n            elif num > b:\n                b = num\n        return (a - 1) * (b - 1)",
+        "cpp": "public class Solution {\n    public int MaxProduct(int[] nums) {\n        int a = nums[0], b = nums[1];\n        if (a < b) {\n            int temp = a;\n            a = b;\n            b = temp;\n        }\n        for (int i = 2; i < nums.Length; i++) {\n            if (nums[i] > a) {\n                b = a;\n                a = nums[i];\n            } else if (nums[i] > b) {\n                b = nums[i];\n            }\n        }\n        return (a - 1) * (b - 1);\n    }\n}",
+        "java": "class Solution {\n    public int maxProduct(int[] nums) {\n        int a = nums[0], b = nums[1];\n        if (a < b) {\n            int temp = a;\n            a = b;\n            b = temp;\n        }\n        for (int i = 2; i < nums.length; i++) {\n            if (nums[i] > a) {\n                b = a;\n                a = nums[i];\n            } else if (nums[i] > b) {\n                b = nums[i];\n            }\n        }\n        return (a - 1) * (b - 1);\n    }\n}",
+        "javascript": "var maxProduct = function(nums) {\n    let a = nums[0], b = nums[1];\n    if (a < b) {\n        const temp = a;\n        a = b;\n        b = temp;\n    }\n    for (let i = 2; i < nums.length; i++) {\n        if (nums[i] > a) {\n            b = a;\n            a = nums[i];\n        } else if (nums[i] > b) {\n            b = nums[i];\n        }\n    }\n    return (a - 1) * (b - 1);\n};",
+        "go": "func maxProduct(nums []int) int {\n    a, b := nums[0], nums[1]\n    if a < b {\n        a, b = b, a\n    }\n    for _, num := range nums[2:] {\n        if num > a {\n            a, b = num, a\n        } else if num > b {\n            b = num\n        }\n    }\n    return (a - 1) * (b - 1)\n}"
+      },
+      "id": 198
+    },
+    {
+      "title": "切割后面积最大的蛋糕",
+      "titleSlug": "maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts",
+      "tags": [
+        "贪心",
+        "数组",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 43.07,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts/",
+      "hotCompanies": [
+        "亚马逊",
+        "expedia",
+        "ixl"
+      ],
+      "statementZh": "矩形蛋糕的高度为 h 且宽度为 w，给你两个整数数组 horizontalCuts 和 verticalCuts，其中：\n\n\t horizontalCuts[i] 是从矩形蛋糕顶部到第  i 个水平切口的距离\n\n\tverticalCuts[j] 是从矩形蛋糕的左侧到第 j 个竖直切口的距离\n\n请你按数组 horizontalCuts 和 verticalCuts 中提供的水平和竖直位置切割后，请你找出 面积最大 的那份蛋糕，并返回其 面积 。由于答案可能是一个很大的数字，因此需要将结果 对 109 + 7 取余 后返回。\n\n \n\n示例 1：\n\n输入：h = 5, w = 4, horizontalCuts = [1,2,4], verticalCuts = [1,3]\n输出：4 \n解释：上图所示的矩阵蛋糕中，红色线表示水平和竖直方向上的切口。切割蛋糕后，绿色的那份蛋糕面积最大。\n\n示例 2：\n\n输入：h = 5, w = 4, horizontalCuts = [3,1], verticalCuts = [1]\n输出：6\n解释：上图所示的矩阵蛋糕中，红色线表示水平和竖直方向上的切口。切割蛋糕后，绿色和黄色的两份蛋糕面积最大。\n\n示例 3：\n\n输入：h = 5, w = 4, horizontalCuts = [3], verticalCuts = [3]\n输出：9\n\n \n\n提示：\n\n\t2 <= h, w <= 109\n\n\t1 <= horizontalCuts.length <= min(h - 1, 105)\n\n\t1 <= verticalCuts.length <= min(w - 1, 105)\n\n\t1 <= horizontalCuts[i] < h\n\n\t1 <= verticalCuts[i] < w\n\n\t题目数据保证 horizontalCuts 中的所有元素各不相同\n\n\t题目数据保证 verticalCuts 中的所有元素各不相同",
+      "statementEn": "You are given a rectangular cake of size h x w and two arrays of integers horizontalCuts and verticalCuts where:\n\n\thorizontalCuts[i] is the distance from the top of the rectangular cake to the ith horizontal cut and similarly, and\n\n\tverticalCuts[j] is the distance from the left of the rectangular cake to the jth vertical cut.\n\nReturn the maximum area of a piece of cake after you cut at each horizontal and vertical position provided in the arrays horizontalCuts and verticalCuts. Since the answer can be a large number, return this modulo 109 + 7.\n\n \n\nExample 1:\n\nInput: h = 5, w = 4, horizontalCuts = [1,2,4], verticalCuts = [1,3]\nOutput: 4 \nExplanation: The figure above represents the given rectangular cake. Red lines are the horizontal and vertical cuts. After you cut the cake, the green piece of cake has the maximum area.\n\nExample 2:\n\nInput: h = 5, w = 4, horizontalCuts = [3,1], verticalCuts = [1]\nOutput: 6\nExplanation: The figure above represents the given rectangular cake. Red lines are the horizontal and vertical cuts. After you cut the cake, the green and yellow pieces of cake have the maximum area.\n\nExample 3:\n\nInput: h = 5, w = 4, horizontalCuts = [3], verticalCuts = [3]\nOutput: 9\n\n \n\nConstraints:\n\n\t2 <= h, w <= 109\n\n\t1 <= horizontalCuts.length <= min(h - 1, 105)\n\n\t1 <= verticalCuts.length <= min(w - 1, 105)\n\n\t1 <= horizontalCuts[i] < h\n\n\t1 <= verticalCuts[i] < w\n\n\tAll the elements in horizontalCuts are distinct.\n\n\tAll the elements in verticalCuts are distinct.",
+      "statement": "矩形蛋糕的高度为 h 且宽度为 w，给你两个整数数组 horizontalCuts 和 verticalCuts，其中：\n\n\t horizontalCuts[i] 是从矩形蛋糕顶部到第  i 个水平切口的距离\n\n\tverticalCuts[j] 是从矩形蛋糕的左侧到第 j 个竖直切口的距离\n\n请你按数组 horizontalCuts 和 verticalCuts 中提供的水平和竖直位置切割后，请你找出 面积最大 的那份蛋糕，并返回其 面积 。由于答案可能是一个很大的数字，因此需要将结果 对 109 + 7 取余 后返回。\n\n \n\n示例 1：\n\n输入：h = 5, w = 4, horizontalCuts = [1,2,4], verticalCuts = [1,3]\n输出：4 \n解释：上图所示的矩阵蛋糕中，红色线表示水平和竖直方向上的切口。切割蛋糕后，绿色的那份蛋糕面积最大。\n\n示例 2：\n\n输入：h = 5, w = 4, horizontalCuts = [3,1], verticalCuts = [1]\n输出：6\n解释：上图所示的矩阵蛋糕中，红色线表示水平和竖直方向上的切口。切割蛋糕后，绿色和黄色的两份蛋糕面积最大。\n\n示例 3：\n\n输入：h = 5, w = 4, horizontalCuts = [3], verticalCuts = [3]\n输出：9\n\n \n\n提示：\n\n\t2 <= h, w <= 109\n\n\t1 <= horizontalCuts.length <= min(h - 1, 105)\n\n\t1 <= verticalCuts.length <= min(w - 1, 105)\n\n\t1 <= horizontalCuts[i] < h\n\n\t1 <= verticalCuts[i] < w\n\n\t题目数据保证 horizontalCuts 中的所有元素各不相同\n\n\t题目数据保证 verticalCuts 中的所有元素各不相同",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def maxArea(self, h: int, w: int, horizontalCuts: List[int], verticalCuts: List[int]) -> int:\n        def calMax(arr, boardr):\n            res, pre = 0, 0\n            for i in arr:\n                res = max(i - pre, res)\n                pre = i\n            return max(res, boardr - pre)\n        horizontalCuts.sort()\n        verticalCuts.sort()\n        return (calMax(horizontalCuts, h) * calMax(verticalCuts, w)) % (10 ** 9 + 7)",
+        "java": "class Solution {\n    public int maxArea(int h, int w, int[] horizontalCuts, int[] verticalCuts) {\n        Arrays.sort(horizontalCuts);\n        Arrays.sort(verticalCuts);\n        return (int) ((long) calMax(horizontalCuts, h) * calMax(verticalCuts, w) % 1000000007);\n    }\n\n    public int calMax(int[] arr, int boardr) {\n        int res = 0, pre = 0;\n        for (int i : arr) {\n            res = Math.max(i - pre, res);\n            pre = i;\n        }\n        return Math.max(res, boardr - pre);\n    }\n}",
+        "cpp": "static int cmp(const void *a, const void *b) {\n    return *(int *)a - *(int *)b;\n}\n\nint calMax(const int *arr, int arrSize, int boardr) {\n    int res = 0, pre = 0;\n    for (int i = 0; i < arrSize; i++) {\n        res = fmax(arr[i] - pre, res);\n        pre = arr[i];\n    }\n    return fmax(res, boardr - pre);\n}\n\nint maxArea(int h, int w, int* horizontalCuts, int horizontalCutsSize, int* verticalCuts, int verticalCutsSize){\n    int mod = 1e9 + 7;\n    qsort(horizontalCuts, horizontalCutsSize, sizeof(int), cmp);\n    qsort(verticalCuts, verticalCutsSize, sizeof(int), cmp);\n    return (long long)calMax(horizontalCuts, horizontalCutsSize, h) * \\\n                      calMax(verticalCuts, verticalCutsSize, w) % mod;\n}",
+        "go": "func maxArea(h int, w int, horizontalCuts []int, verticalCuts []int) int {\n    sort.Ints(horizontalCuts)\n    sort.Ints(verticalCuts)\n    return calMax(horizontalCuts, h) * calMax(verticalCuts, w) % 1000000007\n}\n\nfunc calMax(arr []int, boardr int) int {\n    res, pre := 0, 0\n    for _, i := range arr {\n        res = max(i - pre, res)\n        pre = i\n    }\n    return max(res, boardr - pre)\n}\n\nfunc max(x int, y int) int {\n    if x < y {\n        return y\n    }\n    return x\n}",
+        "javascript": "var maxArea = function(h, w, horizontalCuts, verticalCuts) {\n    const mod = 1e9 + 7;\n    horizontalCuts.sort((a,b) => a-b);\n    verticalCuts.sort((a,b) => a-b);\n    var calMax = function(arr, boardr) {\n        let res = 0, pre = 0;\n        for (let i = 0; i < arr.length; i++) {\n            res = Math.max(arr[i] - pre, res);\n            pre = arr[i];\n        }\n        return Math.max(res, boardr - pre);\n    }\n    return BigInt(calMax(horizontalCuts, h)) * BigInt(calMax(verticalCuts, w)) % BigInt(mod);\n};"
+      },
+      "id": 199
     }
   ],
   "errors": []
