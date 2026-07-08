@@ -9,6 +9,7 @@ import {
   UserOutlined,
   CodeOutlined,
   FunctionOutlined,
+  ShoppingOutlined,
   NodeIndexOutlined,
   MenuOutlined,
   CloseOutlined,
@@ -28,6 +29,7 @@ const Header: React.FC = () => {
     { path: '/certificate', label: '证书办理', icon: <SafetyCertificateOutlined /> },
     { path: '/dev-hub', label: '面试题', icon: <CodeOutlined /> },
     { path: '/algorithm', label: '算法', icon: <FunctionOutlined /> },
+    { path: '/products', label: '产品', icon: <ShoppingOutlined /> },
     { path: '/about', label: '关于', icon: <UserOutlined /> },
   ];
 
