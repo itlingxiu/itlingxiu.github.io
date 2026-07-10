@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-09T18:17:24.652Z",
-  "dateKey": "2026-07-10",
+  "crawledAt": "2026-07-10T18:08:09.517Z",
+  "dateKey": "2026-07-11",
   "sources": [
     "leetcode-cn",
     "nowcoder"
@@ -5083,6 +5083,400 @@
         "python": "class Solution:\n    def getMinDistSum(self, positions: List[List[int]]) -> float:\n        eps = 1e-7\n        alpha = 1.0\n        decay = 1e-3\n\n        n = len(positions)\n        # 调整批大小\n        batchSize = n\n\n        x = sum(pos[0] for pos in positions) / n\n        y = sum(pos[1] for pos in positions) / n\n        \n        # 计算服务中心 (xc, yc) 到客户的欧几里得距离之和\n        getDist = lambda xc, yc: sum(((x - xc) ** 2 + (y - yc) ** 2) ** 0.5 for x, y in positions)\n        \n        while True:\n            # 将数据随机打乱\n            random.shuffle(positions)\n            xPrev, yPrev = x, y\n\n            for i in range(0, n, batchSize):\n                j = min(i + batchSize, n)\n                dx, dy = 0.0, 0.0\n\n                # 计算导数，注意处理分母为零的情况\n                for k in range(i, j):\n                    pos = positions[k]\n                    dx += (x - pos[0]) / (sqrt((x - pos[0]) * (x - pos[0]) + (y - pos[1]) * (y - pos[1])) + eps)\n                    dy += (y - pos[1]) / (sqrt((x - pos[0]) * (x - pos[0]) + (y - pos[1]) * (y - pos[1])) + eps)\n                \n                x -= alpha * dx\n                y -= alpha * dy\n\n                # 每一轮迭代后，将学习率进行衰减\n                alpha *= (1.0 - decay)\n            \n            # 判断是否结束迭代\n            if ((x - xPrev) ** 2 + (y - yPrev) ** 2) ** 0.5 < eps:\n                break\n\n        return getDist(x, y)"
       },
       "id": 214
+    },
+    {
+      "title": "使数组中所有元素相等的最小操作数",
+      "titleSlug": "minimum-operations-to-make-array-equal",
+      "tags": [
+        "数学"
+      ],
+      "difficulty": "中等",
+      "acceptance": 82.59,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-operations-to-make-array-equal/",
+      "hotCompanies": [
+        "亚马逊",
+        "adobe",
+        "微软"
+      ],
+      "statementZh": "存在一个长度为 n 的数组 arr ，其中 arr[i] = (2 * i) + 1 （ 0 <= i < n ）。\n\n一次操作中，你可以选出两个下标，记作 x 和 y （ 0 <= x, y < n ）并使 arr[x] 减去 1 、arr[y] 加上 1 （即 arr[x] -=1 且 arr[y] += 1 ）。最终的目标是使数组中的所有元素都 相等 。题目测试用例将会 保证 ：在执行若干步操作后，数组中的所有元素最终可以全部相等。\n\n给你一个整数 n，即数组的长度。请你返回使数组 arr 中所有元素相等所需的 最小操作数 。\n\n \n\n示例 1：\n\n输入：n = 3\n输出：2\n解释：arr = [1, 3, 5]\n第一次操作选出 x = 2 和 y = 0，使数组变为 [2, 3, 4]\n第二次操作继续选出 x = 2 和 y = 0，数组将会变成 [3, 3, 3]\n\n示例 2：\n\n输入：n = 6\n输出：9\n\n \n\n提示：\n\n\t1 <= n <= 10^4",
+      "statementEn": "You have an array arr of length n where arr[i] = (2 * i) + 1 for all valid values of i (i.e., 0 <= i < n).\n\nIn one operation, you can select two indices x and y where 0 <= x, y < n and subtract 1 from arr[x] and add 1 to arr[y] (i.e., perform arr[x] -=1 and arr[y] += 1). The goal is to make all the elements of the array equal. It is guaranteed that all the elements of the array can be made equal using some operations.\n\nGiven an integer n, the length of the array, return the minimum number of operations needed to make all the elements of arr equal.\n\n \n\nExample 1:\n\nInput: n = 3\nOutput: 2\nExplanation: arr = [1, 3, 5]\nFirst operation choose x = 2 and y = 0, this leads arr to be [2, 3, 4]\nIn the second operation choose x = 2 and y = 0 again, thus arr = [3, 3, 3].\n\nExample 2:\n\nInput: n = 6\nOutput: 9\n\n \n\nConstraints:\n\n\t1 <= n <= 104",
+      "statement": "存在一个长度为 n 的数组 arr ，其中 arr[i] = (2 * i) + 1 （ 0 <= i < n ）。\n\n一次操作中，你可以选出两个下标，记作 x 和 y （ 0 <= x, y < n ）并使 arr[x] 减去 1 、arr[y] 加上 1 （即 arr[x] -=1 且 arr[y] += 1 ）。最终的目标是使数组中的所有元素都 相等 。题目测试用例将会 保证 ：在执行若干步操作后，数组中的所有元素最终可以全部相等。\n\n给你一个整数 n，即数组的长度。请你返回使数组 arr 中所有元素相等所需的 最小操作数 。\n\n \n\n示例 1：\n\n输入：n = 3\n输出：2\n解释：arr = [1, 3, 5]\n第一次操作选出 x = 2 和 y = 0，使数组变为 [2, 3, 4]\n第二次操作继续选出 x = 2 和 y = 0，数组将会变成 [3, 3, 3]\n\n示例 2：\n\n输入：n = 6\n输出：9\n\n \n\n提示：\n\n\t1 <= n <= 10^4",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int minOperations(int n) {\n        int ret = 0, avg = n;\n        for (int i = 0; i < n; i++) {\n            int x = 2 * i + 1;\n            if (x > n) {\n                ret += x - n;\n            }\n        }\n        return ret;\n    }\n};",
+        "java": "class Solution {\n    public int minOperations(int n) {\n        int ret = 0, avg = n;\n        for (int i = 0; i < n; i++) {\n            int x = 2 * i + 1;\n            if (x > n) {\n                ret += x - n;\n            }\n        }\n        return ret;\n    }\n}",
+        "python": "class Solution:\n    def minOperations(self, n: int) -> int:\n        return sum(x - n for i in range(n) if (x := 2 * i + 1) > n)"
+      },
+      "id": 215
+    },
+    {
+      "title": "两球之间的磁力",
+      "titleSlug": "magnetic-force-between-two-balls",
+      "tags": [
+        "数组",
+        "二分查找",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 64.75,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/magnetic-force-between-two-balls/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "uber"
+      ],
+      "statementZh": "在代号为 C-137 的地球上，Rick 发现如果他将两个球放在他新发明的篮子里，它们之间会形成特殊形式的磁力。Rick 有 n 个空的篮子，第 i 个篮子的位置在 position[i] ，Morty 想把 m 个球放到这些篮子里，使得任意两球间 最小磁力 最大。\n\n已知两个球如果分别位于 x 和 y ，那么它们之间的磁力为 |x - y| 。\n\n给你一个整数数组 position 和一个整数 m ，请你返回最大化的最小磁力。\n\n \n\n示例 1：\n\n输入：position = [1,2,3,4,7], m = 3\n输出：3\n解释：将 3 个球分别放入位于 1，4 和 7 的三个篮子，两球间的磁力分别为 [3, 3, 6]。最小磁力为 3 。我们没办法让最小磁力大于 3 。\n\n示例 2：\n\n输入：position = [5,4,3,2,1,1000000000], m = 2\n输出：999999999\n解释：我们使用位于 1 和 1000000000 的篮子时最小磁力最大。\n\n \n\n提示：\n\n\tn == position.length\n\n\t2 <= n <= 10^5\n\n\t1 <= position[i] <= 10^9\n\n\t所有 position 中的整数 互不相同 。\n\n\t2 <= m <= position.length",
+      "statementEn": "In the universe Earth C-137, Rick discovered a special form of magnetic force between two balls if they are put in his new invented basket. Rick has n empty baskets, the ith basket is at position[i], Morty has m balls and needs to distribute the balls into the baskets such that the minimum magnetic force between any two balls is maximum.\n\nRick stated that magnetic force between two different balls at positions x and y is |x - y|.\n\nGiven the integer array position and the integer m. Return the required force.\n\n \n\nExample 1:\n\nInput: position = [1,2,3,4,7], m = 3\nOutput: 3\nExplanation: Distributing the 3 balls into baskets 1, 4 and 7 will make the magnetic force between ball pairs [3, 3, 6]. The minimum magnetic force is 3. We cannot achieve a larger minimum magnetic force than 3.\n\nExample 2:\n\nInput: position = [5,4,3,2,1,1000000000], m = 2\nOutput: 999999999\nExplanation: We can use baskets 1 and 1000000000.\n\n \n\nConstraints:\n\n\tn == position.length\n\n\t2 <= n <= 105\n\n\t1 <= position[i] <= 109\n\n\tAll integers in position are distinct.\n\n\t2 <= m <= position.length",
+      "statement": "在代号为 C-137 的地球上，Rick 发现如果他将两个球放在他新发明的篮子里，它们之间会形成特殊形式的磁力。Rick 有 n 个空的篮子，第 i 个篮子的位置在 position[i] ，Morty 想把 m 个球放到这些篮子里，使得任意两球间 最小磁力 最大。\n\n已知两个球如果分别位于 x 和 y ，那么它们之间的磁力为 |x - y| 。\n\n给你一个整数数组 position 和一个整数 m ，请你返回最大化的最小磁力。\n\n \n\n示例 1：\n\n输入：position = [1,2,3,4,7], m = 3\n输出：3\n解释：将 3 个球分别放入位于 1，4 和 7 的三个篮子，两球间的磁力分别为 [3, 3, 6]。最小磁力为 3 。我们没办法让最小磁力大于 3 。\n\n示例 2：\n\n输入：position = [5,4,3,2,1,1000000000], m = 2\n输出：999999999\n解释：我们使用位于 1 和 1000000000 的篮子时最小磁力最大。\n\n \n\n提示：\n\n\tn == position.length\n\n\t2 <= n <= 10^5\n\n\t1 <= position[i] <= 10^9\n\n\t所有 position 中的整数 互不相同 。\n\n\t2 <= m <= position.length",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "static int compare(const void *a, const void *b) {\n    return *(int *)a - *(int *)b;\n}\n\nstatic bool check(int x, const int* position, int positionSize, int m) {\n    int pre = position[0], cnt = 1;\n    for (int i = 1; i < positionSize; ++i) {\n        if (position[i] - pre >= x) {\n            pre = position[i];\n            cnt += 1;\n        }\n    }\n    return cnt >= m;\n}\n\nint maxDistance(int* position, int positionSize, int m) {\n    qsort(position, positionSize, sizeof(int), compare);\n    int left = 1, right = position[positionSize - 1] - position[0], ans = -1;\n    while (left <= right) {\n        int mid = (left + right) / 2;\n        if (check(mid, position, positionSize, m)) {\n            ans = mid;\n            left = mid + 1;\n        } else {\n            right = mid - 1;\n        }\n    }\n    return ans;\n}",
+        "java": "class Solution {\n    public int maxDistance(int[] position, int m) {\n        Arrays.sort(position);\n        int left = 1, right = position[position.length - 1] - position[0], ans = -1;\n        while (left <= right) {\n            int mid = (left + right) / 2;\n            if (check(mid, position, m)) {\n                ans = mid;\n                left = mid + 1;\n            } else {\n                right = mid - 1;\n            }\n        }\n        return ans;\n    }\n\n    public boolean check(int x, int[] position, int m) {\n        int pre = position[0], cnt = 1;\n        for (int i = 1; i < position.length; ++i) {\n            if (position[i] - pre >= x) {\n                pre = position[i];\n                cnt += 1;\n            }\n        }\n        return cnt >= m;\n    }\n}",
+        "javascript": "const check = (x, position, m) => {\n    let pre = position[0], cnt = 1;\n    for (let i = 1; i < position.length; ++i) {\n        if (position[i] - pre >= x) {\n            pre = position[i];\n            cnt += 1;\n        }\n    }\n    return cnt >= m;\n}\nvar maxDistance = function(position, m) {\n    position.sort((x, y) => x - y);\n    let left = 1, right = position[position.length - 1] - position[0], ans = -1;\n    while (left <= right) {\n        const mid = Math.floor((left + right) / 2); \n        if (check(mid, position, m)) {\n            ans = mid;\n            left = mid + 1;\n        } else {\n            right = mid - 1;\n        }\n    }\n    return ans;\n};",
+        "python": "class Solution:\n    def maxDistance(self, position: List[int], m: int) -> int:\n        def check(x: int) -> bool:\n            pre = position[0]\n            cnt = 1\n            for i in range(1, len(position)):\n                if position[i] - pre >= x:\n                    pre = position[i]\n                    cnt += 1\n            return cnt >= m\n\n        position.sort()\n        left, right, ans = 1, position[-1] - position[0], -1\n        while left <= right:\n            mid = (left + right) // 2;\n            if check(mid):\n                ans = mid\n                left = mid + 1\n            else:\n                right = mid - 1\n        \n        return ans",
+        "go": "func maxDistance(position []int, m int) int {\n    sort.Ints(position)\n    left, right := 1, position[len(position)-1] - position[0]\n    ans := -1\n    for left <= right {\n        mid := (left + right) / 2\n        if check(mid, position, m) {\n            ans = mid\n            left = mid + 1\n        } else {\n            right = mid - 1\n        }\n    }\n    return ans\n}\n\nfunc check(x int, position []int, m int) bool {\n    pre, cnt := position[0], 1\n    for i := 1; i < len(position); i++ {\n        if position[i] - pre >= x {\n            pre = position[i]\n            cnt++\n        }\n    }\n    return cnt >= m\n}",
+        "typescript": "function maxDistance(position: number[], m: number): number {\n    position.sort((x, y) => x - y);\n    let left = 1, right = position[position.length - 1] - position[0], ans = -1;\n    while (left <= right) {\n        const mid = Math.floor((left + right) / 2); \n        if (check(mid, position, m)) {\n            ans = mid;\n            left = mid + 1;\n        } else {\n            right = mid - 1;\n        }\n    }\n    return ans;\n};\n\nfunction check(x: number, position: number[], m: number): boolean {\n    let pre = position[0], cnt = 1;\n    for (let i = 1; i < position.length; ++i) {\n        if (position[i] - pre >= x) {\n            pre = position[i];\n            cnt += 1;\n        }\n    }\n    return cnt >= m;\n}"
+      },
+      "id": 216
+    },
+    {
+      "title": "吃掉 N 个橘子的最少天数",
+      "titleSlug": "minimum-number-of-days-to-eat-n-oranges",
+      "tags": [
+        "记忆化",
+        "动态规划"
+      ],
+      "difficulty": "困难",
+      "acceptance": 40.58,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-number-of-days-to-eat-n-oranges/",
+      "hotCompanies": [
+        "谷歌",
+        "腾讯",
+        "亚马逊"
+      ],
+      "statementZh": "厨房里总共有 n 个橘子，你决定每一天选择如下方式之一吃这些橘子：\n\n\t吃掉一个橘子。\n\n\t如果剩余橘子数 n 能被 2 整除，那么你可以吃掉 n/2 个橘子。\n\n\t如果剩余橘子数 n 能被 3 整除，那么你可以吃掉 2*(n/3) 个橘子。\n\n每天你只能从以上 3 种方案中选择一种方案。\n\n请你返回吃掉所有 n 个橘子的最少天数。\n\n \n\n示例 1：\n\n输入：n = 10\n输出：4\n解释：你总共有 10 个橘子。\n第 1 天：吃 1 个橘子，剩余橘子数 10 - 1 = 9。\n第 2 天：吃 6 个橘子，剩余橘子数 9 - 2*(9/3) = 9 - 6 = 3。（9 可以被 3 整除）\n第 3 天：吃 2 个橘子，剩余橘子数 3 - 2*(3/3) = 3 - 2 = 1。\n第 4 天：吃掉最后 1 个橘子，剩余橘子数 1 - 1 = 0。\n你需要至少 4 天吃掉 10 个橘子。\n\n示例 2：\n\n输入：n = 6\n输出：3\n解释：你总共有 6 个橘子。\n第 1 天：吃 3 个橘子，剩余橘子数 6 - 6/2 = 6 - 3 = 3。（6 可以被 2 整除）\n第 2 天：吃 2 个橘子，剩余橘子数 3 - 2*(3/3) = 3 - 2 = 1。（3 可以被 3 整除）\n第 3 天：吃掉剩余 1 个橘子，剩余橘子数 1 - 1 = 0。\n你至少需要 3 天吃掉 6 个橘子。\n\n示例 3：\n\n输入：n = 1\n输出：1\n\n示例 4：\n\n输入：n = 56\n输出：6\n\n \n\n提示：\n\n\t1 <= n <= 2*10^9",
+      "statementEn": "There are n oranges in the kitchen and you decided to eat some of these oranges every day as follows:\n\n\tEat one orange.\n\n\tIf the number of remaining oranges n is divisible by 2 then you can eat n / 2 oranges.\n\n\tIf the number of remaining oranges n is divisible by 3 then you can eat 2 * (n / 3) oranges.\n\nYou can only choose one of the actions per day.\n\nGiven the integer n, return the minimum number of days to eat n oranges.\n\n \n\nExample 1:\n\nInput: n = 10\nOutput: 4\nExplanation: You have 10 oranges.\nDay 1: Eat 1 orange,  10 - 1 = 9.  \nDay 2: Eat 6 oranges, 9 - 2*(9/3) = 9 - 6 = 3. (Since 9 is divisible by 3)\nDay 3: Eat 2 oranges, 3 - 2*(3/3) = 3 - 2 = 1. \nDay 4: Eat the last orange  1 - 1  = 0.\nYou need at least 4 days to eat the 10 oranges.\n\nExample 2:\n\nInput: n = 6\nOutput: 3\nExplanation: You have 6 oranges.\nDay 1: Eat 3 oranges, 6 - 6/2 = 6 - 3 = 3. (Since 6 is divisible by 2).\nDay 2: Eat 2 oranges, 3 - 2*(3/3) = 3 - 2 = 1. (Since 3 is divisible by 3)\nDay 3: Eat the last orange  1 - 1  = 0.\nYou need at least 3 days to eat the 6 oranges.\n\n \n\nConstraints:\n\n\t1 <= n <= 2 * 109",
+      "statement": "厨房里总共有 n 个橘子，你决定每一天选择如下方式之一吃这些橘子：\n\n\t吃掉一个橘子。\n\n\t如果剩余橘子数 n 能被 2 整除，那么你可以吃掉 n/2 个橘子。\n\n\t如果剩余橘子数 n 能被 3 整除，那么你可以吃掉 2*(n/3) 个橘子。\n\n每天你只能从以上 3 种方案中选择一种方案。\n\n请你返回吃掉所有 n 个橘子的最少天数。\n\n \n\n示例 1：\n\n输入：n = 10\n输出：4\n解释：你总共有 10 个橘子。\n第 1 天：吃 1 个橘子，剩余橘子数 10 - 1 = 9。\n第 2 天：吃 6 个橘子，剩余橘子数 9 - 2*(9/3) = 9 - 6 = 3。（9 可以被 3 整除）\n第 3 天：吃 2 个橘子，剩余橘子数 3 - 2*(3/3) = 3 - 2 = 1。\n第 4 天：吃掉最后 1 个橘子，剩余橘子数 1 - 1 = 0。\n你需要至少 4 天吃掉 10 个橘子。\n\n示例 2：\n\n输入：n = 6\n输出：3\n解释：你总共有 6 个橘子。\n第 1 天：吃 3 个橘子，剩余橘子数 6 - 6/2 = 6 - 3 = 3。（6 可以被 2 整除）\n第 2 天：吃 2 个橘子，剩余橘子数 3 - 2*(3/3) = 3 - 2 = 1。（3 可以被 3 整除）\n第 3 天：吃掉剩余 1 个橘子，剩余橘子数 1 - 1 = 0。\n你至少需要 3 天吃掉 6 个橘子。\n\n示例 3：\n\n输入：n = 1\n输出：1\n\n示例 4：\n\n输入：n = 56\n输出：6\n\n \n\n提示：\n\n\t1 <= n <= 2*10^9",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "typedef struct {\n    int key;\n    int val;\n    UT_hash_handle hh;\n} HashItem; \n\nHashItem *hashFindItem(HashItem **obj, int key) {\n    HashItem *pEntry = NULL;\n    HASH_FIND_INT(*obj, &key, pEntry);\n    return pEntry;\n}\n\nbool hashAddItem(HashItem **obj, int key, int val) {\n    if (hashFindItem(obj, key)) {\n        return false;\n    }\n    HashItem *pEntry = (HashItem *)malloc(sizeof(HashItem));\n    pEntry->key = key;\n    pEntry->val = val;\n    HASH_ADD_INT(*obj, key, pEntry);\n    return true;\n}\n\nbool hashSetItem(HashItem **obj, int key, int val) {\n    HashItem *pEntry = hashFindItem(obj, key);\n    if (!pEntry) {\n        hashAddItem(obj, key, val);\n    } else {\n        pEntry->val = val;\n    }\n    return true;\n}\n\nint hashGetItem(HashItem **obj, int key, int defaultVal) {\n    HashItem *pEntry = hashFindItem(obj, key);\n    if (!pEntry) {\n        return defaultVal;\n    }\n    return pEntry->val;\n}\n\nvoid hashFree(HashItem **obj) {\n    HashItem *curr = NULL, *tmp = NULL;\n    HASH_ITER(hh, *obj, curr, tmp) {\n        HASH_DEL(*obj, curr);  \n        free(curr);\n    }\n}\n\nint helper(int n, HashItem **memo) {\n    if (n <= 1) {\n        return n;\n    }\n    if (hashFindItem(memo, n)) {\n        return hashGetItem(memo, n, 0);\n    }\n    int ret = fmin(n % 2 + 1 + helper(n / 2, memo), n % 3 + 1 + minDays(n / 3, memo));\n    hashAddItem(memo, n, ret);\n    return ret;\n}\n\nint minDays(int n){\n    HashItem *memo = NULL;\n    int ret = helper(n, &memo);\n    hashFree(&memo);\n    return ret;\n}",
+        "java": "class Solution {\n    public int minDays(int n) {\n        PriorityQueue<int[]> queue = new PriorityQueue<int[]>(new Comparator<int[]>() {\n            public int compare(int[] tuple1, int[] tuple2) {\n                if (tuple1[0] != tuple2[0]) {\n                    return tuple1[0] - tuple2[0];\n                } else if (tuple1[1] != tuple2[1]) {\n                    return tuple1[1] - tuple2[1];\n                } else {\n                    return tuple1[2] - tuple2[2];\n                }\n            }\n        });\n        queue.offer(new int[]{getHeuristicValue(n), 0, n});\n        Set<Integer> visited = new HashSet<Integer>();\n        int ans = 0;\n\n        while (true) {\n            int[] tuple = queue.poll();\n            int expected = tuple[0], days = tuple[1], rest = tuple[2];\n            if (visited.contains(rest)) {\n                continue;\n            }\n            visited.add(rest);\n            if (rest == 1) {\n                ans = days + 1;\n                break;\n            }\n            queue.offer(new int[]{days + rest % 2 + 1 + getHeuristicValue(rest / 2), days + rest % 2 + 1, rest / 2});\n            queue.offer(new int[]{days + rest % 3 + 1 + getHeuristicValue(rest / 3), days + rest % 3 + 1, rest / 3});\n        }\n\n        return ans;\n    }\n\n    public int getHeuristicValue(int rest) {\n        return rest == 0 ? 0 : (int) (Math.log(rest) / Math.log(3)) + 1;\n    }\n}",
+        "python": "class Solution:\n    def minDays(self, n: int) -> int:\n        @lru_cache(None)\n        def getHeuristicValue(rest: float) -> int:\n            return 0 if rest == 0 else \\\n                int(math.log(rest) / math.log(3.0)) + 1\n        \n        q = [(getHeuristicValue(n), 0, n)]\n        visited = set()\n        ans = 0\n        \n        while True:\n            expected, days, rest = heapq.heappop(q)\n            if rest in visited:\n                continue\n            visited.add(rest)\n            if rest == 1:\n                ans = days + 1\n                break\n            heapq.heappush(q, (\n                days + rest % 2 + 1 + getHeuristicValue(rest // 2),\n                days + rest % 2 + 1,\n                rest // 2\n            ))\n            heapq.heappush(q, (\n                days + rest % 3 + 1 + getHeuristicValue(rest // 3),\n                days + rest % 3 + 1,\n                rest // 3\n            ))\n        \n        return ans",
+        "go": "func minDays(n int) int {\n    q := &PriorityQueue{Node{0 + getHeuristicValue(n), 0, n}}\n    visited := make(map[int]bool)\n    ans := 0\n    for true {\n        p := heap.Pop(q).(Node)\n        days, rest := p.days, p.rest\n        if visited[rest] {\n            continue;\n        }\n        visited[rest] = true\n        if rest == 1 {\n            ans = days + 1\n            break\n        }\n        heap.Push(q, Node{days + rest % 2 + 1 + getHeuristicValue(rest / 2), days + rest % 2 + 1, rest / 2})\n        heap.Push(q, Node{days + rest % 3 + 1 + getHeuristicValue(rest / 3), days + rest % 3 + 1, rest / 3})\n    }\n    return ans\n}\n\nfunc getHeuristicValue(rest int) int {\n    if rest == 0 {\n        return 0\n    } else {\n        return int(math.Log(float64(rest)) / math.Log(3.0)) + 1;\n    }\n};\n\ntype Node struct {\n\tcost, days, rest int\n}\n\ntype PriorityQueue []Node\n\nfunc (pq PriorityQueue) Len() int { \n    return len(pq) \n}\n\nfunc (pq PriorityQueue) Less(i, j int) bool { \n    return pq[i].cost < pq[j].cost \n}\n\nfunc (pq PriorityQueue) Swap(i, j int) { \n    pq[i], pq[j] = pq[j], pq[i] \n}\n\nfunc (pq *PriorityQueue) Push(x interface{}) { \n    *pq = append(*pq, x.(Node)) \n}\n\nfunc (pq *PriorityQueue) Pop() interface{} {\n\told := *pq\n\tn := len(old)\n\titem := old[n-1]\n\t*pq = old[0 : n-1]\n\treturn item\n}",
+        "javascript": "var minDays = function(n) {\n    const getHeuristicValue = (rest) => {\n        return rest == 0 ? 0 : Math.floor( Math.log(rest) / Math.log(3.0)) + 1;\n    };\n\n    const q = new MinPriorityQueue();\n    const visited = new Set();\n    q.enqueue([0, getHeuristicValue(n), n], 0 + getHeuristicValue(n));\n    let ans = 0;\n    while (true) {\n        const [days, _, rest] = q.dequeue().element;\n        if (visited.has(rest)) {\n            continue;\n        }\n        visited.add(rest);\n        if (rest == 1) {\n            ans = days + 1;\n            break;\n        }\n        const n2 = Math.floor(rest / 2);\n        const n3 = Math.floor(rest / 3);\n        const cost2 = days + rest % 2 + 1;\n        const cost3 = days + rest % 3 + 1; \n        q.enqueue([cost2, getHeuristicValue(n2), n2], cost2 + getHeuristicValue(n2));\n        q.enqueue([cost3, getHeuristicValue(n3), n3], cost3 + getHeuristicValue(n3));\n    }\n    return ans;\n};",
+        "typescript": "function minDays(n: number): number {\n    const getHeuristicValue = (rest: number): number => {\n        return rest == 0 ? 0 : Math.floor( Math.log(rest) / Math.log(3.0)) + 1;\n    };\n\n    const q = new MinPriorityQueue();\n    const visited = new Set();\n    q.enqueue([0, getHeuristicValue(n), n], 0 + getHeuristicValue(n));\n    let ans = 0;\n    while (true) {\n        const [days, _, rest] = q.dequeue().element;\n        if (visited.has(rest)) {\n            continue;\n        }\n        visited.add(rest);\n        if (rest == 1) {\n            ans = days + 1;\n            break;\n        }\n        const n2 = Math.floor(rest / 2);\n        const n3 = Math.floor(rest / 3);\n        const cost2 = days + rest % 2 + 1;\n        const cost3 = days + rest % 3 + 1; \n        q.enqueue([cost2, getHeuristicValue(n2), n2], cost2 + getHeuristicValue(n2));\n        q.enqueue([cost3, getHeuristicValue(n3), n3], cost3 + getHeuristicValue(n3));\n    }\n    return ans;\n};"
+      },
+      "id": 217
+    },
+    {
+      "title": "只有一个不同字符的字符串",
+      "titleSlug": "strings-differ-by-one-character",
+      "tags": [
+        "哈希表",
+        "字符串",
+        "哈希函数",
+        "滚动哈希"
+      ],
+      "difficulty": "中等",
+      "acceptance": 42.35,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/strings-differ-by-one-character/",
+      "hotCompanies": [
+        "谷歌",
+        "facebook",
+        "airbnb"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 218
+    },
+    {
+      "title": "银行账户概要",
+      "titleSlug": "bank-account-summary",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 46.69,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/bank-account-summary/",
+      "hotCompanies": [
+        "sc",
+        "paypal"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 219
+    },
+    {
+      "title": "千位分隔数",
+      "titleSlug": "thousand-separator",
+      "tags": [
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 57.43,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/thousand-separator/",
+      "hotCompanies": [
+        "字节",
+        "微软",
+        "shopee"
+      ],
+      "statementZh": "给你一个整数 n，请你每隔三位添加点（即 \".\" 符号）作为千位分隔符，并将结果以字符串格式返回。\n\n \n\n示例 1：\n\n输入：n = 987\n输出：\"987\"\n\n示例 2：\n\n输入：n = 1234\n输出：\"1.234\"\n\n示例 3：\n\n输入：n = 123456789\n输出：\"123.456.789\"\n\n示例 4：\n\n输入：n = 0\n输出：\"0\"\n\n \n\n提示：\n\n\t0 <= n < 2^31",
+      "statementEn": "Given an integer n, add a dot (\".\") as the thousands separator and return it in string format.\n\n \n\nExample 1:\n\nInput: n = 987\nOutput: \"987\"\n\nExample 2:\n\nInput: n = 1234\nOutput: \"1.234\"\n\n \n\nConstraints:\n\n\t0 <= n <= 231 - 1",
+      "statement": "给你一个整数 n，请你每隔三位添加点（即 \".\" 符号）作为千位分隔符，并将结果以字符串格式返回。\n\n \n\n示例 1：\n\n输入：n = 987\n输出：\"987\"\n\n示例 2：\n\n输入：n = 1234\n输出：\"1.234\"\n\n示例 3：\n\n输入：n = 123456789\n输出：\"123.456.789\"\n\n示例 4：\n\n输入：n = 0\n输出：\"0\"\n\n \n\n提示：\n\n\t0 <= n < 2^31",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    string thousandSeparator(int n) {\n        int count = 0;\n        string ans;\n        do {\n            int cur = n % 10;\n            n /= 10;\n            ans += to_string(cur);\n            ++count;\n            if (count % 3 == 0 && n) {\n                ans += '.';\n            }\n        } while (n);\n        reverse(ans.begin(), ans.end());\n        return ans;\n    }\n};",
+        "java": "class Solution {\n    public String thousandSeparator(int n) {\n        int count = 0;\n        StringBuffer ans = new StringBuffer();\n        do {\n            int cur = n % 10;\n            n /= 10;\n            ans.append(cur);\n            ++count;\n            if (count % 3 == 0 && n != 0) {\n                ans.append('.');\n            }\n        } while (n != 0);\n        ans.reverse();\n        return ans.toString();\n    }\n}",
+        "javascript": "var thousandSeparator = function(n) {\n    let count = 0;\n    let ans = \"\";\n    do {\n        let cur = n % 10;\n        n = Math.floor(n / 10);\n        ans += cur.toString();\n        ++count;\n        if (count % 3 == 0 && n) {\n            ans += '.';\n        }\n    } while (n);\n    return ans.split('').reverse().join('');\n};",
+        "python": "class Solution:\n    def thousandSeparator(self, n: int) -> str:\n        count = 0\n        ans = list()\n        while True:\n            cur = n % 10\n            n //= 10\n            ans.append(str(cur))\n            count += 1\n            if count % 3 == 0 and n > 0:\n                ans.append(\".\")\n            if n == 0:\n                break\n        return \"\".join(ans[::-1])"
+      },
+      "id": 220
+    },
+    {
+      "title": "可以到达所有点的最少点数目",
+      "titleSlug": "minimum-number-of-vertices-to-reach-all-nodes",
+      "tags": [
+        "图"
+      ],
+      "difficulty": "中等",
+      "acceptance": 83.1,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-number-of-vertices-to-reach-all-nodes/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "微软"
+      ],
+      "statementZh": "给你一个 有向无环图 ， n 个节点编号为 0 到 n-1 ，以及一个边数组 edges ，其中 edges[i] = [fromi, toi] 表示一条从点  fromi 到点 toi 的有向边。\n\n找到最小的点集使得从这些点出发能到达图中所有点。题目保证解存在且唯一。\n\n你可以以任意顺序返回这些节点编号。\n\n \n\n示例 1：\n\n输入：n = 6, edges = [[0,1],[0,2],[2,5],[3,4],[4,2]]\n输出：[0,3]\n解释：从单个节点出发无法到达所有节点。从 0 出发我们可以到达 [0,1,2,5] 。从 3 出发我们可以到达 [3,4,2,5] 。所以我们输出 [0,3] 。\n\n示例 2：\n\n输入：n = 5, edges = [[0,1],[2,1],[3,1],[1,4],[2,4]]\n输出：[0,2,3]\n解释：注意到节点 0，3 和 2 无法从其他节点到达，所以我们必须将它们包含在结果点集中，这些点都能到达节点 1 和 4 。\n\n \n\n提示：\n\n\t2 <= n <= 10^5\n\n\t1 <= edges.length <= min(10^5, n * (n - 1) / 2)\n\n\tedges[i].length == 2\n\n\t0 <= fromi, toi < n\n\n\t所有点对 (fromi, toi) 互不相同。",
+      "statementEn": "Given a directed acyclic graph, with n vertices numbered from 0 to n-1, and an array edges where edges[i] = [fromi, toi] represents a directed edge from node fromi to node toi.\n\nFind the smallest set of vertices from which all nodes in the graph are reachable. It&#39;s guaranteed that a unique solution exists.\n\nNotice that you can return the vertices in any order.\n\n \n\nExample 1:\n\nInput: n = 6, edges = [[0,1],[0,2],[2,5],[3,4],[4,2]]\nOutput: [0,3]\nExplanation: It&#39;s not possible to reach all the nodes from a single vertex. From 0 we can reach [0,1,2,5]. From 3 we can reach [3,4,2,5]. So we output [0,3].\n\nExample 2:\n\nInput: n = 5, edges = [[0,1],[2,1],[3,1],[1,4],[2,4]]\nOutput: [0,2,3]\nExplanation: Notice that vertices 0, 3 and 2 are not reachable from any other node, so we must include them. Also any of these vertices can reach nodes 1 and 4.\n\n \n\nConstraints:\n\n\t2 <= n <= 10^5\n\n\t1 <= edges.length <= min(10^5, n * (n - 1) / 2)\n\n\tedges[i].length == 2\n\n\t0 <= fromi, toi < n\n\n\tAll pairs (fromi, toi) are distinct.",
+      "statement": "给你一个 有向无环图 ， n 个节点编号为 0 到 n-1 ，以及一个边数组 edges ，其中 edges[i] = [fromi, toi] 表示一条从点  fromi 到点 toi 的有向边。\n\n找到最小的点集使得从这些点出发能到达图中所有点。题目保证解存在且唯一。\n\n你可以以任意顺序返回这些节点编号。\n\n \n\n示例 1：\n\n输入：n = 6, edges = [[0,1],[0,2],[2,5],[3,4],[4,2]]\n输出：[0,3]\n解释：从单个节点出发无法到达所有节点。从 0 出发我们可以到达 [0,1,2,5] 。从 3 出发我们可以到达 [3,4,2,5] 。所以我们输出 [0,3] 。\n\n示例 2：\n\n输入：n = 5, edges = [[0,1],[2,1],[3,1],[1,4],[2,4]]\n输出：[0,2,3]\n解释：注意到节点 0，3 和 2 无法从其他节点到达，所以我们必须将它们包含在结果点集中，这些点都能到达节点 1 和 4 。\n\n \n\n提示：\n\n\t2 <= n <= 10^5\n\n\t1 <= edges.length <= min(10^5, n * (n - 1) / 2)\n\n\tedges[i].length == 2\n\n\t0 <= fromi, toi < n\n\n\t所有点对 (fromi, toi) 互不相同。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "java": "class Solution {\n    public List<Integer> findSmallestSetOfVertices(int n, List<List<Integer>> edges) {\n        List<Integer> ans = new ArrayList<Integer>();\n        Set<Integer> endSet = new HashSet<Integer>();\n        for (List<Integer> edge : edges) {\n            endSet.add(edge.get(1));\n        }\n        for (int i = 0; i < n; i++) {\n            if (!endSet.contains(i)) {\n                ans.add(i);\n            }\n        }\n        return ans;\n    }\n}",
+        "cpp": "class Solution {\npublic:\n    vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {\n        auto ans = vector<int>();\n        auto endSet = unordered_set<int>();\n        for (auto edge : edges) {\n            endSet.insert(edge[1]);\n        }\n        for (int i = 0; i < n; i++) {\n            if (endSet.find(i) == endSet.end()) {\n                ans.push_back(i);\n            }\n        }\n        return ans;\n    }\n};",
+        "python": "class Solution:\n    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:\n        endSet = set(y for x, y in edges)\n        ans = [i for i in range(n) if i not in endSet]\n        return ans"
+      },
+      "id": 221
+    },
+    {
+      "title": "得到目标数组的最少函数调用次数",
+      "titleSlug": "minimum-numbers-of-function-calls-to-make-target-array",
+      "tags": [
+        "贪心",
+        "位运算",
+        "数组"
+      ],
+      "difficulty": "中等",
+      "acceptance": 62.87,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-numbers-of-function-calls-to-make-target-array/",
+      "hotCompanies": [
+        "亚马逊",
+        "字节",
+        "oracle"
+      ],
+      "statementZh": "给你一个与 nums 大小相同且初始值全为 0 的数组 arr ，请你调用以上函数得到整数数组 nums 。\n\n请你返回将 arr 变成 nums 的最少函数调用次数。\n\n答案保证在 32 位有符号整数以内。\n\n \n\n示例 1：\n\n输入：nums = [1,5]\n输出：5\n解释：给第二个数加 1 ：[0, 0] 变成 [0, 1] （1 次操作）。\n将所有数字乘以 2 ：[0, 1] -> [0, 2] -> [0, 4] （2 次操作）。\n给两个数字都加 1 ：[0, 4] -> [1, 4] -> [1, 5] （2 次操作）。\n总操作次数为：1 + 2 + 2 = 5 。\n\n示例 2：\n\n输入：nums = [2,2]\n输出：3\n解释：给两个数字都加 1 ：[0, 0] -> [0, 1] -> [1, 1] （2 次操作）。\n将所有数字乘以 2 ： [1, 1] -> [2, 2] （1 次操作）。\n总操作次数为： 2 + 1 = 3 。\n\n示例 3：\n\n输入：nums = [4,2,5]\n输出：6\n解释：（初始）[0,0,0] -> [1,0,0] -> [1,0,1] -> [2,0,2] -> [2,1,2] -> [4,2,4] -> [4,2,5] （nums 数组）。\n\n示例 4：\n\n输入：nums = [3,2,2,4]\n输出：7\n\n示例 5：\n\n输入：nums = [2,4,8,16]\n输出：8\n\n \n\n提示：\n\n\t1 <= nums.length <= 10^5\n\n\t0 <= nums[i] <= 10^9",
+      "statementEn": "You are given an integer array nums. You have an integer array arr of the same length with all values set to 0 initially. You also have the following modify function:\n\nYou want to use the modify function to convert arr to nums using the minimum number of calls.\n\nReturn the minimum number of function calls to make nums from arr.\n\nThe test cases are generated so that the answer fits in a 32-bit signed integer.\n\n \n\nExample 1:\n\nInput: nums = [1,5]\nOutput: 5\nExplanation: Increment by 1 (second element): [0, 0] to get [0, 1] (1 operation).\nDouble all the elements: [0, 1] -> [0, 2] -> [0, 4] (2 operations).\nIncrement by 1 (both elements)  [0, 4] -> [1, 4] -> [1, 5] (2 operations).\nTotal of operations: 1 + 2 + 2 = 5.\n\nExample 2:\n\nInput: nums = [2,2]\nOutput: 3\nExplanation: Increment by 1 (both elements) [0, 0] -> [0, 1] -> [1, 1] (2 operations).\nDouble all the elements: [1, 1] -> [2, 2] (1 operation).\nTotal of operations: 2 + 1 = 3.\n\nExample 3:\n\nInput: nums = [4,2,5]\nOutput: 6\nExplanation: (initial)[0,0,0] -> [1,0,0] -> [1,0,1] -> [2,0,2] -> [2,1,2] -> [4,2,4] -> [4,2,5](nums).\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 105\n\n\t0 <= nums[i] <= 109",
+      "statement": "给你一个与 nums 大小相同且初始值全为 0 的数组 arr ，请你调用以上函数得到整数数组 nums 。\n\n请你返回将 arr 变成 nums 的最少函数调用次数。\n\n答案保证在 32 位有符号整数以内。\n\n \n\n示例 1：\n\n输入：nums = [1,5]\n输出：5\n解释：给第二个数加 1 ：[0, 0] 变成 [0, 1] （1 次操作）。\n将所有数字乘以 2 ：[0, 1] -> [0, 2] -> [0, 4] （2 次操作）。\n给两个数字都加 1 ：[0, 4] -> [1, 4] -> [1, 5] （2 次操作）。\n总操作次数为：1 + 2 + 2 = 5 。\n\n示例 2：\n\n输入：nums = [2,2]\n输出：3\n解释：给两个数字都加 1 ：[0, 0] -> [0, 1] -> [1, 1] （2 次操作）。\n将所有数字乘以 2 ： [1, 1] -> [2, 2] （1 次操作）。\n总操作次数为： 2 + 1 = 3 。\n\n示例 3：\n\n输入：nums = [4,2,5]\n输出：6\n解释：（初始）[0,0,0] -> [1,0,0] -> [1,0,1] -> [2,0,2] -> [2,1,2] -> [4,2,4] -> [4,2,5] （nums 数组）。\n\n示例 4：\n\n输入：nums = [3,2,2,4]\n输出：7\n\n示例 5：\n\n输入：nums = [2,4,8,16]\n输出：8\n\n \n\n提示：\n\n\t1 <= nums.length <= 10^5\n\n\t0 <= nums[i] <= 10^9",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int minOperations(vector<int>& nums) {\n        int ret = 0, maxn = 0;\n        for (auto num : nums) {\n            maxn = max(maxn, num);\n            while (num) {\n                if (num & 1) {\n                    ret++;\n                }\n                num >>= 1;\n            }\n        }\n        if (maxn) {\n            while (maxn) {\n                ret++;\n                maxn >>= 1;\n            }\n            ret--;\n        }\n        return ret;\n    }\n};",
+        "java": "class Solution {\n    public int minOperations(int[] nums) {\n        int ret = 0, maxn = 0;\n        for (int num : nums) {\n            maxn = Math.max(maxn, num);\n            while (num != 0) {\n                if ((num & 1) != 0) {\n                    ret++;\n                }\n                num >>= 1;\n            }\n        }\n        if (maxn != 0) {\n            while (maxn != 0) {\n                ret++;\n                maxn >>= 1;\n            }\n            ret--;\n        }\n        return ret;\n    }\n}",
+        "python": "class Solution:\n    def minOperations(self, nums: List[int]) -> int:\n        maxn = max(nums)\n        ret = 0\n        for num in nums:\n            while num > 0:\n                if num & 1:\n                    ret += 1\n                num >>= 1\n        if maxn > 0:\n            while maxn > 0:\n                ret += 1\n                maxn >>= 1\n            ret -= 1\n        \n        return ret"
+      },
+      "id": 222
+    },
+    {
+      "title": "二维网格图中探测环",
+      "titleSlug": "detect-cycles-in-2d-grid",
+      "tags": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "数组",
+        "矩阵"
+      ],
+      "difficulty": "中等",
+      "acceptance": 52.49,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/detect-cycles-in-2d-grid/",
+      "hotCompanies": [
+        "facebook",
+        "亚马逊",
+        "谷歌"
+      ],
+      "statementZh": "给你一个二维字符网格数组 grid ，大小为 m x n ，你需要检查 grid 中是否存在 相同值 形成的环。\n\n一个环是一条开始和结束于同一个格子的长度 大于等于 4 的路径。对于一个给定的格子，你可以移动到它上、下、左、右四个方向相邻的格子之一，可以移动的前提是这两个格子有 相同的值 。\n\n同时，你也不能回到上一次移动时所在的格子。比方说，环  (1, 1) -> (1, 2) -> (1, 1) 是不合法的，因为从 (1, 2) 移动到 (1, 1) 回到了上一次移动时的格子。\n\n如果 grid 中有相同值形成的环，请你返回 true ，否则返回 false 。\n\n \n\n示例 1：\n\n输入：grid = [[\"a\",\"a\",\"a\",\"a\"],[\"a\",\"b\",\"b\",\"a\"],[\"a\",\"b\",\"b\",\"a\"],[\"a\",\"a\",\"a\",\"a\"]]\n输出：true\n解释：如下图所示，有 2 个用不同颜色标出来的环：\n\n示例 2：\n\n输入：grid = [[\"c\",\"c\",\"c\",\"a\"],[\"c\",\"d\",\"c\",\"c\"],[\"c\",\"c\",\"e\",\"c\"],[\"f\",\"c\",\"c\",\"c\"]]\n输出：true\n解释：如下图所示，只有高亮所示的一个合法环：\n\n示例 3：\n\n输入：grid = [[\"a\",\"b\",\"b\"],[\"b\",\"z\",\"b\"],[\"b\",\"b\",\"a\"]]\n输出：false\n\n \n\n提示：\n\n\tm == grid.length\n\n\tn == grid[i].length\n\n\t1 <= m <= 500\n\n\t1 <= n <= 500\n\n\tgrid 只包含小写英文字母。",
+      "statementEn": "Given a 2D array of characters grid of size m x n, you need to find if there exists any cycle consisting of the same value in grid.\n\nA cycle is a path of length 4 or more in the grid that starts and ends at the same cell. From a given cell, you can move to one of the cells adjacent to it - in one of the four directions (up, down, left, or right), if it has the same value of the current cell.\n\nAlso, you cannot move to the cell that you visited in your last move. For example, the cycle (1, 1) -> (1, 2) -> (1, 1) is invalid because from (1, 2) we visited (1, 1) which was the last visited cell.\n\nReturn true if any cycle of the same value exists in grid, otherwise, return false.\n\n \n\nExample 1:\n\nInput: grid = [[\"a\",\"a\",\"a\",\"a\"],[\"a\",\"b\",\"b\",\"a\"],[\"a\",\"b\",\"b\",\"a\"],[\"a\",\"a\",\"a\",\"a\"]]\nOutput: true\nExplanation: There are two valid cycles shown in different colors in the image below:\n\nExample 2:\n\nInput: grid = [[\"c\",\"c\",\"c\",\"a\"],[\"c\",\"d\",\"c\",\"c\"],[\"c\",\"c\",\"e\",\"c\"],[\"f\",\"c\",\"c\",\"c\"]]\nOutput: true\nExplanation: There is only one valid cycle highlighted in the image below:\n\nExample 3:\n\nInput: grid = [[\"a\",\"b\",\"b\"],[\"b\",\"z\",\"b\"],[\"b\",\"b\",\"a\"]]\nOutput: false\n\n \n\nConstraints:\n\n\tm == grid.length\n\n\tn == grid[i].length\n\n\t1 <= m, n <= 500\n\n\tgrid consists only of lowercase English letters.",
+      "statement": "给你一个二维字符网格数组 grid ，大小为 m x n ，你需要检查 grid 中是否存在 相同值 形成的环。\n\n一个环是一条开始和结束于同一个格子的长度 大于等于 4 的路径。对于一个给定的格子，你可以移动到它上、下、左、右四个方向相邻的格子之一，可以移动的前提是这两个格子有 相同的值 。\n\n同时，你也不能回到上一次移动时所在的格子。比方说，环  (1, 1) -> (1, 2) -> (1, 1) 是不合法的，因为从 (1, 2) 移动到 (1, 1) 回到了上一次移动时的格子。\n\n如果 grid 中有相同值形成的环，请你返回 true ，否则返回 false 。\n\n \n\n示例 1：\n\n输入：grid = [[\"a\",\"a\",\"a\",\"a\"],[\"a\",\"b\",\"b\",\"a\"],[\"a\",\"b\",\"b\",\"a\"],[\"a\",\"a\",\"a\",\"a\"]]\n输出：true\n解释：如下图所示，有 2 个用不同颜色标出来的环：\n\n示例 2：\n\n输入：grid = [[\"c\",\"c\",\"c\",\"a\"],[\"c\",\"d\",\"c\",\"c\"],[\"c\",\"c\",\"e\",\"c\"],[\"f\",\"c\",\"c\",\"c\"]]\n输出：true\n解释：如下图所示，只有高亮所示的一个合法环：\n\n示例 3：\n\n输入：grid = [[\"a\",\"b\",\"b\"],[\"b\",\"z\",\"b\"],[\"b\",\"b\",\"a\"]]\n输出：false\n\n \n\n提示：\n\n\tm == grid.length\n\n\tn == grid[i].length\n\n\t1 <= m <= 500\n\n\t1 <= n <= 500\n\n\tgrid 只包含小写英文字母。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "typedef struct {\n    int* parent;\n    int* size;\n} UnionFind;\n\nUnionFind* createUnionFind(int n) {\n    UnionFind* uf = (UnionFind*)malloc(sizeof(UnionFind));\n    uf->parent = (int*)malloc(n * sizeof(int));\n    uf->size = (int*)malloc(n * sizeof(int));\n    \n    for (int i = 0; i < n; i++) {\n        uf->parent[i] = i;\n        uf->size[i] = 1;\n    }\n    return uf;\n}\n\nint findSet(UnionFind* uf, int x) {\n    if (uf->parent[x] != x) {\n        uf->parent[x] = findSet(uf, uf->parent[x]);\n    }\n    return uf->parent[x];\n}\n\nvoid unite(UnionFind* uf, int x, int y) {\n    if (uf->size[x] < uf->size[y]) {\n        int temp = x;\n        x = y;\n        y = temp;\n    }\n    uf->parent[y] = x;\n    uf->size[x] += uf->size[y];\n}\n\nbool findAndUnite(UnionFind* uf, int x, int y) {\n    int parentX = findSet(uf, x);\n    int parentY = findSet(uf, y);\n    if (parentX != parentY) {\n        unite(uf, parentX, parentY);\n        return true;\n    }\n    return false;\n}\n\nvoid freeUnionFind(UnionFind* uf) {\n    free(uf->parent);\n    free(uf->size);\n    free(uf);\n}\n\nbool containsCycle(char** grid, int gridSize, int* gridColSize) {\n    int m = gridSize;\n    int n = gridColSize[0];\n    UnionFind* uf = createUnionFind(m * n);\n    \n    for (int i = 0; i < m; ++i) {\n        for (int j = 0; j < n; ++j) {\n            if (i > 0 && grid[i][j] == grid[i - 1][j]) {\n                if (!findAndUnite(uf, i * n + j, (i - 1) * n + j)) {\n                    freeUnionFind(uf);\n                    return true;\n                }\n            }\n            if (j > 0 && grid[i][j] == grid[i][j - 1]) {\n                if (!findAndUnite(uf, i * n + j, i * n + j - 1)) {\n                    freeUnionFind(uf);\n                    return true;\n                }\n            }\n        }\n    }\n    freeUnionFind(uf);\n    return false;\n}",
+        "java": "class Solution {\n    public boolean containsCycle(char[][] grid) {\n        int m = grid.length;\n        int n = grid[0].length;\n        UnionFind uf = new UnionFind(m * n);\n        for (int i = 0; i < m; ++i) {\n            for (int j = 0; j < n; ++j) {\n                if (i > 0 && grid[i][j] == grid[i - 1][j]) {\n                    if (!uf.findAndUnite(i * n + j, (i - 1) * n + j)) {\n                        return true;\n                    }\n                }\n                if (j > 0 && grid[i][j] == grid[i][j - 1]) {\n                    if (!uf.findAndUnite(i * n + j, i * n + j - 1)) {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n}\n\nclass UnionFind {\n    int[] parent;\n    int[] size;\n    int n;\n    int setCount;\n\n    public UnionFind(int n) {\n        parent = new int[n];\n        for (int i = 0; i < n; ++i) {\n            parent[i] = i;\n        }\n        size = new int[n];\n        Arrays.fill(size, 1);\n        this.n = n;\n        setCount = n;\n    }\n\n    public int findset(int x) {\n        return parent[x] == x ? x : (parent[x] = findset(parent[x]));\n    }\n\n    public void unite(int x, int y) {\n        if (size[x] < size[y]) {\n            int temp = x;\n            x = y;\n            y = temp;\n        }\n        parent[y] = x;\n        size[x] += size[y];\n        --setCount;\n    }\n\n    public boolean findAndUnite(int x, int y) {\n        int parentX = findset(x);\n        int parentY = findset(y);\n        if (parentX != parentY) {\n            unite(parentX, parentY);\n            return true;\n        }\n        return false;\n    }\n}",
+        "python": "class UnionFind:\n    def __init__(self, n: int):\n        self.n = n\n        self.setCount = n\n        self.parent = list(range(n))\n        self.size = [1] * n\n    \n    def findset(self, x: int) -> int:\n        if self.parent[x] == x:\n            return x\n        self.parent[x] = self.findset(self.parent[x])\n        return self.parent[x]\n    \n    def unite(self, x: int, y: int):\n        if self.size[x] < self.size[y]:\n            x, y = y, x\n        self.parent[y] = x\n        self.size[x] += self.size[y]\n        self.setCount -= 1\n    \n    def findAndUnite(self, x: int, y: int) -> bool:\n        parentX, parentY = self.findset(x), self.findset(y)\n        if parentX != parentY:\n            self.unite(parentX, parentY)\n            return True\n        return False\n\nclass Solution:\n    def containsCycle(self, grid: List[List[str]]) -> bool:\n        m, n = len(grid), len(grid[0])\n        uf = UnionFind(m * n)\n        for i in range(m):\n            for j in range(n):\n                if i > 0 and grid[i][j] == grid[i - 1][j]:\n                    if not uf.findAndUnite(i * n + j, (i - 1) * n + j):\n                        return True\n                if j > 0 and grid[i][j] == grid[i][j - 1]:\n                    if not uf.findAndUnite(i * n + j, i * n + j - 1):\n                        return True\n        return False",
+        "go": "func containsCycle(grid [][]byte) bool {\n    m, n := len(grid), len(grid[0])\n    uf := NewUnionFind(m * n)\n    \n    for i := 0; i < m; i++ {\n        for j := 0; j < n; j++ {\n            if i > 0 && grid[i][j] == grid[i - 1][j] {\n                if !uf.FindAndUnite(i * n + j, (i - 1) * n + j) {\n                    return true\n                }\n            }\n            if j > 0 && grid[i][j] == grid[i][j - 1] {\n                if !uf.FindAndUnite(i * n + j, i * n + j - 1) {\n                    return true\n                }\n            }\n        }\n    }\n    return false\n}\n\ntype UnionFind struct {\n    parent []int\n    size   []int\n}\n\nfunc NewUnionFind(n int) *UnionFind {\n    parent := make([]int, n)\n    size := make([]int, n)\n    for i := 0; i < n; i++ {\n        parent[i] = i\n        size[i] = 1\n    }\n    return &UnionFind{parent: parent, size: size}\n}\n\nfunc (uf *UnionFind) FindSet(x int) int {\n    if uf.parent[x] != x {\n        uf.parent[x] = uf.FindSet(uf.parent[x])\n    }\n    return uf.parent[x]\n}\n\nfunc (uf *UnionFind) Unite(x, y int) {\n    if uf.size[x] < uf.size[y] {\n        x, y = y, x\n    }\n    uf.parent[y] = x\n    uf.size[x] += uf.size[y]\n}\n\nfunc (uf *UnionFind) FindAndUnite(x, y int) bool {\n    parentX := uf.FindSet(x)\n    parentY := uf.FindSet(y)\n    if parentX != parentY {\n        uf.Unite(parentX, parentY)\n        return true\n    }\n    return false\n}",
+        "javascript": "var containsCycle = function(grid) {\n    const m = grid.length;\n    const n = grid[0].length;\n    const uf = new UnionFind(m * n);\n    \n    for (let i = 0; i < m; ++i) {\n        for (let j = 0; j < n; ++j) {\n            if (i > 0 && grid[i][j] === grid[i - 1][j]) {\n                if (!uf.findAndUnite(i * n + j, (i - 1) * n + j)) {\n                    return true;\n                }\n            }\n            if (j > 0 && grid[i][j] === grid[i][j - 1]) {\n                if (!uf.findAndUnite(i * n + j, i * n + j - 1)) {\n                    return true;\n                }\n            }\n        }\n    }\n    return false;\n};\n\n\nclass UnionFind {\n    constructor(n) {\n        this.parent = new Array(n);\n        this.size = new Array(n).fill(1);\n        for (let i = 0; i < n; ++i) {\n            this.parent[i] = i;\n        }\n    }\n\n    findSet(x) {\n        if (this.parent[x] !== x) {\n            this.parent[x] = this.findSet(this.parent[x]);\n        }\n        return this.parent[x];\n    }\n\n    unite(x, y) {\n        if (this.size[x] < this.size[y]) {\n            [x, y] = [y, x];\n        }\n        this.parent[y] = x;\n        this.size[x] += this.size[y];\n    }\n\n    findAndUnite(x, y) {\n        const parentX = this.findSet(x);\n        const parentY = this.findSet(y);\n        if (parentX !== parentY) {\n            this.unite(parentX, parentY);\n            return true;\n        }\n        return false;\n    }\n}",
+        "typescript": "function containsCycle(grid: string[][]): boolean {\n    const m = grid.length;\n    const n = grid[0].length;\n    const uf = new UnionFind(m * n);\n    \n    for (let i = 0; i < m; ++i) {\n        for (let j = 0; j < n; ++j) {\n            if (i > 0 && grid[i][j] === grid[i - 1][j]) {\n                if (!uf.findAndUnite(i * n + j, (i - 1) * n + j)) {\n                    return true;\n                }\n            }\n            if (j > 0 && grid[i][j] === grid[i][j - 1]) {\n                if (!uf.findAndUnite(i * n + j, i * n + j - 1)) {\n                    return true;\n                }\n            }\n        }\n    }\n    return false;\n};\n\nclass UnionFind {\n    private parent: number[];\n    private size: number[];\n\n    constructor(n: number) {\n        this.parent = new Array(n);\n        this.size = new Array(n).fill(1);\n        for (let i = 0; i < n; ++i) {\n            this.parent[i] = i;\n        }\n    }\n\n    private findSet(x: number): number {\n        if (this.parent[x] !== x) {\n            this.parent[x] = this.findSet(this.parent[x]);\n        }\n        return this.parent[x];\n    }\n\n    private unite(x: number, y: number): void {\n        if (this.size[x] < this.size[y]) {\n            [x, y] = [y, x];\n        }\n        this.parent[y] = x;\n        this.size[x] += this.size[y];\n    }\n\n    findAndUnite(x: number, y: number): boolean {\n        const parentX = this.findSet(x);\n        const parentY = this.findSet(y);\n        if (parentX !== parentY) {\n            this.unite(parentX, parentY);\n            return true;\n        }\n        return false;\n    }\n}"
+      },
+      "id": 223
+    },
+    {
+      "title": "圆形赛道上经过次数最多的扇区",
+      "titleSlug": "most-visited-sector-in-a-circular-track",
+      "tags": [
+        "数组",
+        "模拟"
+      ],
+      "difficulty": "简单",
+      "acceptance": 58.84,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/most-visited-sector-in-a-circular-track/",
+      "hotCompanies": [
+        "ibm",
+        "akuna-capital",
+        "expedia"
+      ],
+      "statementZh": "给你一个整数 n 和一个整数数组 rounds 。有一条圆形赛道由 n 个扇区组成，扇区编号从 1 到 n 。现将在这条赛道上举办一场马拉松比赛，该马拉松全程由 m 个阶段组成。其中，第 i 个阶段将会从扇区 rounds[i - 1] 开始，到扇区 rounds[i] 结束。举例来说，第 1 阶段从 rounds[0] 开始，到 rounds[1] 结束。\n\n请你以数组形式返回经过次数最多的那几个扇区，按扇区编号 升序 排列。\n\n注意，赛道按扇区编号升序逆时针形成一个圆（请参见第一个示例）。\n\n \n\n示例 1：\n\n输入：n = 4, rounds = [1,3,1,2]\n输出：[1,2]\n解释：本场马拉松比赛从扇区 1 开始。经过各个扇区的次序如下所示：\n1 --> 2 --> 3（阶段 1 结束）--> 4 --> 1（阶段 2 结束）--> 2（阶段 3 结束，即本场马拉松结束）\n其中，扇区 1 和 2 都经过了两次，它们是经过次数最多的两个扇区。扇区 3 和 4 都只经过了一次。\n\n示例 2：\n\n输入：n = 2, rounds = [2,1,2,1,2,1,2,1,2]\n输出：[2]\n\n示例 3：\n\n输入：n = 7, rounds = [1,3,5,7]\n输出：[1,2,3,4,5,6,7]\n\n \n\n提示：\n\n\t2 <= n <= 100\n\n\t1 <= m <= 100\n\n\trounds.length == m + 1\n\n\t1 <= rounds[i] <= n\n\n\trounds[i] != rounds[i + 1] ，其中 0 <= i < m",
+      "statementEn": "Given an integer n and an integer array rounds. We have a circular track which consists of n sectors labeled from 1 to n. A marathon will be held on this track, the marathon consists of m rounds. The ith round starts at sector rounds[i - 1] and ends at sector rounds[i]. For example, round 1 starts at sector rounds[0] and ends at sector rounds[1]\n\nReturn an array of the most visited sectors sorted in ascending order.\n\nNotice that you circulate the track in ascending order of sector numbers in the counter-clockwise direction (See the first example).\n\n \n\nExample 1:\n\nInput: n = 4, rounds = [1,3,1,2]\nOutput: [1,2]\nExplanation: The marathon starts at sector 1. The order of the visited sectors is as follows:\n1 --> 2 --> 3 (end of round 1) --> 4 --> 1 (end of round 2) --> 2 (end of round 3 and the marathon)\nWe can see that both sectors 1 and 2 are visited twice and they are the most visited sectors. Sectors 3 and 4 are visited only once.\n\nExample 2:\n\nInput: n = 2, rounds = [2,1,2,1,2,1,2,1,2]\nOutput: [2]\n\nExample 3:\n\nInput: n = 7, rounds = [1,3,5,7]\nOutput: [1,2,3,4,5,6,7]\n\n \n\nConstraints:\n\n\t2 <= n <= 100\n\n\t1 <= m <= 100\n\n\trounds.length == m + 1\n\n\t1 <= rounds[i] <= n\n\n\trounds[i] != rounds[i + 1] for 0 <= i < m",
+      "statement": "给你一个整数 n 和一个整数数组 rounds 。有一条圆形赛道由 n 个扇区组成，扇区编号从 1 到 n 。现将在这条赛道上举办一场马拉松比赛，该马拉松全程由 m 个阶段组成。其中，第 i 个阶段将会从扇区 rounds[i - 1] 开始，到扇区 rounds[i] 结束。举例来说，第 1 阶段从 rounds[0] 开始，到 rounds[1] 结束。\n\n请你以数组形式返回经过次数最多的那几个扇区，按扇区编号 升序 排列。\n\n注意，赛道按扇区编号升序逆时针形成一个圆（请参见第一个示例）。\n\n \n\n示例 1：\n\n输入：n = 4, rounds = [1,3,1,2]\n输出：[1,2]\n解释：本场马拉松比赛从扇区 1 开始。经过各个扇区的次序如下所示：\n1 --> 2 --> 3（阶段 1 结束）--> 4 --> 1（阶段 2 结束）--> 2（阶段 3 结束，即本场马拉松结束）\n其中，扇区 1 和 2 都经过了两次，它们是经过次数最多的两个扇区。扇区 3 和 4 都只经过了一次。\n\n示例 2：\n\n输入：n = 2, rounds = [2,1,2,1,2,1,2,1,2]\n输出：[2]\n\n示例 3：\n\n输入：n = 7, rounds = [1,3,5,7]\n输出：[1,2,3,4,5,6,7]\n\n \n\n提示：\n\n\t2 <= n <= 100\n\n\t1 <= m <= 100\n\n\trounds.length == m + 1\n\n\t1 <= rounds[i] <= n\n\n\trounds[i] != rounds[i + 1] ，其中 0 <= i < m",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    vector<int> mostVisited(int n, vector<int>& rounds) {\n        vector<int> ret;\n        int size = rounds.size();\n        int start = rounds[0], end = rounds[size - 1];\n        if (start <= end) {\n            for (int i = start; i <= end; i++) {\n                ret.push_back(i);\n            }\n        } else { // 由于题目要求按扇区大小排序，因此我们要将区间分成两部分\n            for (int i = 1; i <= end; i++) {\n                ret.push_back(i);\n            }\n            for (int i = start; i <= n; i++) {\n                ret.push_back(i);\n            }\n        }\n        return ret;\n    }\n};",
+        "java": "class Solution {\n    public List<Integer> mostVisited(int n, int[] rounds) {\n        List<Integer> ret = new ArrayList<Integer>();\n        int length = rounds.length;\n        int start = rounds[0], end = rounds[length - 1];\n        if (start <= end) {\n            for (int i = start; i <= end; i++) {\n                ret.add(i);\n            }\n        } else { // 由于题目要求按扇区大小排序，因此我们要将区间分成两部分\n            for (int i = 1; i <= end; i++) {\n                ret.add(i);\n            }\n            for (int i = start; i <= n; i++) {\n                ret.add(i);\n            }\n        }\n        return ret;\n    }\n}",
+        "javascript": "var mostVisited = function(n, rounds) {\n    const ret = [];\n    const size = rounds.length;\n    const start = rounds[0], end = rounds[size - 1];\n    if (start <= end) {\n        for (let i = start; i <= end; i++) {\n            ret.push(i);\n        }\n    } else { // 由于题目要求按扇区大小排序，因此我们要将区间分成两部分\n        for (let i = 1; i <= end; i++) {\n            ret.push(i);\n        }\n        for (let i = start; i <= n; i++) {\n            ret.push(i);\n        }\n    }\n    return ret;\n};",
+        "python": "class Solution:\n    def mostVisited(self, n: int, rounds: List[int]) -> List[int]:\n        start, end = rounds[0], rounds[-1]\n        if start <= end:\n            return list(range(start, end + 1))\n        else:\n            leftPart = range(1, end + 1)\n            rightPart = range(start, n + 1)\n            return list(itertools.chain(leftPart, rightPart))"
+      },
+      "id": 224
+    },
+    {
+      "title": "你可以获得的最大硬币数目",
+      "titleSlug": "maximum-number-of-coins-you-can-get",
+      "tags": [
+        "贪心",
+        "数组",
+        "数学",
+        "博弈",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 83.81,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-number-of-coins-you-can-get/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "字节"
+      ],
+      "statementZh": "有 3n 堆数目不一的硬币，你和你的朋友们打算按以下方式分硬币：\n\n\t每一轮中，你将会选出 任意 3 堆硬币（不一定连续）。\n\n\tAlice 将会取走硬币数量最多的那一堆。\n\n\t你将会取走硬币数量第二多的那一堆。\n\n\tBob 将会取走最后一堆。\n\n\t重复这个过程，直到没有更多硬币。\n\n给你一个整数数组 piles ，其中 piles[i] 是第 i 堆中硬币的数目。\n\n返回你可以获得的最大硬币数目。\n\n \n\n示例 1：\n\n输入：piles = [2,4,1,2,7,8]\n输出：9\n解释：选出 (2, 7, 8) ，Alice 取走 8 枚硬币的那堆，你取走 7 枚硬币的那堆，Bob 取走最后一堆。\n选出 (1, 2, 4) , Alice 取走 4 枚硬币的那堆，你取走 2 枚硬币的那堆，Bob 取走最后一堆。\n你可以获得的最大硬币数目：7 + 2 = 9.\n考虑另外一种情况，如果选出的是 (1, 2, 8) 和 (2, 4, 7) ，你就只能得到 2 + 4 = 6 枚硬币，这不是最优解。\n\n示例 2：\n\n输入：piles = [2,4,5]\n输出：4\n\n示例 3：\n\n输入：piles = [9,8,7,6,5,1,2,3,4]\n输出：18\n\n \n\n提示：\n\n\t3 <= piles.length <= 10^5\n\n\tpiles.length % 3 == 0\n\n\t1 <= piles[i] <= 10^4",
+      "statementEn": "There are 3n piles of coins of varying size, you and your friends will take piles of coins as follows:\n\n\tIn each step, you will choose any 3 piles of coins (not necessarily consecutive).\n\n\tOf your choice, Alice will pick the pile with the maximum number of coins.\n\n\tYou will pick the next pile with the maximum number of coins.\n\n\tYour friend Bob will pick the last pile.\n\n\tRepeat until there are no more piles of coins.\n\nGiven an array of integers piles where piles[i] is the number of coins in the ith pile.\n\nReturn the maximum number of coins that you can have.\n\n \n\nExample 1:\n\nInput: piles = [2,4,1,2,7,8]\nOutput: 9\nExplanation: Choose the triplet (2, 7, 8), Alice Pick the pile with 8 coins, you the pile with 7 coins and Bob the last one.\nChoose the triplet (1, 2, 4), Alice Pick the pile with 4 coins, you the pile with 2 coins and Bob the last one.\nThe maximum number of coins which you can have are: 7 + 2 = 9.\nOn the other hand if we choose this arrangement (1, 2, 8), (2, 4, 7) you only get 2 + 4 = 6 coins which is not optimal.\n\nExample 2:\n\nInput: piles = [2,4,5]\nOutput: 4\n\nExample 3:\n\nInput: piles = [9,8,7,6,5,1,2,3,4]\nOutput: 18\n\n \n\nConstraints:\n\n\t3 <= piles.length <= 105\n\n\tpiles.length % 3 == 0\n\n\t1 <= piles[i] <= 104",
+      "statement": "有 3n 堆数目不一的硬币，你和你的朋友们打算按以下方式分硬币：\n\n\t每一轮中，你将会选出 任意 3 堆硬币（不一定连续）。\n\n\tAlice 将会取走硬币数量最多的那一堆。\n\n\t你将会取走硬币数量第二多的那一堆。\n\n\tBob 将会取走最后一堆。\n\n\t重复这个过程，直到没有更多硬币。\n\n给你一个整数数组 piles ，其中 piles[i] 是第 i 堆中硬币的数目。\n\n返回你可以获得的最大硬币数目。\n\n \n\n示例 1：\n\n输入：piles = [2,4,1,2,7,8]\n输出：9\n解释：选出 (2, 7, 8) ，Alice 取走 8 枚硬币的那堆，你取走 7 枚硬币的那堆，Bob 取走最后一堆。\n选出 (1, 2, 4) , Alice 取走 4 枚硬币的那堆，你取走 2 枚硬币的那堆，Bob 取走最后一堆。\n你可以获得的最大硬币数目：7 + 2 = 9.\n考虑另外一种情况，如果选出的是 (1, 2, 8) 和 (2, 4, 7) ，你就只能得到 2 + 4 = 6 枚硬币，这不是最优解。\n\n示例 2：\n\n输入：piles = [2,4,5]\n输出：4\n\n示例 3：\n\n输入：piles = [9,8,7,6,5,1,2,3,4]\n输出：18\n\n \n\n提示：\n\n\t3 <= piles.length <= 10^5\n\n\tpiles.length % 3 == 0\n\n\t1 <= piles[i] <= 10^4",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "java": "class Solution {\n    public int maxCoins(int[] piles) {\n        Arrays.sort(piles);\n        int length = piles.length;\n        int rounds = length / 3;\n        int coins = 0;\n        int index = length - 2;\n        for (int i = 0; i < rounds; i++) {\n            coins += piles[index];\n            index -= 2;\n        }\n        return coins;\n    }\n}",
+        "cpp": "class Solution {\npublic:\n    int maxCoins(vector<int>& piles) {\n        sort(piles.begin(), piles.end());\n        int length = piles.size();\n        int rounds = length / 3;\n        int coins = 0;\n        int index = length - 2;\n        for (int i = 0; i < rounds; i++) {\n            coins += piles[index];\n            index -= 2;\n        }\n        return coins;\n    }\n};",
+        "python": "class Solution:\n    def maxCoins(self, piles: List[int]) -> int:\n        n = len(piles)\n        piles.sort()\n        return sum(piles[n // 3 :: 2])",
+        "go": "func maxCoins(piles []int) int {\n    sort.Ints(piles)\n    length := len(piles)\n    rounds := length / 3\n    coins := 0\n    index := length - 2\n    for i := 0; i < rounds; i++ {\n        coins += piles[index]\n        index -= 2\n    }\n    return coins\n}",
+        "javascript": "var maxCoins = function(piles) {\n    piles.sort((a, b) => a - b);\n    let length = piles.length;\n    let rounds = Math.floor(length / 3);\n    let coins = 0;\n    let index = length - 2;\n    for (let i = 0; i < rounds; i++) {\n        coins += piles[index];\n        index -= 2;\n    }\n    return coins;\n};",
+        "typescript": "function maxCoins(piles: number[]): number {\n    piles.sort((a, b) => a - b);\n    let length = piles.length;\n    let rounds = Math.floor(length / 3);\n    let coins = 0;\n    let index = length - 2;\n    for (let i = 0; i < rounds; i++) {\n        coins += piles[index];\n        index -= 2;\n    }\n    return coins;\n}"
+      },
+      "id": 225
+    },
+    {
+      "title": "查找大小为 M 的最新分组",
+      "titleSlug": "find-latest-group-of-size-m",
+      "tags": [
+        "数组",
+        "哈希表",
+        "二分查找",
+        "模拟"
+      ],
+      "difficulty": "中等",
+      "acceptance": 39.94,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/find-latest-group-of-size-m/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "苹果"
+      ],
+      "statementZh": "给你一个数组 arr ，该数组表示一个从 1 到 n 的数字排列。有一个长度为 n 的二进制字符串，该字符串上的所有位最初都设置为 0 。\n\n在从 1 到 n 的每个步骤 i 中（假设二进制字符串和 arr 都是从 1 开始索引的情况下），二进制字符串上位于位置 arr[i] 的位将会设为 1 。\n\n给你一个整数 m ，请你找出二进制字符串上存在长度为 m 的一组 1 的最后步骤。一组 1 是一个连续的、由 1 组成的子串，且左右两边不再有可以延伸的 1 。\n\n返回存在长度 恰好 为 m 的 一组 1  的最后步骤。如果不存在这样的步骤，请返回 -1 。\n\n \n\n示例 1：\n\n输入：arr = [3,5,1,2,4], m = 1\n输出：4\n解释：\n步骤 1：\"00100\"，由 1 构成的组：[\"1\"]\n步骤 2：\"00101\"，由 1 构成的组：[\"1\", \"1\"]\n步骤 3：\"10101\"，由 1 构成的组：[\"1\", \"1\", \"1\"]\n步骤 4：\"11101\"，由 1 构成的组：[\"111\", \"1\"]\n步骤 5：\"11111\"，由 1 构成的组：[\"11111\"]\n存在长度为 1 的一组 1 的最后步骤是步骤 4 。\n\n示例 2：\n\n输入：arr = [3,1,5,4,2], m = 2\n输出：-1\n解释：\n步骤 1：\"00100\"，由 1 构成的组：[\"1\"]\n步骤 2：\"10100\"，由 1 构成的组：[\"1\", \"1\"]\n步骤 3：\"10101\"，由 1 构成的组：[\"1\", \"1\", \"1\"]\n步骤 4：\"10111\"，由 1 构成的组：[\"1\", \"111\"]\n步骤 5：\"11111\"，由 1 构成的组：[\"11111\"]\n不管是哪一步骤都无法形成长度为 2 的一组 1 。\n\n示例 3：\n\n输入：arr = [1], m = 1\n输出：1\n\n示例 4：\n\n输入：arr = [2,1], m = 2\n输出：2\n\n \n\n提示：\n\n\tn == arr.length\n\n\t1 <= n <= 10^5\n\n\t1 <= arr[i] <= n\n\n\tarr 中的所有整数 互不相同\n\n\t1 <= m <= arr.length",
+      "statementEn": "Given an array arr that represents a permutation of numbers from 1 to n.\n\nYou have a binary string of size n that initially has all its bits set to zero. At each step i (assuming both the binary string and arr are 1-indexed) from 1 to n, the bit at position arr[i] is set to 1.\n\nYou are also given an integer m. Find the latest step at which there exists a group of ones of length m. A group of ones is a contiguous substring of 1&#39;s such that it cannot be extended in either direction.\n\nReturn the latest step at which there exists a group of ones of length exactly m. If no such group exists, return -1.\n\n \n\nExample 1:\n\nInput: arr = [3,5,1,2,4], m = 1\nOutput: 4\nExplanation: \nStep 1: \"00100\", groups: [\"1\"]\nStep 2: \"00101\", groups: [\"1\", \"1\"]\nStep 3: \"10101\", groups: [\"1\", \"1\", \"1\"]\nStep 4: \"11101\", groups: [\"111\", \"1\"]\nStep 5: \"11111\", groups: [\"11111\"]\nThe latest step at which there exists a group of size 1 is step 4.\n\nExample 2:\n\nInput: arr = [3,1,5,4,2], m = 2\nOutput: -1\nExplanation: \nStep 1: \"00100\", groups: [\"1\"]\nStep 2: \"10100\", groups: [\"1\", \"1\"]\nStep 3: \"10101\", groups: [\"1\", \"1\", \"1\"]\nStep 4: \"10111\", groups: [\"1\", \"111\"]\nStep 5: \"11111\", groups: [\"11111\"]\nNo group of size 2 exists during any step.\n\n \n\nConstraints:\n\n\tn == arr.length\n\n\t1 <= m <= n <= 105\n\n\t1 <= arr[i] <= n\n\n\tAll integers in arr are distinct.",
+      "statement": "给你一个数组 arr ，该数组表示一个从 1 到 n 的数字排列。有一个长度为 n 的二进制字符串，该字符串上的所有位最初都设置为 0 。\n\n在从 1 到 n 的每个步骤 i 中（假设二进制字符串和 arr 都是从 1 开始索引的情况下），二进制字符串上位于位置 arr[i] 的位将会设为 1 。\n\n给你一个整数 m ，请你找出二进制字符串上存在长度为 m 的一组 1 的最后步骤。一组 1 是一个连续的、由 1 组成的子串，且左右两边不再有可以延伸的 1 。\n\n返回存在长度 恰好 为 m 的 一组 1  的最后步骤。如果不存在这样的步骤，请返回 -1 。\n\n \n\n示例 1：\n\n输入：arr = [3,5,1,2,4], m = 1\n输出：4\n解释：\n步骤 1：\"00100\"，由 1 构成的组：[\"1\"]\n步骤 2：\"00101\"，由 1 构成的组：[\"1\", \"1\"]\n步骤 3：\"10101\"，由 1 构成的组：[\"1\", \"1\", \"1\"]\n步骤 4：\"11101\"，由 1 构成的组：[\"111\", \"1\"]\n步骤 5：\"11111\"，由 1 构成的组：[\"11111\"]\n存在长度为 1 的一组 1 的最后步骤是步骤 4 。\n\n示例 2：\n\n输入：arr = [3,1,5,4,2], m = 2\n输出：-1\n解释：\n步骤 1：\"00100\"，由 1 构成的组：[\"1\"]\n步骤 2：\"10100\"，由 1 构成的组：[\"1\", \"1\"]\n步骤 3：\"10101\"，由 1 构成的组：[\"1\", \"1\", \"1\"]\n步骤 4：\"10111\"，由 1 构成的组：[\"1\", \"111\"]\n步骤 5：\"11111\"，由 1 构成的组：[\"11111\"]\n不管是哪一步骤都无法形成长度为 2 的一组 1 。\n\n示例 3：\n\n输入：arr = [1], m = 1\n输出：1\n\n示例 4：\n\n输入：arr = [2,1], m = 2\n输出：2\n\n \n\n提示：\n\n\tn == arr.length\n\n\t1 <= n <= 10^5\n\n\t1 <= arr[i] <= n\n\n\tarr 中的所有整数 互不相同\n\n\t1 <= m <= arr.length",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int findLatestStep(vector<int>& arr, int m) {\n        int n = arr.size();\n        vector<pair<int, int>> endpoints(n + 1, make_pair(-1, -1));\n        int cnt = 0;\n        int ret = -1;\n\n        for (int i = 0; i < n; i++) {\n            int left = arr[i], right = arr[i];\n            if (arr[i] > 1 && endpoints[arr[i] - 1].first != -1) {\n                left = endpoints[arr[i] - 1].first;\n                int leftLength = endpoints[arr[i] - 1].second - endpoints[arr[i] - 1].first + 1;\n                if (leftLength == m) {\n                    cnt--;\n                }\n            }\n            if (arr[i] < n && endpoints[arr[i] + 1].second != -1) {\n                right = endpoints[arr[i] + 1].second;\n                int rightLength = endpoints[arr[i] + 1].second - endpoints[arr[i] + 1].first + 1;\n                if (rightLength == m) {\n                    cnt--;\n                }\n            }\n            int length = right - left + 1;\n            if (length == m) {\n                cnt++;\n            }\n            if (cnt > 0) {\n                ret = i + 1;\n            }\n            endpoints[left] = endpoints[right] = make_pair(left, right);\n        }\n        return ret;\n    }\n};",
+        "java": "class Solution {\n    public int findLatestStep(int[] arr, int m) {\n        int n = arr.length;\n        int[][] endpoints = new int[n + 1][2];\n        for (int i = 0; i <= n; i++) {\n            Arrays.fill(endpoints[i], -1);\n        }\n        int cnt = 0;\n        int ret = -1;\n\n        for (int i = 0; i < n; i++) {\n            int left = arr[i], right = arr[i];\n            if (arr[i] > 1 && endpoints[arr[i] - 1][0] != -1) {\n                left = endpoints[arr[i] - 1][0];\n                int leftLength = endpoints[arr[i] - 1][1] - endpoints[arr[i] - 1][0] + 1;\n                if (leftLength == m) {\n                    cnt--;\n                }\n            }\n            if (arr[i] < n && endpoints[arr[i] + 1][1] != -1) {\n                right = endpoints[arr[i] + 1][1];\n                int rightLength = endpoints[arr[i] + 1][1] - endpoints[arr[i] + 1][0] + 1;\n                if (rightLength == m) {\n                    cnt--;\n                }\n            }\n            int length = right - left + 1;\n            if (length == m) {\n                cnt++;\n            }\n            if (cnt > 0) {\n                ret = i + 1;\n            }\n            endpoints[left][0] = endpoints[right][0] = left;\n            endpoints[left][1] = endpoints[right][1] = right;\n        }\n        return ret;\n    }\n}",
+        "python": "class Solution:\n    def findLatestStep(self, arr: List[int], m: int) -> int:\n        n = len(arr)\n        endpoints = [(-1, -1) for _ in range(n + 1)]\n        cnt = 0\n        ret = -1\n\n        for i in range(n):\n            left = right = arr[i]\n            if arr[i] > 1 and endpoints[arr[i] - 1][0] != -1:\n                left = endpoints[arr[i] - 1][0]\n                leftLength = endpoints[arr[i] - 1][1] - endpoints[arr[i] - 1][0] + 1;\n                if leftLength == m:\n                    cnt -= 1\n            if arr[i] < n and endpoints[arr[i] + 1][1] != -1:\n                right = endpoints[arr[i] + 1][1]\n                rightLength = endpoints[arr[i] + 1][1] - endpoints[arr[i] + 1][0] + 1;\n                if rightLength == m:\n                    cnt -= 1\n            \n            length = right - left + 1\n            if length == m:\n                cnt += 1\n            if cnt > 0:\n                ret = i + 1\n            endpoints[left] = endpoints[right] = (left, right)\n\n        return ret"
+      },
+      "id": 226
+    },
+    {
+      "title": "石子游戏 V",
+      "titleSlug": "stone-game-v",
+      "tags": [
+        "数组",
+        "数学",
+        "动态规划",
+        "博弈"
+      ],
+      "difficulty": "困难",
+      "acceptance": 41.28,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/stone-game-v/",
+      "hotCompanies": [
+        "亚马逊",
+        "阿里",
+        "谷歌"
+      ],
+      "statementZh": "几块石子 排成一行 ，每块石子都有一个关联值，关联值为整数，由数组 stoneValue 给出。\n\n游戏中的每一轮：Alice 会将这行石子分成两个 非空行（即，左侧行和右侧行）；Bob 负责计算每一行的值，即此行中所有石子的值的总和。Bob 会丢弃值最大的行，Alice 的得分为剩下那行的值（每轮累加）。如果两行的值相等，Bob 让 Alice 决定丢弃哪一行。下一轮从剩下的那一行开始。\n\n只 剩下一块石子 时，游戏结束。Alice 的分数最初为 0 。\n\n返回 Alice 能够获得的最大分数 。\n\n \n\n示例 1：\n\n输入：stoneValue = [6,2,3,4,5,5]\n输出：18\n解释：在第一轮中，Alice 将行划分为 [6，2，3]，[4，5，5] 。左行的值是 11 ，右行的值是 14 。Bob 丢弃了右行，Alice 的分数现在是 11 。\n在第二轮中，Alice 将行分成 [6]，[2，3] 。这一次 Bob 扔掉了左行，Alice 的分数变成了 16（11 + 5）。\n最后一轮 Alice 只能将行分成 [2]，[3] 。Bob 扔掉右行，Alice 的分数现在是 18（16 + 2）。游戏结束，因为这行只剩下一块石头了。\n\n示例 2：\n\n输入：stoneValue = [7,7,7,7,7,7,7]\n输出：28\n\n示例 3：\n\n输入：stoneValue = [4]\n输出：0\n\n \n\n提示：\n\n\t1 <= stoneValue.length <= 500\n\n\t1 <= stoneValue[i] <= 106",
+      "statementEn": "There are several stones arranged in a row, and each stone has an associated value which is an integer given in the array stoneValue.\n\nIn each round of the game, Alice divides the row into two non-empty rows (i.e. left row and right row), then Bob calculates the value of each row which is the sum of the values of all the stones in this row. Bob throws away the row which has the maximum value, and Alice&#39;s score increases by the value of the remaining row. If the value of the two rows are equal, Bob lets Alice decide which row will be thrown away. The next round starts with the remaining row.\n\nThe game ends when there is only one stone remaining. Alice&#39;s score is initially zero.\n\nReturn the maximum score that Alice can obtain.\n\n \n\nExample 1:\n\nInput: stoneValue = [6,2,3,4,5,5]\nOutput: 18\nExplanation: In the first round, Alice divides the row to [6,2,3], [4,5,5]. The left row has the value 11 and the right row has value 14. Bob throws away the right row and Alice&#39;s score is now 11.\nIn the second round Alice divides the row to [6], [2,3]. This time Bob throws away the left row and Alice&#39;s score becomes 16 (11 + 5).\nThe last round Alice has only one choice to divide the row which is [2], [3]. Bob throws away the right row and Alice&#39;s score is now 18 (16 + 2). The game ends because only one stone is remaining in the row.\n\nExample 2:\n\nInput: stoneValue = [7,7,7,7,7,7,7]\nOutput: 28\n\nExample 3:\n\nInput: stoneValue = [4]\nOutput: 0\n\n \n\nConstraints:\n\n\t1 <= stoneValue.length <= 500\n\n\t1 <= stoneValue[i] <= 106",
+      "statement": "几块石子 排成一行 ，每块石子都有一个关联值，关联值为整数，由数组 stoneValue 给出。\n\n游戏中的每一轮：Alice 会将这行石子分成两个 非空行（即，左侧行和右侧行）；Bob 负责计算每一行的值，即此行中所有石子的值的总和。Bob 会丢弃值最大的行，Alice 的得分为剩下那行的值（每轮累加）。如果两行的值相等，Bob 让 Alice 决定丢弃哪一行。下一轮从剩下的那一行开始。\n\n只 剩下一块石子 时，游戏结束。Alice 的分数最初为 0 。\n\n返回 Alice 能够获得的最大分数 。\n\n \n\n示例 1：\n\n输入：stoneValue = [6,2,3,4,5,5]\n输出：18\n解释：在第一轮中，Alice 将行划分为 [6，2，3]，[4，5，5] 。左行的值是 11 ，右行的值是 14 。Bob 丢弃了右行，Alice 的分数现在是 11 。\n在第二轮中，Alice 将行分成 [6]，[2，3] 。这一次 Bob 扔掉了左行，Alice 的分数变成了 16（11 + 5）。\n最后一轮 Alice 只能将行分成 [2]，[3] 。Bob 扔掉右行，Alice 的分数现在是 18（16 + 2）。游戏结束，因为这行只剩下一块石头了。\n\n示例 2：\n\n输入：stoneValue = [7,7,7,7,7,7,7]\n输出：28\n\n示例 3：\n\n输入：stoneValue = [4]\n输出：0\n\n \n\n提示：\n\n\t1 <= stoneValue.length <= 500\n\n\t1 <= stoneValue[i] <= 106",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\nprivate:\n    vector<vector<int>> f;\n    vector<vector<int>> maxl, maxr;\n\npublic:\n    int stoneGameV(vector<int>& stoneValue) {\n        int n = stoneValue.size();\n        f.assign(n, vector<int>(n));\n        maxl.assign(n, vector<int>(n));\n        maxr.assign(n, vector<int>(n));\n        for (int left = n - 1; left >= 0; --left) {\n            maxl[left][left] = maxr[left][left] = stoneValue[left];\n            int sum = stoneValue[left], suml = 0;\n            for (int right = left + 1, i = left - 1; right < n; ++right) {\n                sum += stoneValue[right];\n                while (i + 1 < right && (suml + stoneValue[i + 1]) * 2 <= sum) {\n                    suml += stoneValue[i + 1];\n                    ++i;\n                }\n                if (left <= i) {\n                    f[left][right] = max(f[left][right], maxl[left][i]);\n                }\n                if (i + 1 < right) {\n                    f[left][right] = max(f[left][right], maxr[i + 2][right]);\n                }\n                if (suml * 2 == sum) {\n                    f[left][right] = max(f[left][right], maxr[i + 1][right]);\n                }\n                maxl[left][right] = max(maxl[left][right - 1], sum + f[left][right]);\n                maxr[left][right] = max(maxr[left + 1][right], sum + f[left][right]);\n            }\n        }\n        return f[0][n - 1];\n    }\n};",
+        "java": "class Solution {\n    int[][] f;\n    int[][] maxl;\n    int[][] maxr;\n\n    public int stoneGameV(int[] stoneValue) {\n        int n = stoneValue.length;\n        f = new int[n][n];\n        maxl = new int[n][n];\n        maxr = new int[n][n];\n        for (int left = n - 1; left >= 0; --left) {\n            maxl[left][left] = maxr[left][left] = stoneValue[left];\n            int sum = stoneValue[left], suml = 0;\n            for (int right = left + 1, i = left - 1; right < n; ++right) {\n                sum += stoneValue[right];\n                while (i + 1 < right && (suml + stoneValue[i + 1]) * 2 <= sum) {\n                    suml += stoneValue[i + 1];\n                    ++i;\n                }\n                if (left <= i) {\n                    f[left][right] = Math.max(f[left][right], maxl[left][i]);\n                }\n                if (i + 1 < right) {\n                    f[left][right] = Math.max(f[left][right], maxr[i + 2][right]);\n                }\n                if (suml * 2 == sum) {\n                    f[left][right] = Math.max(f[left][right], maxr[i + 1][right]);\n                }\n                maxl[left][right] = Math.max(maxl[left][right - 1], sum + f[left][right]);\n                maxr[left][right] = Math.max(maxr[left + 1][right], sum + f[left][right]);\n            }\n        }\n        return f[0][n - 1];\n    }\n}",
+        "python": "class Solution:\n    def stoneGameV(self, stoneValue: List[int]) -> int:\n        n = len(stoneValue)\n        f = [[0] * n for _ in range(n)]\n        maxl = [[0] * n for _ in range(n)]\n        maxr = [[0] * n for _ in range(n)]\n\n        for left in range(n - 1, -1, -1):\n            maxl[left][left] = maxr[left][left] = stoneValue[left]\n            total = stoneValue[left]\n            suml = 0\n            i = left - 1\n            for right in range(left + 1, n):\n                total += stoneValue[right]\n                while i + 1 < right and (suml + stoneValue[i + 1]) * 2 <= total:\n                    suml += stoneValue[i + 1]\n                    i += 1\n                if left <= i:\n                    f[left][right] = max(f[left][right], maxl[left][i])\n                if i + 1 < right:\n                    f[left][right] = max(f[left][right], maxr[i + 2][right])\n                if suml * 2 == total:\n                    f[left][right] = max(f[left][right], maxr[i + 1][right])\n                maxl[left][right] = max(maxl[left][right - 1], total + f[left][right])\n                maxr[left][right] = max(maxr[left + 1][right], total + f[left][right])\n        \n        return f[0][n - 1]"
+      },
+      "id": 227
+    },
+    {
+      "title": "把箱子放进仓库里 I",
+      "titleSlug": "put-boxes-into-the-warehouse-i",
+      "tags": [
+        "贪心",
+        "数组",
+        "排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 60.21,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/put-boxes-into-the-warehouse-i/",
+      "hotCompanies": [
+        "谷歌",
+        "pinterest",
+        "亚马逊"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 228
+    },
+    {
+      "title": "按月统计订单数与顾客数",
+      "titleSlug": "unique-orders-and-customers-per-month",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "简单",
+      "acceptance": 75.63,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/unique-orders-and-customers-per-month/",
+      "hotCompanies": [
+        "谷歌"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 229
     }
   ],
   "errors": []

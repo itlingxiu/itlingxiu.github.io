@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-09T18:16:59.607Z",
-  "dateKey": "2026-07-10",
+  "crawledAt": "2026-07-10T18:07:50.626Z",
+  "dateKey": "2026-07-11",
   "sources": [
     "nowcoder",
     "leetcode"
@@ -1056,6 +1056,16 @@
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/ta/review-java/review?page=11",
       "id": 116
+    },
+    {
+      "category": "JavaScript",
+      "difficulty": "简单",
+      "acceptance": 53,
+      "question": "Label的作用是什么，是怎么用的？",
+      "answer": "label 标签来定义表单控制间的关系 , 当用户选择该标签时，浏览器会自动将焦点转到和标签相关的表单控件上。 <label for='Name'>Number:</label> <input type= “ text “ name='Name' id='Name'/> <label>Date:<input type='text' name='B'/></label> 注意:label的for属性值要与后面对应的input标签id属性值相同 <label for='Name'>Number:</label> <input type=“ text “ name='Name' id='Name'/> 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-frontend/review?page=18",
+      "id": 117
     }
   ],
   "errors": []
