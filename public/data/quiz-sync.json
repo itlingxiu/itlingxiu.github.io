@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-11T17:29:33.700Z",
-  "dateKey": "2026-07-12",
+  "crawledAt": "2026-07-12T17:32:18.119Z",
+  "dateKey": "2026-07-13",
   "sources": [
     "nowcoder",
     "leetcode"
@@ -1076,6 +1076,16 @@
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/ta/review-frontend/review?page=17",
       "id": 118
+    },
+    {
+      "category": "JavaScript",
+      "difficulty": "简单",
+      "acceptance": 47,
+      "question": "常见的浏览器内核有哪些？",
+      "answer": "view sourceprint? 1. Trident 内核： IE,MaxThon,TT,The World,360, 搜狗浏览器等。 [ 又称 MSHTML] 2. Gecko 内核： Netscape6 及以上版本， FF,MozillaSuite/SeaMonkey 等 3. Presto 内核： Opera7 及以上。 [Opera 内核原为： Presto ，现为： Blink;] 4. Webkit 内核： Safari,Chrome 等。 [ Chrome 的： Blink （ WebKit 的分支） ] 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-frontend/review?page=16",
+      "id": 119
     }
   ],
   "errors": []
