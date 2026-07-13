@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-12T17:32:42.499Z",
-  "dateKey": "2026-07-13",
+  "crawledAt": "2026-07-13T18:16:49.292Z",
+  "dateKey": "2026-07-14",
   "sources": [
     "leetcode-cn",
     "nowcoder"
@@ -181,7 +181,7 @@
         "链表"
       ],
       "difficulty": "简单",
-      "acceptance": 40.14,
+      "acceptance": 40.15,
       "hotCompanies": [
         "牛客高频"
       ],
@@ -574,7 +574,7 @@
         "数组"
       ],
       "difficulty": "简单",
-      "acceptance": 46.47,
+      "acceptance": 46.48,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/6fe361ede7e54db1b84adc81d09d8524",
       "statement": "牛客编程题 JZ3：数组中重复的数字。完整描述请访问牛客练习页。",
@@ -854,7 +854,7 @@
         "动态规划"
       ],
       "difficulty": "困难",
-      "acceptance": 27.14,
+      "acceptance": 27.15,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/28970c15befb4ff3a264189087b99ad4",
       "statement": "牛客编程题 JZ19：正则表达式匹配。完整描述请访问牛客练习页。",
@@ -975,7 +975,7 @@
         "树"
       ],
       "difficulty": "简单",
-      "acceptance": 65.7,
+      "acceptance": 65.71,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/a9d0ecbacef9410ca97463e4a5c83be7",
       "statement": "牛客编程题 JZ27：二叉树的镜像。完整描述请访问牛客练习页。",
@@ -6302,6 +6302,391 @@
         "typescript": "function minimumEffort(tasks: number[][]): number {\n    tasks.sort((a, b) => (b[1] - b[0]) - (a[1] - a[0]));\n    let ans = 0;\n    let remain = 0;\n    for (const task of tasks) {\n        if (remain <= task[1]) {\n            ans += task[1] - remain;\n        }\n        remain = Math.max(task[1] - task[0], remain - task[0]);\n    }\n    return ans;\n}"
       },
       "id": 259
+    },
+    {
+      "title": "平均等待时间",
+      "titleSlug": "average-waiting-time",
+      "tags": [
+        "数组",
+        "模拟"
+      ],
+      "difficulty": "中等",
+      "acceptance": 62.18,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/average-waiting-time/",
+      "hotCompanies": [
+        "亚马逊",
+        "字节",
+        "苹果"
+      ],
+      "statementZh": "有一个餐厅，只有一位厨师。你有一个顾客数组 customers ，其中 customers[i] = [arrivali, timei] ：\n\n\tarrivali 是第 i 位顾客到达的时间，到达时间按 非递减 顺序排列。\n\n\ttimei 是给第 i 位顾客做菜需要的时间。\n\n当一位顾客到达时，他将他的订单给厨师，厨师一旦空闲的时候就开始做这位顾客的菜。每位顾客会一直等待到厨师完成他的订单。厨师同时只能做一个人的订单。厨师会严格按照 订单给他的顺序 做菜。\n\n请你返回所有顾客需要等待的 平均 时间。与标准答案误差在 10-5 范围以内，都视为正确结果。\n\n \n\n示例 1：\n\n输入：customers = [[1,2],[2,5],[4,3]]\n输出：5.00000\n解释：\n1) 第一位顾客在时刻 1 到达，厨师拿到他的订单并在时刻 1 立马开始做菜，并在时刻 3 完成，第一位顾客等待时间为 3 - 1 = 2 。\n2) 第二位顾客在时刻 2 到达，厨师在时刻 3 开始为他做菜，并在时刻 8 完成，第二位顾客等待时间为 8 - 2 = 6 。\n3) 第三位顾客在时刻 4 到达，厨师在时刻 8 开始为他做菜，并在时刻 11 完成，第三位顾客等待时间为 11 - 4 = 7 。\n平均等待时间为 (2 + 6 + 7) / 3 = 5 。\n\n示例 2：\n\n输入：customers = [[5,2],[5,4],[10,3],[20,1]]\n输出：3.25000\n解释：\n1) 第一位顾客在时刻 5 到达，厨师拿到他的订单并在时刻 5 立马开始做菜，并在时刻 7 完成，第一位顾客等待时间为 7 - 5 = 2 。\n2) 第二位顾客在时刻 5 到达，厨师在时刻 7 开始为他做菜，并在时刻 11 完成，第二位顾客等待时间为 11 - 5 = 6 。\n3) 第三位顾客在时刻 10 到达，厨师在时刻 11 开始为他做菜，并在时刻 14 完成，第三位顾客等待时间为 14 - 10 = 4 。\n4) 第四位顾客在时刻 20 到达，厨师拿到他的订单并在时刻 20 立马开始做菜，并在时刻 21 完成，第四位顾客等待时间为 21 - 20 = 1 。\n平均等待时间为 (2 + 6 + 4 + 1) / 4 = 3.25 。\n\n \n\n提示：\n\n\t1 5\n\n\t1 i, timei 4\n\n\tarrivali i+1",
+      "statementEn": "There is a restaurant with a single chef. You are given an array customers, where customers[i] = [arrivali, timei]:\n\n\tarrivali is the arrival time of the ith customer. The arrival times are sorted in non-decreasing order.\n\n\ttimei is the time needed to prepare the order of the ith customer.\n\nWhen a customer arrives, he gives the chef his order, and the chef starts preparing it once he is idle. The customer waits till the chef finishes preparing his order. The chef does not prepare food for more than one customer at a time. The chef prepares food for customers in the order they were given in the input.\n\nReturn the average waiting time of all customers. Solutions within 10-5 from the actual answer are considered accepted.\n\n \n\nExample 1:\n\nInput: customers = [[1,2],[2,5],[4,3]]\nOutput: 5.00000\nExplanation:\n1) The first customer arrives at time 1, the chef takes his order and starts preparing it immediately at time 1, and finishes at time 3, so the waiting time of the first customer is 3 - 1 = 2.\n2) The second customer arrives at time 2, the chef takes his order and starts preparing it at time 3, and finishes at time 8, so the waiting time of the second customer is 8 - 2 = 6.\n3) The third customer arrives at time 4, the chef takes his order and starts preparing it at time 8, and finishes at time 11, so the waiting time of the third customer is 11 - 4 = 7.\nSo the average waiting time = (2 + 6 + 7) / 3 = 5.\n\nExample 2:\n\nInput: customers = [[5,2],[5,4],[10,3],[20,1]]\nOutput: 3.25000\nExplanation:\n1) The first customer arrives at time 5, the chef takes his order and starts preparing it immediately at time 5, and finishes at time 7, so the waiting time of the first customer is 7 - 5 = 2.\n2) The second customer arrives at time 5, the chef takes his order and starts preparing it at time 7, and finishes at time 11, so the waiting time of the second customer is 11 - 5 = 6.\n3) The third customer arrives at time 10, the chef takes his order and starts preparing it at time 11, and finishes at time 14, so the waiting time of the third customer is 14 - 10 = 4.\n4) The fourth customer arrives at time 20, the chef takes his order and starts preparing it immediately at time 20, and finishes at time 21, so the waiting time of the fourth customer is 21 - 20 = 1.\nSo the average waiting time = (2 + 6 + 4 + 1) / 4 = 3.25.\n\n \n\nConstraints:\n\n\t1 <= customers.length <= 105\n\n\t1 <= arrivali, timei <= 104\n\n\tarrivali <= arrivali+1",
+      "statement": "有一个餐厅，只有一位厨师。你有一个顾客数组 customers ，其中 customers[i] = [arrivali, timei] ：\n\n\tarrivali 是第 i 位顾客到达的时间，到达时间按 非递减 顺序排列。\n\n\ttimei 是给第 i 位顾客做菜需要的时间。\n\n当一位顾客到达时，他将他的订单给厨师，厨师一旦空闲的时候就开始做这位顾客的菜。每位顾客会一直等待到厨师完成他的订单。厨师同时只能做一个人的订单。厨师会严格按照 订单给他的顺序 做菜。\n\n请你返回所有顾客需要等待的 平均 时间。与标准答案误差在 10-5 范围以内，都视为正确结果。\n\n \n\n示例 1：\n\n输入：customers = [[1,2],[2,5],[4,3]]\n输出：5.00000\n解释：\n1) 第一位顾客在时刻 1 到达，厨师拿到他的订单并在时刻 1 立马开始做菜，并在时刻 3 完成，第一位顾客等待时间为 3 - 1 = 2 。\n2) 第二位顾客在时刻 2 到达，厨师在时刻 3 开始为他做菜，并在时刻 8 完成，第二位顾客等待时间为 8 - 2 = 6 。\n3) 第三位顾客在时刻 4 到达，厨师在时刻 8 开始为他做菜，并在时刻 11 完成，第三位顾客等待时间为 11 - 4 = 7 。\n平均等待时间为 (2 + 6 + 7) / 3 = 5 。\n\n示例 2：\n\n输入：customers = [[5,2],[5,4],[10,3],[20,1]]\n输出：3.25000\n解释：\n1) 第一位顾客在时刻 5 到达，厨师拿到他的订单并在时刻 5 立马开始做菜，并在时刻 7 完成，第一位顾客等待时间为 7 - 5 = 2 。\n2) 第二位顾客在时刻 5 到达，厨师在时刻 7 开始为他做菜，并在时刻 11 完成，第二位顾客等待时间为 11 - 5 = 6 。\n3) 第三位顾客在时刻 10 到达，厨师在时刻 11 开始为他做菜，并在时刻 14 完成，第三位顾客等待时间为 14 - 10 = 4 。\n4) 第四位顾客在时刻 20 到达，厨师拿到他的订单并在时刻 20 立马开始做菜，并在时刻 21 完成，第四位顾客等待时间为 21 - 20 = 1 。\n平均等待时间为 (2 + 6 + 4 + 1) / 4 = 3.25 。\n\n \n\n提示：\n\n\t1 5\n\n\t1 i, timei 4\n\n\tarrivali i+1",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 260
+    },
+    {
+      "title": "修改后的最大二进制字符串",
+      "titleSlug": "maximum-binary-string-after-change",
+      "tags": [
+        "贪心",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 52.37,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-binary-string-after-change/",
+      "hotCompanies": [
+        "字节",
+        "facebook",
+        "huawei"
+      ],
+      "statementZh": "给你一个二进制字符串 binary ，它仅有 0 或者 1 组成。你可以使用下面的操作任意次对它进行修改：\n\n\t操作 1 ：如果二进制串包含子字符串 \"00\" ，你可以用 \"10\" 将其替换。\n\n\t\n\t\t比方说， \"00010\" -> \"10010\"\n\n\t\n\t\n\n\t操作 2 ：如果二进制串包含子字符串 \"10\" ，你可以用 \"01\" 将其替换。\n\t\n\t\t比方说， \"00010\" -> \"00001\"\n\n\t\n\t\n\n请你返回执行上述操作任意次以后能得到的 最大二进制字符串 。如果二进制字符串 x 对应的十进制数字大于二进制字符串 y 对应的十进制数字，那么我们称二进制字符串 x 大于二进制字符串 y 。\n\n \n\n示例 1：\n\n输入：binary = \"000110\"\n输出：\"111011\"\n解释：一个可行的转换为：\n\"000110\" -> \"000101\" \n\"000101\" -> \"100101\" \n\"100101\" -> \"110101\" \n\"110101\" -> \"110011\" \n\"110011\" -> \"111011\"\n\n示例 2：\n\n输入：binary = \"01\"\n输出：\"01\"\n解释：\"01\" 没办法进行任何转换。\n\n \n\n提示：\n\n\t1 5\n\n\tbinary 仅包含 '0' 和 '1' 。",
+      "statementEn": "You are given a binary string binary consisting of only 0&#39;s or 1&#39;s. You can apply each of the following operations any number of times:\n\n\tOperation 1: If the number contains the substring \"00\", you can replace it with \"10\".\n\n\t\n\t\tFor example, \"00010\" -> \"10010\"\n\n\t\n\t\n\n\tOperation 2: If the number contains the substring \"10\", you can replace it with \"01\".\n\t\n\t\tFor example, \"00010\" -> \"00001\"\n\n\t\n\t\n\nReturn the maximum binary string you can obtain after any number of operations. Binary string x is greater than binary string y if x&#39;s decimal representation is greater than y&#39;s decimal representation.\n\n \n\nExample 1:\n\nInput: binary = \"000110\"\nOutput: \"111011\"\nExplanation: A valid transformation sequence can be:\n\"000110\" -> \"000101\" \n\"000101\" -> \"100101\" \n\"100101\" -> \"110101\" \n\"110101\" -> \"110011\" \n\"110011\" -> \"111011\"\n\nExample 2:\n\nInput: binary = \"01\"\nOutput: \"01\"\nExplanation: \"01\" cannot be transformed any further.\n\n \n\nConstraints:\n\n\t1 <= binary.length <= 105\n\n\tbinary consist of &#39;0&#39; and &#39;1&#39;.",
+      "statement": "给你一个二进制字符串 binary ，它仅有 0 或者 1 组成。你可以使用下面的操作任意次对它进行修改：\n\n\t操作 1 ：如果二进制串包含子字符串 \"00\" ，你可以用 \"10\" 将其替换。\n\n\t\n\t\t比方说， \"00010\" -> \"10010\"\n\n\t\n\t\n\n\t操作 2 ：如果二进制串包含子字符串 \"10\" ，你可以用 \"01\" 将其替换。\n\t\n\t\t比方说， \"00010\" -> \"00001\"\n\n\t\n\t\n\n请你返回执行上述操作任意次以后能得到的 最大二进制字符串 。如果二进制字符串 x 对应的十进制数字大于二进制字符串 y 对应的十进制数字，那么我们称二进制字符串 x 大于二进制字符串 y 。\n\n \n\n示例 1：\n\n输入：binary = \"000110\"\n输出：\"111011\"\n解释：一个可行的转换为：\n\"000110\" -> \"000101\" \n\"000101\" -> \"100101\" \n\"100101\" -> \"110101\" \n\"110101\" -> \"110011\" \n\"110011\" -> \"111011\"\n\n示例 2：\n\n输入：binary = \"01\"\n输出：\"01\"\n解释：\"01\" 没办法进行任何转换。\n\n \n\n提示：\n\n\t1 5\n\n\tbinary 仅包含 '0' 和 '1' 。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "public class Solution {\n    public string MaximumBinaryString(string binary) {\n        int n = binary.Length;\n        char[] s = binary.ToCharArray();\n        int j = 0;\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '0') {\n                while (j <= i || (j < n && s[j] == '1')) {\n                    j++;\n                }\n                if (j < n) {\n                    s[j] = '1';\n                    s[i] = '1';\n                    s[i + 1] = '0';\n                }\n            }\n        }\n        return new string(s);\n    }\n}",
+        "java": "class Solution {\n    public String maximumBinaryString(String binary) {\n        int n = binary.length();\n        char[] s = binary.toCharArray();\n        int j = 0;\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '0') {\n                while (j <= i || (j < n && s[j] == '1')) {\n                    j++;\n                }\n                if (j < n) {\n                    s[j] = '1';\n                    s[i] = '1';\n                    s[i + 1] = '0';\n                }\n            }\n        }\n        return new String(s);\n    }\n}",
+        "python": "class Solution:\n    def maximumBinaryString(self, binary: str) -> str:\n        n = len(binary)\n        s = list(binary)\n        j = 0\n        for i in range(n):\n            if s[i] == '0':\n                while j <= i or (j < n and s[j] == '1'):\n                    j += 1\n                if j < n:\n                    s[j] = '1'\n                    s[i] = '1'\n                    s[i + 1] = '0'\n        return ''.join(s)",
+        "javascript": "var maximumBinaryString = function(binary) {\n    const n = binary.length;\n    const s = binary.split('');\n    let j = 0;\n    for (let i = 0; i < n; i++) {\n        if (s[i] === '0') {\n            while (j <= i || (j < n && s[j] === '1')) {\n                j++;\n            }\n            if (j < n) {\n                s[j] = '1';\n                s[i] = '1';\n                s[i + 1] = '0';\n            }\n        }\n    }\n    return s.join('');\n};",
+        "typescript": "function maximumBinaryString(binary: string): string {\n    const n = binary.length;\n    const s = binary.split('');\n    let j = 0;\n    for (let i = 0; i < n; i++) {\n        if (s[i] === '0') {\n            while (j <= i || (j < n && s[j] === '1')) {\n                j++;\n            }\n            if (j < n) {\n                s[j] = '1';\n                s[i] = '1';\n                s[i + 1] = '0';\n            }\n        }\n    }\n    return s.join('');\n};",
+        "go": "func maximumBinaryString(binary string) string {\n    n := len(binary)\n    s := []rune(binary)\n    j := 0\n    for i := 0; i < n; i++ {\n        if s[i] == '0' {\n            for j <= i || (j < n && s[j] == '1') {\n                j++\n            }\n            if j < n {\n                s[j] = '1'\n                s[i] = '1'\n                s[i+1] = '0'\n            }\n        }\n    }\n    return string(s)\n}"
+      },
+      "id": 261
+    },
+    {
+      "title": "得到连续 K 个 1 的最少相邻交换次数",
+      "titleSlug": "minimum-adjacent-swaps-for-k-consecutive-ones",
+      "tags": [
+        "贪心",
+        "数组",
+        "前缀和",
+        "滑动窗口"
+      ],
+      "difficulty": "困难",
+      "acceptance": 55.43,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-adjacent-swaps-for-k-consecutive-ones/",
+      "hotCompanies": [
+        "微软",
+        "亚马逊",
+        "谷歌"
+      ],
+      "statementZh": "给你一个整数数组 nums 和一个整数 k 。 nums 仅包含 0 和 1 。每一次移动，你可以选择 相邻 两个数字并将它们交换。\n\n请你返回使 nums 中包含 k 个 连续 1 的 最少 交换次数。\n\n \n\n示例 1：\n\n输入：nums = [1,0,0,1,0,1], k = 2\n输出：1\n解释：在第一次操作时，nums 可以变成 [1,0,0,0,1,1] 得到连续两个 1 。\n\n示例 2：\n\n输入：nums = [1,0,0,0,0,0,1,1], k = 3\n输出：5\n解释：通过 5 次操作，最左边的 1 可以移到右边直到 nums 变为 [0,0,0,0,0,1,1,1] 。\n\n示例 3：\n\n输入：nums = [1,1,0,1], k = 2\n输出：0\n解释：nums 已经有连续 2 个 1 了。\n\n \n\n提示：\n\n\t1 <= nums.length <= 105\n\n\tnums[i] 要么是 0 ，要么是 1 。\n\n\t1 <= k <= sum(nums)",
+      "statementEn": "You are given an integer array, nums, and an integer k. nums comprises of only 0&#39;s and 1&#39;s. In one move, you can choose two adjacent indices and swap their values.\n\nReturn the minimum number of moves required so that nums has k consecutive 1&#39;s.\n\n \n\nExample 1:\n\nInput: nums = [1,0,0,1,0,1], k = 2\nOutput: 1\nExplanation: In 1 move, nums could be [1,0,0,0,1,1] and have 2 consecutive 1&#39;s.\n\nExample 2:\n\nInput: nums = [1,0,0,0,0,0,1,1], k = 3\nOutput: 5\nExplanation: In 5 moves, the leftmost 1 can be shifted right until nums = [0,0,0,0,0,1,1,1].\n\nExample 3:\n\nInput: nums = [1,1,0,1], k = 2\nOutput: 0\nExplanation: nums already has 2 consecutive 1&#39;s.\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 105\n\n\tnums[i] is 0 or 1.\n\n\t1 <= k <= sum(nums)",
+      "statement": "给你一个整数数组 nums 和一个整数 k 。 nums 仅包含 0 和 1 。每一次移动，你可以选择 相邻 两个数字并将它们交换。\n\n请你返回使 nums 中包含 k 个 连续 1 的 最少 交换次数。\n\n \n\n示例 1：\n\n输入：nums = [1,0,0,1,0,1], k = 2\n输出：1\n解释：在第一次操作时，nums 可以变成 [1,0,0,0,1,1] 得到连续两个 1 。\n\n示例 2：\n\n输入：nums = [1,0,0,0,0,0,1,1], k = 3\n输出：5\n解释：通过 5 次操作，最左边的 1 可以移到右边直到 nums 变为 [0,0,0,0,0,1,1,1] 。\n\n示例 3：\n\n输入：nums = [1,1,0,1], k = 2\n输出：0\n解释：nums 已经有连续 2 个 1 了。\n\n \n\n提示：\n\n\t1 <= nums.length <= 105\n\n\tnums[i] 要么是 0 ，要么是 1 。\n\n\t1 <= k <= sum(nums)",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def minMoves(self, nums: List[int], k: int) -> int:\n        g, preSum = [], [0]\n        for i, num in enumerate(nums):\n            if num == 1:\n                g.append(i - len(g))\n                preSum.append(preSum[-1] + g[-1])\n        m, res = len(g), inf\n        for i in range(m - k + 1):\n            mid = i + k // 2\n            r = g[mid]\n            res = min(res, (1 - k % 2) * r + (preSum[i + k] - preSum[mid + 1]) - (preSum[mid] - preSum[i]))\n        return res",
+        "java": "class Solution {\n    public int minMoves(int[] nums, int k) {\n        List<Integer> g = new ArrayList<Integer>();\n        List<Integer> preSum = new ArrayList<Integer>();\n        preSum.add(0);\n        for (int i = 0; i < nums.length; i++) {\n            if (nums[i] == 1) {\n                g.add(i - g.size());\n                preSum.add(preSum.get(preSum.size() - 1) + g.get(g.size() - 1));\n            }\n        }\n        int m = g.size(), res = Integer.MAX_VALUE;\n        for (int i = 0; i <= m - k; i++) {\n            int mid = i + k / 2;\n            int r = g.get(mid);\n            res = Math.min(res, (1 - k % 2) * r + (preSum.get(i + k) - preSum.get(mid + 1)) - (preSum.get(mid) - preSum.get(i)));\n        }\n        return res;\n    }\n}",
+        "cpp": "static inline int min(int a, int b) {\n    return a < b ? a : b;\n}\n\nint minMoves(int* nums, int numsSize, int k) {\n    int g[numsSize], preSum[numsSize + 1];\n    int gSize = 0, preSumSize = 0;\n    preSum[preSumSize++] = 0;\n    for (int i = 0; i < numsSize; i++) {\n        if (nums[i] == 1) {\n            g[gSize++] = i - gSize;\n            preSum[preSumSize++] = preSum[preSumSize - 1] + g[gSize - 1];\n        }\n    }\n    int m = gSize, res = INT_MAX;\n    for (int i = 0; i <= m - k; i++) {\n        int mid = i + k / 2;\n        res = min(res, (1 - k % 2) * g[mid] +  \\\n                        (preSum[i + k] - preSum[mid + 1]) - \\\n                        (preSum[mid] - preSum[i]));\n    }\n    return res;\n}",
+        "javascript": "var minMoves = function(nums, k) {\n    const g = [];\n    const preSum = [];\n    preSum.push(0);\n    for (let i = 0; i < nums.length; i++) {\n        if (nums[i] === 1) {\n            g.push(i - g.length);\n            preSum.push(preSum[preSum.length - 1] + g[g.length - 1]);\n        }\n    }\n    let m = g.length, res = Number.MAX_VALUE;\n    for (let i = 0; i <= m - k; i++) {\n        let mid = i + Math.floor(k / 2);\n        let r = g[mid];\n        res = Math.min(res, (1 - k % 2) * r + (preSum[i + k] - preSum[mid + 1]) - (preSum[mid] - preSum[i]));\n    }\n    return res;\n};"
+      },
+      "id": 262
+    },
+    {
+      "title": "判断字符串的两半是否相似",
+      "titleSlug": "determine-if-string-halves-are-alike",
+      "tags": [
+        "字符串",
+        "计数"
+      ],
+      "difficulty": "简单",
+      "acceptance": 78.17,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/determine-if-string-halves-are-alike/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "bloomberg"
+      ],
+      "statementZh": "给你一个偶数长度的字符串 s 。将其拆分成长度相同的两半，前一半为 a ，后一半为 b 。\n\n两个字符串 相似 的前提是它们都含有相同数目的元音（'a'，'e'，'i'，'o'，'u'，'A'，'E'，'I'，'O'，'U'）。注意，s 可能同时含有大写和小写字母。\n\n如果 a 和 b 相似，返回 true ；否则，返回 false 。\n\n \n\n示例 1：\n\n输入：s = \"book\"\n输出：true\n解释：a = \"bo\" 且 b = \"ok\" 。a 中有 1 个元音，b 也有 1 个元音。所以，a 和 b 相似。\n\n示例 2：\n\n输入：s = \"textbook\"\n输出：false\n解释：a = \"text\" 且 b = \"book\" 。a 中有 1 个元音，b 中有 2 个元音。因此，a 和 b 不相似。\n注意，元音 o 在 b 中出现两次，记为 2 个。\n\n \n\n提示：\n\n\t2 <= s.length <= 1000\n\n\ts.length 是偶数\n\n\ts 由 大写和小写 字母组成",
+      "statementEn": "You are given a string s of even length. Split this string into two halves of equal lengths, and let a be the first half and b be the second half.\n\nTwo strings are alike if they have the same number of vowels (&#39;a&#39;, &#39;e&#39;, &#39;i&#39;, &#39;o&#39;, &#39;u&#39;, &#39;A&#39;, &#39;E&#39;, &#39;I&#39;, &#39;O&#39;, &#39;U&#39;). Notice that s contains uppercase and lowercase letters.\n\nReturn true if a and b are alike. Otherwise, return false.\n\n \n\nExample 1:\n\nInput: s = \"book\"\nOutput: true\nExplanation: a = \"bo\" and b = \"ok\". a has 1 vowel and b has 1 vowel. Therefore, they are alike.\n\nExample 2:\n\nInput: s = \"textbook\"\nOutput: false\nExplanation: a = \"text\" and b = \"book\". a has 1 vowel whereas b has 2. Therefore, they are not alike.\nNotice that the vowel o is counted twice.\n\n \n\nConstraints:\n\n\t2 <= s.length <= 1000\n\n\ts.length is even.\n\n\ts consists of uppercase and lowercase letters.",
+      "statement": "给你一个偶数长度的字符串 s 。将其拆分成长度相同的两半，前一半为 a ，后一半为 b 。\n\n两个字符串 相似 的前提是它们都含有相同数目的元音（'a'，'e'，'i'，'o'，'u'，'A'，'E'，'I'，'O'，'U'）。注意，s 可能同时含有大写和小写字母。\n\n如果 a 和 b 相似，返回 true ；否则，返回 false 。\n\n \n\n示例 1：\n\n输入：s = \"book\"\n输出：true\n解释：a = \"bo\" 且 b = \"ok\" 。a 中有 1 个元音，b 也有 1 个元音。所以，a 和 b 相似。\n\n示例 2：\n\n输入：s = \"textbook\"\n输出：false\n解释：a = \"text\" 且 b = \"book\" 。a 中有 1 个元音，b 中有 2 个元音。因此，a 和 b 不相似。\n注意，元音 o 在 b 中出现两次，记为 2 个。\n\n \n\n提示：\n\n\t2 <= s.length <= 1000\n\n\ts.length 是偶数\n\n\ts 由 大写和小写 字母组成",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def halvesAreAlike(self, s: str) -> bool:\n        VOWELS = \"aeiouAEIOU\"\n        a, b = s[:len(s) // 2], s[len(s) // 2:]\n        return sum(c in VOWELS for c in a) == sum(c in VOWELS for c in b)",
+        "java": "class Solution {\n    public boolean halvesAreAlike(String s) {\n        String a = s.substring(0, s.length() / 2);\n        String b = s.substring(s.length() / 2);\n        String h = \"aeiouAEIOU\";\n        int sum1 = 0, sum2 = 0;\n        for (int i = 0; i < a.length(); i++) {\n            if (h.indexOf(a.charAt(i)) >= 0) {\n                sum1++;\n            }\n        }\n        for (int i = 0; i < b.length(); i++) {\n            if (h.indexOf(b.charAt(i)) >= 0) {\n                sum2++;\n            }\n        }\n        return sum1 == sum2;\n    }\n}",
+        "cpp": "class Solution {\npublic:\n    bool halvesAreAlike(string s) {\n        string a = s.substr(0, s.size() / 2);\n        string b = s.substr(s.size() / 2);\n        string h = \"aeiouAEIOU\";\n        int sum1 = 0, sum2 = 0;\n        for (int i = 0; i < a.size(); i++) {\n            if (h.find_first_of(a[i]) != string::npos) {\n                sum1++;\n            }\n        }\n        for (int i = 0; i < b.size(); i++) {\n            if (h.find_first_of(b[i]) != string::npos) {\n                sum2++;\n            }\n        }\n        return sum1 == sum2;\n    }\n};",
+        "javascript": "var halvesAreAlike = function(s) {\n    const a = s.substring(0, s.length / 2);\n    const b = s.substring(s.length / 2);\n    const h = \"aeiouAEIOU\";\n    let sum1 = 0, sum2 = 0;\n    for (let i = 0; i < a.length; i++) {\n        if (h.indexOf(a[i]) >= 0) {\n            sum1++;\n        }\n    }\n    for (let i = 0; i < b.length; i++) {\n        if (h.indexOf(b[i]) >= 0) {\n            sum2++;\n        }\n    }\n    return sum1 === sum2;\n};",
+        "go": "func halvesAreAlike(s string) bool {\n    cnt := 0\n    for _, c := range s[:len(s)/2] {\n        if strings.ContainsRune(\"aeiouAEIOU\", c) {\n            cnt++\n        }\n    }\n    for _, c := range s[len(s)/2:] {\n        if strings.ContainsRune(\"aeiouAEIOU\", c) {\n            cnt--\n        }\n    }\n    return cnt == 0\n}"
+      },
+      "id": 263
+    },
+    {
+      "title": "吃苹果的最大数目",
+      "titleSlug": "maximum-number-of-eaten-apples",
+      "tags": [
+        "贪心",
+        "数组",
+        "堆（优先队列）"
+      ],
+      "difficulty": "中等",
+      "acceptance": 48.26,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-number-of-eaten-apples/",
+      "hotCompanies": [
+        "字节",
+        "亚马逊",
+        "uber"
+      ],
+      "statementZh": "有一棵特殊的苹果树，一连 n 天，每天都可以长出若干个苹果。在第 i 天，树上会长出 apples[i] 个苹果，这些苹果将会在 days[i] 天后（也就是说，第 i + days[i] 天时）腐烂，变得无法食用。也可能有那么几天，树上不会长出新的苹果，此时用 apples[i] == 0 且 days[i] == 0 表示。\n\n你打算每天 最多 吃一个苹果来保证营养均衡。注意，你可以在这 n 天之后继续吃苹果。\n\n给你两个长度为 n 的整数数组 days 和 apples ，返回你可以吃掉的苹果的最大数目。\n\n \n\n示例 1：\n\n输入：apples = [1,2,3,5,2], days = [3,2,1,4,2]\n输出：7\n解释：你可以吃掉 7 个苹果：\n- 第一天，你吃掉第一天长出来的苹果。\n- 第二天，你吃掉一个第二天长出来的苹果。\n- 第三天，你吃掉一个第二天长出来的苹果。过了这一天，第三天长出来的苹果就已经腐烂了。\n- 第四天到第七天，你吃的都是第四天长出来的苹果。\n\n示例 2：\n\n输入：apples = [3,0,0,0,0,2], days = [3,0,0,0,0,2]\n输出：5\n解释：你可以吃掉 5 个苹果：\n- 第一天到第三天，你吃的都是第一天长出来的苹果。\n- 第四天和第五天不吃苹果。\n- 第六天和第七天，你吃的都是第六天长出来的苹果。\n\n \n\n提示：\n\n\tapples.length == n\n\n\tdays.length == n\n\n\t1 <= n <= 2 * 104\n\n\t0 <= apples[i], days[i] <= 2 * 104\n\n\t只有在 apples[i] = 0 时，days[i] = 0 才成立",
+      "statementEn": "There is a special kind of apple tree that grows apples every day for n days. On the ith day, the tree grows apples[i] apples that will rot after days[i] days, that is on day i + days[i] the apples will be rotten and cannot be eaten. On some days, the apple tree does not grow any apples, which are denoted by apples[i] == 0 and days[i] == 0.\n\nYou decided to eat at most one apple a day (to keep the doctors away). Note that you can keep eating after the first n days.\n\nGiven two integer arrays days and apples of length n, return the maximum number of apples you can eat.\n\n \n\nExample 1:\n\nInput: apples = [1,2,3,5,2], days = [3,2,1,4,2]\nOutput: 7\nExplanation: You can eat 7 apples:\n- On the first day, you eat an apple that grew on the first day.\n- On the second day, you eat an apple that grew on the second day.\n- On the third day, you eat an apple that grew on the second day. After this day, the apples that grew on the third day rot.\n- On the fourth to the seventh days, you eat apples that grew on the fourth day.\n\nExample 2:\n\nInput: apples = [3,0,0,0,0,2], days = [3,0,0,0,0,2]\nOutput: 5\nExplanation: You can eat 5 apples:\n- On the first to the third day you eat apples that grew on the first day.\n- Do nothing on the fouth and fifth days.\n- On the sixth and seventh days you eat apples that grew on the sixth day.\n\n \n\nConstraints:\n\n\tn == apples.length == days.length\n\n\t1 <= n <= 2 * 104\n\n\t0 <= apples[i], days[i] <= 2 * 104\n\n\tdays[i] = 0 if and only if apples[i] = 0.",
+      "statement": "有一棵特殊的苹果树，一连 n 天，每天都可以长出若干个苹果。在第 i 天，树上会长出 apples[i] 个苹果，这些苹果将会在 days[i] 天后（也就是说，第 i + days[i] 天时）腐烂，变得无法食用。也可能有那么几天，树上不会长出新的苹果，此时用 apples[i] == 0 且 days[i] == 0 表示。\n\n你打算每天 最多 吃一个苹果来保证营养均衡。注意，你可以在这 n 天之后继续吃苹果。\n\n给你两个长度为 n 的整数数组 days 和 apples ，返回你可以吃掉的苹果的最大数目。\n\n \n\n示例 1：\n\n输入：apples = [1,2,3,5,2], days = [3,2,1,4,2]\n输出：7\n解释：你可以吃掉 7 个苹果：\n- 第一天，你吃掉第一天长出来的苹果。\n- 第二天，你吃掉一个第二天长出来的苹果。\n- 第三天，你吃掉一个第二天长出来的苹果。过了这一天，第三天长出来的苹果就已经腐烂了。\n- 第四天到第七天，你吃的都是第四天长出来的苹果。\n\n示例 2：\n\n输入：apples = [3,0,0,0,0,2], days = [3,0,0,0,0,2]\n输出：5\n解释：你可以吃掉 5 个苹果：\n- 第一天到第三天，你吃的都是第一天长出来的苹果。\n- 第四天和第五天不吃苹果。\n- 第六天和第七天，你吃的都是第六天长出来的苹果。\n\n \n\n提示：\n\n\tapples.length == n\n\n\tdays.length == n\n\n\t1 <= n <= 2 * 104\n\n\t0 <= apples[i], days[i] <= 2 * 104\n\n\t只有在 apples[i] = 0 时，days[i] = 0 才成立",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "java": "class Solution {\n    public int eatenApples(int[] apples, int[] days) {\n        int ans = 0;\n        PriorityQueue<int[]> pq = new PriorityQueue<int[]>((a, b) -> a[0] - b[0]);\n        int n = apples.length;\n        int i = 0;\n        while (i < n) {\n            while (!pq.isEmpty() && pq.peek()[0] <= i) {\n                pq.poll();\n            }\n            int rottenDay = i + days[i];\n            int count = apples[i];\n            if (count > 0) {\n                pq.offer(new int[]{rottenDay, count});\n            }\n            if (!pq.isEmpty()) {\n                int[] arr = pq.peek();\n                arr[1]--;\n                if (arr[1] == 0) {\n                    pq.poll();\n                }\n                ans++;\n            }\n            i++;\n        }\n        while (!pq.isEmpty()) {\n            while (!pq.isEmpty() && pq.peek()[0] <= i) {\n                pq.poll();\n            }\n            if (pq.isEmpty()) {\n                break;\n            }\n            int[] arr = pq.poll();\n            int curr = Math.min(arr[0] - i, arr[1]);\n            ans += curr;\n            i += curr;\n        }\n        return ans;\n    }\n}",
+        "cpp": "#define MIN_QUEUE_SIZE 64\n\ntypedef struct Element {\n    int data[2];\n} Element;\n\ntypedef bool (*compare)(const void *, const void *);\n\ntypedef struct PriorityQueue {\n    Element *arr;\n    int capacity;\n    int queueSize;\n    compare lessFunc;\n} PriorityQueue;\n\nElement *createElement(int x, int y) {\n    Element *obj = (Element *)malloc(sizeof(Element));\n    obj->data[0] = x;\n    obj->data[1] = y;\n    return obj;\n}\n\nstatic bool less(const void *a, const void *b) {\n    Element *e1 = (Element *)a;\n    Element *e2 = (Element *)b;\n    return e1->data[0] > e2->data[0] || \\\n           (e1->data[0] == e2->data[0] && \\\n           e1->data[1] > e2->data[1]);\n}\n\nstatic bool greater(const void *a, const void *b) {\n    Element *e1 = (Element *)a;\n    Element *e2 = (Element *)b;\n    return e1->data[0] < e2->data[0];\n}\n\nstatic void memswap(void *m1, void *m2, size_t size){\n    unsigned char *a = (unsigned char*)m1;\n    unsigned char *b = (unsigned char*)m2;\n    while (size--) {\n        *b ^= *a ^= *b ^= *a;\n        a++;\n        b++;\n    }\n}\n\nstatic void swap(Element *arr, int i, int j) {\n    memswap(&arr[i], &arr[j], sizeof(Element));\n}\n\nstatic void down(Element *arr, int size, int i, compare cmpFunc) {\n    for (int k = 2 * i + 1; k < size; k = 2 * k + 1) {\n        if (k + 1 < size && cmpFunc(&arr[k], &arr[k + 1])) {\n            k++;\n        }\n        if (cmpFunc(&arr[k], &arr[(k - 1) / 2])) {\n            break;\n        }\n        swap(arr, k, (k - 1) / 2);\n    }\n}\n\nPriorityQueue *createPriorityQueue(compare cmpFunc) {\n    PriorityQueue *obj = (PriorityQueue *)malloc(sizeof(PriorityQueue));\n    obj->capacity = MIN_QUEUE_SIZE;\n    obj->arr = (Element *)malloc(sizeof(Element) * obj->capacity);\n    obj->queueSize = 0;\n    obj->lessFunc = cmpFunc;\n    return obj;\n}\n\nvoid heapfiy(PriorityQueue *obj) {\n    for (int i = obj->queueSize / 2 - 1; i >= 0; i--) {\n        down(obj->arr, obj->queueSize, i, obj->lessFunc);\n    }\n}\n\nvoid enQueue(PriorityQueue *obj, Element *e) {\n    if (obj->queueSize == obj->capacity) {\n        obj->capacity *= 2;\n        obj->arr = realloc(obj->arr, sizeof(Element) * obj->capacity);\n    }\n    memcpy(&obj->arr[obj->queueSize], e, sizeof(Element));\n    for (int i = obj->queueSize; i > 0 && obj->lessFunc(&obj->arr[(i - 1) / 2], &obj->arr[i]); i = (i - 1) / 2) {\n        swap(obj->arr, i, (i - 1) / 2);\n    }\n    obj->queueSize++;\n}\n\nElement* deQueue(PriorityQueue *obj) {\n    swap(obj->arr, 0, obj->queueSize - 1);\n    down(obj->arr, obj->queueSize - 1, 0, obj->lessFunc);\n    Element *e =  &obj->arr[obj->queueSize - 1];\n    obj->queueSize--;\n    return e;\n}\n\nbool isEmpty(const PriorityQueue *obj) {\n    return obj->queueSize == 0;\n}\n\nElement* front(const PriorityQueue *obj) {\n    if (obj->queueSize == 0) {\n        return NULL;\n    } else {\n        return &obj->arr[0];\n    }\n}\n\nvoid clear(PriorityQueue *obj) {\n    obj->queueSize = 0;\n}\n\nint size(const PriorityQueue *obj) {\n    return obj->queueSize;\n}\n\nvoid freeQueue(PriorityQueue *obj) {\n    free(obj->arr);\n    free(obj);\n}\n\nint eatenApples(int* apples, int applesSize, int* days, int daysSize) {\n    int ans = 0;\n    PriorityQueue *pq = createPriorityQueue(less);\n    int n = applesSize;\n    int i = 0;\n    struct Element node;\n\n    while (i < n) {\n        while (!isEmpty(pq) && front(pq)->data[0] <= i) {\n            deQueue(pq);\n        }\n        int rottenDay = i + days[i];\n        int count = apples[i];\n        if (count > 0) {\n            node.data[0] = rottenDay;\n            node.data[1] = count;\n            enQueue(pq, &node);\n        }\n        if (!isEmpty(pq)) {\n            rottenDay = front(pq)->data[0];\n            count = front(pq)->data[1];\n            deQueue(pq);\n            count--;\n            if (count != 0) {          \n                node.data[0] = rottenDay;\n                node.data[1] = count;\n                enQueue(pq, &node);        \n            }\n            ans++;\n        }\n        i++;\n    }\n\n    while (!isEmpty(pq)) {\n        while (!isEmpty(pq) && front(pq)->data[0] <= i) {\n            deQueue(pq);\n        }\n        if (isEmpty(pq)) {\n            break;\n        }\n        int rottenDay = front(pq)->data[0];\n        int count = front(pq)->data[1];\n        deQueue(pq);\n        int num = fmin(rottenDay - i, count);\n        ans += num;\n        i += num;\n    }\n    freeQueue(pq);\n    return ans;\n}",
+        "python": "class Solution:\n    def eatenApples(self, apples: List[int], days: List[int]) -> int:\n        ans = 0\n        pq = []\n        i = 0\n        while i < len(apples):\n            while pq and pq[0][0] <= i:\n                heappop(pq)\n            if apples[i]:\n                heappush(pq, [i + days[i], apples[i]])\n            if pq:\n                pq[0][1] -= 1\n                if pq[0][1] == 0:\n                    heappop(pq)\n                ans += 1\n            i += 1\n        while pq:\n            while pq and pq[0][0] <= i:\n                heappop(pq)\n            if len(pq) == 0:\n                break\n            p = heappop(pq)\n            num = min(p[0] - i, p[1])\n            ans += num\n            i += num\n        return ans",
+        "go": "func eatenApples(apples, days []int) (ans int) {\n    h := hp{}\n    i := 0\n    for ; i < len(apples); i++ {\n        for len(h) > 0 && h[0].end <= i {\n            heap.Pop(&h)\n        }\n        if apples[i] > 0 {\n            heap.Push(&h, pair{i + days[i], apples[i]})\n        }\n        if len(h) > 0 {\n            h[0].left--\n            if h[0].left == 0 {\n                heap.Pop(&h)\n            }\n            ans++\n        }\n    }\n    for len(h) > 0 {\n        for len(h) > 0 && h[0].end <= i {\n            heap.Pop(&h)\n        }\n        if len(h) == 0 {\n            break\n        }\n        p := heap.Pop(&h).(pair)\n        num := min(p.end-i, p.left)\n        ans += num\n        i += num\n    }\n    return\n}\n\ntype pair struct{ end, left int }\ntype hp []pair\n\nfunc (h hp) Len() int            { return len(h) }\nfunc (h hp) Less(i, j int) bool  { return h[i].end < h[j].end }\nfunc (h hp) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }\nfunc (h *hp) Push(v interface{}) { *h = append(*h, v.(pair)) }\nfunc (h *hp) Pop() interface{}   { a := *h; v := a[len(a)-1]; *h = a[:len(a)-1]; return v }\n\nfunc min(a, b int) int {\n    if a > b {\n        return b\n    }\n    return a\n}",
+        "javascript": "var eatenApples = function(apples, days) {\n    let ans = 0;\n    let pq = new MinPriorityQueue();\n    const n = apples.length;\n    let i = 0;\n    while (i < n) {\n        while (!pq.isEmpty() && pq.front().element[0] <= i) {\n            pq.dequeue();\n        }\n        let rottenDay = i + days[i];\n        let count = apples[i];\n        if (count > 0) {\n            pq.enqueue([rottenDay, count], rottenDay);\n        }\n        if (!pq.isEmpty()) {\n            [rottenDay, count] = pq.dequeue().element;\n            count--;\n            if (count != 0) {   \n                pq.enqueue([rottenDay, count], rottenDay);               \n            }\n            ans++;\n        }\n        i++;\n    }\n\n    while (!pq.isEmpty()) {\n        while (!pq.isEmpty() && pq.front().element[0] <= i) {\n            pq.dequeue();\n        }\n        if (pq.isEmpty()) {\n            break;\n        }\n        [rottenDay, count] = pq.dequeue().element;\n        const num = Math.min(rottenDay - i, count);\n        ans += num;\n        i += num;\n    }\n\n    return ans;\n};",
+        "typescript": "function eatenApples(apples: number[], days: number[]): number {\n    let ans = 0;\n    let pq = new MinPriorityQueue();\n    const n = apples.length;\n    let i = 0;\n    while (i < n) {\n        while (!pq.isEmpty() && pq.front().element[0] <= i) {\n            pq.dequeue();\n        }\n        let rottenDay = i + days[i];\n        let count = apples[i];\n        if (count > 0) {\n            pq.enqueue([rottenDay, count], rottenDay);\n        }\n        if (!pq.isEmpty()) {\n            [rottenDay, count] = pq.dequeue().element;\n            count--;\n            if (count != 0) {   \n                pq.enqueue([rottenDay, count], rottenDay);               \n            }\n            ans++;\n        }\n        i++;\n    }\n\n    while (!pq.isEmpty()) {\n        while (!pq.isEmpty() && pq.front().element[0] <= i) {\n            pq.dequeue();\n        }\n        if (pq.isEmpty()) {\n            break;\n        }\n        let [rottenDay, count] = pq.dequeue().element;\n        const num = Math.min(rottenDay - i, count);\n        ans += num;\n        i += num;\n    }\n\n    return ans;\n};"
+      },
+      "id": 264
+    },
+    {
+      "title": "球会落何处",
+      "titleSlug": "where-will-the-ball-fall",
+      "tags": [
+        "数组",
+        "矩阵",
+        "模拟"
+      ],
+      "difficulty": "中等",
+      "acceptance": 72.24,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/where-will-the-ball-fall/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "字节"
+      ],
+      "statementZh": "用一个大小为 m x n 的二维网格 grid 表示一个箱子。你有 n 颗球。箱子的顶部和底部都是开着的。\n\n箱子中的每个单元格都有一个对角线挡板，跨过单元格的两个角，可以将球导向左侧或者右侧。\n\n\t将球导向右侧的挡板跨过左上角和右下角，在网格中用 1 表示。\n\n\t将球导向左侧的挡板跨过右上角和左下角，在网格中用 -1 表示。\n\n在箱子每一列的顶端各放一颗球。每颗球都可能卡在箱子里或从底部掉出来。如果球恰好卡在两块挡板之间的 \"V\" 形图案，或者被一块挡导向到箱子的任意一侧边上，就会卡住。\n\n返回一个大小为 n 的数组 answer ，其中 answer[i] 是球放在顶部的第 i 列后从底部掉出来的那一列对应的下标，如果球卡在盒子里，则返回 -1 。\n\n \n\n示例 1：\n\n输入：grid = [[1,1,1,-1,-1],[1,1,1,-1,-1],[-1,-1,-1,1,1],[1,1,1,1,-1],[-1,-1,-1,-1,-1]]\n输出：[1,-1,-1,-1,-1]\n解释：示例如图：\nb0 球开始放在第 0 列上，最终从箱子底部第 1 列掉出。\nb1 球开始放在第 1 列上，会卡在第 2、3 列和第 1 行之间的 \"V\" 形里。\nb2 球开始放在第 2 列上，会卡在第 2、3 列和第 0 行之间的 \"V\" 形里。\nb3 球开始放在第 3 列上，会卡在第 2、3 列和第 0 行之间的 \"V\" 形里。\nb4 球开始放在第 4 列上，会卡在第 2、3 列和第 1 行之间的 \"V\" 形里。\n\n示例 2：\n\n输入：grid = [[-1]]\n输出：[-1]\n解释：球被卡在箱子左侧边上。\n\n示例 3：\n\n输入：grid = [[1,1,1,1,1,1],[-1,-1,-1,-1,-1,-1],[1,1,1,1,1,1],[-1,-1,-1,-1,-1,-1]]\n输出：[0,1,2,3,4,-1]\n\n \n\n提示：\n\n\tm == grid.length\n\n\tn == grid[i].length\n\n\t1 \n\n\tgrid[i][j] 为 1 或 -1",
+      "statementEn": "You have a 2-D grid of size m x n representing a box, and you have n balls. The box is open on the top and bottom sides.\n\nEach cell in the box has a diagonal board spanning two corners of the cell that can redirect a ball to the right or to the left.\n\n\tA board that redirects the ball to the right spans the top-left corner to the bottom-right corner and is represented in the grid as 1.\n\n\tA board that redirects the ball to the left spans the top-right corner to the bottom-left corner and is represented in the grid as -1.\n\nWe drop one ball at the top of each column of the box. Each ball can get stuck in the box or fall out of the bottom. A ball gets stuck if it hits a \"V\" shaped pattern between two boards or if a board redirects the ball into either wall of the box.\n\nReturn an array answer of size n where answer[i] is the column that the ball falls out of at the bottom after dropping the ball from the ith column at the top, or -1 if the ball gets stuck in the box.\n\n \n\nExample 1:\n\nInput: grid = [[1,1,1,-1,-1],[1,1,1,-1,-1],[-1,-1,-1,1,1],[1,1,1,1,-1],[-1,-1,-1,-1,-1]]\nOutput: [1,-1,-1,-1,-1]\nExplanation: This example is shown in the photo.\nBall b0 is dropped at column 0 and falls out of the box at column 1.\nBall b1 is dropped at column 1 and will get stuck in the box between column 2 and 3 and row 1.\nBall b2 is dropped at column 2 and will get stuck on the box between column 2 and 3 and row 0.\nBall b3 is dropped at column 3 and will get stuck on the box between column 2 and 3 and row 0.\nBall b4 is dropped at column 4 and will get stuck on the box between column 2 and 3 and row 1.\n\nExample 2:\n\nInput: grid = [[-1]]\nOutput: [-1]\nExplanation: The ball gets stuck against the left wall.\n\nExample 3:\n\nInput: grid = [[1,1,1,1,1,1],[-1,-1,-1,-1,-1,-1],[1,1,1,1,1,1],[-1,-1,-1,-1,-1,-1]]\nOutput: [0,1,2,3,4,-1]\n\n \n\nConstraints:\n\n\tm == grid.length\n\n\tn == grid[i].length\n\n\t1 <= m, n <= 100\n\n\tgrid[i][j] is 1 or -1.",
+      "statement": "用一个大小为 m x n 的二维网格 grid 表示一个箱子。你有 n 颗球。箱子的顶部和底部都是开着的。\n\n箱子中的每个单元格都有一个对角线挡板，跨过单元格的两个角，可以将球导向左侧或者右侧。\n\n\t将球导向右侧的挡板跨过左上角和右下角，在网格中用 1 表示。\n\n\t将球导向左侧的挡板跨过右上角和左下角，在网格中用 -1 表示。\n\n在箱子每一列的顶端各放一颗球。每颗球都可能卡在箱子里或从底部掉出来。如果球恰好卡在两块挡板之间的 \"V\" 形图案，或者被一块挡导向到箱子的任意一侧边上，就会卡住。\n\n返回一个大小为 n 的数组 answer ，其中 answer[i] 是球放在顶部的第 i 列后从底部掉出来的那一列对应的下标，如果球卡在盒子里，则返回 -1 。\n\n \n\n示例 1：\n\n输入：grid = [[1,1,1,-1,-1],[1,1,1,-1,-1],[-1,-1,-1,1,1],[1,1,1,1,-1],[-1,-1,-1,-1,-1]]\n输出：[1,-1,-1,-1,-1]\n解释：示例如图：\nb0 球开始放在第 0 列上，最终从箱子底部第 1 列掉出。\nb1 球开始放在第 1 列上，会卡在第 2、3 列和第 1 行之间的 \"V\" 形里。\nb2 球开始放在第 2 列上，会卡在第 2、3 列和第 0 行之间的 \"V\" 形里。\nb3 球开始放在第 3 列上，会卡在第 2、3 列和第 0 行之间的 \"V\" 形里。\nb4 球开始放在第 4 列上，会卡在第 2、3 列和第 1 行之间的 \"V\" 形里。\n\n示例 2：\n\n输入：grid = [[-1]]\n输出：[-1]\n解释：球被卡在箱子左侧边上。\n\n示例 3：\n\n输入：grid = [[1,1,1,1,1,1],[-1,-1,-1,-1,-1,-1],[1,1,1,1,1,1],[-1,-1,-1,-1,-1,-1]]\n输出：[0,1,2,3,4,-1]\n\n \n\n提示：\n\n\tm == grid.length\n\n\tn == grid[i].length\n\n\t1 \n\n\tgrid[i][j] 为 1 或 -1",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def findBall(self, grid: List[List[int]]) -> List[int]:\n        n = len(grid[0])\n        ans = [-1] * n\n        for j in range(n):\n            col = j  # 球的初始列\n            for row in grid:\n                dir = row[col]\n                col += dir  # 移动球\n                if col < 0 or col == n or row[col] != dir:  # 到达侧边或 V 形\n                    break\n            else:  # 成功到达底部\n                ans[j] = col\n        return ans",
+        "cpp": "class Solution {\npublic:\n    vector<int> findBall(vector<vector<int>> &grid) {\n        int n = grid[0].size();\n        vector<int> ans(n);\n        for (int j = 0; j < n; ++j) {\n            int col = j; // 球的初始列\n            for (auto &row : grid) {\n                int dir = row[col];\n                col += dir; // 移动球\n                if (col < 0 || col == n || row[col] != dir) { // 到达侧边或 V 形\n                    col = -1;\n                    break;\n                }\n            }\n            ans[j] = col; // col >= 0 为成功到达底部\n        }\n        return ans;\n    }\n};",
+        "java": "class Solution {\n    public int[] findBall(int[][] grid) {\n        int n = grid[0].length;\n        int[] ans = new int[n];\n        for (int j = 0; j < n; j++) {\n            int col = j;  // 球的初始列\n            for (int[] row : grid) {\n                int dir = row[col];\n                col += dir;  // 移动球\n                if (col < 0 || col == n || row[col] != dir) {  // 到达侧边或 V 形\n                    col = -1;\n                    break;\n                }\n            }\n            ans[j] = col;  // col >= 0 为成功到达底部\n        }\n        return ans;\n    }\n}",
+        "go": "func findBall(grid [][]int) []int {\n    n := len(grid[0])\n    ans := make([]int, n)\n    for j := range ans {\n        col := j // 球的初始列\n        for _, row := range grid {\n            dir := row[col]\n            col += dir // 移动球\n            if col < 0 || col == n || row[col] != dir { // 到达侧边或 V 形\n                col = -1\n                break\n            }\n        }\n        ans[j] = col // col >= 0 为成功到达底部\n    }\n    return ans\n}",
+        "javascript": "var findBall = function(grid) {\n    const n = grid[0].length;\n    const ans = new Array(n);\n    for (let j = 0; j < n; j++) {\n        let col = j; // 球的初始列\n        for (const row of grid) {\n            const dir = row[col];\n            col += dir; // 移动球\n            if (col < 0 || col === n || row[col] !== dir) { // 到达侧边或 V 形\n                col = -1;\n                break;\n            }\n        }\n        ans[j] = col;  // col >= 0 为成功到达底部\n    }\n    return ans;\n};"
+      },
+      "id": 265
+    },
+    {
+      "title": "与数组中元素的最大异或值",
+      "titleSlug": "maximum-xor-with-an-element-from-array",
+      "tags": [
+        "位运算",
+        "字典树",
+        "数组"
+      ],
+      "difficulty": "困难",
+      "acceptance": 51.62,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-xor-with-an-element-from-array/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "苹果"
+      ],
+      "statementZh": "给你一个由非负整数组成的数组 nums 。另有一个查询数组 queries ，其中 queries[i] = [xi, mi] 。\n\n第 i 个查询的答案是 xi 和任何 nums 数组中不超过 mi 的元素按位异或（XOR）得到的最大值。换句话说，答案是 max(nums[j] XOR xi) ，其中所有 j 均满足 nums[j] <= mi 。如果 nums 中的所有元素都大于 mi，最终答案就是 -1 。\n\n返回一个整数数组 answer 作为查询的答案，其中 answer.length == queries.length 且 answer[i] 是第 i 个查询的答案。\n\n \n\n示例 1：\n\n输入：nums = [0,1,2,3,4], queries = [[3,1],[1,3],[5,6]]\n输出：[3,3,7]\n解释：\n1) 0 和 1 是仅有的两个不超过 1 的整数。0 XOR 3 = 3 而 1 XOR 3 = 2 。二者中的更大值是 3 。\n2) 1 XOR 2 = 3.\n3) 5 XOR 2 = 7.\n\n示例 2：\n\n输入：nums = [5,2,4,6,6,3], queries = [[12,4],[8,1],[6,3]]\n输出：[15,-1,5]\n\n \n\n提示：\n\n\t1 <= nums.length, queries.length <= 105\n\n\tqueries[i].length == 2\n\n\t0 <= nums[j], xi, mi <= 109",
+      "statementEn": "You are given an array nums consisting of non-negative integers. You are also given a queries array, where queries[i] = [xi, mi].\n\nThe answer to the ith query is the maximum bitwise XOR value of xi and any element of nums that does not exceed mi. In other words, the answer is max(nums[j] XOR xi) for all j such that nums[j] <= mi. If all elements in nums are larger than mi, then the answer is -1.\n\nReturn an integer array answer where answer.length == queries.length and answer[i] is the answer to the ith query.\n\n \n\nExample 1:\n\nInput: nums = [0,1,2,3,4], queries = [[3,1],[1,3],[5,6]]\nOutput: [3,3,7]\nExplanation:\n1) 0 and 1 are the only two integers not greater than 1. 0 XOR 3 = 3 and 1 XOR 3 = 2. The larger of the two is 3.\n2) 1 XOR 2 = 3.\n3) 5 XOR 2 = 7.\n\nExample 2:\n\nInput: nums = [5,2,4,6,6,3], queries = [[12,4],[8,1],[6,3]]\nOutput: [15,-1,5]\n\n \n\nConstraints:\n\n\t1 <= nums.length, queries.length <= 105\n\n\tqueries[i].length == 2\n\n\t0 <= nums[j], xi, mi <= 109",
+      "statement": "给你一个由非负整数组成的数组 nums 。另有一个查询数组 queries ，其中 queries[i] = [xi, mi] 。\n\n第 i 个查询的答案是 xi 和任何 nums 数组中不超过 mi 的元素按位异或（XOR）得到的最大值。换句话说，答案是 max(nums[j] XOR xi) ，其中所有 j 均满足 nums[j] <= mi 。如果 nums 中的所有元素都大于 mi，最终答案就是 -1 。\n\n返回一个整数数组 answer 作为查询的答案，其中 answer.length == queries.length 且 answer[i] 是第 i 个查询的答案。\n\n \n\n示例 1：\n\n输入：nums = [0,1,2,3,4], queries = [[3,1],[1,3],[5,6]]\n输出：[3,3,7]\n解释：\n1) 0 和 1 是仅有的两个不超过 1 的整数。0 XOR 3 = 3 而 1 XOR 3 = 2 。二者中的更大值是 3 。\n2) 1 XOR 2 = 3.\n3) 5 XOR 2 = 7.\n\n示例 2：\n\n输入：nums = [5,2,4,6,6,3], queries = [[12,4],[8,1],[6,3]]\n输出：[15,-1,5]\n\n \n\n提示：\n\n\t1 <= nums.length, queries.length <= 105\n\n\tqueries[i].length == 2\n\n\t0 <= nums[j], xi, mi <= 109",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "const int L = 30;\n\nstruct TrieNode {\n    struct TrieNode* children[2];\n};\n\nstruct TrieNode* createTrieNode() {\n    struct TrieNode* ret = malloc(sizeof(struct TrieNode));\n    ret->children[0] = ret->children[1] = NULL;\n    return ret;\n};\n\nvoid insert(struct TrieNode* root, int val) {\n    struct TrieNode* node = root;\n    for (int i = L - 1; i >= 0; --i) {\n        int bit = (val >> i) & 1;\n        if (node->children[bit] == NULL) {\n            node->children[bit] = createTrieNode();\n        }\n        node = node->children[bit];\n    }\n}\n\nint getMaxXor(struct TrieNode* root, int val) {\n    int ans = 0;\n    struct TrieNode* node = root;\n    for (int i = L - 1; i >= 0; --i) {\n        int bit = (val >> i) & 1;\n        if (node->children[bit ^ 1] != NULL) {\n            ans |= 1 << i;\n            bit ^= 1;\n        }\n        node = node->children[bit];\n    }\n    return ans;\n}\n\nint cmp1(int* a, int* b) {\n    return *a - *b;\n}\n\nint cmp2(int** a, int** b) {\n    return (*a)[1] - (*b)[1];\n}\n\nint* maximizeXor(int* nums, int numsSize, int** queries, int queriesSize, int* queriesColSize, int* returnSize) {\n    qsort(nums, numsSize, sizeof(int), cmp1);\n    for (int i = 0; i < queriesSize; ++i) {\n        queries[i] = realloc(queries[i], sizeof(int) * 3);\n        queries[i][2] = i;\n    }\n    qsort(queries, queriesSize, sizeof(int*), cmp2);\n    int* ans = malloc(sizeof(int) * queriesSize);\n    *returnSize = queriesSize;\n    struct TrieNode* t = createTrieNode();\n    int idx = 0, n = numsSize;\n    for (int i = 0; i < queriesSize; i++) {\n        int x = queries[i][0], m = queries[i][1], qid = queries[i][2];\n        while (idx < n && nums[idx] <= m) {\n            insert(t, nums[idx]);\n            ++idx;\n        }\n        if (idx == 0) {  // 字典树为空\n            ans[qid] = -1;\n        } else {\n            ans[qid] = getMaxXor(t, x);\n        }\n    }\n    return ans;\n}",
+        "java": "class Solution {\n    public int[] maximizeXor(int[] nums, int[][] queries) {\n        Arrays.sort(nums);\n        int numQ = queries.length;\n        int[][] newQueries = new int[numQ][3];\n        for (int i = 0; i < numQ; ++i) {\n            newQueries[i][0] = queries[i][0];\n            newQueries[i][1] = queries[i][1];\n            newQueries[i][2] = i;\n        }\n        Arrays.sort(newQueries, new Comparator<int[]>() {\n            public int compare(int[] query1, int[] query2) {\n                return query1[1] - query2[1];\n            }\n        });\n\n        int[] ans = new int[numQ];\n        Trie trie = new Trie();\n        int idx = 0, n = nums.length;\n        for (int[] query : newQueries) {\n            int x = query[0], m = query[1], qid = query[2];\n            while (idx < n && nums[idx] <= m) {\n                trie.insert(nums[idx]);\n                ++idx;\n            }\n            if (idx == 0) { // 字典树为空\n                ans[qid] = -1;\n            } else {\n                ans[qid] = trie.getMaxXor(x);\n            }\n        }\n        return ans;\n    }\n}\n\nclass Trie {\n    static final int L = 30;\n    Trie[] children = new Trie[2];\n\n    public void insert(int val) {\n        Trie node = this;\n        for (int i = L - 1; i >= 0; --i) {\n            int bit = (val >> i) & 1;\n            if (node.children[bit] == null) {\n                node.children[bit] = new Trie();\n            }\n            node = node.children[bit];\n        }\n    }\n\n    public int getMaxXor(int val) {\n        int ans = 0;\n        Trie node = this;\n        for (int i = L - 1; i >= 0; --i) {\n            int bit = (val >> i) & 1;\n            if (node.children[bit ^ 1] != null) {\n                ans |= 1 << i;\n                bit ^= 1;\n            }\n            node = node.children[bit];\n        }\n        return ans;\n    }\n}",
+        "go": "const L = 30\n\ntype trie struct {\n    children [2]*trie\n}\n\nfunc (t *trie) insert(val int) {\n    node := t\n    for i := L - 1; i >= 0; i-- {\n        bit := val >> i & 1\n        if node.children[bit] == nil {\n            node.children[bit] = &trie{}\n        }\n        node = node.children[bit]\n    }\n}\n\nfunc (t *trie) getMaxXor(val int) (ans int) {\n    node := t\n    for i := L - 1; i >= 0; i-- {\n        bit := val >> i & 1\n        if node.children[bit^1] != nil {\n            ans |= 1 << i\n            bit ^= 1\n        }\n        node = node.children[bit]\n    }\n    return\n}\n\nfunc maximizeXor(nums []int, queries [][]int) []int {\n    sort.Ints(nums)\n    for i := range queries {\n        queries[i] = append(queries[i], i)\n    }\n    sort.Slice(queries, func(i, j int) bool { return queries[i][1] < queries[j][1] })\n\n    ans := make([]int, len(queries))\n    t := &trie{}\n    idx, n := 0, len(nums)\n    for _, q := range queries {\n        x, m, qid := q[0], q[1], q[2]\n        for idx < n && nums[idx] <= m {\n            t.insert(nums[idx])\n            idx++\n        }\n        if idx == 0 { // 字典树为空\n            ans[qid] = -1\n        } else {\n            ans[qid] = t.getMaxXor(x)\n        }\n    }\n    return ans\n}",
+        "python": "class Trie:\n    L = 30\n\n    def __init__(self):\n        self.left = None\n        self.right = None\n        self.min_value = float(\"inf\")\n\n    def insert(self, val: int):\n        node = self\n        node.min_value = min(node.min_value, val)\n        for i in range(Trie.L, -1, -1):\n            bit = (val >> i) & 1\n            if bit == 0:\n                if not node.left:\n                    node.left = Trie()\n                node = node.left\n            else:\n                if not node.right:\n                    node.right = Trie()\n                node = node.right\n            node.min_value = min(node.min_value, val)\n    \n    def getMaxXorWithLimit(self, val: int, limit: int) -> int:\n        node = self\n        if node.min_value > limit:\n            return -1\n        \n        ans = 0\n        for i in range(Trie.L, -1, -1):\n            bit = (val >> i) & 1\n            check = False\n            if bit == 0:\n                if node.right and node.right.min_value <= limit:\n                    node = node.right\n                    check = True\n                else:\n                    node = node.left\n            else:\n                if node.left and node.left.min_value <= limit:\n                    node = node.left\n                    check = True\n                else:\n                    node = node.right\n            if check:\n                ans |= 1 << i\n        return ans\n\n\nclass Solution:\n    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -> List[int]:\n        t = Trie()\n        for val in nums:\n            t.insert(val)\n        \n        q = len(queries)\n        ans = [0] * q\n        for i, (x, m) in enumerate(queries):\n            ans[i] = t.getMaxXorWithLimit(x, m)\n        \n        return ans"
+      },
+      "id": 266
+    },
+    {
+      "title": "长度为 K 的最大子数组",
+      "titleSlug": "largest-subarray-length-k",
+      "tags": [
+        "贪心",
+        "数组"
+      ],
+      "difficulty": "简单",
+      "acceptance": 63.98,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/largest-subarray-length-k/",
+      "hotCompanies": [
+        "谷歌"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 267
+    },
+    {
+      "title": "访问日期之间最大的空档期",
+      "titleSlug": "biggest-window-between-visits",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 65.17,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/biggest-window-between-visits/",
+      "hotCompanies": [
+        "亚马逊",
+        "字节",
+        "robinhood"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 268
+    },
+    {
+      "title": "卡车上的最大单元数",
+      "titleSlug": "maximum-units-on-a-truck",
+      "tags": [
+        "贪心",
+        "数组",
+        "排序"
+      ],
+      "difficulty": "简单",
+      "acceptance": 74.03,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-units-on-a-truck/",
+      "hotCompanies": [
+        "亚马逊",
+        "jpmorgan",
+        "谷歌"
+      ],
+      "statementZh": "请你将一些箱子装在 一辆卡车 上。给你一个二维数组 boxTypes ，其中 boxTypes[i] = [numberOfBoxesi, numberOfUnitsPerBoxi] ：\n\n\tnumberOfBoxesi 是类型 i 的箱子的数量。\n\n\tnumberOfUnitsPerBoxi 是类型 i 每个箱子可以装载的单元数量。\n\n整数 truckSize 表示卡车上可以装载 箱子 的 最大数量 。只要箱子数量不超过 truckSize ，你就可以选择任意箱子装到卡车上。\n\n返回卡车可以装载 单元 的 最大 总数。\n\n \n\n示例 1：\n\n输入：boxTypes = [[1,3],[2,2],[3,1]], truckSize = 4\n输出：8\n解释：箱子的情况如下：\n- 1 个第一类的箱子，里面含 3 个单元。\n- 2 个第二类的箱子，每个里面含 2 个单元。\n- 3 个第三类的箱子，每个里面含 1 个单元。\n可以选择第一类和第二类的所有箱子，以及第三类的一个箱子。\n单元总数 = (1 * 3) + (2 * 2) + (1 * 1) = 8\n\n示例 2：\n\n输入：boxTypes = [[5,10],[2,5],[4,7],[3,9]], truckSize = 10\n输出：91\n\n \n\n提示：\n\n\t1 \n\n\t1 i, numberOfUnitsPerBoxi \n\n\t1 6",
+      "statementEn": "You are assigned to put some amount of boxes onto one truck. You are given a 2D array boxTypes, where boxTypes[i] = [numberOfBoxesi, numberOfUnitsPerBoxi]:\n\n\tnumberOfBoxesi is the number of boxes of type i.\n\n\tnumberOfUnitsPerBoxi is the number of units in each box of the type i.\n\nYou are also given an integer truckSize, which is the maximum number of boxes that can be put on the truck. You can choose any boxes to put on the truck as long as the number of boxes does not exceed truckSize.\n\nReturn the maximum total number of units that can be put on the truck.\n\n \n\nExample 1:\n\nInput: boxTypes = [[1,3],[2,2],[3,1]], truckSize = 4\nOutput: 8\nExplanation: There are:\n- 1 box of the first type that contains 3 units.\n- 2 boxes of the second type that contain 2 units each.\n- 3 boxes of the third type that contain 1 unit each.\nYou can take all the boxes of the first and second types, and one box of the third type.\nThe total number of units will be = (1 * 3) + (2 * 2) + (1 * 1) = 8.\n\nExample 2:\n\nInput: boxTypes = [[5,10],[2,5],[4,7],[3,9]], truckSize = 10\nOutput: 91\n\n \n\nConstraints:\n\n\t1 <= boxTypes.length <= 1000\n\n\t1 <= numberOfBoxesi, numberOfUnitsPerBoxi <= 1000\n\n\t1 <= truckSize <= 106",
+      "statement": "请你将一些箱子装在 一辆卡车 上。给你一个二维数组 boxTypes ，其中 boxTypes[i] = [numberOfBoxesi, numberOfUnitsPerBoxi] ：\n\n\tnumberOfBoxesi 是类型 i 的箱子的数量。\n\n\tnumberOfUnitsPerBoxi 是类型 i 每个箱子可以装载的单元数量。\n\n整数 truckSize 表示卡车上可以装载 箱子 的 最大数量 。只要箱子数量不超过 truckSize ，你就可以选择任意箱子装到卡车上。\n\n返回卡车可以装载 单元 的 最大 总数。\n\n \n\n示例 1：\n\n输入：boxTypes = [[1,3],[2,2],[3,1]], truckSize = 4\n输出：8\n解释：箱子的情况如下：\n- 1 个第一类的箱子，里面含 3 个单元。\n- 2 个第二类的箱子，每个里面含 2 个单元。\n- 3 个第三类的箱子，每个里面含 1 个单元。\n可以选择第一类和第二类的所有箱子，以及第三类的一个箱子。\n单元总数 = (1 * 3) + (2 * 2) + (1 * 1) = 8\n\n示例 2：\n\n输入：boxTypes = [[5,10],[2,5],[4,7],[3,9]], truckSize = 10\n输出：91\n\n \n\n提示：\n\n\t1 \n\n\t1 i, numberOfUnitsPerBoxi \n\n\t1 6",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def maximumUnits(self, boxTypes: List[List[int]], truckSize: int) -> int:\n        boxTypes.sort(key=lambda x: x[1], reverse=True)\n        res = 0\n        for numberOfBoxes, numberOfUnitsPerBox in boxTypes:\n            if numberOfBoxes >= truckSize:\n                res += truckSize * numberOfUnitsPerBox\n                break\n            res += numberOfBoxes * numberOfUnitsPerBox\n            truckSize -= numberOfBoxes\n        return res",
+        "cpp": "class Solution {\npublic:\n    int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {\n        sort(boxTypes.begin(), boxTypes.end(), [](const vector<int> &a, const vector<int> &b) {\n            return a[1] > b[1];\n        });\n        int res = 0;\n        for (auto &boxType : boxTypes) {\n            int numberOfBoxes = boxType[0];\n            int numberOfUnitsPerBox = boxType[1];\n            if (numberOfBoxes < truckSize) {\n                res += numberOfBoxes * numberOfUnitsPerBox;\n                truckSize -= numberOfBoxes;\n            } else {\n                res += truckSize * numberOfUnitsPerBox;\n                break;\n            }\n        }\n        return res;\n    }\n};",
+        "java": "class Solution {\n    public int maximumUnits(int[][] boxTypes, int truckSize) {\n        Arrays.sort(boxTypes, (a, b) -> b[1] - a[1]);\n        int res = 0;\n        for (int[] boxType : boxTypes) {\n            int numberOfBoxes = boxType[0];\n            int numberOfUnitsPerBox = boxType[1];\n            if (numberOfBoxes < truckSize) {\n                res += numberOfBoxes * numberOfUnitsPerBox;\n                truckSize -= numberOfBoxes;\n            } else {\n                res += truckSize * numberOfUnitsPerBox;\n                break;\n            }\n        }\n        return res;\n    }\n}",
+        "javascript": "var maximumUnits = function(boxTypes, truckSize) {\n    boxTypes.sort((a, b) => b[1] - a[1]);\n    let res = 0;\n    for (const boxType of boxTypes) {\n        let numberOfBoxes = boxType[0];\n        let numberOfUnitsPerBox = boxType[1];\n        if (numberOfBoxes < truckSize) {\n            res += numberOfBoxes * numberOfUnitsPerBox;\n            truckSize -= numberOfBoxes;\n        } else {\n            res += truckSize * numberOfUnitsPerBox;\n            break;\n        }\n    }\n    return res;\n};",
+        "go": "func maximumUnits(boxTypes [][]int, truckSize int) (ans int) {\n    sort.Slice(boxTypes, func(i, j int) bool { return boxTypes[i][1] > boxTypes[j][1] })\n    for _, p := range boxTypes {\n        if p[0] >= truckSize {\n            ans += truckSize * p[1]\n            break\n        }\n        truckSize -= p[0]\n        ans += p[0] * p[1]\n    }\n    return\n}"
+      },
+      "id": 269
+    },
+    {
+      "title": "大餐计数",
+      "titleSlug": "count-good-meals",
+      "tags": [
+        "数组",
+        "哈希表"
+      ],
+      "difficulty": "中等",
+      "acceptance": 36.53,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/count-good-meals/",
+      "hotCompanies": [
+        "亚马逊",
+        "adobe",
+        "微软"
+      ],
+      "statementZh": "大餐 是指 恰好包含两道不同餐品 的一餐，其美味程度之和等于 2 的幂。\n\n你可以搭配 任意 两道餐品做一顿大餐。\n\n给你一个整数数组 deliciousness ，其中 deliciousness[i] 是第 i​​​​​​​​​​​​​​ 道餐品的美味程度，返回你可以用数组中的餐品做出的不同 大餐 的数量。结果需要对 109 + 7 取余。\n\n注意，只要餐品下标不同，就可以认为是不同的餐品，即便它们的美味程度相同。\n\n \n\n示例 1：\n\n输入：deliciousness = [1,3,5,7,9]\n输出：4\n解释：大餐的美味程度组合为 (1,3) 、(1,7) 、(3,5) 和 (7,9) 。\n它们各自的美味程度之和分别为 4 、8 、8 和 16 ，都是 2 的幂。\n\n示例 2：\n\n输入：deliciousness = [1,1,1,3,3,3,7]\n输出：15\n解释：大餐的美味程度组合为 3 种 (1,1) ，9 种 (1,3) ，和 3 种 (1,7) 。\n\n \n\n提示：\n\n\t1 5\n\n\t0 20",
+      "statementEn": "A good meal is a meal that contains exactly two different food items with a sum of deliciousness equal to a power of two.\n\nYou can pick any two different foods to make a good meal.\n\nGiven an array of integers deliciousness where deliciousness[i] is the deliciousness of the i​​​​​​th​​​​​​​​ item of food, return the number of different good meals you can make from this list modulo 109 + 7.\n\nNote that items with different indices are considered different even if they have the same deliciousness value.\n\n \n\nExample 1:\n\nInput: deliciousness = [1,3,5,7,9]\nOutput: 4\nExplanation: The good meals are (1,3), (1,7), (3,5) and, (7,9).\nTheir respective sums are 4, 8, 8, and 16, all of which are powers of 2.\n\nExample 2:\n\nInput: deliciousness = [1,1,1,3,3,3,7]\nOutput: 15\nExplanation: The good meals are (1,1) with 3 ways, (1,3) with 9 ways, and (1,7) with 3 ways.\n\n \n\nConstraints:\n\n\t1 <= deliciousness.length <= 105\n\n\t0 <= deliciousness[i] <= 220",
+      "statement": "大餐 是指 恰好包含两道不同餐品 的一餐，其美味程度之和等于 2 的幂。\n\n你可以搭配 任意 两道餐品做一顿大餐。\n\n给你一个整数数组 deliciousness ，其中 deliciousness[i] 是第 i​​​​​​​​​​​​​​ 道餐品的美味程度，返回你可以用数组中的餐品做出的不同 大餐 的数量。结果需要对 109 + 7 取余。\n\n注意，只要餐品下标不同，就可以认为是不同的餐品，即便它们的美味程度相同。\n\n \n\n示例 1：\n\n输入：deliciousness = [1,3,5,7,9]\n输出：4\n解释：大餐的美味程度组合为 (1,3) 、(1,7) 、(3,5) 和 (7,9) 。\n它们各自的美味程度之和分别为 4 、8 、8 和 16 ，都是 2 的幂。\n\n示例 2：\n\n输入：deliciousness = [1,1,1,3,3,3,7]\n输出：15\n解释：大餐的美味程度组合为 3 种 (1,1) ，9 种 (1,3) ，和 3 种 (1,7) 。\n\n \n\n提示：\n\n\t1 5\n\n\t0 20",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "java": "class Solution {\n    public int countPairs(int[] deliciousness) {\n        final int MOD = 1000000007;\n        int maxVal = 0;\n        for (int val : deliciousness) {\n            maxVal = Math.max(maxVal, val);\n        }\n        int maxSum = maxVal * 2;\n        int pairs = 0;\n        Map<Integer, Integer> map = new HashMap<Integer, Integer>();\n        int n = deliciousness.length;\n        for (int i = 0; i < n; i++) {\n            int val = deliciousness[i];\n            for (int sum = 1; sum <= maxSum; sum <<= 1) {\n                int count = map.getOrDefault(sum - val, 0);\n                pairs = (pairs + count) % MOD;\n            }\n            map.put(val, map.getOrDefault(val, 0) + 1);\n        }\n        return pairs;\n    }\n}",
+        "cpp": "struct HashTable {\n    int key, val;\n    UT_hash_handle hh;\n};\n\nconst int MOD = 1000000007;\n\nint countPairs(int* deliciousness, int deliciousnessSize) {\n    int maxVal = 0;\n    for (int i = 0; i < deliciousnessSize; i++) {\n        maxVal = fmax(maxVal, deliciousness[i]);\n    }\n    int maxSum = maxVal * 2;\n    int pairs = 0;\n    struct HashTable *hashTable = NULL, *tmp;\n    int n = deliciousnessSize;\n    for (int i = 0; i < deliciousnessSize; i++) {\n        int val = deliciousness[i];\n        for (int sum = 1; sum <= maxSum; sum <<= 1) {\n            int target = sum - val;\n            HASH_FIND_INT(hashTable, &target, tmp);\n            int count = tmp == NULL ? 0 : tmp->val;\n            pairs = (pairs + count) % MOD;\n        }\n        HASH_FIND_INT(hashTable, &val, tmp);\n        if (tmp == NULL) {\n            tmp = malloc(sizeof(struct HashTable));\n            tmp->key = val, tmp->val = 1;\n            HASH_ADD_INT(hashTable, key, tmp);\n        } else {\n            tmp->val++;\n        }\n    }\n    return pairs;\n}",
+        "javascript": "var countPairs = function(deliciousness) {\n    const MOD = 1000000007;\n    let maxVal = 0;\n    for (const val of deliciousness) {\n        maxVal = Math.max(maxVal, val);\n    }\n    const maxSum = maxVal * 2;\n    let pairs = 0;\n    const map = new Map();\n    const n = deliciousness.length;\n    for (let i = 0; i < n; i++) {\n        const val = deliciousness[i];\n        for (let sum = 1; sum <= maxSum; sum <<= 1) {\n            const count = map.get(sum - val) || 0;\n            pairs = (pairs + count) % MOD;\n        }\n        map.set(val, (map.get(val) || 0) + 1);\n    }\n    return pairs;\n};",
+        "go": "func countPairs(deliciousness []int) (ans int) {\n    maxVal := deliciousness[0]\n    for _, val := range deliciousness[1:] {\n        if val > maxVal {\n            maxVal = val\n        }\n    }\n    maxSum := maxVal * 2\n    cnt := map[int]int{}\n    for _, val := range deliciousness {\n        for sum := 1; sum <= maxSum; sum <<= 1 {\n            ans += cnt[sum-val]\n        }\n        cnt[val]++\n    }\n    return ans % (1e9 + 7)\n}"
+      },
+      "id": 270
+    },
+    {
+      "title": "将数组分成三个子数组的方案数",
+      "titleSlug": "ways-to-split-array-into-three-subarrays",
+      "tags": [
+        "数组",
+        "双指针",
+        "二分查找",
+        "前缀和"
+      ],
+      "difficulty": "中等",
+      "acceptance": 31.26,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/ways-to-split-array-into-three-subarrays/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "morgan-stanley"
+      ],
+      "statementZh": "我们称一个分割整数数组的方案是 好的 ，当它满足：\n\n\t数组被分成三个 非空 连续子数组，从左至右分别命名为 left ， mid ， right 。\n\n\tleft 中元素和小于等于 mid 中元素和，mid 中元素和小于等于 right 中元素和。\n\n给你一个 非负 整数数组 nums ，请你返回 好的 分割 nums 方案数目。由于答案可能会很大，请你将结果对 109 + 7 取余后返回。\n\n \n\n示例 1：\n\n输入：nums = [1,1,1]\n输出：1\n解释：唯一一种好的分割方案是将 nums 分成 [1] [1] [1] 。\n\n示例 2：\n\n输入：nums = [1,2,2,2,5,0]\n输出：3\n解释：nums 总共有 3 种好的分割方案：\n[1] [2] [2,2,5,0]\n[1] [2,2] [2,5,0]\n[1,2] [2,2] [5,0]\n\n示例 3：\n\n输入：nums = [3,2,1]\n输出：0\n解释：没有好的分割方案。\n\n \n\n提示：\n\n\t3 5\n\n\t0 4",
+      "statementEn": "A split of an integer array is good if:\n\n\tThe array is split into three non-empty contiguous subarrays - named left, mid, right respectively from left to right.\n\n\tThe sum of the elements in left is less than or equal to the sum of the elements in mid, and the sum of the elements in mid is less than or equal to the sum of the elements in right.\n\nGiven nums, an array of non-negative integers, return the number of good ways to split nums. As the number may be too large, return it modulo 109 + 7.\n\n \n\nExample 1:\n\nInput: nums = [1,1,1]\nOutput: 1\nExplanation: The only good way to split nums is [1] [1] [1].\n\nExample 2:\n\nInput: nums = [1,2,2,2,5,0]\nOutput: 3\nExplanation: There are three good ways of splitting nums:\n[1] [2] [2,2,5,0]\n[1] [2,2] [2,5,0]\n[1,2] [2,2] [5,0]\n\nExample 3:\n\nInput: nums = [3,2,1]\nOutput: 0\nExplanation: There is no good way to split nums.\n\n \n\nConstraints:\n\n\t3 <= nums.length <= 105\n\n\t0 <= nums[i] <= 104",
+      "statement": "我们称一个分割整数数组的方案是 好的 ，当它满足：\n\n\t数组被分成三个 非空 连续子数组，从左至右分别命名为 left ， mid ， right 。\n\n\tleft 中元素和小于等于 mid 中元素和，mid 中元素和小于等于 right 中元素和。\n\n给你一个 非负 整数数组 nums ，请你返回 好的 分割 nums 方案数目。由于答案可能会很大，请你将结果对 109 + 7 取余后返回。\n\n \n\n示例 1：\n\n输入：nums = [1,1,1]\n输出：1\n解释：唯一一种好的分割方案是将 nums 分成 [1] [1] [1] 。\n\n示例 2：\n\n输入：nums = [1,2,2,2,5,0]\n输出：3\n解释：nums 总共有 3 种好的分割方案：\n[1] [2] [2,2,5,0]\n[1] [2,2] [2,5,0]\n[1,2] [2,2] [5,0]\n\n示例 3：\n\n输入：nums = [3,2,1]\n输出：0\n解释：没有好的分割方案。\n\n \n\n提示：\n\n\t3 5\n\n\t0 4",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "go": "func waysToSplit(a []int) (ans int) {\r\n\tn := len(a)\r\n\tsum := make([]int, n+1)\r\n\tfor i, v := range a {\r\n\t\tsum[i+1] = sum[i] + v\r\n\t}\r\n\tfor r := 2; r < n && 3*sum[r] <= 2*sum[n]; r++ {\r\n\t\tl1 := sort.SearchInts(sum[1:r], 2*sum[r]-sum[n]) + 1\r\n\t\tans += sort.SearchInts(sum[l1:r], sum[r]/2+1)\r\n\t}\r\n\treturn ans % (1e9 + 7)\r\n}"
+      },
+      "id": 271
+    },
+    {
+      "title": "得到子序列的最少操作次数",
+      "titleSlug": "minimum-operations-to-make-a-subsequence",
+      "tags": [
+        "贪心",
+        "数组",
+        "哈希表",
+        "二分查找"
+      ],
+      "difficulty": "困难",
+      "acceptance": 50.5,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-operations-to-make-a-subsequence/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "微软"
+      ],
+      "statementZh": "给你一个数组 target ，包含若干 互不相同 的整数，以及另一个整数数组 arr ，arr 可能 包含重复元素。\n\n每一次操作中，你可以在 arr 的任意位置插入任一整数。比方说，如果 arr = [1,4,1,2] ，那么你可以在中间添加 3 得到 [1,4,3,1,2] 。你可以在数组最开始或最后面添加整数。\n\n请你返回 最少 操作次数，使得 target 成为 arr 的一个子序列。\n\n一个数组的 子序列 指的是删除原数组的某些元素（可能一个元素都不删除），同时不改变其余元素的相对顺序得到的数组。比方说，[2,7,4] 是 [4,2,3,7,2,1,4] 的子序列（加粗元素），但 [2,4,2] 不是子序列。\n\n \n\n示例 1：\n\n输入：target = [5,1,3], arr = [9,4,2,3,4]\n输出：2\n解释：你可以添加 5 和 1 ，使得 arr 变为 [5,9,4,1,2,3,4] ，target 为 arr 的子序列。\n\n示例 2：\n\n输入：target = [6,4,8,1,3,2], arr = [4,7,6,2,3,8,6,1]\n输出：3\n\n \n\n提示：\n\n\t1 <= target.length, arr.length <= 105\n\n\t1 <= target[i], arr[i] <= 109\n\n\ttarget 不包含任何重复元素。",
+      "statementEn": "You are given an array target that consists of distinct integers and another integer array arr that can have duplicates.\n\nIn one operation, you can insert any integer at any position in arr. For example, if arr = [1,4,1,2], you can add 3 in the middle and make it [1,4,3,1,2]. Note that you can insert the integer at the very beginning or end of the array.\n\nReturn the minimum number of operations needed to make target a subsequence of arr.\n\nA subsequence of an array is a new array generated from the original array by deleting some elements (possibly none) without changing the remaining elements&#39; relative order. For example, [2,7,4] is a subsequence of [4,2,3,7,2,1,4] (the underlined elements), while [2,4,2] is not.\n\n \n\nExample 1:\n\nInput: target = [5,1,3], arr = [9,4,2,3,4]\nOutput: 2\nExplanation: You can add 5 and 1 in such a way that makes arr = [5,9,4,1,2,3,4], then target will be a subsequence of arr.\n\nExample 2:\n\nInput: target = [6,4,8,1,3,2], arr = [4,7,6,2,3,8,6,1]\nOutput: 3\n\n \n\nConstraints:\n\n\t1 <= target.length, arr.length <= 105\n\n\t1 <= target[i], arr[i] <= 109\n\n\ttarget contains no duplicates.",
+      "statement": "给你一个数组 target ，包含若干 互不相同 的整数，以及另一个整数数组 arr ，arr 可能 包含重复元素。\n\n每一次操作中，你可以在 arr 的任意位置插入任一整数。比方说，如果 arr = [1,4,1,2] ，那么你可以在中间添加 3 得到 [1,4,3,1,2] 。你可以在数组最开始或最后面添加整数。\n\n请你返回 最少 操作次数，使得 target 成为 arr 的一个子序列。\n\n一个数组的 子序列 指的是删除原数组的某些元素（可能一个元素都不删除），同时不改变其余元素的相对顺序得到的数组。比方说，[2,7,4] 是 [4,2,3,7,2,1,4] 的子序列（加粗元素），但 [2,4,2] 不是子序列。\n\n \n\n示例 1：\n\n输入：target = [5,1,3], arr = [9,4,2,3,4]\n输出：2\n解释：你可以添加 5 和 1 ，使得 arr 变为 [5,9,4,1,2,3,4] ，target 为 arr 的子序列。\n\n示例 2：\n\n输入：target = [6,4,8,1,3,2], arr = [4,7,6,2,3,8,6,1]\n输出：3\n\n \n\n提示：\n\n\t1 <= target.length, arr.length <= 105\n\n\t1 <= target[i], arr[i] <= 109\n\n\ttarget 不包含任何重复元素。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "struct HashTable {\n    int key, val;\n    UT_hash_handle hh;\n};\n\nint lower_bound(int* arr, int l, int r, int val) {\n    while (l < r) {\n        int mid = (l + r) >> 1;\n        if (arr[mid] >= val) {\n            r = mid;\n        } else {\n            l = mid + 1;\n        }\n    }\n    return l;\n}\n\nint minOperations(int* target, int targetSize, int* arr, int arrSize) {\n    struct HashTable* hashTable = NULL;\n    for (int i = 0; i < targetSize; i++) {\n        struct HashTable* tmp;\n        HASH_FIND_INT(hashTable, &target[i], tmp);\n        if (tmp == NULL) {\n            tmp = (struct HashTable*)malloc(sizeof(struct HashTable));\n            tmp->key = target[i], tmp->val = i;\n            HASH_ADD_INT(hashTable, key, tmp);\n        }\n    }\n    int d[arrSize], dSize = 0;\n    for (int i = 0; i < arrSize; i++) {\n        struct HashTable* tmp;\n        HASH_FIND_INT(hashTable, &arr[i], tmp);\n        if (tmp != NULL) {\n            int idx = tmp->val;\n            int it = lower_bound(d, 0, dSize, idx);\n            if (it == dSize) {\n                d[dSize++] = idx;\n            } else {\n                d[it] = idx;\n            }\n        }\n    }\n    return targetSize - dSize;\n}",
+        "java": "class Solution {\n    public int minOperations(int[] target, int[] arr) {\n        int n = target.length;\n        Map<Integer, Integer> pos = new HashMap<Integer, Integer>();\n        for (int i = 0; i < n; ++i) {\n            pos.put(target[i], i);\n        }\n        List<Integer> d = new ArrayList<Integer>();\n        for (int val : arr) {\n            if (pos.containsKey(val)) {\n                int idx = pos.get(val);\n                int it = binarySearch(d, idx);\n                if (it != d.size()) {\n                    d.set(it, idx);\n                } else {\n                    d.add(idx);\n                }\n            }\n        }\n        return n - d.size();\n    }\n\n    public int binarySearch(List<Integer> d, int target) {\n        int size = d.size();\n        if (size == 0 || d.get(size - 1) < target) {\n            return size;\n        }\n        int low = 0, high = size - 1;\n        while (low < high) {\n            int mid = (high - low) / 2 + low;\n            if (d.get(mid) < target) {\n                low = mid + 1;\n            } else {\n                high = mid;\n            }\n        }\n        return low;\n    }\n}",
+        "go": "func minOperations(target, arr []int) int {\n    n := len(target)\n    pos := make(map[int]int, n)\n    for i, val := range target {\n        pos[val] = i\n    }\n    d := []int{}\n    for _, val := range arr {\n        if idx, has := pos[val]; has {\n            if p := sort.SearchInts(d, idx); p < len(d) {\n                d[p] = idx\n            } else {\n                d = append(d, idx)\n            }\n        }\n    }\n    return n - len(d)\n}",
+        "javascript": "var minOperations = function(target, arr) {\n    const n = target.length;\n    const pos = new Map();\n    for (let i = 0; i < n; ++i) {\n        pos.set(target[i], i);\n    }\n    const d = [];\n    for (const val of arr) {\n        if (pos.has(val)) {\n            const idx = pos.get(val);\n            const it = binarySearch(d, idx);\n            if (it !== d.length) {\n                d[it] = idx;\n            } else {\n                d.push(idx);\n            }\n        }\n    }\n    return n - d.length;\n};\n\nconst binarySearch = (d, target) => {\n    const size = d.length;\n    if (size === 0 || d[size - 1] < target) {\n        return size;\n    }\n    let low = 0, high = size - 1;\n    while (low < high) {\n        const mid = Math.floor((high - low) / 2) + low;\n        if (d[mid] < target) {\n            low = mid + 1;\n        } else {\n            high = mid;\n        }\n    }\n    return low;\n}"
+      },
+      "id": 272
+    },
+    {
+      "title": "数组中特殊等间距元素的和",
+      "titleSlug": "sum-of-special-evenly-spaced-elements-in-array",
+      "tags": [
+        "数组",
+        "动态规划"
+      ],
+      "difficulty": "困难",
+      "acceptance": 53.89,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/sum-of-special-evenly-spaced-elements-in-array/",
+      "hotCompanies": [
+        "力扣高频"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 273
+    },
+    {
+      "title": "苹果和橘子的个数",
+      "titleSlug": "count-apples-and-oranges",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 72.17,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/count-apples-and-oranges/",
+      "hotCompanies": [
+        "字节",
+        "亚马逊"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 274
     }
   ],
   "errors": []
