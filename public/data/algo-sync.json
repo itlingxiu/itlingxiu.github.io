@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-13T18:16:49.292Z",
-  "dateKey": "2026-07-14",
+  "crawledAt": "2026-07-14T17:41:01.571Z",
+  "dateKey": "2026-07-15",
   "sources": [
     "leetcode-cn",
     "nowcoder"
@@ -699,7 +699,7 @@
         "记忆化搜索"
       ],
       "difficulty": "简单",
-      "acceptance": 37.09,
+      "acceptance": 37.1,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/c6c7742f5ba7442aada113136ddea0c3",
       "statement": "牛客编程题 JZ10：斐波那契数列。完整描述请访问牛客练习页。",
@@ -835,7 +835,7 @@
         "链表"
       ],
       "difficulty": "简单",
-      "acceptance": 47.32,
+      "acceptance": 47.33,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/f9f78ca89ad643c99701a7142bd59f5d",
       "statement": "牛客编程题 JZ18：删除链表的节点。完整描述请访问牛客练习页。",
@@ -905,7 +905,7 @@
         "链表"
       ],
       "difficulty": "简单",
-      "acceptance": 31.79,
+      "acceptance": 31.8,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/886370fe658f41b498d40fb34ae76ff9",
       "statement": "牛客编程题 JZ22：链表中倒数最后k个结点。完整描述请访问牛客练习页。",
@@ -941,7 +941,7 @@
         "链表"
       ],
       "difficulty": "简单",
-      "acceptance": 32.75,
+      "acceptance": 32.76,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337",
       "statement": "牛客编程题 JZ25：合并两个排序的链表。完整描述请访问牛客练习页。",
@@ -992,7 +992,7 @@
         "树"
       ],
       "difficulty": "简单",
-      "acceptance": 32.69,
+      "acceptance": 32.7,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/ff05d44dfdb04e1d83bdbdab320efbcb",
       "statement": "牛客编程题 JZ28：对称的二叉树。完整描述请访问牛客练习页。",
@@ -6687,6 +6687,429 @@
       ],
       "approach": "可参考力扣官方题解与讨论区的高赞思路。",
       "id": 274
+    },
+    {
+      "title": "最多可以参加的会议数目 II",
+      "titleSlug": "maximum-number-of-events-that-can-be-attended-ii",
+      "tags": [
+        "数组",
+        "二分查找",
+        "动态规划",
+        "排序"
+      ],
+      "difficulty": "困难",
+      "acceptance": 62.75,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-number-of-events-that-can-be-attended-ii/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "uber"
+      ],
+      "statementZh": "给你一个 events 数组，其中 events[i] = [startDayi, endDayi, valuei] ，表示第 i 个会议在 startDayi 天开始，第 endDayi 天结束，如果你参加这个会议，你能得到价值 valuei 。同时给你一个整数 k 表示你能参加的最多会议数目。\n\n你同一时间只能参加一个会议。如果你选择参加某个会议，那么你必须 完整 地参加完这个会议。会议结束日期是包含在会议内的，也就是说你不能同时参加一个开始日期与另一个结束日期相同的两个会议。\n\n请你返回能得到的会议价值 最大和 。\n\n \n\n示例 1：\n\n输入：events = [[1,2,4],[3,4,3],[2,3,1]], k = 2\n输出：7\n解释：选择绿色的活动会议 0 和 1，得到总价值和为 4 + 3 = 7 。\n\n示例 2：\n\n输入：events = [[1,2,4],[3,4,3],[2,3,10]], k = 2\n输出：10\n解释：参加会议 2 ，得到价值和为 10 。\n你没法再参加别的会议了，因为跟会议 2 有重叠。你 不 需要参加满 k 个会议。\n\n示例 3：\n\n输入：events = [[1,1,1],[2,2,2],[3,3,3],[4,4,4]], k = 3\n输出：9\n解释：尽管会议互不重叠，你只能参加 3 个会议，所以选择价值最大的 3 个会议。\n\n \n\n提示：\n\n\t1 \n\n\t1 6\n\n\t1 i i 9\n\n\t1 i 6",
+      "statementEn": "You are given an array of events where events[i] = [startDayi, endDayi, valuei]. The ith event starts at startDayi and ends at endDayi, and if you attend this event, you will receive a value of valuei. You are also given an integer k which represents the maximum number of events you can attend.\n\nYou can only attend one event at a time. If you choose to attend an event, you must attend the entire event. Note that the end day is inclusive: that is, you cannot attend two events where one of them starts and the other ends on the same day.\n\nReturn the maximum sum of values that you can receive by attending events.\n\n \n\nExample 1:\n\nInput: events = [[1,2,4],[3,4,3],[2,3,1]], k = 2\nOutput: 7\nExplanation: Choose the green events, 0 and 1 (0-indexed) for a total value of 4 + 3 = 7.\n\nExample 2:\n\nInput: events = [[1,2,4],[3,4,3],[2,3,10]], k = 2\nOutput: 10\nExplanation: Choose event 2 for a total value of 10.\nNotice that you cannot attend any other event as they overlap, and that you do not have to attend k events.\n\nExample 3:\n\nInput: events = [[1,1,1],[2,2,2],[3,3,3],[4,4,4]], k = 3\nOutput: 9\nExplanation: Although the events do not overlap, you can only attend 3 events. Pick the highest valued three.\n\n \n\nConstraints:\n\n\t1 <= k <= events.length\n\n\t1 <= k * events.length <= 106\n\n\t1 <= startDayi <= endDayi <= 109\n\n\t1 <= valuei <= 106",
+      "statement": "给你一个 events 数组，其中 events[i] = [startDayi, endDayi, valuei] ，表示第 i 个会议在 startDayi 天开始，第 endDayi 天结束，如果你参加这个会议，你能得到价值 valuei 。同时给你一个整数 k 表示你能参加的最多会议数目。\n\n你同一时间只能参加一个会议。如果你选择参加某个会议，那么你必须 完整 地参加完这个会议。会议结束日期是包含在会议内的，也就是说你不能同时参加一个开始日期与另一个结束日期相同的两个会议。\n\n请你返回能得到的会议价值 最大和 。\n\n \n\n示例 1：\n\n输入：events = [[1,2,4],[3,4,3],[2,3,1]], k = 2\n输出：7\n解释：选择绿色的活动会议 0 和 1，得到总价值和为 4 + 3 = 7 。\n\n示例 2：\n\n输入：events = [[1,2,4],[3,4,3],[2,3,10]], k = 2\n输出：10\n解释：参加会议 2 ，得到价值和为 10 。\n你没法再参加别的会议了，因为跟会议 2 有重叠。你 不 需要参加满 k 个会议。\n\n示例 3：\n\n输入：events = [[1,1,1],[2,2,2],[3,3,3],[4,4,4]], k = 3\n输出：9\n解释：尽管会议互不重叠，你只能参加 3 个会议，所以选择价值最大的 3 个会议。\n\n \n\n提示：\n\n\t1 \n\n\t1 6\n\n\t1 i i 9\n\n\t1 i 6",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "int compare(const void *a, const void *b) {\n    return (*(int**)a)[1] - (*(int**)b)[1];\n}\n\nint lower_bound(int** events, int n, int target) {\n    int left = 0, right = n;\n    while (left < right) {\n        int mid = (left + right) / 2;\n        if (events[mid][1] < target) {\n            left = mid + 1;\n        } else {\n            right = mid;\n        }\n    }\n    return left;\n}\n\nint maxValue(int** events, int eventsSize, int* eventsColSize, int k) {\n    qsort(events, eventsSize, sizeof(int*), compare);\n    int** dp = malloc((eventsSize + 1) * sizeof(int*));\n    for (int i = 0; i <= eventsSize; i++) {\n        dp[i] = calloc(k + 1, sizeof(int));\n    }\n    for (int i = 0; i < eventsSize; i++) {\n        int p = lower_bound(events, eventsSize, events[i][0]);\n        for (int j = 1; j <= k; j++) {\n            dp[i + 1][j] = fmax(dp[i][j], dp[p][j - 1] + events[i][2]);\n        }\n    }\n    int res = dp[eventsSize][k];\n    for (int i = 0; i <= eventsSize; i++) {\n        free(dp[i]);\n    }\n    free(dp);\n\n    return res;\n}",
+        "java": "class Solution {\n    public int maxValue(int[][] events, int k) {\n        Arrays.sort(events, Comparator.comparingInt(a -> a[1]));\n        int n = events.length;\n        int[][] dp = new int[n + 1][k + 1];\n\n        for (int i = 0; i < n; i++) {\n            int p = lowerBound(events, events[i][0]);\n            for (int j = 1; j <= k; j++) {\n                dp[i + 1][j] = Math.max(dp[i][j], dp[p][j - 1] + events[i][2]);\n            }\n        }\n\n        return dp[n][k];\n    }\n\n    private int lowerBound(int[][] events, int target) {\n        int left = 0, right = events.length;\n        while (left < right) {\n            int mid = (left + right) / 2;\n            if (events[mid][1] < target) {\n                left = mid + 1;\n            } else {\n                right = mid;\n            }\n        }\n        return left;\n    }\n}",
+        "go": "func maxValue(events [][]int, k int) int {\n\tsort.Slice(events, func(i, j int) bool {\n\t\treturn events[i][1] < events[j][1]\n\t})\n\tn := len(events)\n\tdp := make([][]int, n + 1)\n\tfor i := range dp {\n\t\tdp[i] = make([]int, k + 1)\n\t}\n\tfor i, e := range events {\n\t\tp := sort.Search(i, func(j int) bool { return events[j][1] >= e[0] })\n\t\tfor j := 1; j <= k; j++ {\n\t\t\tdp[i + 1][j] = max(dp[i][j], dp[p][j - 1] + events[i][2])\n\t\t}\n\t}\n\n\treturn dp[n][k]\n}",
+        "python": "class Solution:\n    def maxValue(self, events: list[list[int]], k: int) -> int:\n        events.sort(key = lambda x: x[1])\n        n = len(events)\n        dp = [[0] * (k + 1) for _ in range(n + 1)]\n        for i, (start, end, val) in enumerate(events):\n            p = bisect_left(events, start, hi = n - 1, key=lambda e: e[1])\n            for j in range(1, k + 1):\n                dp[i + 1][j] = max(dp[i][j], dp[p][j - 1] + events[i][2])\n\n        return dp[n][k]",
+        "javascript": "var maxValue = function(events, k) {\n    events.sort((a, b) => a[1] - b[1]);\n    const n = events.length;\n    const dp = Array.from({ length: n + 1 }, () => Array(k + 1).fill(0));\n    const lowerBound = (target) => {\n        let left = 0, right = n;\n        while (left < right) {\n            const mid = (left + right) >> 1;\n            if (events[mid][1] < target) left = mid + 1;\n            else right = mid;\n        }\n        return left;\n    };\n\n    for (let i = 0; i < n; i++) {\n        const p = lowerBound(events[i][0]);\n        for (let j = 1; j <= k; j++) {\n            dp[i + 1][j] = Math.max(dp[i][j], dp[p][j - 1] + events[i][2]);\n        }\n    }\n\n    return dp[n][k];\n}",
+        "typescript": "function maxValue(events: number[][], k: number): number {\n    events.sort((a, b) => a[1] - b[1]);\n    const n = events.length;\n    const dp: number[][] = Array.from({ length: n + 1 }, () => Array(k + 1).fill(0));\n\n    function lowerBound(target: number): number {\n        let left = 0, right = n;\n        while (left < right) {\n            const mid = Math.floor((left + right) / 2);\n            if (events[mid][1] < target) left = mid + 1;\n            else right = mid;\n        }\n        return left;\n    }\n\n    for (let i = 0; i < n; i++) {\n        const p = lowerBound(events[i][0]);\n        for (let j = 1; j <= k; j++) {\n            dp[i + 1][j] = Math.max(dp[i][j], dp[p][j - 1] + events[i][2]);\n        }\n    }\n\n    return dp[n][k];\n}"
+      },
+      "id": 275
+    },
+    {
+      "title": "检查数组是否经排序和轮转得到",
+      "titleSlug": "check-if-array-is-sorted-and-rotated",
+      "tags": [
+        "数组"
+      ],
+      "difficulty": "简单",
+      "acceptance": 59,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/check-if-array-is-sorted-and-rotated/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "bloomberg"
+      ],
+      "statementZh": "给你一个数组 nums 。nums 的源数组中，所有元素与 nums 相同，但按非递减顺序排列。\n\n如果 nums 能够由源数组轮转若干位置（包括 0 个位置）得到，则返回 true ；否则，返回 false 。\n\n源数组中可能存在 重复项 。\n\n注意：数组 A 在轮转 x 个位置后得到长度相同的数组 B ，使得对于每一个有效的下标 i，满足 B[i] == A[(i+x) % A.length]。\n\n \n\n示例 1：\n\n输入：nums = [3,4,5,1,2]\n输出：true\n解释：[1,2,3,4,5] 为有序的源数组。\n可以轮转 x = 2 个位置，使新数组从值为 3 的元素开始：[3,4,5,1,2] 。\n\n示例 2：\n\n输入：nums = [2,1,3,4]\n输出：false\n解释：源数组无法经轮转得到 nums 。\n\n示例 3：\n\n输入：nums = [1,2,3]\n输出：true\n解释：[1,2,3] 为有序的源数组。\n可以轮转 x = 0 个位置（即不轮转）得到 nums 。\n\n \n\n提示：\n\n\t1 <= nums.length <= 100\n\n\t1 <= nums[i] <= 100",
+      "statementEn": "Given an array nums, return true if the array was originally sorted in non-decreasing order, then rotated some number of positions (including zero). Otherwise, return false.\n\nThere may be duplicates in the original array.\n\nNote: An array A rotated by x positions results in an array B of the same length such that B[i] == A[(i+x) % A.length] for every valid index i.\n\n \n\nExample 1:\n\nInput: nums = [3,4,5,1,2]\nOutput: true\nExplanation: [1,2,3,4,5] is the original sorted array.\nYou can rotate the array by x = 2 positions to begin on the element of value 3: [3,4,5,1,2].\n\nExample 2:\n\nInput: nums = [2,1,3,4]\nOutput: false\nExplanation: There is no sorted array once rotated that can make nums.\n\nExample 3:\n\nInput: nums = [1,2,3]\nOutput: true\nExplanation: [1,2,3] is the original sorted array.\nYou can rotate the array by x = 0 positions (i.e. no rotation) to make nums.\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 100\n\n\t1 <= nums[i] <= 100",
+      "statement": "给你一个数组 nums 。nums 的源数组中，所有元素与 nums 相同，但按非递减顺序排列。\n\n如果 nums 能够由源数组轮转若干位置（包括 0 个位置）得到，则返回 true ；否则，返回 false 。\n\n源数组中可能存在 重复项 。\n\n注意：数组 A 在轮转 x 个位置后得到长度相同的数组 B ，使得对于每一个有效的下标 i，满足 B[i] == A[(i+x) % A.length]。\n\n \n\n示例 1：\n\n输入：nums = [3,4,5,1,2]\n输出：true\n解释：[1,2,3,4,5] 为有序的源数组。\n可以轮转 x = 2 个位置，使新数组从值为 3 的元素开始：[3,4,5,1,2] 。\n\n示例 2：\n\n输入：nums = [2,1,3,4]\n输出：false\n解释：源数组无法经轮转得到 nums 。\n\n示例 3：\n\n输入：nums = [1,2,3]\n输出：true\n解释：[1,2,3] 为有序的源数组。\n可以轮转 x = 0 个位置（即不轮转）得到 nums 。\n\n \n\n提示：\n\n\t1 <= nums.length <= 100\n\n\t1 <= nums[i] <= 100",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def check(self, nums: List[int]) -> bool:\n        n = len(nums)\n        x = 0\n        for i in range(1, n):\n            if nums[i] < nums[i - 1]:\n                x = i\n                break\n        if x == 0:\n            return True\n        for i in range(x + 1, n):\n            if nums[i] < nums[i - 1]:\n                return False\n        return nums[0] >= nums[-1]",
+        "cpp": "class Solution {\npublic:\n    bool check(vector<int>& nums) {\n        int n = nums.size(), x = 0;\n        for (int i = 1; i < n; ++i) {\n            if (nums[i] < nums[i - 1]) {\n                x = i;\n                break;\n            }\n        }\n        if (x == 0) {\n            return true;\n        }\n        for (int i = x + 1; i < n; ++i) {\n            if (nums[i] < nums[i - 1]) {\n                return false;\n            }\n        }\n        return nums[0] >= nums[n - 1];\n    }\n};",
+        "java": "class Solution {\n    public boolean check(int[] nums) {\n        int n = nums.length, x = 0;\n        for (int i = 1; i < n; ++i) {\n            if (nums[i] < nums[i - 1]) {\n                x = i;\n                break;\n            }\n        }\n        if (x == 0) {\n            return true;\n        }\n        for (int i = x + 1; i < n; ++i) {\n            if (nums[i] < nums[i - 1]) {\n                return false;\n            }\n        }\n        return nums[0] >= nums[n - 1];\n    }\n}",
+        "javascript": "var check = function(nums) {\n    let n = nums.length, x = 0;\n    for (let i = 1; i < n; ++i) {\n        if (nums[i] < nums[i - 1]) {\n            x = i;\n            break;\n        }\n    }\n    if (x === 0) {\n        return true;\n    }\n    for (let i = x + 1; i < n; ++i) {\n        if (nums[i] < nums[i - 1]) {\n            return false;\n        }\n    }\n    return nums[0] >= nums[n - 1];\n};",
+        "go": "func check(nums []int) bool {\n    n := len(nums)\n    x := 0\n    for i := 1; i < n; i++ {\n        if nums[i] < nums[i-1] {\n            x = i\n            break\n        }\n    }\n    if x == 0 {\n        return true\n    }\n    for i := x + 1; i < n; i++ {\n        if nums[i] < nums[i-1] {\n            return false\n        }\n    }\n    return nums[0] >= nums[n-1]\n}"
+      },
+      "id": 276
+    },
+    {
+      "title": "移除石子的最大得分",
+      "titleSlug": "maximum-score-from-removing-stones",
+      "tags": [
+        "贪心",
+        "数学",
+        "堆（优先队列）"
+      ],
+      "difficulty": "中等",
+      "acceptance": 70.86,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-score-from-removing-stones/",
+      "hotCompanies": [
+        "bloomberg",
+        "谷歌",
+        "亚马逊"
+      ],
+      "statementZh": "你正在玩一个单人游戏，面前放置着大小分别为 a​​​​​​、b 和 c​​​​​​ 的 三堆 石子。\n\n每回合你都要从两个 不同的非空堆 中取出一颗石子，并在得分上加 1 分。当存在 两个或更多 的空堆时，游戏停止。\n\n给你三个整数 a 、b 和 c ，返回可以得到的 最大分数 。\n\n \n\n示例 1：\n\n输入：a = 2, b = 4, c = 6\n输出：6\n解释：石子起始状态是 (2, 4, 6) ，最优的一组操作是：\n- 从第一和第三堆取，石子状态现在是 (1, 4, 5)\n- 从第一和第三堆取，石子状态现在是 (0, 4, 4)\n- 从第二和第三堆取，石子状态现在是 (0, 3, 3)\n- 从第二和第三堆取，石子状态现在是 (0, 2, 2)\n- 从第二和第三堆取，石子状态现在是 (0, 1, 1)\n- 从第二和第三堆取，石子状态现在是 (0, 0, 0)\n总分：6 分 。\n\n示例 2：\n\n输入：a = 4, b = 4, c = 6\n输出：7\n解释：石子起始状态是 (4, 4, 6) ，最优的一组操作是：\n- 从第一和第二堆取，石子状态现在是 (3, 3, 6)\n- 从第一和第三堆取，石子状态现在是 (2, 3, 5)\n- 从第一和第三堆取，石子状态现在是 (1, 3, 4)\n- 从第一和第三堆取，石子状态现在是 (0, 3, 3)\n- 从第二和第三堆取，石子状态现在是 (0, 2, 2)\n- 从第二和第三堆取，石子状态现在是 (0, 1, 1)\n- 从第二和第三堆取，石子状态现在是 (0, 0, 0)\n总分：7 分 。\n\n示例 3：\n\n输入：a = 1, b = 8, c = 8\n输出：8\n解释：最优的一组操作是连续从第二和第三堆取 8 回合，直到将它们取空。\n注意，由于第二和第三堆已经空了，游戏结束，不能继续从第一堆中取石子。\n\n \n\n提示：\n\n\t1 5",
+      "statementEn": "You are playing a solitaire game with three piles of stones of sizes a​​​​​​, b,​​​​​​ and c​​​​​​ respectively. Each turn you choose two different non-empty piles, take one stone from each, and add 1 point to your score. The game stops when there are fewer than two non-empty piles (meaning there are no more available moves).\n\nGiven three integers a​​​​​, b,​​​​​ and c​​​​​, return the maximum score you can get.\n\n \n\nExample 1:\n\nInput: a = 2, b = 4, c = 6\nOutput: 6\nExplanation: The starting state is (2, 4, 6). One optimal set of moves is:\n- Take from 1st and 3rd piles, state is now (1, 4, 5)\n- Take from 1st and 3rd piles, state is now (0, 4, 4)\n- Take from 2nd and 3rd piles, state is now (0, 3, 3)\n- Take from 2nd and 3rd piles, state is now (0, 2, 2)\n- Take from 2nd and 3rd piles, state is now (0, 1, 1)\n- Take from 2nd and 3rd piles, state is now (0, 0, 0)\nThere are fewer than two non-empty piles, so the game ends. Total: 6 points.\n\nExample 2:\n\nInput: a = 4, b = 4, c = 6\nOutput: 7\nExplanation: The starting state is (4, 4, 6). One optimal set of moves is:\n- Take from 1st and 2nd piles, state is now (3, 3, 6)\n- Take from 1st and 3rd piles, state is now (2, 3, 5)\n- Take from 1st and 3rd piles, state is now (1, 3, 4)\n- Take from 1st and 3rd piles, state is now (0, 3, 3)\n- Take from 2nd and 3rd piles, state is now (0, 2, 2)\n- Take from 2nd and 3rd piles, state is now (0, 1, 1)\n- Take from 2nd and 3rd piles, state is now (0, 0, 0)\nThere are fewer than two non-empty piles, so the game ends. Total: 7 points.\n\nExample 3:\n\nInput: a = 1, b = 8, c = 8\nOutput: 8\nExplanation: One optimal set of moves is to take from the 2nd and 3rd piles for 8 turns until they are empty.\nAfter that, there are fewer than two non-empty piles, so the game ends.\n\n \n\nConstraints:\n\n\t1 <= a, b, c <= 105",
+      "statement": "你正在玩一个单人游戏，面前放置着大小分别为 a​​​​​​、b 和 c​​​​​​ 的 三堆 石子。\n\n每回合你都要从两个 不同的非空堆 中取出一颗石子，并在得分上加 1 分。当存在 两个或更多 的空堆时，游戏停止。\n\n给你三个整数 a 、b 和 c ，返回可以得到的 最大分数 。\n\n \n\n示例 1：\n\n输入：a = 2, b = 4, c = 6\n输出：6\n解释：石子起始状态是 (2, 4, 6) ，最优的一组操作是：\n- 从第一和第三堆取，石子状态现在是 (1, 4, 5)\n- 从第一和第三堆取，石子状态现在是 (0, 4, 4)\n- 从第二和第三堆取，石子状态现在是 (0, 3, 3)\n- 从第二和第三堆取，石子状态现在是 (0, 2, 2)\n- 从第二和第三堆取，石子状态现在是 (0, 1, 1)\n- 从第二和第三堆取，石子状态现在是 (0, 0, 0)\n总分：6 分 。\n\n示例 2：\n\n输入：a = 4, b = 4, c = 6\n输出：7\n解释：石子起始状态是 (4, 4, 6) ，最优的一组操作是：\n- 从第一和第二堆取，石子状态现在是 (3, 3, 6)\n- 从第一和第三堆取，石子状态现在是 (2, 3, 5)\n- 从第一和第三堆取，石子状态现在是 (1, 3, 4)\n- 从第一和第三堆取，石子状态现在是 (0, 3, 3)\n- 从第二和第三堆取，石子状态现在是 (0, 2, 2)\n- 从第二和第三堆取，石子状态现在是 (0, 1, 1)\n- 从第二和第三堆取，石子状态现在是 (0, 0, 0)\n总分：7 分 。\n\n示例 3：\n\n输入：a = 1, b = 8, c = 8\n输出：8\n解释：最优的一组操作是连续从第二和第三堆取 8 回合，直到将它们取空。\n注意，由于第二和第三堆已经空了，游戏结束，不能继续从第一堆中取石子。\n\n \n\n提示：\n\n\t1 5",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def maximumScore(self, a: int, b: int, c: int) -> int:\n        s = a + b + c\n        max_val = max(a, b, c)\n        return s - max_val if s < max_val * 2 else s // 2",
+        "cpp": "class Solution {\npublic:\n    int maximumScore(int a, int b, int c) {\n        int sum = a + b + c;\n        int maxVal = max({a, b, c});\n        if (sum - maxVal < maxVal) {\n            return sum - maxVal;\n        } else {\n            return sum / 2;\n        }\n    }\n};",
+        "java": "class Solution {\n    public int maximumScore(int a, int b, int c) {\n        int sum = a + b + c;\n        int maxVal = Math.max(Math.max(a, b), c);\n        return Math.min(sum - maxVal, sum / 2);\n    }\n}",
+        "go": "func maximumScore(a, b, c int) int {\n\tsum := a + b + c\n\tmaxVal := max(max(a, b), c)\n\tif sum < maxVal*2 {\n\t\treturn sum - maxVal\n\t} else {\n\t\treturn sum / 2\n\t}\n}\n\nfunc max(a, b int) int {\n\tif b > a {\n\t\treturn b\n\t}\n\treturn a\n}",
+        "javascript": "var maximumScore = function(a, b, c) {\n    const sum = a + b + c;\n    const maxVal = Math.max(Math.max(a, b), c);\n    return Math.min(sum - maxVal, Math.floor(sum / 2));\n};"
+      },
+      "id": 277
+    },
+    {
+      "title": "构造字典序最大的合并字符串",
+      "titleSlug": "largest-merge-of-two-strings",
+      "tags": [
+        "贪心",
+        "双指针",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 57.03,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/largest-merge-of-two-strings/",
+      "hotCompanies": [
+        "snapchat",
+        "facebook",
+        "字节"
+      ],
+      "statementZh": "给你两个字符串 word1 和 word2 。你需要按下述方式构造一个新字符串 merge ：如果 word1 或 word2 非空，选择 下面选项之一 继续操作：\n\n\t如果 word1 非空，将 word1 中的第一个字符附加到 merge 的末尾，并将其从 word1 中移除。\n\n\t\n\t\t例如，word1 = \"abc\" 且 merge = \"dv\" ，在执行此选项操作之后，word1 = \"bc\" ，同时 merge = \"dva\" 。\n\n\t\n\t\n\n\t如果 word2 非空，将 word2 中的第一个字符附加到 merge 的末尾，并将其从 word2 中移除。\n\t\n\t\t例如，word2 = \"abc\" 且 merge = \"\" ，在执行此选项操作之后，word2 = \"bc\" ，同时 merge = \"a\" 。\n\n\t\n\t\n\n返回你可以构造的字典序 最大 的合并字符串 merge 。\n\n长度相同的两个字符串 a 和 b 比较字典序大小，如果在 a 和 b 出现不同的第一个位置，a 中字符在字母表中的出现顺序位于 b 中相应字符之后，就认为字符串 a 按字典序比字符串 b 更大。例如，\"abcd\" 按字典序比 \"abcc\" 更大，因为两个字符串出现不同的第一个位置是第四个字符，而 d 在字母表中的出现顺序位于 c 之后。\n\n \n\n示例 1：\n\n输入：word1 = \"cabaa\", word2 = \"bcaaa\"\n输出：\"cbcabaaaaa\"\n解释：构造字典序最大的合并字符串，可行的一种方法如下所示：\n- 从 word1 中取第一个字符：merge = \"c\"，word1 = \"abaa\"，word2 = \"bcaaa\"\n- 从 word2 中取第一个字符：merge = \"cb\"，word1 = \"abaa\"，word2 = \"caaa\"\n- 从 word2 中取第一个字符：merge = \"cbc\"，word1 = \"abaa\"，word2 = \"aaa\"\n- 从 word1 中取第一个字符：merge = \"cbca\"，word1 = \"baa\"，word2 = \"aaa\"\n- 从 word1 中取第一个字符：merge = \"cbcab\"，word1 = \"aa\"，word2 = \"aaa\"\n- 将 word1 和 word2 中剩下的 5 个 a 附加到 merge 的末尾。\n\n示例 2：\n\n输入：word1 = \"abcabc\", word2 = \"abdcaba\"\n输出：\"abdcabcabcaba\"\n\n \n\n提示：\n\n\t1 \n\n\tword1 和 word2 仅由小写英文组成",
+      "statementEn": "You are given two strings word1 and word2. You want to construct a string merge in the following way: while either word1 or word2 are non-empty, choose one of the following options:\n\n\tIf word1 is non-empty, append the first character in word1 to merge and delete it from word1.\n\n\t\n\t\tFor example, if word1 = \"abc\" and merge = \"dv\", then after choosing this operation, word1 = \"bc\" and merge = \"dva\".\n\n\t\n\t\n\n\tIf word2 is non-empty, append the first character in word2 to merge and delete it from word2.\n\t\n\t\tFor example, if word2 = \"abc\" and merge = \"\", then after choosing this operation, word2 = \"bc\" and merge = \"a\".\n\n\t\n\t\n\nReturn the lexicographically largest merge you can construct.\n\nA string a is lexicographically larger than a string b (of the same length) if in the first position where a and b differ, a has a character strictly larger than the corresponding character in b. For example, \"abcd\" is lexicographically larger than \"abcc\" because the first position they differ is at the fourth character, and d is greater than c.\n\n \n\nExample 1:\n\nInput: word1 = \"cabaa\", word2 = \"bcaaa\"\nOutput: \"cbcabaaaaa\"\nExplanation: One way to get the lexicographically largest merge is:\n- Take from word1: merge = \"c\", word1 = \"abaa\", word2 = \"bcaaa\"\n- Take from word2: merge = \"cb\", word1 = \"abaa\", word2 = \"caaa\"\n- Take from word2: merge = \"cbc\", word1 = \"abaa\", word2 = \"aaa\"\n- Take from word1: merge = \"cbca\", word1 = \"baa\", word2 = \"aaa\"\n- Take from word1: merge = \"cbcab\", word1 = \"aa\", word2 = \"aaa\"\n- Append the remaining 5 a&#39;s from word1 and word2 at the end of merge.\n\nExample 2:\n\nInput: word1 = \"abcabc\", word2 = \"abdcaba\"\nOutput: \"abdcabcabcaba\"\n\n \n\nConstraints:\n\n\t1 <= word1.length, word2.length <= 3000\n\n\tword1 and word2 consist only of lowercase English letters.",
+      "statement": "给你两个字符串 word1 和 word2 。你需要按下述方式构造一个新字符串 merge ：如果 word1 或 word2 非空，选择 下面选项之一 继续操作：\n\n\t如果 word1 非空，将 word1 中的第一个字符附加到 merge 的末尾，并将其从 word1 中移除。\n\n\t\n\t\t例如，word1 = \"abc\" 且 merge = \"dv\" ，在执行此选项操作之后，word1 = \"bc\" ，同时 merge = \"dva\" 。\n\n\t\n\t\n\n\t如果 word2 非空，将 word2 中的第一个字符附加到 merge 的末尾，并将其从 word2 中移除。\n\t\n\t\t例如，word2 = \"abc\" 且 merge = \"\" ，在执行此选项操作之后，word2 = \"bc\" ，同时 merge = \"a\" 。\n\n\t\n\t\n\n返回你可以构造的字典序 最大 的合并字符串 merge 。\n\n长度相同的两个字符串 a 和 b 比较字典序大小，如果在 a 和 b 出现不同的第一个位置，a 中字符在字母表中的出现顺序位于 b 中相应字符之后，就认为字符串 a 按字典序比字符串 b 更大。例如，\"abcd\" 按字典序比 \"abcc\" 更大，因为两个字符串出现不同的第一个位置是第四个字符，而 d 在字母表中的出现顺序位于 c 之后。\n\n \n\n示例 1：\n\n输入：word1 = \"cabaa\", word2 = \"bcaaa\"\n输出：\"cbcabaaaaa\"\n解释：构造字典序最大的合并字符串，可行的一种方法如下所示：\n- 从 word1 中取第一个字符：merge = \"c\"，word1 = \"abaa\"，word2 = \"bcaaa\"\n- 从 word2 中取第一个字符：merge = \"cb\"，word1 = \"abaa\"，word2 = \"caaa\"\n- 从 word2 中取第一个字符：merge = \"cbc\"，word1 = \"abaa\"，word2 = \"aaa\"\n- 从 word1 中取第一个字符：merge = \"cbca\"，word1 = \"baa\"，word2 = \"aaa\"\n- 从 word1 中取第一个字符：merge = \"cbcab\"，word1 = \"aa\"，word2 = \"aaa\"\n- 将 word1 和 word2 中剩下的 5 个 a 附加到 merge 的末尾。\n\n示例 2：\n\n输入：word1 = \"abcabc\", word2 = \"abdcaba\"\n输出：\"abdcabcabcaba\"\n\n \n\n提示：\n\n\t1 \n\n\tword1 和 word2 仅由小写英文组成",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def largestMerge(self, word1: str, word2: str) -> str:\n        merge = []\n        i, j, n, m = 0, 0, len(word1), len(word2)\n        while i < n or j < m:\n            if i < n and word1[i:] > word2[j:]:\n                merge.append(word1[i])\n                i += 1\n            else:\n                merge.append(word2[j])\n                j += 1\n        return ''.join(merge)",
+        "cpp": "public class Solution {\n    public string LargestMerge(string word1, string word2) {\n        int m = word1.Length, n = word2.Length;\n        String str = word1 + \"@\" + word2 + \"*\";\n        int[] suffixArray = BuildSuffixArray(str); \n        int[] rank = new int[m + n + 2];\n        for (int idx = 0; idx < m + n + 2; idx++) {\n            rank[suffixArray[idx]] = idx;\n        }\n\n        StringBuilder merge = new StringBuilder();\n        int i = 0, j = 0;\n        while (i < m || j < n) {\n            if (i < m && rank[i] > rank[m + 1 + j]) {\n                merge.Append(word1[i]);\n                i++;\n            } else {\n                merge.Append(word2[j]);\n                j++;\n            }\n        }\n        return merge.ToString();\n    }\n\n    public int[] BuildSuffixArray(String text) {\n        int[] order = CortCharacters(text);\n        int[] classfiy = ComputeCharClasses(text, order);\n        int len = 1;\n        int n = text.Length;\n        for (int i = 1; i < n; i <<= 1) {\n            order = SortDoubled(text, i, order, classfiy);\n            classfiy = UpdateClasses(order, classfiy, i);\n        }\n        return order;\n    }\n\n    public int[] CortCharacters(String text) {\n        int n = text.Length;\n        int[] count = new int[128];\n        int[] order = new int[n];\n        for (int i = 0; i < n; i++) {\n            char c = text[i];\n            count[c]++;\n        }    \n        for (int i = 1; i < 128; i++) {\n            count[i] += count[i - 1];\n        }\n        for (int i = n - 1; i >= 0; i--) {\n            count[text[i]]--;\n            order[count[text[i]]] = i;\n        }\n        return order;\n    }\n\n    public int[] ComputeCharClasses(String text, int[] order) {\n        int n = text.Length;\n        int[] res = new int[n];\n        res[order[0]] = 0;\n        for (int i = 1; i < n; i++) {\n            if (text[order[i]] != text[order[i - 1]]) {\n                res[order[i]] = res[order[i - 1]] + 1;\n            } else {\n                res[order[i]] = res[order[i - 1]];\n            }\n        }\n        return res;\n    }\n\n    public int[] SortDoubled(String text, int len, int[]  order, int[] classfiy) {\n        int n = text.Length;\n        int[] count = new int[n];\n        int[] newOrder = new int[n];\n        for (int i = 0; i < n; i++) {\n            count[classfiy[i]]++;\n        }\n        for (int i = 1; i < n; i++) {\n            count[i] += count[i - 1];\n        }\n        for (int i = n - 1; i >= 0; i--) {\n            int start = (order[i] - len + n) % n;\n            int cl = classfiy[start];\n            count[cl]--;\n            newOrder[count[cl]] = start;\n        }\n        return newOrder;\n    }\n\n    public int[] UpdateClasses(int[] newOrder, int[] classfiy, int len) {\n        int n = newOrder.Length;\n        int[] newClassfiy = new int[n];\n        newClassfiy[newOrder[0]] = 0;\n        for (int i = 1; i < n; i++) {\n            int curr = newOrder[i];\n            int prev = newOrder[i - 1];\n            int mid = curr + len;\n            int midPrev = (prev + len) % n;\n            if (classfiy[curr] != classfiy[prev] || classfiy[mid] != classfiy[midPrev]) {\n                newClassfiy[curr] = newClassfiy[prev] + 1;\n            } else {\n                newClassfiy[curr] = newClassfiy[prev];\n            }\n        }\n        return newClassfiy;\n    }\n}",
+        "java": "class Solution {\n    public String largestMerge(String word1, String word2) {\n        int m = word1.length(), n = word2.length();\n        String str = word1 + \"@\" + word2 + \"*\";\n        int[] suffixArray = buildSuffixArray(str); \n        int[] rank = new int[m + n + 2];\n        for (int i = 0; i < m + n + 2; i++) {\n            rank[suffixArray[i]] = i;\n        }\n\n        StringBuilder merge = new StringBuilder();\n        int i = 0, j = 0;\n        while (i < m || j < n) {\n            if (i < m && rank[i] > rank[m + 1 + j]) {\n                merge.append(word1.charAt(i));\n                i++;\n            } else {\n                merge.append(word2.charAt(j));\n                j++;\n            }\n        }\n        return merge.toString();\n    }\n\n    public int[] buildSuffixArray(String text) {\n        int[] order = sortCharacters(text);\n        int[] classfiy = computeCharClasses(text, order);\n        int len = 1;\n        int n = text.length();\n        for (int i = 1; i < n; i <<= 1) {\n            order = sortDoubled(text, i, order, classfiy);\n            classfiy = updateClasses(order, classfiy, i);\n        }\n        return order;\n    }\n\n    public int[] sortCharacters(String text) {\n        int n = text.length();\n        int[] count = new int[128];\n        int[] order = new int[n];\n        for (int i = 0; i < n; i++) {\n            char c = text.charAt(i);\n            count[c]++;\n        }    \n        for (int i = 1; i < 128; i++) {\n            count[i] += count[i - 1];\n        }\n        for (int i = n - 1; i >= 0; i--) {\n            count[text.charAt(i)]--;\n            order[count[text.charAt(i)]] = i;\n        }\n        return order;\n    }\n\n    public int[] computeCharClasses(String text, int[] order) {\n        int n = text.length();\n        int[] res = new int[n];\n        res[order[0]] = 0;\n        for (int i = 1; i < n; i++) {\n            if (text.charAt(order[i]) != text.charAt(order[i - 1])) {\n                res[order[i]] = res[order[i - 1]] + 1;\n            } else {\n                res[order[i]] = res[order[i - 1]];\n            }\n        }\n        return res;\n    }\n\n    public int[] sortDoubled(String text, int len, int[]  order, int[] classfiy) {\n        int n = text.length();\n        int[] count = new int[n];\n        int[] newOrder = new int[n];\n        for (int i = 0; i < n; i++) {\n            count[classfiy[i]]++;\n        }\n        for (int i = 1; i < n; i++) {\n            count[i] += count[i - 1];\n        }\n        for (int i = n - 1; i >= 0; i--) {\n            int start = (order[i] - len + n) % n;\n            int cl = classfiy[start];\n            count[cl]--;\n            newOrder[count[cl]] = start;\n        }\n        return newOrder;\n    }\n\n    public int[] updateClasses(int[] newOrder, int[] classfiy, int len) {\n        int n = newOrder.length;\n        int[] newClassfiy = new int[n];\n        newClassfiy[newOrder[0]] = 0;\n        for (int i = 1; i < n; i++) {\n            int curr = newOrder[i];\n            int prev = newOrder[i - 1];\n            int mid = curr + len;\n            int midPrev = (prev + len) % n;\n            if (classfiy[curr] != classfiy[prev] || classfiy[mid] != classfiy[midPrev]) {\n                newClassfiy[curr] = newClassfiy[prev] + 1;\n            } else {\n                newClassfiy[curr] = newClassfiy[prev];\n            }\n        }\n        return newClassfiy;\n    }\n}",
+        "javascript": "var largestMerge = function(word1, word2) {\n    let merge = '';\n    let i = 0, j = 0;\n    while (i < word1.length || j < word2.length) {\n        if (i < word1.length && word1.slice(i) > word2.slice(j)) {\n            merge += word1[i];\n            i++;\n        } else {\n            merge += word2[j];\n            j++;\n        }\n    }\n    return merge;\n};",
+        "go": "func largestMerge(word1, word2 string) string {\n\tmerge := []byte{}\n\ti, j, n, m := 0, 0, len(word1), len(word2)\n\tfor i < n || j < m {\n\t\tif i < n && word1[i:] > word2[j:] {\n\t\t\tmerge = append(merge, word1[i])\n\t\t\ti += 1\n\t\t} else {\n\t\t\tmerge = append(merge, word2[j])\n\t\t\tj += 1\n\t\t}\n\t}\n\treturn string(merge)\n}"
+      },
+      "id": 278
+    },
+    {
+      "title": "最接近目标值的子序列和",
+      "titleSlug": "closest-subsequence-sum",
+      "tags": [
+        "位运算",
+        "数组",
+        "双指针",
+        "动态规划",
+        "位掩码",
+        "排序"
+      ],
+      "difficulty": "困难",
+      "acceptance": 49.05,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/closest-subsequence-sum/",
+      "hotCompanies": [
+        "谷歌",
+        "uber",
+        "亚马逊"
+      ],
+      "statementZh": "给你一个整数数组 nums 和一个目标值 goal 。\n\n你需要从 nums 中选出一个子序列，使子序列元素总和最接近 goal 。也就是说，如果子序列元素和为 sum ，你需要 最小化绝对差 abs(sum - goal) 。\n\n返回 abs(sum - goal) 可能的 最小值 。\n\n注意，数组的子序列是通过移除原始数组中的某些元素（可能全部或无）而形成的数组。\n\n \n\n示例 1：\n\n输入：nums = [5,-7,3,5], goal = 6\n输出：0\n解释：选择整个数组作为选出的子序列，元素和为 6 。\n子序列和与目标值相等，所以绝对差为 0 。\n\n示例 2：\n\n输入：nums = [7,-9,15,-2], goal = -5\n输出：1\n解释：选出子序列 [7,-9,-2] ，元素和为 -4 。\n绝对差为 abs(-4 - (-5)) = abs(1) = 1 ，是可能的最小值。\n\n示例 3：\n\n输入：nums = [1,2,3], goal = -7\n输出：7\n\n \n\n提示：\n\n\t1 <= nums.length <= 40\n\n\t-107 <= nums[i] <= 107\n\n\t-109 <= goal <= 109",
+      "statementEn": "You are given an integer array nums and an integer goal.\n\nYou want to choose a subsequence of nums such that the sum of its elements is the closest possible to goal. That is, if the sum of the subsequence&#39;s elements is sum, then you want to minimize the absolute difference abs(sum - goal).\n\nReturn the minimum possible value of abs(sum - goal).\n\nNote that a subsequence of an array is an array formed by removing some elements (possibly all or none) of the original array.\n\n \n\nExample 1:\n\nInput: nums = [5,-7,3,5], goal = 6\nOutput: 0\nExplanation: Choose the whole array as a subsequence, with a sum of 6.\nThis is equal to the goal, so the absolute difference is 0.\n\nExample 2:\n\nInput: nums = [7,-9,15,-2], goal = -5\nOutput: 1\nExplanation: Choose the subsequence [7,-9,-2], with a sum of -4.\nThe absolute difference is abs(-4 - (-5)) = abs(1) = 1, which is the minimum.\n\nExample 3:\n\nInput: nums = [1,2,3], goal = -7\nOutput: 7\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 40\n\n\t-107 <= nums[i] <= 107\n\n\t-109 <= goal <= 109",
+      "statement": "给你一个整数数组 nums 和一个目标值 goal 。\n\n你需要从 nums 中选出一个子序列，使子序列元素总和最接近 goal 。也就是说，如果子序列元素和为 sum ，你需要 最小化绝对差 abs(sum - goal) 。\n\n返回 abs(sum - goal) 可能的 最小值 。\n\n注意，数组的子序列是通过移除原始数组中的某些元素（可能全部或无）而形成的数组。\n\n \n\n示例 1：\n\n输入：nums = [5,-7,3,5], goal = 6\n输出：0\n解释：选择整个数组作为选出的子序列，元素和为 6 。\n子序列和与目标值相等，所以绝对差为 0 。\n\n示例 2：\n\n输入：nums = [7,-9,15,-2], goal = -5\n输出：1\n解释：选出子序列 [7,-9,-2] ，元素和为 -4 。\n绝对差为 abs(-4 - (-5)) = abs(1) = 1 ，是可能的最小值。\n\n示例 3：\n\n输入：nums = [1,2,3], goal = -7\n输出：7\n\n \n\n提示：\n\n\t1 <= nums.length <= 40\n\n\t-107 <= nums[i] <= 107\n\n\t-109 <= goal <= 109",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int minAbsDifference(vector<int>& nums, int goal) {\n        int n = nums.size();\n        int half = n / 2;\n        int ls = half, rs = n - half;\n        \n        vector<int> lsum(1 << ls, 0);\n        for (int i = 1; i < (1 << ls); i++) {\n            for (int j = 0; j < ls; j++) {\n                if ((i & (1 << j)) == 0) continue;\n                lsum[i] = lsum[i-(1<<j)] + nums[j];\n                break;\n            }\n        }\n        vector<int> rsum(1 << rs, 0);\n        for (int i = 1; i < (1 << rs); i++) {\n            for (int j = 0; j < rs; j++) {\n                if ((i & (1 << j)) == 0) continue;\n                rsum[i] = rsum[i-(1<<j)] + nums[ls+j];\n                break;\n            }\n        }\n        sort(lsum.begin(), lsum.end());\n        sort(rsum.begin(), rsum.end());\n        \n        int ret = INT_MAX;\n        for (int x: lsum) {\n            ret = min(ret, abs(goal - x));\n        }\n        for (int x: rsum) {\n            ret = min(ret, abs(goal - x));\n        }\n        \n        int i = 0, j = rsum.size() - 1;\n        while (i < lsum.size() && j >= 0) {\n            int s = lsum[i] + rsum[j];\n            ret = min(ret, abs(goal - s));\n            if (s > goal) {\n                j--;\n            } else {\n                i++;\n            }\n        }\n        return ret;\n    }\n};"
+      },
+      "id": 279
+    },
+    {
+      "title": "设计最近使用（MRU）队列",
+      "titleSlug": "design-most-recently-used-queue",
+      "tags": [
+        "设计",
+        "数组",
+        "链表",
+        "分治",
+        "双向链表",
+        "模拟"
+      ],
+      "difficulty": "中等",
+      "acceptance": 63.28,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/design-most-recently-used-queue/",
+      "hotCompanies": [
+        "谷歌",
+        "bloomberg",
+        "亚马逊"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 280
+    },
+    {
+      "title": "可回收且低脂的产品",
+      "titleSlug": "recyclable-and-low-fat-products",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "简单",
+      "acceptance": 83.31,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/recyclable-and-low-fat-products/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "facebook"
+      ],
+      "statementZh": "表：Products\n\n+-------------+---------+\n| Column Name | Type    |\n+-------------+---------+\n| product_id  | int     |\n| low_fats    | enum    |\n| recyclable  | enum    |\n+-------------+---------+\nproduct_id 是该表的主键（具有唯一值的列）。\nlow_fats 是枚举类型，取值为以下两种 ('Y', 'N')，其中 'Y' 表示该产品是低脂产品，'N' 表示不是低脂产品。\nrecyclable 是枚举类型，取值为以下两种 ('Y', 'N')，其中 'Y' 表示该产品可回收，而 'N' 表示不可回收。\n\n \n\n编写解决方案找出既是低脂又是可回收的产品编号。\n\n返回结果 无顺序要求 。\n\n返回结果格式如下例所示：\n\n \n\n示例 1：\n\n输入：\nProducts 表：\n+-------------+----------+------------+\n| product_id  | low_fats | recyclable |\n+-------------+----------+------------+\n| 0           | Y        | N          |\n| 1           | Y        | Y          |\n| 2           | N        | Y          |\n| 3           | Y        | Y          |\n| 4           | N        | N          |\n+-------------+----------+------------+\n输出：\n+-------------+\n| product_id  |\n+-------------+\n| 1           |\n| 3           |\n+-------------+\n解释：\n只有产品 id 为 1 和 3 的产品，既是低脂又是可回收的产品。",
+      "statementEn": "Table: Products\n\n+-------------+---------+\n| Column Name | Type    |\n+-------------+---------+\n| product_id  | int     |\n| low_fats    | enum    |\n| recyclable  | enum    |\n+-------------+---------+\nproduct_id is the primary key (column with unique values) for this table.\nlow_fats is an ENUM (category) of type (&#39;Y&#39;, &#39;N&#39;) where &#39;Y&#39; means this product is low fat and &#39;N&#39; means it is not.\nrecyclable is an ENUM (category) of types (&#39;Y&#39;, &#39;N&#39;) where &#39;Y&#39; means this product is recyclable and &#39;N&#39; means it is not.\n\n \n\nWrite a solution to find the ids of products that are both low fat and recyclable.\n\nReturn the result table in any order.\n\nThe result format is in the following example.\n\n \n\nExample 1:\n\nInput: \nProducts table:\n+-------------+----------+------------+\n| product_id  | low_fats | recyclable |\n+-------------+----------+------------+\n| 0           | Y        | N          |\n| 1           | Y        | Y          |\n| 2           | N        | Y          |\n| 3           | Y        | Y          |\n| 4           | N        | N          |\n+-------------+----------+------------+\nOutput: \n+-------------+\n| product_id  |\n+-------------+\n| 1           |\n| 3           |\n+-------------+\nExplanation: Only products 1 and 3 are both low fat and recyclable.",
+      "statement": "表：Products\n\n+-------------+---------+\n| Column Name | Type    |\n+-------------+---------+\n| product_id  | int     |\n| low_fats    | enum    |\n| recyclable  | enum    |\n+-------------+---------+\nproduct_id 是该表的主键（具有唯一值的列）。\nlow_fats 是枚举类型，取值为以下两种 ('Y', 'N')，其中 'Y' 表示该产品是低脂产品，'N' 表示不是低脂产品。\nrecyclable 是枚举类型，取值为以下两种 ('Y', 'N')，其中 'Y' 表示该产品可回收，而 'N' 表示不可回收。\n\n \n\n编写解决方案找出既是低脂又是可回收的产品编号。\n\n返回结果 无顺序要求 。\n\n返回结果格式如下例所示：\n\n \n\n示例 1：\n\n输入：\nProducts 表：\n+-------------+----------+------------+\n| product_id  | low_fats | recyclable |\n+-------------+----------+------------+\n| 0           | Y        | N          |\n| 1           | Y        | Y          |\n| 2           | N        | Y          |\n| 3           | Y        | Y          |\n| 4           | N        | N          |\n+-------------+----------+------------+\n输出：\n+-------------+\n| product_id  |\n+-------------+\n| 1           |\n| 3           |\n+-------------+\n解释：\n只有产品 id 为 1 和 3 的产品，既是低脂又是可回收的产品。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "import pandas as pd\n\ndef find_products(products: pd.DataFrame) -> pd.DataFrame:\n    df = products[(products['low_fats'] == 'Y') & (products['recyclable'] == 'Y')]\n\n    df = df[['product_id']]\n    \n    return df"
+      },
+      "id": 281
+    },
+    {
+      "title": "生成交替二进制字符串的最少操作数",
+      "titleSlug": "minimum-changes-to-make-alternating-binary-string",
+      "tags": [
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 71.38,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-changes-to-make-alternating-binary-string/",
+      "hotCompanies": [
+        "亚马逊",
+        "tesla",
+        "微软"
+      ],
+      "statementZh": "给你一个仅由字符 '0' 和 '1' 组成的字符串 s 。一步操作中，你可以将任一 '0' 变成 '1' ，或者将 '1' 变成 '0' 。\n\n交替字符串 定义为：如果字符串中不存在相邻两个字符相等的情况，那么该字符串就是交替字符串。例如，字符串 \"010\" 是交替字符串，而字符串 \"0100\" 不是。\n\n返回使 s 变成 交替字符串 所需的 最少 操作数。\n\n \n\n示例 1：\n\n输入：s = \"0100\"\n输出：1\n解释：如果将最后一个字符变为 '1' ，s 就变成 \"0101\" ，即符合交替字符串定义。\n\n示例 2：\n\n输入：s = \"10\"\n输出：0\n解释：s 已经是交替字符串。\n\n示例 3：\n\n输入：s = \"1111\"\n输出：2\n解释：需要 2 步操作得到 \"0101\" 或 \"1010\" 。\n\n \n\n提示：\n\n\t1 <= s.length <= 104\n\n\ts[i] 是 '0' 或 '1'",
+      "statementEn": "You are given a string s consisting only of the characters &#39;0&#39; and &#39;1&#39;. In one operation, you can change any &#39;0&#39; to &#39;1&#39; or vice versa.\n\nThe string is called alternating if no two adjacent characters are equal. For example, the string \"010\" is alternating, while the string \"0100\" is not.\n\nReturn the minimum number of operations needed to make s alternating.\n\n \n\nExample 1:\n\nInput: s = \"0100\"\nOutput: 1\nExplanation: If you change the last character to &#39;1&#39;, s will be \"0101\", which is alternating.\n\nExample 2:\n\nInput: s = \"10\"\nOutput: 0\nExplanation: s is already alternating.\n\nExample 3:\n\nInput: s = \"1111\"\nOutput: 2\nExplanation: You need two operations to reach \"0101\" or \"1010\".\n\n \n\nConstraints:\n\n\t1 <= s.length <= 104\n\n\ts[i] is either &#39;0&#39; or &#39;1&#39;.",
+      "statement": "给你一个仅由字符 '0' 和 '1' 组成的字符串 s 。一步操作中，你可以将任一 '0' 变成 '1' ，或者将 '1' 变成 '0' 。\n\n交替字符串 定义为：如果字符串中不存在相邻两个字符相等的情况，那么该字符串就是交替字符串。例如，字符串 \"010\" 是交替字符串，而字符串 \"0100\" 不是。\n\n返回使 s 变成 交替字符串 所需的 最少 操作数。\n\n \n\n示例 1：\n\n输入：s = \"0100\"\n输出：1\n解释：如果将最后一个字符变为 '1' ，s 就变成 \"0101\" ，即符合交替字符串定义。\n\n示例 2：\n\n输入：s = \"10\"\n输出：0\n解释：s 已经是交替字符串。\n\n示例 3：\n\n输入：s = \"1111\"\n输出：2\n解释：需要 2 步操作得到 \"0101\" 或 \"1010\" 。\n\n \n\n提示：\n\n\t1 <= s.length <= 104\n\n\ts[i] 是 '0' 或 '1'",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def minOperations(self, s: str) -> int:\n        cnt = sum(int(c) != i % 2 for i, c in enumerate(s))\n        return min(cnt, len(s) - cnt)",
+        "java": "class Solution {\n    public int minOperations(String s) {\n        int cnt = 0;\n        for (int i = 0; i < s.length(); i++) {\n            char c = s.charAt(i);\n            if (c != (char) ('0' + i % 2)) {\n                cnt++;\n            }\n        }\n        return Math.min(cnt, s.length() - cnt);\n    }\n}",
+        "cpp": "public class Solution {\n    public int MinOperations(string s) {\n        int cnt = 0;\n        for (int i = 0; i < s.Length; i++) {\n            char c = s[i];\n            if (c != (char) ('0' + i % 2)) {\n                cnt++;\n            }\n        }\n        return Math.Min(cnt, s.Length - cnt);\n    }\n}",
+        "javascript": "var minOperations = function(s) {\n    let cnt = 0;\n    for (let i = 0; i < s.length; i++) {\n        const c = s[i];\n        if (c !== (String.fromCharCode('0'.charCodeAt() + i % 2))) {\n            cnt++;\n        }\n    }\n    return Math.min(cnt, s.length - cnt);\n};",
+        "go": "func minOperations(s string) int {\n    cnt := 0\n    for i, c := range s {\n        if i%2 != int(c-'0') {\n            cnt++\n        }\n    }\n    return min(cnt, len(s)-cnt)\n}\n\nfunc min(a, b int) int {\n    if a > b {\n        return b\n    }\n    return a\n}"
+      },
+      "id": 282
+    },
+    {
+      "title": "统计同质子字符串的数目",
+      "titleSlug": "count-number-of-homogenous-substrings",
+      "tags": [
+        "数学",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 52.03,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/count-number-of-homogenous-substrings/",
+      "hotCompanies": [
+        "virtu",
+        "谷歌",
+        "亚马逊"
+      ],
+      "statementZh": "给你一个字符串 s ，返回 s 中 同质子字符串 的数目。由于答案可能很大，只需返回对 109 + 7 取余 后的结果。\n\n同质字符串 的定义为：如果一个字符串中的所有字符都相同，那么该字符串就是同质字符串。\n\n子字符串 是字符串中的一个连续字符序列。\n\n \n\n示例 1：\n\n输入：s = \"abbcccaa\"\n输出：13\n解释：同质子字符串如下所列：\n\"a\"   出现 3 次。\n\"aa\"  出现 1 次。\n\"b\"   出现 2 次。\n\"bb\"  出现 1 次。\n\"c\"   出现 3 次。\n\"cc\"  出现 2 次。\n\"ccc\" 出现 1 次。\n3 + 1 + 2 + 1 + 3 + 2 + 1 = 13\n\n示例 2：\n\n输入：s = \"xy\"\n输出：2\n解释：同质子字符串是 \"x\" 和 \"y\" 。\n\n示例 3：\n\n输入：s = \"zzzzz\"\n输出：15\n\n \n\n提示：\n\n\t1 <= s.length <= 105\n\n\ts 由小写字符串组成。",
+      "statementEn": "Given a string s, return the number of homogenous substrings of s. Since the answer may be too large, return it modulo 109 + 7.\n\nA string is homogenous if all the characters of the string are the same.\n\nA substring is a contiguous sequence of characters within a string.\n\n \n\nExample 1:\n\nInput: s = \"abbcccaa\"\nOutput: 13\nExplanation: The homogenous substrings are listed as below:\n\"a\"   appears 3 times.\n\"aa\"  appears 1 time.\n\"b\"   appears 2 times.\n\"bb\"  appears 1 time.\n\"c\"   appears 3 times.\n\"cc\"  appears 2 times.\n\"ccc\" appears 1 time.\n3 + 1 + 2 + 1 + 3 + 2 + 1 = 13.\n\nExample 2:\n\nInput: s = \"xy\"\nOutput: 2\nExplanation: The homogenous substrings are \"x\" and \"y\".\n\nExample 3:\n\nInput: s = \"zzzzz\"\nOutput: 15\n\n \n\nConstraints:\n\n\t1 <= s.length <= 105\n\n\ts consists of lowercase letters.",
+      "statement": "给你一个字符串 s ，返回 s 中 同质子字符串 的数目。由于答案可能很大，只需返回对 109 + 7 取余 后的结果。\n\n同质字符串 的定义为：如果一个字符串中的所有字符都相同，那么该字符串就是同质字符串。\n\n子字符串 是字符串中的一个连续字符序列。\n\n \n\n示例 1：\n\n输入：s = \"abbcccaa\"\n输出：13\n解释：同质子字符串如下所列：\n\"a\"   出现 3 次。\n\"aa\"  出现 1 次。\n\"b\"   出现 2 次。\n\"bb\"  出现 1 次。\n\"c\"   出现 3 次。\n\"cc\"  出现 2 次。\n\"ccc\" 出现 1 次。\n3 + 1 + 2 + 1 + 3 + 2 + 1 = 13\n\n示例 2：\n\n输入：s = \"xy\"\n输出：2\n解释：同质子字符串是 \"x\" 和 \"y\" 。\n\n示例 3：\n\n输入：s = \"zzzzz\"\n输出：15\n\n \n\n提示：\n\n\t1 <= s.length <= 105\n\n\ts 由小写字符串组成。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def countHomogenous(self, s: str) -> int:\n        res = 0\n        for k, g in groupby(s):\n            n = len(list(g))\n            res += (n + 1) * n // 2\n        return res % (10 ** 9 + 7)",
+        "java": "class Solution {\n    public int countHomogenous(String s) {\n        final int MOD = 1000000007;\n        long res = 0;\n        char prev = s.charAt(0);\n        int cnt = 0;\n        for (int i = 0; i < s.length(); i++) {\n            char c = s.charAt(i);\n            if (c == prev) {\n                cnt++;\n            } else {\n                res += (long) (cnt + 1) * cnt / 2;\n                cnt = 1;\n                prev = c;\n            }\n        }\n        res += (long) (cnt + 1) * cnt / 2;\n        return (int) (res % MOD);\n    }\n}",
+        "cpp": "public class Solution {\n    public int CountHomogenous(string s) {\n        const int MOD = 1000000007;\n        long res = 0;\n        char prev = s[0];\n        int cnt = 0;\n        foreach (char c in s) {\n            if (c == prev) {\n                cnt++;\n            } else {\n                res += (long) (cnt + 1) * cnt / 2;\n                cnt = 1;\n                prev = c;\n            }\n        }\n        res += (long) (cnt + 1) * cnt / 2;\n        return (int) (res % MOD);\n    }\n}",
+        "javascript": "var countHomogenous = function(s) {\n    const MOD = 1000000007;\n    let res = 0;\n    let prev = s[0];\n    let cnt = 0;\n    for (let i = 0; i < s.length; i++) {\n        const c = s[i];\n        if (c === prev) {\n            cnt++;\n        } else {\n            res += (cnt + 1) * cnt / 2;\n            cnt = 1;\n            prev = c;\n        }\n    }\n    res += (cnt + 1) * cnt / 2;\n    return res % MOD;\n};",
+        "go": "func countHomogenous(s string) (res int) {\n\tconst mod int = 1e9 + 7\n\tprev := rune(s[0])\n\tcnt := 0\n\tfor _, c := range s {\n\t\tif c == prev {\n\t\t\tcnt++\n\t\t} else {\n\t\t\tres += (cnt + 1) * cnt / 2\n\t\t\tcnt = 1\n\t\t\tprev = c\n\t\t}\n\t}\n\tres += (cnt + 1) * cnt / 2\n\treturn res % mod\n}"
+      },
+      "id": 283
+    },
+    {
+      "title": "袋子里最少数目的球",
+      "titleSlug": "minimum-limit-of-balls-in-a-bag",
+      "tags": [
+        "数组",
+        "二分查找"
+      ],
+      "difficulty": "中等",
+      "acceptance": 64.7,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "bloomberg"
+      ],
+      "statementZh": "给你一个整数数组 nums ，其中 nums[i] 表示第 i 个袋子里球的数目。同时给你一个整数 maxOperations 。\n\n你可以进行如下操作至多 maxOperations 次：\n\n\t选择任意一个袋子，并将袋子里的球分到 2 个新的袋子中，每个袋子里都有 正整数 个球。\n\n\t\n\t\t比方说，一个袋子里有 5 个球，你可以把它们分到两个新袋子里，分别有 1 个和 4 个球，或者分别有 2 个和 3 个球。\n\n\t\n\t\n\n你的开销是单个袋子里球数目的 最大值 ，你想要 最小化 开销。\n\n请你返回进行上述操作后的最小开销。\n\n \n\n示例 1：\n\n输入：nums = [9], maxOperations = 2\n输出：3\n解释：\n- 将装有 9 个球的袋子分成装有 6 个和 3 个球的袋子。[9] -> [6,3] 。\n- 将装有 6 个球的袋子分成装有 3 个和 3 个球的袋子。[6,3] -> [3,3,3] 。\n装有最多球的袋子里装有 3 个球，所以开销为 3 并返回 3 。\n\n示例 2：\n\n输入：nums = [2,4,8,2], maxOperations = 4\n输出：2\n解释：\n- 将装有 8 个球的袋子分成装有 4 个和 4 个球的袋子。[2,4,8,2] -> [2,4,4,4,2] 。\n- 将装有 4 个球的袋子分成装有 2 个和 2 个球的袋子。[2,4,4,4,2] -> [2,2,2,4,4,2] 。\n- 将装有 4 个球的袋子分成装有 2 个和 2 个球的袋子。[2,2,2,4,4,2] -> [2,2,2,2,2,4,2] 。\n- 将装有 4 个球的袋子分成装有 2 个和 2 个球的袋子。[2,2,2,2,2,4,2] -> [2,2,2,2,2,2,2,2] 。\n装有最多球的袋子里装有 2 个球，所以开销为 2 并返回 2 。\n\n示例 3：\n\n输入：nums = [7,17], maxOperations = 2\n输出：7\n\n \n\n提示：\n\n\t1 5\n\n\t1 9",
+      "statementEn": "You are given an integer array nums where the ith bag contains nums[i] balls. You are also given an integer maxOperations.\n\nYou can perform the following operation at most maxOperations times:\n\n\tTake any bag of balls and divide it into two new bags with a positive number of balls.\n\n\t\n\t\tFor example, a bag of 5 balls can become two new bags of 1 and 4 balls, or two new bags of 2 and 3 balls.\n\n\t\n\t\n\nYour penalty is the maximum number of balls in a bag. You want to minimize your penalty after the operations.\n\nReturn the minimum possible penalty after performing the operations.\n\n \n\nExample 1:\n\nInput: nums = [9], maxOperations = 2\nOutput: 3\nExplanation: \n- Divide the bag with 9 balls into two bags of sizes 6 and 3. [9] -> [6,3].\n- Divide the bag with 6 balls into two bags of sizes 3 and 3. [6,3] -> [3,3,3].\nThe bag with the most number of balls has 3 balls, so your penalty is 3 and you should return 3.\n\nExample 2:\n\nInput: nums = [2,4,8,2], maxOperations = 4\nOutput: 2\nExplanation:\n- Divide the bag with 8 balls into two bags of sizes 4 and 4. [2,4,8,2] -> [2,4,4,4,2].\n- Divide the bag with 4 balls into two bags of sizes 2 and 2. [2,4,4,4,2] -> [2,2,2,4,4,2].\n- Divide the bag with 4 balls into two bags of sizes 2 and 2. [2,2,2,4,4,2] -> [2,2,2,2,2,4,2].\n- Divide the bag with 4 balls into two bags of sizes 2 and 2. [2,2,2,2,2,4,2] -> [2,2,2,2,2,2,2,2].\nThe bag with the most number of balls has 2 balls, so your penalty is 2, and you should return 2.\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 105\n\n\t1 <= maxOperations, nums[i] <= 109",
+      "statement": "给你一个整数数组 nums ，其中 nums[i] 表示第 i 个袋子里球的数目。同时给你一个整数 maxOperations 。\n\n你可以进行如下操作至多 maxOperations 次：\n\n\t选择任意一个袋子，并将袋子里的球分到 2 个新的袋子中，每个袋子里都有 正整数 个球。\n\n\t\n\t\t比方说，一个袋子里有 5 个球，你可以把它们分到两个新袋子里，分别有 1 个和 4 个球，或者分别有 2 个和 3 个球。\n\n\t\n\t\n\n你的开销是单个袋子里球数目的 最大值 ，你想要 最小化 开销。\n\n请你返回进行上述操作后的最小开销。\n\n \n\n示例 1：\n\n输入：nums = [9], maxOperations = 2\n输出：3\n解释：\n- 将装有 9 个球的袋子分成装有 6 个和 3 个球的袋子。[9] -> [6,3] 。\n- 将装有 6 个球的袋子分成装有 3 个和 3 个球的袋子。[6,3] -> [3,3,3] 。\n装有最多球的袋子里装有 3 个球，所以开销为 3 并返回 3 。\n\n示例 2：\n\n输入：nums = [2,4,8,2], maxOperations = 4\n输出：2\n解释：\n- 将装有 8 个球的袋子分成装有 4 个和 4 个球的袋子。[2,4,8,2] -> [2,4,4,4,2] 。\n- 将装有 4 个球的袋子分成装有 2 个和 2 个球的袋子。[2,4,4,4,2] -> [2,2,2,4,4,2] 。\n- 将装有 4 个球的袋子分成装有 2 个和 2 个球的袋子。[2,2,2,4,4,2] -> [2,2,2,2,2,4,2] 。\n- 将装有 4 个球的袋子分成装有 2 个和 2 个球的袋子。[2,2,2,2,2,4,2] -> [2,2,2,2,2,2,2,2] 。\n装有最多球的袋子里装有 2 个球，所以开销为 2 并返回 2 。\n\n示例 3：\n\n输入：nums = [7,17], maxOperations = 2\n输出：7\n\n \n\n提示：\n\n\t1 5\n\n\t1 9",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "#define MAX(a, b) ((a) > (b) ? (a) : (b))\n\nint minimumSize(int* nums, int numsSize, int maxOperations) {\n    int left = 1, right = nums[0];\n    for (int i = 1; i < numsSize; i++) {\n        right = MAX(right, nums[i]);\n    }\n    int ans = 0;\n    while (left <= right) {\n        int y = (left + right) / 2;\n        long long ops = 0;\n        for (int i = 0; i < numsSize; i++) {\n            ops += (nums[i] - 1) / y;\n        }\n        if (ops <= maxOperations) {\n            ans = y;\n            right = y - 1;\n        }\n        else {\n            left = y + 1;\n        }\n    }\n    return ans;\n}",
+        "java": "class Solution {\n    public int minimumSize(int[] nums, int maxOperations) {\n        int left = 1, right = Arrays.stream(nums).max().getAsInt();\n        int ans = 0;\n        while (left <= right) {\n            int y = (left + right) / 2;\n            long ops = 0;\n            for (int x : nums) {\n                ops += (x - 1) / y;\n            }\n            if (ops <= maxOperations) {\n                ans = y;\n                right = y - 1;\n            } else {\n                left = y + 1;\n            }\n        }\n        return ans;\n    }\n}",
+        "python": "class Solution:\n    def minimumSize(self, nums: List[int], maxOperations: int) -> int:\n        left, right, ans = 1, max(nums), 0\n        while left <= right:\n            y = (left + right) // 2\n            ops = sum((x - 1) // y for x in nums)\n            if ops <= maxOperations:\n                ans = y\n                right = y - 1\n            else:\n                left = y + 1\n        \n        return ans",
+        "javascript": "var minimumSize = function(nums, maxOperations) {\n    let left = 1, right = _.max(nums);\n    let ans = 0;\n    while (left <= right) {\n        const y = Math.floor((left + right) / 2);\n        let ops = 0;\n        for (const x of nums) {\n            ops += Math.floor((x - 1) / y);\n        }\n        if (ops <= maxOperations) {\n            ans = y;\n            right = y - 1;\n        } else {\n            left = y + 1;\n        }\n    }\n    return ans;\n};",
+        "go": "func minimumSize(nums []int, maxOperations int) int {\n\tmax := 0\n\tfor _, x := range nums {\n\t\tif x > max {\n\t\t\tmax = x\n\t\t}\n\t}\n\treturn sort.Search(max, func(y int) bool {\n\t\tif y == 0 {\n\t\t\treturn false\n\t\t}\n\t\tops := 0\n\t\tfor _, x := range nums {\n\t\t\tops += (x - 1) / y\n\t\t}\n\t\treturn ops <= maxOperations\n\t})\n}"
+      },
+      "id": 284
+    },
+    {
+      "title": "一个图中连通三元组的最小度数",
+      "titleSlug": "minimum-degree-of-a-connected-trio-in-a-graph",
+      "tags": [
+        "图",
+        "枚举"
+      ],
+      "difficulty": "困难",
+      "acceptance": 55.88,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-degree-of-a-connected-trio-in-a-graph/",
+      "hotCompanies": [
+        "亚马逊",
+        "pocket-gems",
+        "谷歌"
+      ],
+      "statementZh": "给你一个无向图，整数 n 表示图中节点的数目，edges 数组表示图中的边，其中 edges[i] = [ui, vi] ，表示 ui 和 vi 之间有一条无向边。\n\n一个 连通三元组 指的是 三个 节点组成的集合且这三个点之间 两两 有边。\n\n连通三元组的度数 是所有满足此条件的边的数目：一个顶点在这个三元组内，而另一个顶点不在这个三元组内。\n\n请你返回所有连通三元组中度数的 最小值 ，如果图中没有连通三元组，那么返回 -1 。\n\n \n\n示例 1：\n\n输入：n = 6, edges = [[1,2],[1,3],[3,2],[4,1],[5,2],[3,6]]\n输出：3\n解释：只有一个三元组 [1,2,3] 。构成度数的边在上图中已被加粗。\n\n示例 2：\n\n输入：n = 7, edges = [[1,3],[4,1],[4,3],[2,5],[5,6],[6,7],[7,5],[2,6]]\n输出：0\n解释：有 3 个三元组：\n1) [1,4,3]，度数为 0 。\n2) [2,5,6]，度数为 2 。\n3) [5,6,7]，度数为 2 。\n\n \n\n提示：\n\n\t2 \n\n\tedges[i].length == 2\n\n\t1 \n\n\t1 i, vi \n\n\tui != vi\n\n\t图中没有重复的边。",
+      "statementEn": "You are given an undirected graph. You are given an integer n which is the number of nodes in the graph and an array edges, where each edges[i] = [ui, vi] indicates that there is an undirected edge between ui and vi.\n\nA connected trio is a set of three nodes where there is an edge between every pair of them.\n\nThe degree of a connected trio is the number of edges where one endpoint is in the trio, and the other is not.\n\nReturn the minimum degree of a connected trio in the graph, or -1 if the graph has no connected trios.\n\n \n\nExample 1:\n\nInput: n = 6, edges = [[1,2],[1,3],[3,2],[4,1],[5,2],[3,6]]\nOutput: 3\nExplanation: There is exactly one trio, which is [1,2,3]. The edges that form its degree are bolded in the figure above.\n\nExample 2:\n\nInput: n = 7, edges = [[1,3],[4,1],[4,3],[2,5],[5,6],[6,7],[7,5],[2,6]]\nOutput: 0\nExplanation: There are exactly three trios:\n1) [1,4,3] with degree 0.\n2) [2,5,6] with degree 2.\n3) [5,6,7] with degree 2.\n\n \n\nConstraints:\n\n\t2 <= n <= 400\n\n\tedges[i].length == 2\n\n\t1 <= edges.length <= n * (n-1) / 2\n\n\t1 <= ui, vi <= n\n\n\tui != vi\n\n\tThere are no repeated edges.",
+      "statement": "给你一个无向图，整数 n 表示图中节点的数目，edges 数组表示图中的边，其中 edges[i] = [ui, vi] ，表示 ui 和 vi 之间有一条无向边。\n\n一个 连通三元组 指的是 三个 节点组成的集合且这三个点之间 两两 有边。\n\n连通三元组的度数 是所有满足此条件的边的数目：一个顶点在这个三元组内，而另一个顶点不在这个三元组内。\n\n请你返回所有连通三元组中度数的 最小值 ，如果图中没有连通三元组，那么返回 -1 。\n\n \n\n示例 1：\n\n输入：n = 6, edges = [[1,2],[1,3],[3,2],[4,1],[5,2],[3,6]]\n输出：3\n解释：只有一个三元组 [1,2,3] 。构成度数的边在上图中已被加粗。\n\n示例 2：\n\n输入：n = 7, edges = [[1,3],[4,1],[4,3],[2,5],[5,6],[6,7],[7,5],[2,6]]\n输出：0\n解释：有 3 个三元组：\n1) [1,4,3]，度数为 0 。\n2) [2,5,6]，度数为 2 。\n3) [5,6,7]，度数为 2 。\n\n \n\n提示：\n\n\t2 \n\n\tedges[i].length == 2\n\n\t1 \n\n\t1 i, vi \n\n\tui != vi\n\n\t图中没有重复的边。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "typedef struct {\n    int key;\n    UT_hash_handle hh;\n} HashItem; \n\nHashItem *hashFindItem(HashItem **obj, int key) {\n    HashItem *pEntry = NULL;\n    HASH_FIND_INT(*obj, &key, pEntry);\n    return pEntry;\n}\n\nbool hashAddItem(HashItem **obj, int key) {\n    if (hashFindItem(obj, key)) {\n        return false;\n    }\n    HashItem *pEntry = (HashItem *)malloc(sizeof(HashItem));\n    pEntry->key = key;\n    HASH_ADD_INT(*obj, key, pEntry);\n    return true;\n}\n\nvoid hashFree(HashItem **obj) {\n    HashItem *curr = NULL, *tmp = NULL;\n    HASH_ITER(hh, *obj, curr, tmp) {\n        HASH_DEL(*obj, curr);  \n        free(curr);\n    }\n}\n\nint minTrioDegree(int n, int** edges, int edgesSize, int* edgesColSize) {\n    // 原图\n    HashItem *g[n];\n    // 定向后的图\n    HashItem *h[n];\n    int degree[n];\n    for (int i = 0; i < n; i++) {\n        h[i] = NULL;\n        g[i] = NULL;\n    }\n    memset(degree, 0, sizeof(degree));\n\n    for (int i = 0; i < edgesSize; i++) {\n        int x = edges[i][0] - 1, y = edges[i][1] - 1;\n        hashAddItem(&g[x], y);\n        hashAddItem(&g[y], x);\n        ++degree[x];\n        ++degree[y];\n    }\n    for (int i = 0; i < edgesSize; i++) {\n        int x = edges[i][0] - 1, y = edges[i][1] - 1;\n        if (degree[x] < degree[y] || (degree[x] == degree[y] && x < y)) {\n            hashAddItem(&h[x], y);\n        } else {\n            hashAddItem(&h[y], x);\n        }\n    }\n\n    int ans = INT_MAX;\n    for (int i = 0; i < n; ++i) {\n        for (HashItem *pEntry1 = h[i]; pEntry1; pEntry1 = pEntry1->hh.next) {\n            int j = pEntry1->key;\n            for (HashItem *pEntry2 = h[j]; pEntry2; pEntry2 = pEntry2->hh.next) {\n                int k = pEntry2->key;\n                if (hashFindItem(&g[i], k)) {\n                    ans = fmin(ans, degree[i] + degree[j] + degree[k] - 6);\n                }\n            }\n        }\n    }\n    for (int i = 0; i < n; i++) {\n        hashFree(&h[i]);\n        hashFree(&g[i]);\n    }\n    return ans == INT_MAX ? -1 : ans;\n}",
+        "java": "class Solution {\n    public int minTrioDegree(int n, int[][] edges) {\n        // 原图\n        Set<Integer>[] g = new Set[n];\n        for (int i = 0; i < n; ++i) {\n            g[i] = new HashSet<Integer>();\n        }\n        // 定向后的图\n        List<Integer>[] h = new List[n];\n        for (int i = 0; i < n; ++i) {\n            h[i] = new ArrayList<Integer>();\n        }\n        int[] degree = new int[n];\n\n        for (int[] edge : edges) {\n            int x = edge[0] - 1, y = edge[1] - 1;\n            g[x].add(y);\n            g[y].add(x);\n            ++degree[x];\n            ++degree[y];\n        }\n        for (int[] edge : edges) {\n            int x = edge[0] - 1, y = edge[1] - 1;\n            if (degree[x] < degree[y] || (degree[x] == degree[y] && x < y)) {\n                h[x].add(y);\n            } else {\n                h[y].add(x);\n            }\n        }\n\n        int ans = Integer.MAX_VALUE;\n        for (int i = 0; i < n; ++i) {\n            for (int j : h[i]) {\n                for (int k : h[j]) {\n                    if (g[i].contains(k)) {\n                        ans = Math.min(ans, degree[i] + degree[j] + degree[k] - 6);\n                    }\n                }\n            }\n        }\n\n        return ans == Integer.MAX_VALUE ? -1 : ans;\n    }\n}",
+        "python": "class Solution:\n    def minTrioDegree(self, n: int, edges: List[List[int]]) -> int:\n        # 原图\n        g = defaultdict(set)\n        # 定向后的图\n        h = defaultdict(list)\n        degree = [0] * n\n\n        for x, y in edges:\n            x, y = x - 1, y - 1\n            g[x].add(y)\n            g[y].add(x)\n            degree[x] += 1\n            degree[y] += 1\n        \n        for x, y in edges:\n            x, y = x - 1, y - 1\n            if degree[x] < degree[y] or (degree[x] == degree[y] and x < y):\n                h[x].append(y)\n            else:\n                h[y].append(x)\n        \n        ans = inf\n        for i in range(n):\n            for j in h[i]:\n                for k in h[j]:\n                    if k in g[i]:\n                        ans = min(ans, degree[i] + degree[j] + degree[k] - 6)\n\n        return -1 if ans == inf else ans",
+        "go": "func min(a, b int) int {\n    if a < b {\n        return a\n    }\n    return b\n}\n\nfunc minTrioDegree(n int, edges [][]int) int {\n    g := make([]map[int]struct{}, n)\n    h := make([][]int, n)\n    degree := make([]int, n)\n    for i := 0; i < n; i++ {\n        g[i] = make(map[int]struct{})\n    }\n\n    for _, edge := range edges {\n        x, y := edge[0] - 1, edge[1] - 1\n        g[x][y], g[y][x] = struct{}{}, struct{}{}\n        degree[x]++\n        degree[y]++\n    }\n    for _, edge := range edges {\n        x, y := edge[0] - 1, edge[1] - 1\n        if degree[x] < degree[y] || (degree[x] == degree[y] && x < y) {\n            h[x] = append(h[x], y)\n        } else {\n            h[y] = append(h[y], x)\n        }\n    }\n\n    ans := 0x3f3f3f3f\n    for i := 0; i < n; i++ {\n        for _, j := range h[i] {\n            for _, k := range h[j] {\n                if _, ok := g[i][k]; ok {\n                    ans = min(ans, degree[i] + degree[j] + degree[k] - 6)\n                }\n            }\n        }\n    }\n    if ans == 0x3f3f3f3f {\n        return -1\n    }\n    return ans\n}",
+        "javascript": "var minTrioDegree = function(n, edges) {\n    // 原图\n    const g = Array(n).fill(0).map(() => new Set());\n    // 定向后的图\n    const h = Array(n).fill(0).map(() => new Array());\n    const degree = Array(n).fill(0);\n\n    for (const [x, y] of edges) {\n        g[x - 1].add(y - 1);\n        g[y - 1].add(x - 1);\n        degree[x - 1]++;\n        degree[y - 1]++;\n    }\n    for (const [x, y] of edges) {\n        if (degree[x - 1] < degree[y - 1] || (degree[x - 1] == degree[y - 1] && x < y)) {\n            h[x - 1].push(y - 1);\n        } else {\n            h[y - 1].push(x - 1);\n        }\n    }\n\n    let ans = Infinity;\n    for (let i = 0; i < n; ++i) {\n        for (const j of h[i]) {\n            for (const k of h[j]) {\n                if (g[i].has(k)) {\n                    ans = Math.min(ans, degree[i] + degree[j] + degree[k] - 6);\n                }\n            }\n        }\n    }\n\n    return ans == Infinity ? -1 : ans;\n};"
+      },
+      "id": 285
+    },
+    {
+      "title": "能看到海景的建筑物",
+      "titleSlug": "buildings-with-an-ocean-view",
+      "tags": [
+        "栈",
+        "数组",
+        "单调栈"
+      ],
+      "difficulty": "中等",
+      "acceptance": 73.03,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/buildings-with-an-ocean-view/",
+      "hotCompanies": [
+        "facebook",
+        "亚马逊",
+        "微软"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 286
+    },
+    {
+      "title": "最长的美好子字符串",
+      "titleSlug": "longest-nice-substring",
+      "tags": [
+        "位运算",
+        "哈希表",
+        "字符串",
+        "分治",
+        "滑动窗口"
+      ],
+      "difficulty": "简单",
+      "acceptance": 66.98,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/longest-nice-substring/",
+      "hotCompanies": [
+        "微软",
+        "谷歌",
+        "亚马逊"
+      ],
+      "statementZh": "当一个字符串 s 包含的每一种字母的大写和小写形式 同时 出现在 s 中，就称这个字符串 s 是 美好 字符串。比方说，\"abABB\" 是美好字符串，因为 'A' 和 'a' 同时出现了，且 'B' 和 'b' 也同时出现了。然而，\"abA\" 不是美好字符串因为 'b' 出现了，而 'B' 没有出现。\n\n给你一个字符串 s ，请你返回 s 最长的 美好子字符串 。如果有多个答案，请你返回 最早 出现的一个。如果不存在美好子字符串，请你返回一个空字符串。\n\n \n\n示例 1：\n\n输入：s = \"YazaAay\"\n输出：\"aAa\"\n解释：\"aAa\" 是一个美好字符串，因为这个子串中仅含一种字母，其小写形式 'a' 和大写形式 'A' 也同时出现了。\n\"aAa\" 是最长的美好子字符串。\n\n示例 2：\n\n输入：s = \"Bb\"\n输出：\"Bb\"\n解释：\"Bb\" 是美好字符串，因为 'B' 和 'b' 都出现了。整个字符串也是原字符串的子字符串。\n\n示例 3：\n\n输入：s = \"c\"\n输出：\"\"\n解释：没有美好子字符串。\n\n示例 4：\n\n输入：s = \"dDzeE\"\n输出：\"dD\"\n解释：\"dD\" 和 \"eE\" 都是最长美好子字符串。\n由于有多个美好子字符串，返回 \"dD\" ，因为它出现得最早。\n\n \n\n提示：\n\n\t1 \n\n\ts 只包含大写和小写英文字母。",
+      "statementEn": "A string s is nice if, for every letter of the alphabet that s contains, it appears both in uppercase and lowercase. For example, \"abABB\" is nice because &#39;A&#39; and &#39;a&#39; appear, and &#39;B&#39; and &#39;b&#39; appear. However, \"abA\" is not because &#39;b&#39; appears, but &#39;B&#39; does not.\n\nGiven a string s, return the longest substring of s that is nice. If there are multiple, return the substring of the earliest occurrence. If there are none, return an empty string.\n\n \n\nExample 1:\n\nInput: s = \"YazaAay\"\nOutput: \"aAa\"\nExplanation: \"aAa\" is a nice string because &#39;A/a&#39; is the only letter of the alphabet in s, and both &#39;A&#39; and &#39;a&#39; appear.\n\"aAa\" is the longest nice substring.\n\nExample 2:\n\nInput: s = \"Bb\"\nOutput: \"Bb\"\nExplanation: \"Bb\" is a nice string because both &#39;B&#39; and &#39;b&#39; appear. The whole string is a substring.\n\nExample 3:\n\nInput: s = \"c\"\nOutput: \"\"\nExplanation: There are no nice substrings.\n\n \n\nConstraints:\n\n\t1 <= s.length <= 100\n\n\ts consists of uppercase and lowercase English letters.",
+      "statement": "当一个字符串 s 包含的每一种字母的大写和小写形式 同时 出现在 s 中，就称这个字符串 s 是 美好 字符串。比方说，\"abABB\" 是美好字符串，因为 'A' 和 'a' 同时出现了，且 'B' 和 'b' 也同时出现了。然而，\"abA\" 不是美好字符串因为 'b' 出现了，而 'B' 没有出现。\n\n给你一个字符串 s ，请你返回 s 最长的 美好子字符串 。如果有多个答案，请你返回 最早 出现的一个。如果不存在美好子字符串，请你返回一个空字符串。\n\n \n\n示例 1：\n\n输入：s = \"YazaAay\"\n输出：\"aAa\"\n解释：\"aAa\" 是一个美好字符串，因为这个子串中仅含一种字母，其小写形式 'a' 和大写形式 'A' 也同时出现了。\n\"aAa\" 是最长的美好子字符串。\n\n示例 2：\n\n输入：s = \"Bb\"\n输出：\"Bb\"\n解释：\"Bb\" 是美好字符串，因为 'B' 和 'b' 都出现了。整个字符串也是原字符串的子字符串。\n\n示例 3：\n\n输入：s = \"c\"\n输出：\"\"\n解释：没有美好子字符串。\n\n示例 4：\n\n输入：s = \"dDzeE\"\n输出：\"dD\"\n解释：\"dD\" 和 \"eE\" 都是最长美好子字符串。\n由于有多个美好子字符串，返回 \"dD\" ，因为它出现得最早。\n\n \n\n提示：\n\n\t1 \n\n\ts 只包含大写和小写英文字母。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "java": "class Solution {\n    private int maxPos;\n    private int maxLen;\n\n    public String longestNiceSubstring(String s) {\n        this.maxPos = 0;\n        this.maxLen = 0;\n        \n        int types = 0;\n        for (int i = 0; i < s.length(); ++i) {\n            types |= 1 << (Character.toLowerCase(s.charAt(i)) - 'a');\n        }\n        types = Integer.bitCount(types);\n        for (int i = 1; i <= types; ++i) {\n            check(s, i);\n        }\n        return s.substring(maxPos, maxPos + maxLen);\n    }\n\n    public void check(String s, int typeNum) {\n        int[] lowerCnt = new int[26];\n        int[] upperCnt = new int[26]; \n        int cnt = 0;\n        for (int l = 0, r = 0, total = 0; r < s.length(); ++r) {\n            int idx = Character.toLowerCase(s.charAt(r)) - 'a';\n            if (Character.isLowerCase(s.charAt(r))) {\n                ++lowerCnt[idx];\n                if (lowerCnt[idx] == 1 && upperCnt[idx] > 0) {\n                    ++cnt;\n                }\n            } else {\n                ++upperCnt[idx];\n                if (upperCnt[idx] == 1 && lowerCnt[idx] > 0) {\n                    ++cnt;\n                }\n            }\n            total += (lowerCnt[idx] + upperCnt[idx]) == 1 ? 1 : 0;\n            while (total > typeNum) {\n                idx = Character.toLowerCase(s.charAt(l)) - 'a';\n                total -= (lowerCnt[idx] + upperCnt[idx]) == 1 ? 1 : 0;\n                if (Character.isLowerCase(s.charAt(l))) {\n                    --lowerCnt[idx];\n                    if (lowerCnt[idx] == 0 && upperCnt[idx] > 0) {\n                        --cnt;\n                    }\n                } else {\n                    --upperCnt[idx];\n                    if (upperCnt[idx] == 0 && lowerCnt[idx] > 0) {\n                        --cnt;\n                    }\n                }\n                ++l;\n            }\n            if (cnt == typeNum && r - l + 1 > maxLen) {\n                maxPos = l;\n                maxLen = r - l + 1;\n            }\n        }\n    }\n}",
+        "cpp": "public class Solution {\n    private int maxPos;\n    private int maxLen;\n\n    public string LongestNiceSubstring(string s) {\n        this.maxPos = 0;\n        this.maxLen = 0;\n        \n        int types = 0;\n        for (int i = 0; i < s.Length; ++i) {\n            types |= 1 << (char.ToLower(s[i]) - 'a');\n        }\n        types = Count((uint) types);\n        for (int i = 1; i <= types; ++i) {\n            Check(s, i);\n        }\n        return s.Substring(maxPos, maxLen);\n    }\n\n    public void Check(string s, int typeNum) {\n        int[] lowerCnt = new int[26];\n        int[] upperCnt = new int[26];\n        int cnt = 0;\n        for (int l = 0, r = 0, total = 0; r < s.Length; ++r) {\n            int idx = char.ToLower(s[r]) - 'a';\n            if (char.IsLower(s[r])) {\n                ++lowerCnt[idx];\n                if (lowerCnt[idx] == 1 && upperCnt[idx] > 0) {\n                    ++cnt;\n                }\n            } else {\n                ++upperCnt[idx];\n                if (upperCnt[idx] == 1 && lowerCnt[idx] > 0) {\n                    ++cnt;\n                }\n            }\n            total += (lowerCnt[idx] + upperCnt[idx]) == 1 ? 1 : 0;\n\n            while (total > typeNum) {\n                idx = char.ToLower(s[l]) - 'a';\n                total -= (lowerCnt[idx] + upperCnt[idx]) == 1 ? 1 : 0;\n                if (char.IsLower(s[l])) {\n                    --lowerCnt[idx];\n                    if (lowerCnt[idx] == 0 && upperCnt[idx] > 0) {\n                        --cnt;\n                    }\n                } else {\n                    --upperCnt[idx];\n                    if (upperCnt[idx] == 0 && lowerCnt[idx] > 0) {\n                        --cnt;\n                    }\n                }\n                ++l;\n            }\n            if (cnt == typeNum && r - l + 1 > maxLen) {\n                maxPos = l;\n                maxLen = r - l + 1;\n            }\n        }\n    }\n\n    public static int Count(uint x) {\n        x = x - ((x >> 1) & 0x55555555);\n        x = (x & 0x33333333) + ((x >> 2) & 0x33333333);\n        x = (x + (x >> 4)) & 0x0f0f0f0f;\n        x = x + (x >> 8);\n        x = x + (x >> 16);\n        return (int) x & 0x3f;\n    }\n}",
+        "python": "class Solution:\n    def longestNiceSubstring(self, s: str) -> str:\n        def check(typeNum):\n            nonlocal maxPos, maxLen\n            lowerCnt = [0] * 26\n            upperCnt = [0] * 26\n            l, r, total, cnt = 0, 0, 0, 0\n            while r < len(s):\n                idx = ord(s[r].lower()) - ord('a')\n                if s[r].islower():\n                    lowerCnt[idx] += 1\n                    if lowerCnt[idx] == 1 and upperCnt[idx] > 0:\n                        cnt += 1\n                else:\n                    upperCnt[idx] += 1\n                    if upperCnt[idx] == 1 and lowerCnt[idx] > 0:\n                        cnt += 1\n                if lowerCnt[idx] + upperCnt[idx] == 1:\n                    total += 1\n\n                while total > typeNum :\n                    idx = ord(s[l].lower()) - ord('a')\n                    if lowerCnt[idx] + upperCnt[idx] == 1:\n                        total -= 1\n                    if s[l].islower():\n                        lowerCnt[idx] -= 1\n                        if lowerCnt[idx] == 0 and upperCnt[idx] > 0:\n                            cnt -= 1\n                    else:\n                        upperCnt[idx] -= 1\n                        if upperCnt[idx] == 0 and lowerCnt[idx] > 0:\n                            cnt -= 1\n                    l += 1\n                if cnt == typeNum and r - l + 1 > maxLen:\n                    maxPos, maxLen = l, r - l + 1\n                r += 1\n        \n        maxPos, maxLen = 0, 0\n        types = len(set(s.lower()))\n        for i in range(1, types + 1):\n            check(i)\n        return s[maxPos: maxPos + maxLen]",
+        "javascript": "var longestNiceSubstring = function(s) {\n    this.maxPos = 0;\n    this.maxLen = 0;\n    \n    let types = 0;\n    for (let i = 0; i < s.length; ++i) {\n        types |= 1 << (s[i].toLowerCase().charCodeAt() - 'a'.charCodeAt());\n    }\n    types = bitCount(types);\n    for (let i = 1; i <= types; ++i) {\n        check(s, i);\n    }\n    return s.slice(maxPos, maxPos + maxLen);\n};\n\nconst check = (s, typeNum) => {\n    const lowerCnt = new Array(26).fill(0);\n    const upperCnt = new Array(26).fill(0);\n    let cnt = 0;\n    for (let l = 0, r = 0, total = 0; r < s.length; ++r) {\n        let idx = s[r].toLowerCase().charCodeAt() - 'a'.charCodeAt();\n        if ('a' <= s[r] && s[r] <= 'z') {\n            ++lowerCnt[idx];\n            if (lowerCnt[idx] === 1 && upperCnt[idx] > 0) {\n                ++cnt;\n            }\n        } else {\n            ++upperCnt[idx];\n            if (upperCnt[idx] === 1 && lowerCnt[idx] > 0) {\n                ++cnt;\n            }\n        }\n        total += (lowerCnt[idx] + upperCnt[idx]) === 1 ? 1 : 0;\n        while (total > typeNum) {\n            idx = s[l].toLowerCase().charCodeAt() - 'a'.charCodeAt();\n            total -= (lowerCnt[idx] + upperCnt[idx]) === 1 ? 1 : 0;\n            if ('a' <= s[l] && s[l] <= 'z') {\n                --lowerCnt[idx];\n                if (lowerCnt[idx] === 0 && upperCnt[idx] > 0) {\n                    --cnt;\n                }\n            } else {\n                --upperCnt[idx];\n                if (upperCnt[idx] === 0 && lowerCnt[idx] > 0) {\n                    --cnt;\n                }\n            }\n            ++l;\n        }\n        if (cnt === typeNum && r - l + 1 > maxLen) {\n            maxPos = l;\n            maxLen = r - l + 1;\n        }\n    }\n}\n\nvar bitCount = function(n) {\n    let ret = 0;\n    while (n) {\n        n &= n - 1;\n        ret++;\n    }\n    return ret;\n};",
+        "go": "func longestNiceSubstring(s string) (ans string) {\n    mask := uint(0)\n    for _, ch := range s {\n        mask |= 1 << (unicode.ToLower(ch) - 'a')\n    }\n    maxTypeNum := bits.OnesCount(mask)\n\n    for typeNum := 1; typeNum <= maxTypeNum; typeNum++ {\n        var lowerCnt, upperCnt [26]int\n        var total, cnt, l int\n        for r, ch := range s {\n            idx := unicode.ToLower(ch) - 'a'\n            if unicode.IsLower(ch) {\n                lowerCnt[idx]++\n                if lowerCnt[idx] == 1 && upperCnt[idx] > 0 {\n                    cnt++\n                }\n            } else {\n                upperCnt[idx]++\n                if upperCnt[idx] == 1 && lowerCnt[idx] > 0 {\n                    cnt++\n                }\n            }\n            if lowerCnt[idx]+upperCnt[idx] == 1 {\n                total++\n            }\n\n            for total > typeNum {\n                idx := unicode.ToLower(rune(s[l])) - 'a'\n                if lowerCnt[idx]+upperCnt[idx] == 1 {\n                    total--\n                }\n                if unicode.IsLower(rune(s[l])) {\n                    lowerCnt[idx]--\n                    if lowerCnt[idx] == 0 && upperCnt[idx] > 0 {\n                        cnt--\n                    }\n                } else {\n                    upperCnt[idx]--\n                    if upperCnt[idx] == 0 && lowerCnt[idx] > 0 {\n                        cnt--\n                    }\n                }\n                l++\n            }\n\n            if cnt == typeNum && r-l+1 > len(ans) {\n                ans = s[l : r+1]\n            }\n        }\n    }\n    return\n}"
+      },
+      "id": 287
+    },
+    {
+      "title": "通过连接另一个数组的子数组得到一个数组",
+      "titleSlug": "form-array-by-concatenating-subarrays-of-another-array",
+      "tags": [
+        "贪心",
+        "数组",
+        "双指针",
+        "字符串匹配"
+      ],
+      "difficulty": "中等",
+      "acceptance": 56.15,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/form-array-by-concatenating-subarrays-of-another-array/",
+      "hotCompanies": [
+        "亚马逊",
+        "bloomberg",
+        "字节"
+      ],
+      "statementZh": "给你一个长度为 n 的二维整数数组 groups ，同时给你一个整数数组 nums 。\n\n你是否可以从 nums 中选出 n 个 不相交 的子数组，使得第 i 个子数组与 groups[i] （下标从 0 开始）完全相同，且如果 i > 0 ，那么第 (i-1) 个子数组在 nums 中出现的位置在第 i 个子数组前面。（也就是说，这些子数组在 nums 中出现的顺序需要与 groups 顺序相同）\n\n如果你可以找出这样的 n 个子数组，请你返回 true ，否则返回 false 。\n\n如果不存在下标为 k 的元素 nums[k] 属于不止一个子数组，就称这些子数组是 不相交 的。子数组指的是原数组中连续元素组成的一个序列。\n\n \n\n示例 1：\n\n输入：groups = [[1,-1,-1],[3,-2,0]], nums = [1,-1,0,1,-1,-1,3,-2,0]\n输出：true\n解释：你可以分别在 nums 中选出第 0 个子数组 [1,-1,0,1,-1,-1,3,-2,0] 和第 1 个子数组 [1,-1,0,1,-1,-1,3,-2,0] 。\n这两个子数组是不相交的，因为它们没有任何共同的元素。\n\n示例 2：\n\n输入：groups = [[10,-2],[1,2,3,4]], nums = [1,2,3,4,10,-2]\n输出：false\n解释：选择子数组 [1,2,3,4,10,-2] 和 [1,2,3,4,10,-2] 是不正确的，因为它们出现的顺序与 groups 中顺序不同。\n[10,-2] 必须出现在 [1,2,3,4] 之前。\n\n示例 3：\n\n输入：groups = [[1,2,3],[3,4]], nums = [7,7,1,2,3,4,7,7]\n输出：false\n解释：选择子数组 [7,7,1,2,3,4,7,7] 和 [7,7,1,2,3,4,7,7] 是不正确的，因为它们不是不相交子数组。\n它们有一个共同的元素 nums[4] （下标从 0 开始）。\n\n \n\n提示：\n\n\tgroups.length == n\n\n\t1 3\n\n\t1 3\n\n\t1 3\n\n\t-107 7",
+      "statementEn": "You are given a 2D integer array groups of length n. You are also given an integer array nums.\n\nYou are asked if you can choose n disjoint subarrays from the array nums such that the ith subarray is equal to groups[i] (0-indexed), and if i > 0, the (i-1)th subarray appears before the ith subarray in nums (i.e. the subarrays must be in the same order as groups).\n\nReturn true if you can do this task, and false otherwise.\n\nNote that the subarrays are disjoint if and only if there is no index k such that nums[k] belongs to more than one subarray. A subarray is a contiguous sequence of elements within an array.\n\n \n\nExample 1:\n\nInput: groups = [[1,-1,-1],[3,-2,0]], nums = [1,-1,0,1,-1,-1,3,-2,0]\nOutput: true\nExplanation: You can choose the 0th subarray as [1,-1,0,1,-1,-1,3,-2,0] and the 1st one as [1,-1,0,1,-1,-1,3,-2,0].\nThese subarrays are disjoint as they share no common nums[k] element.\n\nExample 2:\n\nInput: groups = [[10,-2],[1,2,3,4]], nums = [1,2,3,4,10,-2]\nOutput: false\nExplanation: Note that choosing the subarrays [1,2,3,4,10,-2] and [1,2,3,4,10,-2] is incorrect because they are not in the same order as in groups.\n[10,-2] must come before [1,2,3,4].\n\nExample 3:\n\nInput: groups = [[1,2,3],[3,4]], nums = [7,7,1,2,3,4,7,7]\nOutput: false\nExplanation: Note that choosing the subarrays [7,7,1,2,3,4,7,7] and [7,7,1,2,3,4,7,7] is invalid because they are not disjoint.\nThey share a common elements nums[4] (0-indexed).\n\n \n\nConstraints:\n\n\tgroups.length == n\n\n\t1 <= n <= 103\n\n\t1 <= groups[i].length, sum(groups[i].length) <= 103\n\n\t1 <= nums.length <= 103\n\n\t-107 <= groups[i][j], nums[k] <= 107",
+      "statement": "给你一个长度为 n 的二维整数数组 groups ，同时给你一个整数数组 nums 。\n\n你是否可以从 nums 中选出 n 个 不相交 的子数组，使得第 i 个子数组与 groups[i] （下标从 0 开始）完全相同，且如果 i > 0 ，那么第 (i-1) 个子数组在 nums 中出现的位置在第 i 个子数组前面。（也就是说，这些子数组在 nums 中出现的顺序需要与 groups 顺序相同）\n\n如果你可以找出这样的 n 个子数组，请你返回 true ，否则返回 false 。\n\n如果不存在下标为 k 的元素 nums[k] 属于不止一个子数组，就称这些子数组是 不相交 的。子数组指的是原数组中连续元素组成的一个序列。\n\n \n\n示例 1：\n\n输入：groups = [[1,-1,-1],[3,-2,0]], nums = [1,-1,0,1,-1,-1,3,-2,0]\n输出：true\n解释：你可以分别在 nums 中选出第 0 个子数组 [1,-1,0,1,-1,-1,3,-2,0] 和第 1 个子数组 [1,-1,0,1,-1,-1,3,-2,0] 。\n这两个子数组是不相交的，因为它们没有任何共同的元素。\n\n示例 2：\n\n输入：groups = [[10,-2],[1,2,3,4]], nums = [1,2,3,4,10,-2]\n输出：false\n解释：选择子数组 [1,2,3,4,10,-2] 和 [1,2,3,4,10,-2] 是不正确的，因为它们出现的顺序与 groups 中顺序不同。\n[10,-2] 必须出现在 [1,2,3,4] 之前。\n\n示例 3：\n\n输入：groups = [[1,2,3],[3,4]], nums = [7,7,1,2,3,4,7,7]\n输出：false\n解释：选择子数组 [7,7,1,2,3,4,7,7] 和 [7,7,1,2,3,4,7,7] 是不正确的，因为它们不是不相交子数组。\n它们有一个共同的元素 nums[4] （下标从 0 开始）。\n\n \n\n提示：\n\n\tgroups.length == n\n\n\t1 3\n\n\t1 3\n\n\t1 3\n\n\t-107 7",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def canChoose(self, groups: List[List[int]], nums: List[int]) -> bool:\n        k = 0\n        for g in groups:\n            while k + len(g) <= len(nums):\n                if nums[k: k + len(g)] == g:\n                    k += len(g)\n                    break\n                k += 1\n            else:\n                return False\n        return True",
+        "cpp": "class Solution {\npublic:\n    int find(vector<int> &nums, int k, vector<int> &g) {\n        int m = g.size(), n = nums.size();\n        if (k + g.size() > nums.size()) {\n            return -1;\n        }\n        vector<int> pi(m);\n        for (int i = 1, j = 0; i < m; i++) {\n            while (j > 0 && g[i] != g[j]) {\n                j = pi[j - 1];\n            }\n            if (g[i] == g[j]) {\n                j++;\n            }\n            pi[i] = j;\n        }\n        for (int i = k, j = 0; i < n; i++) {\n            while (j > 0 && nums[i] != g[j]) {\n                j = pi[j - 1];\n            }\n            if (nums[i] == g[j]) {\n                j++;\n            }\n            if (j == m) {\n                return i - m + 1;\n            }\n        }\n        return -1;\n    }\n\n    bool canChoose(vector<vector<int>>& groups, vector<int>& nums) {\n        int k = 0;\n        for (int i = 0; i < groups.size(); i++) {\n            k = find(nums, k, groups[i]);\n            if (k == -1) {\n                return false;\n            }\n            k += groups[i].size();\n        }\n        return true;\n    }\n};",
+        "java": "class Solution {\n    public boolean canChoose(int[][] groups, int[] nums) {\n        int k = 0;\n        for (int i = 0; i < groups.length; i++) {\n            k = find(nums, k, groups[i]);\n            if (k == -1) {\n                return false;\n            }\n            k += groups[i].length;\n        }\n        return true;\n    }\n\n    public int find(int[] nums, int k, int[] g) {\n        int m = g.length, n = nums.length;\n        if (k + g.length > nums.length) {\n            return -1;\n        }\n        int[] pi = new int[m];\n        for (int i = 1, j = 0; i < m; i++) {\n            while (j > 0 && g[i] != g[j]) {\n                j = pi[j - 1];\n            }\n            if (g[i] == g[j]) {\n                j++;\n            }\n            pi[i] = j;\n        }\n        for (int i = k, j = 0; i < n; i++) {\n            while (j > 0 && nums[i] != g[j]) {\n                j = pi[j - 1];\n            }\n            if (nums[i] == g[j]) {\n                j++;\n            }\n            if (j == m) {\n                return i - m + 1;\n            }\n        }\n        return -1;\n    }\n}",
+        "javascript": "var canChoose = function(groups, nums) {\n    let k = 0;\n    for (let i = 0; i < groups.length; i++) {\n        k = find(nums, k, groups[i]);\n        if (k == -1) {\n            return false;\n        }\n        k += groups[i].length;\n    }\n    return true;\n}\n\nconst find = (nums, k, g) => {\n    let m = g.length, n = nums.length;\n    if (k + g.length > nums.length) {\n        return -1;\n    }\n    const pi = new Array(m).fill(0);\n    for (let i = 1, j = 0; i < m; i++) {\n        while (j > 0 && g[i] !== g[j]) {\n            j = pi[j - 1];\n        }\n        if (g[i] === g[j]) {\n            j++;\n        }\n        pi[i] = j;\n    }\n    for (let i = k, j = 0; i < n; i++) {\n        while (j > 0 && nums[i] !== g[j]) {\n            j = pi[j - 1];\n        }\n        if (nums[i] === g[j]) {\n            j++;\n        }\n        if (j === m) {\n            return i - m + 1;\n        }\n    }\n    return -1;\n};",
+        "go": "func canChoose(groups [][]int, nums []int) bool {\nnext:\n\tfor _, g := range groups {\n\t\tfor len(nums) >= len(g) {\n\t\t\tif equal(nums[:len(g)], g) {\n\t\t\t\tnums = nums[len(g):]\n\t\t\t\tcontinue next\n\t\t\t}\n\t\t\tnums = nums[1:]\n\t\t}\n\t\treturn false\n\t}\n\treturn true\n}\n\nfunc equal(a, b []int) bool {\n\tfor i, x := range a {\n\t\tif x != b[i] {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}"
+      },
+      "id": 288
+    },
+    {
+      "title": "地图中的最高点",
+      "titleSlug": "map-of-highest-peak",
+      "tags": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+      ],
+      "difficulty": "中等",
+      "acceptance": 68.39,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/map-of-highest-peak/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "微软"
+      ],
+      "statementZh": "给你一个大小为 m x n 的整数矩阵 isWater ，它代表了一个由 陆地 和 水域 单元格组成的地图。\n\n\t如果 isWater[i][j] == 0 ，格子 (i, j) 是一个 陆地 格子。\n\n\t如果 isWater[i][j] == 1 ，格子 (i, j) 是一个 水域 格子。\n\n你需要按照如下规则给每个单元格安排高度：\n\n\t每个格子的高度都必须是非负的。\n\n\t如果一个格子是 水域 ，那么它的高度必须为 0 。\n\n\t任意相邻的格子高度差 至多 为 1 。当两个格子在正东、南、西、北方向上相互紧挨着，就称它们为相邻的格子。（也就是说它们有一条公共边）\n\n找到一种安排高度的方案，使得矩阵中的最高高度值 最大 。\n\n请你返回一个大小为 m x n 的整数矩阵 height ，其中 height[i][j] 是格子 (i, j) 的高度。如果有多种解法，请返回 任意一个 。\n\n \n\n示例 1：\n\n输入：isWater = [[0,1],[0,0]]\n输出：[[1,0],[2,1]]\n解释：上图展示了给各个格子安排的高度。\n蓝色格子是水域格，绿色格子是陆地格。\n\n示例 2：\n\n输入：isWater = [[0,0,1],[1,0,0],[0,0,0]]\n输出：[[1,1,0],[0,1,1],[1,2,2]]\n解释：所有安排方案中，最高可行高度为 2 。\n任意安排方案中，只要最高高度为 2 且符合上述规则的，都为可行方案。\n\n \n\n提示：\n\n\tm == isWater.length\n\n\tn == isWater[i].length\n\n\t1 <= m, n <= 1000\n\n\tisWater[i][j] 要么是 0 ，要么是 1 。\n\n\t至少有 1 个水域格子。\n\n注意：本题与 542 题相同。",
+      "statementEn": "You are given an integer matrix isWater of size m x n that represents a map of land and water cells.\n\n\tIf isWater[i][j] == 0, cell (i, j) is a land cell.\n\n\tIf isWater[i][j] == 1, cell (i, j) is a water cell.\n\nYou must assign each cell a height in a way that follows these rules:\n\n\tThe height of each cell must be non-negative.\n\n\tIf the cell is a water cell, its height must be 0.\n\n\tAny two adjacent cells must have an absolute height difference of at most 1. A cell is adjacent to another cell if the former is directly north, east, south, or west of the latter (i.e., their sides are touching).\n\nFind an assignment of heights such that the maximum height in the matrix is maximized.\n\nReturn an integer matrix height of size m x n where height[i][j] is cell (i, j)&#39;s height. If there are multiple solutions, return any of them.\n\n \n\nExample 1:\n\nInput: isWater = [[0,1],[0,0]]\nOutput: [[1,0],[2,1]]\nExplanation: The image shows the assigned heights of each cell.\nThe blue cell is the water cell, and the green cells are the land cells.\n\nExample 2:\n\nInput: isWater = [[0,0,1],[1,0,0],[0,0,0]]\nOutput: [[1,1,0],[0,1,1],[1,2,2]]\nExplanation: A height of 2 is the maximum possible height of any assignment.\nAny height assignment that has a maximum height of 2 while still meeting the rules will also be accepted.\n\n \n\nConstraints:\n\n\tm == isWater.length\n\n\tn == isWater[i].length\n\n\t1 <= m, n <= 1000\n\n\tisWater[i][j] is 0 or 1.\n\n\tThere is at least one water cell.\n\n \n\nNote: This question is the same as 542: https://leetcode.com/problems/01-matrix/",
+      "statement": "给你一个大小为 m x n 的整数矩阵 isWater ，它代表了一个由 陆地 和 水域 单元格组成的地图。\n\n\t如果 isWater[i][j] == 0 ，格子 (i, j) 是一个 陆地 格子。\n\n\t如果 isWater[i][j] == 1 ，格子 (i, j) 是一个 水域 格子。\n\n你需要按照如下规则给每个单元格安排高度：\n\n\t每个格子的高度都必须是非负的。\n\n\t如果一个格子是 水域 ，那么它的高度必须为 0 。\n\n\t任意相邻的格子高度差 至多 为 1 。当两个格子在正东、南、西、北方向上相互紧挨着，就称它们为相邻的格子。（也就是说它们有一条公共边）\n\n找到一种安排高度的方案，使得矩阵中的最高高度值 最大 。\n\n请你返回一个大小为 m x n 的整数矩阵 height ，其中 height[i][j] 是格子 (i, j) 的高度。如果有多种解法，请返回 任意一个 。\n\n \n\n示例 1：\n\n输入：isWater = [[0,1],[0,0]]\n输出：[[1,0],[2,1]]\n解释：上图展示了给各个格子安排的高度。\n蓝色格子是水域格，绿色格子是陆地格。\n\n示例 2：\n\n输入：isWater = [[0,0,1],[1,0,0],[0,0,0]]\n输出：[[1,1,0],[0,1,1],[1,2,2]]\n解释：所有安排方案中，最高可行高度为 2 。\n任意安排方案中，只要最高高度为 2 且符合上述规则的，都为可行方案。\n\n \n\n提示：\n\n\tm == isWater.length\n\n\tn == isWater[i].length\n\n\t1 <= m, n <= 1000\n\n\tisWater[i][j] 要么是 0 ，要么是 1 。\n\n\t至少有 1 个水域格子。\n\n注意：本题与 542 题相同。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def highestPeak(self, isWater: List[List[int]]) -> List[List[int]]:\n        m, n = len(isWater), len(isWater[0])\n        ans = [[water - 1 for water in row] for row in isWater]\n        q = deque((i, j) for i, row in enumerate(isWater) for j, water in enumerate(row) if water)  # 将所有水域入队\n        while q:\n            i, j = q.popleft()\n            for x, y in ((i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)):\n                if 0 <= x < m and 0 <= y < n and ans[x][y] == -1:\n                    ans[x][y] = ans[i][j] + 1\n                    q.append((x, y))\n        return ans",
+        "cpp": "typedef struct {\n    int x;\n    int y;\n} Pair; \n\nint dirs[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};\n\nint** highestPeak(int** isWater, int isWaterSize, int* isWaterColSize, int* returnSize, int** returnColumnSizes){\n    int m = isWaterSize, n = isWaterColSize[0];\n    int ** ans = (int **)malloc(sizeof(int *) * m);\n    for (int i = 0; i < m; ++i) {\n        ans[i] = (int *)malloc(sizeof(int) * n);\n        memset(ans[i], -1, sizeof(int) * n);\n    }\n    Pair * queue = (Pair *)malloc(sizeof(Pair) * m * n);\n    int head = 0;\n    int tail = 0;\n    for (int i = 0; i < m; ++i) {\n        for (int j = 0; j < n; ++j) {\n            if (isWater[i][j]) {\n                ans[i][j] = 0;\n                queue[tail].x = i; // 将所有水域入队\n                queue[tail].y = j;\n                ++tail; \n            }\n        }\n    }\n    while (head != tail) {\n        int px = queue[head].x, py = queue[head].y;\n        for (int i = 0; i < 4; ++i) {\n            int x = px + dirs[i][0], y = py + dirs[i][1];\n            if (0 <= x && x < m && 0 <= y && y < n && ans[x][y] == -1) {\n                ans[x][y] = ans[px][py] + 1;\n                queue[tail].x = x;\n                queue[tail].y = y;\n                ++tail;\n            }\n        }\n        ++head;\n    }\n    free(queue);\n    *returnSize = m;\n    *returnColumnSizes = (int *)malloc(sizeof(int) * m);\n    memcpy(*returnColumnSizes, isWaterColSize, sizeof(int) * m);\n    return ans;\n}",
+        "java": "class Solution {\n    int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};\n\n    public int[][] highestPeak(int[][] isWater) {\n        int m = isWater.length, n = isWater[0].length;\n        int[][] ans = new int[m][n];\n        for (int i = 0; i < m; ++i) {\n            Arrays.fill(ans[i], -1); // -1 表示该格子尚未被访问过\n        }\n        Queue<int[]> queue = new ArrayDeque<int[]>();\n        for (int i = 0; i < m; ++i) {\n            for (int j = 0; j < n; ++j) {\n                if (isWater[i][j] == 1) {\n                    ans[i][j] = 0;\n                    queue.offer(new int[]{i, j}); // 将所有水域入队\n                }\n            }\n        }\n        while (!queue.isEmpty()) {\n            int[] p = queue.poll();\n            for (int[] dir : dirs) {\n                int x = p[0] + dir[0], y = p[1] + dir[1];\n                if (0 <= x && x < m && 0 <= y && y < n && ans[x][y] == -1) {\n                    ans[x][y] = ans[p[0]][p[1]] + 1;\n                    queue.offer(new int[]{x, y});\n                }\n            }\n        }\n        return ans;\n    }\n}",
+        "go": "type pair struct{ x, y int }\nvar dirs = []pair{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}\n\nfunc highestPeak(isWater [][]int) [][]int {\n    m, n := len(isWater), len(isWater[0])\n    ans := make([][]int, m)\n    for i := range ans {\n        ans[i] = make([]int, n)\n        for j := range ans[i] {\n            ans[i][j] = -1 // -1 表示该格子尚未被访问过\n        }\n    }\n    q := []pair{}\n    for i, row := range isWater {\n        for j, water := range row {\n            if water == 1 { // 将所有水域入队\n                ans[i][j] = 0\n                q = append(q, pair{i, j})\n            }\n        }\n    }\n    for len(q) > 0 {\n        p := q[0]\n        q = q[1:]\n        for _, d := range dirs {\n            if x, y := p.x+d.x, p.y+d.y; 0 <= x && x < m && 0 <= y && y < n && ans[x][y] == -1 {\n                ans[x][y] = ans[p.x][p.y] + 1\n                q = append(q, pair{x, y})\n            }\n        }\n    }\n    return ans\n}"
+      },
+      "id": 289
     }
   ],
   "errors": []

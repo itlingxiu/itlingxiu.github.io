@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-13T18:16:27.593Z",
-  "dateKey": "2026-07-14",
+  "crawledAt": "2026-07-14T17:40:38.649Z",
+  "dateKey": "2026-07-15",
   "sources": [
     "nowcoder",
     "leetcode"
@@ -1096,6 +1096,16 @@
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/ta/review-frontend/review?page=15",
       "id": 120
+    },
+    {
+      "category": "JavaScript",
+      "difficulty": "简单",
+      "acceptance": 51,
+      "question": "`data-`属性的作用是什么？",
+      "answer": "`data-` 为H5新增的为前端开发者提供自定义的属性，这些属性集可以通过对象的 `dataset` 属性获取，不支持该属性的浏览器可以通过 `getAttribute` 方法获取 : 需要注意的是： `data-` 之后的以连字符分割的多个单词组成的属性，获取的时候使用驼峰风格。 所有主流浏览器都支持 data-* 属性。 即：当没有合适的属性和元素时，自定义的 data 属性是能够存储页面或 App 的私有的自定义数据。 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-frontend/review?page=14",
+      "id": 121
     }
   ],
   "errors": []
