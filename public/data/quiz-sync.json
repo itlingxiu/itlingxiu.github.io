@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-07T18:29:26.874Z",
-  "dateKey": "2026-07-08",
+  "crawledAt": "2026-07-14T17:40:38.649Z",
+  "dateKey": "2026-07-15",
   "sources": [
     "nowcoder",
     "leetcode"
@@ -1056,6 +1056,56 @@
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/ta/review-java/review?page=11",
       "id": 116
+    },
+    {
+      "category": "JavaScript",
+      "difficulty": "简单",
+      "acceptance": 53,
+      "question": "Label的作用是什么，是怎么用的？",
+      "answer": "label 标签来定义表单控制间的关系 , 当用户选择该标签时，浏览器会自动将焦点转到和标签相关的表单控件上。 <label for='Name'>Number:</label> <input type= “ text “ name='Name' id='Name'/> <label>Date:<input type='text' name='B'/></label> 注意:label的for属性值要与后面对应的input标签id属性值相同 <label for='Name'>Number:</label> <input type=“ text “ name='Name' id='Name'/> 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-frontend/review?page=18",
+      "id": 117
+    },
+    {
+      "category": "JavaScript",
+      "difficulty": "简单",
+      "acceptance": 47,
+      "question": "iframe有那些缺点？",
+      "answer": "*iframe 会阻塞主页面的 Onload 事件； * 搜索引擎的检索程序无法解读这种页面，不利于 SEO; *iframe 和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载。 使用 iframe 之前需要考虑这两个缺点。如果需要使用 iframe ，最好是通过 javascript 动态给 iframe 添加 src 属性值，这样可以绕开以上两个问题。 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-frontend/review?page=17",
+      "id": 118
+    },
+    {
+      "category": "JavaScript",
+      "difficulty": "简单",
+      "acceptance": 47,
+      "question": "常见的浏览器内核有哪些？",
+      "answer": "view sourceprint? 1. Trident 内核： IE,MaxThon,TT,The World,360, 搜狗浏览器等。 [ 又称 MSHTML] 2. Gecko 内核： Netscape6 及以上版本， FF,MozillaSuite/SeaMonkey 等 3. Presto 内核： Opera7 及以上。 [Opera 内核原为： Presto ，现为： Blink;] 4. Webkit 内核： Safari,Chrome 等。 [ Chrome 的： Blink （ WebKit 的分支） ] 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-frontend/review?page=16",
+      "id": 119
+    },
+    {
+      "category": "JavaScript",
+      "difficulty": "简单",
+      "acceptance": 50,
+      "question": "介绍一下你对浏览器内核的理解？",
+      "answer": "主要分成两部分：渲染引擎 (layout engineer 或 Rendering Engine) 和 JS 引擎。 渲染引擎：负责取得网页的内容（ HTML 、 XML 、图像等等）、整理讯息（例如加入 CSS 等），以及计算网页的显示方式，然后会输出至显示器或打印机。浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。所有网页浏览器、电子邮件客户端以及其它需要编辑、显示网络内容的应用程序都需要内核。 JS 引擎则：解析和执行 javascript 来实现网页的动态效果。 最开始渲染引擎和 JS 引擎并没有区分的很明确，后来 JS 引擎越来越独立，内核就倾向于只指渲染引擎。 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-frontend/review?page=15",
+      "id": 120
+    },
+    {
+      "category": "JavaScript",
+      "difficulty": "简单",
+      "acceptance": 51,
+      "question": "`data-`属性的作用是什么？",
+      "answer": "`data-` 为H5新增的为前端开发者提供自定义的属性，这些属性集可以通过对象的 `dataset` 属性获取，不支持该属性的浏览器可以通过 `getAttribute` 方法获取 : 需要注意的是： `data-` 之后的以连字符分割的多个单词组成的属性，获取的时候使用驼峰风格。 所有主流浏览器都支持 data-* 属性。 即：当没有合适的属性和元素时，自定义的 data 属性是能够存储页面或 App 的私有的自定义数据。 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-frontend/review?page=14",
+      "id": 121
     }
   ],
   "errors": []
