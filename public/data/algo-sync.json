@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-15T17:47:06.703Z",
-  "dateKey": "2026-07-16",
+  "crawledAt": "2026-07-16T17:46:48.081Z",
+  "dateKey": "2026-07-17",
   "sources": [
     "leetcode-cn",
     "nowcoder"
@@ -678,7 +678,7 @@
         "栈"
       ],
       "difficulty": "简单",
-      "acceptance": 41.92,
+      "acceptance": 41.93,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6",
       "statement": "牛客编程题 JZ9：用两个栈实现队列。完整描述请访问牛客练习页。",
@@ -835,7 +835,7 @@
         "链表"
       ],
       "difficulty": "简单",
-      "acceptance": 47.33,
+      "acceptance": 47.32,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/f9f78ca89ad643c99701a7142bd59f5d",
       "statement": "牛客编程题 JZ18：删除链表的节点。完整描述请访问牛客练习页。",
@@ -924,7 +924,7 @@
         "双指针"
       ],
       "difficulty": "中等",
-      "acceptance": 36.04,
+      "acceptance": 36.05,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/253d2c59ec3e4bc68da16833f79a38e4",
       "statement": "牛客编程题 JZ23：链表中环的入口结点。完整描述请访问牛客练习页。",
@@ -7513,6 +7513,414 @@
         "go": "func maxHappyGroups(batchSize int, groups []int) (ans int) {\n\tconst kWidth = 5\n\tconst kWidthMask = 1<<kWidth - 1\n\n\tcnt := make([]int, batchSize)\n\tfor _, x := range groups {\n\t\tcnt[x%batchSize]++\n\t}\n\n\tstart := 0\n\tfor i := batchSize - 1; i > 0; i-- {\n\t\tstart = start<<kWidth | cnt[i]\n\t}\n\n\tmemo := map[int]int{}\n\tvar dfs func(int) int\n\tdfs = func(mask int) (best int) {\n\t\tif mask == 0 {\n\t\t\treturn\n\t\t}\n\t\tif res, ok := memo[mask]; ok {\n\t\t\treturn res\n\t\t}\n\n\t\ttotal := 0\n\t\tfor i := 1; i < batchSize; i++ {\n\t\t\tamount := mask >> ((i - 1) * kWidth) & kWidthMask\n\t\t\ttotal += i * amount\n\t\t}\n\n\t\tfor i := 1; i < batchSize; i++ {\n\t\t\tamount := mask >> ((i - 1) * kWidth) & kWidthMask\n\t\t\tif amount > 0 {\n\t\t\t\tresult := dfs(mask - 1<<((i-1)*kWidth))\n\t\t\t\tif (total-i)%batchSize == 0 {\n\t\t\t\t\tresult++\n\t\t\t\t}\n\t\t\t\tbest = max(best, result)\n\t\t\t}\n\t\t}\n\t\tmemo[mask] = best\n\t\treturn\n\t}\n\treturn dfs(start) + cnt[0]\n}\n\nfunc max(a, b int) int {\n\tif b > a {\n\t\treturn b\n\t}\n\treturn a\n}"
       },
       "id": 304
+    },
+    {
+      "title": "包含每个查询的最小区间",
+      "titleSlug": "minimum-interval-to-include-each-query",
+      "tags": [
+        "数组",
+        "二分查找",
+        "排序",
+        "扫描线",
+        "堆（优先队列）"
+      ],
+      "difficulty": "困难",
+      "acceptance": 53.18,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-interval-to-include-each-query/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "字节"
+      ],
+      "statementZh": "给你一个二维整数数组 intervals ，其中 intervals[i] = [lefti, righti] 表示第 i 个区间开始于 lefti 、结束于 righti（包含两侧取值，闭区间）。区间的 长度 定义为区间中包含的整数数目，更正式地表达是 righti - lefti + 1 。\n\n再给你一个整数数组 queries 。第 j 个查询的答案是满足 lefti <= queries[j] <= righti 的 长度最小区间 i 的长度 。如果不存在这样的区间，那么答案是 -1 。\n\n以数组形式返回对应查询的所有答案。\n\n \n\n示例 1：\n\n输入：intervals = [[1,4],[2,4],[3,6],[4,4]], queries = [2,3,4,5]\n输出：[3,3,1,4]\n解释：查询处理如下：\n- Query = 2 ：区间 [2,4] 是包含 2 的最小区间，答案为 4 - 2 + 1 = 3 。\n- Query = 3 ：区间 [2,4] 是包含 3 的最小区间，答案为 4 - 2 + 1 = 3 。\n- Query = 4 ：区间 [4,4] 是包含 4 的最小区间，答案为 4 - 4 + 1 = 1 。\n- Query = 5 ：区间 [3,6] 是包含 5 的最小区间，答案为 6 - 3 + 1 = 4 。\n\n示例 2：\n\n输入：intervals = [[2,3],[2,5],[1,8],[20,25]], queries = [2,19,5,22]\n输出：[2,-1,4,6]\n解释：查询处理如下：\n- Query = 2 ：区间 [2,3] 是包含 2 的最小区间，答案为 3 - 2 + 1 = 2 。\n- Query = 19：不存在包含 19 的区间，答案为 -1 。\n- Query = 5 ：区间 [2,5] 是包含 5 的最小区间，答案为 5 - 2 + 1 = 4 。\n- Query = 22：区间 [20,25] 是包含 22 的最小区间，答案为 25 - 20 + 1 = 6 。\n\n \n\n提示：\n\n\t1 <= intervals.length <= 105\n\n\t1 <= queries.length <= 105\n\n\tintervals[i].length == 2\n\n\t1 <= lefti <= righti <= 107\n\n\t1 <= queries[j] <= 107",
+      "statementEn": "You are given a 2D integer array intervals, where intervals[i] = [lefti, righti] describes the ith interval starting at lefti and ending at righti (inclusive). The size of an interval is defined as the number of integers it contains, or more formally righti - lefti + 1.\n\nYou are also given an integer array queries. The answer to the jth query is the size of the smallest interval i such that lefti <= queries[j] <= righti. If no such interval exists, the answer is -1.\n\nReturn an array containing the answers to the queries.\n\n \n\nExample 1:\n\nInput: intervals = [[1,4],[2,4],[3,6],[4,4]], queries = [2,3,4,5]\nOutput: [3,3,1,4]\nExplanation: The queries are processed as follows:\n- Query = 2: The interval [2,4] is the smallest interval containing 2. The answer is 4 - 2 + 1 = 3.\n- Query = 3: The interval [2,4] is the smallest interval containing 3. The answer is 4 - 2 + 1 = 3.\n- Query = 4: The interval [4,4] is the smallest interval containing 4. The answer is 4 - 4 + 1 = 1.\n- Query = 5: The interval [3,6] is the smallest interval containing 5. The answer is 6 - 3 + 1 = 4.\n\nExample 2:\n\nInput: intervals = [[2,3],[2,5],[1,8],[20,25]], queries = [2,19,5,22]\nOutput: [2,-1,4,6]\nExplanation: The queries are processed as follows:\n- Query = 2: The interval [2,3] is the smallest interval containing 2. The answer is 3 - 2 + 1 = 2.\n- Query = 19: None of the intervals contain 19. The answer is -1.\n- Query = 5: The interval [2,5] is the smallest interval containing 5. The answer is 5 - 2 + 1 = 4.\n- Query = 22: The interval [20,25] is the smallest interval containing 22. The answer is 25 - 20 + 1 = 6.\n\n \n\nConstraints:\n\n\t1 <= intervals.length <= 105\n\n\t1 <= queries.length <= 105\n\n\tintervals[i].length == 2\n\n\t1 <= lefti <= righti <= 107\n\n\t1 <= queries[j] <= 107",
+      "statement": "给你一个二维整数数组 intervals ，其中 intervals[i] = [lefti, righti] 表示第 i 个区间开始于 lefti 、结束于 righti（包含两侧取值，闭区间）。区间的 长度 定义为区间中包含的整数数目，更正式地表达是 righti - lefti + 1 。\n\n再给你一个整数数组 queries 。第 j 个查询的答案是满足 lefti <= queries[j] <= righti 的 长度最小区间 i 的长度 。如果不存在这样的区间，那么答案是 -1 。\n\n以数组形式返回对应查询的所有答案。\n\n \n\n示例 1：\n\n输入：intervals = [[1,4],[2,4],[3,6],[4,4]], queries = [2,3,4,5]\n输出：[3,3,1,4]\n解释：查询处理如下：\n- Query = 2 ：区间 [2,4] 是包含 2 的最小区间，答案为 4 - 2 + 1 = 3 。\n- Query = 3 ：区间 [2,4] 是包含 3 的最小区间，答案为 4 - 2 + 1 = 3 。\n- Query = 4 ：区间 [4,4] 是包含 4 的最小区间，答案为 4 - 4 + 1 = 1 。\n- Query = 5 ：区间 [3,6] 是包含 5 的最小区间，答案为 6 - 3 + 1 = 4 。\n\n示例 2：\n\n输入：intervals = [[2,3],[2,5],[1,8],[20,25]], queries = [2,19,5,22]\n输出：[2,-1,4,6]\n解释：查询处理如下：\n- Query = 2 ：区间 [2,3] 是包含 2 的最小区间，答案为 3 - 2 + 1 = 2 。\n- Query = 19：不存在包含 19 的区间，答案为 -1 。\n- Query = 5 ：区间 [2,5] 是包含 5 的最小区间，答案为 5 - 2 + 1 = 4 。\n- Query = 22：区间 [20,25] 是包含 22 的最小区间，答案为 25 - 20 + 1 = 6 。\n\n \n\n提示：\n\n\t1 <= intervals.length <= 105\n\n\t1 <= queries.length <= 105\n\n\tintervals[i].length == 2\n\n\t1 <= lefti <= righti <= 107\n\n\t1 <= queries[j] <= 107",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    vector<int> minInterval(vector<vector<int>>& intervals, vector<int>& queries) {\n        vector<int> qindex(queries.size());\n        iota(qindex.begin(), qindex.end(), 0);\n        sort(qindex.begin(), qindex.end(), [&](int i, int j) -> bool {\n            return queries[i] < queries[j];\n        });\n        sort(intervals.begin(), intervals.end(), [](const vector<int> &it1, const vector<int> &it2) -> bool {\n            return it1[0] < it2[0];\n        });\n        priority_queue<vector<int>> pq;\n        vector<int> res(queries.size(), -1);\n        int i = 0;\n        for (auto qi : qindex) {\n            while (i < intervals.size() && intervals[i][0] <= queries[qi]) {\n                int l = intervals[i][1] - intervals[i][0] + 1;\n                pq.push({-l, intervals[i][0], intervals[i][1]});\n                i++;\n            }\n            while (!pq.empty() && pq.top()[2] < queries[qi]) {\n                pq.pop();\n            }\n            if (!pq.empty()) {\n                res[qi] = -pq.top()[0];\n            }\n        }\n        return res;\n    }\n};",
+        "java": "class Solution {\n    public int[] minInterval(int[][] intervals, int[] queries) {\n        Integer[] qindex = new Integer[queries.length];\n        for (int i = 0; i < queries.length; i++) {\n            qindex[i] = i;\n        }\n        Arrays.sort(qindex, (i, j) -> queries[i] - queries[j]);\n        Arrays.sort(intervals, (i, j) -> i[0] - j[0]);\n        PriorityQueue<int[]> pq = new PriorityQueue<int[]>((a, b) -> a[0] - b[0]);\n        int[] res = new int[queries.length];\n        Arrays.fill(res, -1);\n        int i = 0;\n        for (int qi : qindex) {\n            while (i < intervals.length && intervals[i][0] <= queries[qi]) {\n                pq.offer(new int[]{intervals[i][1] - intervals[i][0] + 1, intervals[i][0], intervals[i][1]});\n                i++;\n            }\n            while (!pq.isEmpty() && pq.peek()[2] < queries[qi]) {\n                pq.poll();\n            }\n            if (!pq.isEmpty()) {\n                res[qi] = pq.peek()[0];\n            }\n        }\n        return res;\n    }\n}",
+        "python": "class Solution:\n    def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:\n        qindex = list(range(len(queries)))\n        qindex.sort(key=lambda i: queries[i])\n        intervals.sort(key=lambda i: i[0])\n        pq = []\n        res = [-1] * len(queries)\n        i = 0\n        for qi in qindex:\n            while i < len(intervals) and intervals[i][0] <= queries[qi]:\n                heappush(pq, (intervals[i][1] - intervals[i][0] + 1, intervals[i][0], intervals[i][1]))\n                i += 1\n            while pq and pq[0][2] < queries[qi]:\n                heappop(pq)\n            if pq:\n                res[qi] = pq[0][0]\n        return res",
+        "go": "type PriorityQueue [][]int\n\nfunc (pq PriorityQueue) Len() int {\n    return len(pq)\n}\n\nfunc (pq PriorityQueue) Less(i, j int) bool {\n    return pq[i][0] < pq[j][0]\n}\n\nfunc (pq PriorityQueue) Swap(i, j int) {\n    pq[i], pq[j] = pq[j], pq[i]\n}\n\nfunc (pq *PriorityQueue) Push(x any) {\n    *pq = append(*pq, x.([]int))\n}\n\nfunc (pq *PriorityQueue) Pop() any {\n    n, old := len(*pq), *pq\n    x := old[n - 1]\n    *pq = old[0 : n-1]\n    return x\n}\n\nfunc (pq PriorityQueue) Top() []int {\n    return pq[0]\n}\n\nfunc minInterval(intervals [][]int, queries []int) []int {\n    qindex := make([]int, len(queries))\n    for i := 0; i < len(queries); i++ {\n        qindex[i] = i\n    }\n    sort.Slice(qindex, func(i, j int) bool {\n        return queries[qindex[i]] < queries[qindex[j]]\n    })\n    sort.Slice(intervals, func(i, j int) bool {\n        return intervals[i][0] < intervals[j][0]\n    })\n    pq := &PriorityQueue{}\n    res, i := make([]int, len(queries)), 0\n    for _, qi := range qindex {\n        for ; i < len(intervals) && intervals[i][0] <= queries[qi]; i++ {\n            heap.Push(pq, []int{intervals[i][1] - intervals[i][0] + 1, intervals[i][0], intervals[i][1]})\n        }\n        for pq.Len() > 0 && pq.Top()[2] < queries[qi] {\n            heap.Pop(pq)\n        }\n        if pq.Len() > 0 {\n            res[qi] = pq.Top()[0]\n        } else {\n            res[qi] = -1\n        }\n    }\n    return res\n}"
+      },
+      "id": 305
+    },
+    {
+      "title": "每个子数组的数字种类数",
+      "titleSlug": "distinct-numbers-in-each-subarray",
+      "tags": [
+        "数组",
+        "哈希表",
+        "滑动窗口"
+      ],
+      "difficulty": "中等",
+      "acceptance": 72.1,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/distinct-numbers-in-each-subarray/",
+      "hotCompanies": [
+        "亚马逊",
+        "servicenow"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 306
+    },
+    {
+      "title": "转换日期格式",
+      "titleSlug": "convert-date-format",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "简单",
+      "acceptance": 65.92,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/convert-date-format/",
+      "hotCompanies": [
+        "字节",
+        "yahoo"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 307
+    },
+    {
+      "title": "人口最多的年份",
+      "titleSlug": "maximum-population-year",
+      "tags": [
+        "数组",
+        "计数",
+        "前缀和"
+      ],
+      "difficulty": "简单",
+      "acceptance": 71.32,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-population-year/",
+      "hotCompanies": [
+        "谷歌",
+        "微软",
+        "facebook"
+      ],
+      "statementZh": "给你一个二维整数数组 logs ，其中每个 logs[i] = [birthi, deathi] 表示第 i 个人的出生和死亡年份。\n\n年份 x 的 人口 定义为这一年期间活着的人的数目。第 i 个人被计入年份 x 的人口需要满足：x 在闭区间 [birthi, deathi - 1] 内。注意，人不应当计入他们死亡当年的人口中。\n\n返回 人口最多 且 最早 的年份。\n\n \n\n示例 1：\n\n输入：logs = [[1993,1999],[2000,2010]]\n输出：1993\n解释：人口最多为 1 ，而 1993 是人口为 1 的最早年份。\n\n示例 2：\n\n输入：logs = [[1950,1961],[1960,1971],[1970,1981]]\n输出：1960\n解释： \n人口最多为 2 ，分别出现在 1960 和 1970 。\n其中最早年份是 1960 。\n\n \n\n提示：\n\n\t1 <= logs.length <= 100\n\n\t1950 <= birthi < deathi <= 2050",
+      "statementEn": "You are given a 2D integer array logs where each logs[i] = [birthi, deathi] indicates the birth and death years of the ith person.\n\nThe population of some year x is the number of people alive during that year. The ith person is counted in year x&#39;s population if x is in the inclusive range [birthi, deathi - 1]. Note that the person is not counted in the year that they die.\n\nReturn the earliest year with the maximum population.\n\n \n\nExample 1:\n\nInput: logs = [[1993,1999],[2000,2010]]\nOutput: 1993\nExplanation: The maximum population is 1, and 1993 is the earliest year with this population.\n\nExample 2:\n\nInput: logs = [[1950,1961],[1960,1971],[1970,1981]]\nOutput: 1960\nExplanation: \nThe maximum population is 2, and it had happened in years 1960 and 1970.\nThe earlier year between them is 1960.\n\n \n\nConstraints:\n\n\t1 <= logs.length <= 100\n\n\t1950 <= birthi < deathi <= 2050",
+      "statement": "给你一个二维整数数组 logs ，其中每个 logs[i] = [birthi, deathi] 表示第 i 个人的出生和死亡年份。\n\n年份 x 的 人口 定义为这一年期间活着的人的数目。第 i 个人被计入年份 x 的人口需要满足：x 在闭区间 [birthi, deathi - 1] 内。注意，人不应当计入他们死亡当年的人口中。\n\n返回 人口最多 且 最早 的年份。\n\n \n\n示例 1：\n\n输入：logs = [[1993,1999],[2000,2010]]\n输出：1993\n解释：人口最多为 1 ，而 1993 是人口为 1 的最早年份。\n\n示例 2：\n\n输入：logs = [[1950,1961],[1960,1971],[1970,1981]]\n输出：1960\n解释： \n人口最多为 2 ，分别出现在 1960 和 1970 。\n其中最早年份是 1960 。\n\n \n\n提示：\n\n\t1 <= logs.length <= 100\n\n\t1950 <= birthi < deathi <= 2050",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\nprivate:\n    static constexpr int offset = 1950;   // 起始年份与起始下标之差\n    \npublic:\n    int maximumPopulation(vector<vector<int>>& logs) {\n        vector<int> delta(101, 0);   // 变化量\n        for (auto&& log: logs) {\n            ++delta[log[0]-offset];\n            --delta[log[1]-offset];\n        }\n        int mx = 0;   // 人口数量最大值\n        int res = 0;   // 最大值对应的最小下标\n        int curr = 0;   // 每一年的人口数量\n        // 前缀和\n        for (int i = 0; i < 101; ++i){\n            curr += delta[i];\n            if (curr > mx){\n                mx = curr;\n                res = i;\n            }\n        }\n        return res + offset;   // 转回对应的年份\n    }\n};",
+        "python": "class Solution:\n    def maximumPopulation(self, logs: List[List[int]]) -> int:\n        delta = [0] * 101   # 变化量\n        offset = 1950   # 起始年份与起始下标之差\n        for b, d in logs:\n            delta[b-offset] += 1\n            delta[d-offset] -= 1\n        mx = 0   # 人口数量最大值\n        res = 0   # 最大值对应的最小下标\n        curr = 0   # 每一年的人口数量\n        # 前缀和\n        for i in range(101):\n            curr += delta[i]\n            if curr > mx:\n                mx = curr\n                res = i\n        return res + offset   # 转回对应的年份"
+      },
+      "id": 308
+    },
+    {
+      "title": "下标对中的最大距离",
+      "titleSlug": "maximum-distance-between-a-pair-of-values",
+      "tags": [
+        "数组",
+        "双指针",
+        "二分查找"
+      ],
+      "difficulty": "中等",
+      "acceptance": 60.32,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-distance-between-a-pair-of-values/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "uber"
+      ],
+      "statementZh": "给你两个 非递增 的整数数组 nums1​​​​​​ 和 nums2​​​​​​ ，数组下标均 从 0 开始 计数。\n\n下标对 (i, j) 中 0 <= i < nums1.length 且 0 <= j < nums2.length 。如果该下标对同时满足 i <= j 且 nums1[i] <= nums2[j] ，则称之为 有效 下标对，该下标对的 距离 为 j - i​​ 。​​\n\n返回所有 有效 下标对 (i, j) 中的 最大距离 。如果不存在有效下标对，返回 0 。\n\n一个数组 arr ，如果每个 1 <= i < arr.length 均有 arr[i-1] >= arr[i] 成立，那么该数组是一个 非递增 数组。\n\n \n\n示例 1：\n\n输入：nums1 = [55,30,5,4,2], nums2 = [100,20,10,10,5]\n输出：2\n解释：有效下标对是 (0,0), (2,2), (2,3), (2,4), (3,3), (3,4) 和 (4,4) 。\n最大距离是 2 ，对应下标对 (2,4) 。\n\n示例 2：\n\n输入：nums1 = [2,2,2], nums2 = [10,10,1]\n输出：1\n解释：有效下标对是 (0,0), (0,1) 和 (1,1) 。\n最大距离是 1 ，对应下标对 (0,1) 。\n\n示例 3：\n\n输入：nums1 = [30,29,19,5], nums2 = [25,25,25,25,25]\n输出：2\n解释：有效下标对是 (2,2), (2,3), (2,4), (3,3) 和 (3,4) 。\n最大距离是 2 ，对应下标对 (2,4) 。\n\n \n\n提示：\n\n\t1 <= nums1.length <= 105\n\n\t1 <= nums2.length <= 105\n\n\t1 <= nums1[i], nums2[j] <= 105\n\n\tnums1 和 nums2 都是 非递增 数组",
+      "statementEn": "You are given two non-increasing 0-indexed integer arrays nums1​​​​​​ and nums2​​​​​​.\n\nA pair of indices (i, j), where 0 <= i < nums1.length and 0 <= j < nums2.length, is valid if both i <= j and nums1[i] <= nums2[j]. The distance of the pair is j - i​​​​.\n\nReturn the maximum distance of any valid pair (i, j). If there are no valid pairs, return 0.\n\nAn array arr is non-increasing if arr[i-1] >= arr[i] for every 1 <= i < arr.length.\n\n \n\nExample 1:\n\nInput: nums1 = [55,30,5,4,2], nums2 = [100,20,10,10,5]\nOutput: 2\nExplanation: The valid pairs are (0,0), (2,2), (2,3), (2,4), (3,3), (3,4), and (4,4).\nThe maximum distance is 2 with pair (2,4).\n\nExample 2:\n\nInput: nums1 = [2,2,2], nums2 = [10,10,1]\nOutput: 1\nExplanation: The valid pairs are (0,0), (0,1), and (1,1).\nThe maximum distance is 1 with pair (0,1).\n\nExample 3:\n\nInput: nums1 = [30,29,19,5], nums2 = [25,25,25,25,25]\nOutput: 2\nExplanation: The valid pairs are (2,2), (2,3), (2,4), (3,3), and (3,4).\nThe maximum distance is 2 with pair (2,4).\n\n \n\nConstraints:\n\n\t1 <= nums1.length, nums2.length <= 105\n\n\t1 <= nums1[i], nums2[j] <= 105\n\n\tBoth nums1 and nums2 are non-increasing.",
+      "statement": "给你两个 非递增 的整数数组 nums1​​​​​​ 和 nums2​​​​​​ ，数组下标均 从 0 开始 计数。\n\n下标对 (i, j) 中 0 <= i < nums1.length 且 0 <= j < nums2.length 。如果该下标对同时满足 i <= j 且 nums1[i] <= nums2[j] ，则称之为 有效 下标对，该下标对的 距离 为 j - i​​ 。​​\n\n返回所有 有效 下标对 (i, j) 中的 最大距离 。如果不存在有效下标对，返回 0 。\n\n一个数组 arr ，如果每个 1 <= i < arr.length 均有 arr[i-1] >= arr[i] 成立，那么该数组是一个 非递增 数组。\n\n \n\n示例 1：\n\n输入：nums1 = [55,30,5,4,2], nums2 = [100,20,10,10,5]\n输出：2\n解释：有效下标对是 (0,0), (2,2), (2,3), (2,4), (3,3), (3,4) 和 (4,4) 。\n最大距离是 2 ，对应下标对 (2,4) 。\n\n示例 2：\n\n输入：nums1 = [2,2,2], nums2 = [10,10,1]\n输出：1\n解释：有效下标对是 (0,0), (0,1) 和 (1,1) 。\n最大距离是 1 ，对应下标对 (0,1) 。\n\n示例 3：\n\n输入：nums1 = [30,29,19,5], nums2 = [25,25,25,25,25]\n输出：2\n解释：有效下标对是 (2,2), (2,3), (2,4), (3,3) 和 (3,4) 。\n最大距离是 2 ，对应下标对 (2,4) 。\n\n \n\n提示：\n\n\t1 <= nums1.length <= 105\n\n\t1 <= nums2.length <= 105\n\n\t1 <= nums1[i], nums2[j] <= 105\n\n\tnums1 和 nums2 都是 非递增 数组",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "public class Solution {\n    public int MaxDistance(int[] nums1, int[] nums2) {\n        int n1 = nums1.Length;\n        int n2 = nums2.Length;\n        int i = 0;\n        int res = 0;\n        \n        for (int j = 0; j < n2; j++) {\n            while (i < n1 && nums1[i] > nums2[j]) {\n                i++;\n            }\n            if (i < n1) {\n                res = Math.Max(res, j - i);\n            }\n        }\n        \n        return res;\n    }\n}",
+        "python": "class Solution:\n    def maxDistance(self, nums1: List[int], nums2: List[int]) -> int:\n        n1, n2 = len(nums1), len(nums2)\n        i = 0\n        res = 0\n        for j in range(n2):\n            while i < n1 and nums1[i] > nums2[j]:\n                i += 1\n            if i < n1:\n                res = max(res, j - i)\n        return res",
+        "java": "class Solution {\n    public int maxDistance(int[] nums1, int[] nums2) {\n        int n1 = nums1.length;\n        int n2 = nums2.length;\n        int i = 0;\n        int res = 0;\n        \n        for (int j = 0; j < n2; j++) {\n            while (i < n1 && nums1[i] > nums2[j]) {\n                i++;\n            }\n            if (i < n1) {\n                res = Math.max(res, j - i);\n            }\n        }\n        \n        return res;\n    }\n}",
+        "go": "func maxDistance(nums1 []int, nums2 []int) int {\n    n1 := len(nums1)\n    n2 := len(nums2)\n    i := 0\n    res := 0\n    \n    for j := 0; j < n2; j++ {\n        for i < n1 && nums1[i] > nums2[j] {\n            i++\n        }\n        if i < n1 {\n            if j-i > res {\n                res = j - i\n            }\n        }\n    }\n    \n    return res\n}",
+        "javascript": "var maxDistance = function(nums1, nums2) {\n    const n1 = nums1.length;\n    const n2 = nums2.length;\n    let i = 0;\n    let res = 0;\n    \n    for (let j = 0; j < n2; j++) {\n        while (i < n1 && nums1[i] > nums2[j]) {\n            i++;\n        }\n        if (i < n1) {\n            res = Math.max(res, j - i);\n        }\n    }\n    \n    return res;\n};",
+        "typescript": "function maxDistance(nums1: number[], nums2: number[]): number {\n    const n1 = nums1.length;\n    const n2 = nums2.length;\n    let i = 0;\n    let res = 0;\n    \n    for (let j = 0; j < n2; j++) {\n        while (i < n1 && nums1[i] > nums2[j]) {\n            i++;\n        }\n        if (i < n1) {\n            res = Math.max(res, j - i);\n        }\n    }\n    \n    return res;\n};"
+      },
+      "id": 309
+    },
+    {
+      "title": "子数组最小乘积的最大值",
+      "titleSlug": "maximum-subarray-min-product",
+      "tags": [
+        "栈",
+        "数组",
+        "前缀和",
+        "单调栈"
+      ],
+      "difficulty": "中等",
+      "acceptance": 40.08,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-subarray-min-product/",
+      "hotCompanies": [
+        "亚马逊",
+        "uber",
+        "谷歌"
+      ],
+      "statementZh": "一个数组的 最小乘积 定义为这个数组中 最小值 乘以 数组的 和 。\n\n\t比方说，数组 [3,2,5] （最小值是 2）的最小乘积为 2 * (3+2+5) = 2 * 10 = 20 。\n\n给你一个正整数数组 nums ，请你返回 nums 任意 非空子数组 的最小乘积 的 最大值 。由于答案可能很大，请你返回答案对  109 + 7 取余 的结果。\n\n请注意，最小乘积的最大值考虑的是取余操作 之前 的结果。题目保证最小乘积的最大值在 不取余 的情况下可以用 64 位有符号整数 保存。\n\n子数组 定义为一个数组的 连续 部分。\n\n \n\n示例 1：\n\n输入：nums = [1,2,3,2]\n输出：14\n解释：最小乘积的最大值由子数组 [2,3,2] （最小值是 2）得到。\n2 * (2+3+2) = 2 * 7 = 14 。\n\n示例 2：\n\n输入：nums = [2,3,3,1,2]\n输出：18\n解释：最小乘积的最大值由子数组 [3,3] （最小值是 3）得到。\n3 * (3+3) = 3 * 6 = 18 。\n\n示例 3：\n\n输入：nums = [3,1,5,6,4,2]\n输出：60\n解释：最小乘积的最大值由子数组 [5,6,4] （最小值是 4）得到。\n4 * (5+6+4) = 4 * 15 = 60 。\n\n \n\n提示：\n\n\t1 5\n\n\t1 7",
+      "statementEn": "The min-product of an array is equal to the minimum value in the array multiplied by the array&#39;s sum.\n\n\tFor example, the array [3,2,5] (minimum value is 2) has a min-product of 2 * (3+2+5) = 2 * 10 = 20.\n\nGiven an array of integers nums, return the maximum min-product of any non-empty subarray of nums. Since the answer may be large, return it modulo 109 + 7.\n\nNote that the min-product should be maximized before performing the modulo operation. Testcases are generated such that the maximum min-product without modulo will fit in a 64-bit signed integer.\n\nA subarray is a contiguous part of an array.\n\n \n\nExample 1:\n\nInput: nums = [1,2,3,2]\nOutput: 14\nExplanation: The maximum min-product is achieved with the subarray [2,3,2] (minimum value is 2).\n2 * (2+3+2) = 2 * 7 = 14.\n\nExample 2:\n\nInput: nums = [2,3,3,1,2]\nOutput: 18\nExplanation: The maximum min-product is achieved with the subarray [3,3] (minimum value is 3).\n3 * (3+3) = 3 * 6 = 18.\n\nExample 3:\n\nInput: nums = [3,1,5,6,4,2]\nOutput: 60\nExplanation: The maximum min-product is achieved with the subarray [5,6,4] (minimum value is 4).\n4 * (5+6+4) = 4 * 15 = 60.\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 105\n\n\t1 <= nums[i] <= 107",
+      "statement": "一个数组的 最小乘积 定义为这个数组中 最小值 乘以 数组的 和 。\n\n\t比方说，数组 [3,2,5] （最小值是 2）的最小乘积为 2 * (3+2+5) = 2 * 10 = 20 。\n\n给你一个正整数数组 nums ，请你返回 nums 任意 非空子数组 的最小乘积 的 最大值 。由于答案可能很大，请你返回答案对  109 + 7 取余 的结果。\n\n请注意，最小乘积的最大值考虑的是取余操作 之前 的结果。题目保证最小乘积的最大值在 不取余 的情况下可以用 64 位有符号整数 保存。\n\n子数组 定义为一个数组的 连续 部分。\n\n \n\n示例 1：\n\n输入：nums = [1,2,3,2]\n输出：14\n解释：最小乘积的最大值由子数组 [2,3,2] （最小值是 2）得到。\n2 * (2+3+2) = 2 * 7 = 14 。\n\n示例 2：\n\n输入：nums = [2,3,3,1,2]\n输出：18\n解释：最小乘积的最大值由子数组 [3,3] （最小值是 3）得到。\n3 * (3+3) = 3 * 6 = 18 。\n\n示例 3：\n\n输入：nums = [3,1,5,6,4,2]\n输出：60\n解释：最小乘积的最大值由子数组 [5,6,4] （最小值是 4）得到。\n4 * (5+6+4) = 4 * 15 = 60 。\n\n \n\n提示：\n\n\t1 5\n\n\t1 7",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\nprivate:\n    using LL = long long;\n    static constexpr int mod = 1000000007;\n\npublic:\n    int maxSumMinProduct(vector<int>& nums) {\n        int n = nums.size();\n        // 数组 left 初始化为 0，数组 right 初始化为 n-1\n        // 设置为元素不存在时的特殊值\n        vector<int> left(n), right(n, n - 1);\n        // 单调栈\n        stack<int> s;\n        for (int i = 0; i < n; ++i) {\n            while (!s.empty() && nums[s.top()] >= nums[i]) {\n                // 这里的 right 是非严格定义的，right[i] 是右侧最近的小于等于 nums[i] 的元素下标\n                right[s.top()] = i - 1;\n                s.pop();\n            }\n            if (!s.empty()) {\n                // 这里的 left 是严格定义的，left[i] 是左侧最近的严格小于 nums[i] 的元素下标\n                left[i] = s.top() + 1;\n            }\n            s.push(i);\n        }\n        \n        // 前缀和\n        vector<LL> pre(n + 1);\n        for (int i = 1; i <= n; ++i) {\n            pre[i] = pre[i - 1] + nums[i - 1];\n        }\n        \n        LL best = 0;\n        for (int i = 0; i < n; ++i) {\n            best = max(best, (pre[right[i] + 1] - pre[left[i]]) * nums[i]);\n        }\n        return best % mod;\n    }\n};",
+        "python": "class Solution:\n    def maxSumMinProduct(self, nums: List[int]) -> int:\n        mod = 10**9 + 7\n\n        n = len(nums)\n        # 数组 left 初始化为 0，数组 right 初始化为 n-1\n        # 设置为元素不存在时的特殊值\n        left, right = [0] * n, [n - 1] * n\n        # 单调栈\n        s = list()\n        for i, num in enumerate(nums):\n            while s and nums[s[-1]] >= num:\n                # 这里的 right 是非严格定义的，right[i] 是右侧最近的小于等于 nums[i] 的元素下标\n                right[s[-1]] = i - 1\n                s.pop()\n            if s:\n                # 这里的 left 是严格定义的，left[i] 是左侧最近的严格小于 nums[i] 的元素下标\n                left[i] = s[-1] + 1\n            s.append(i)\n        \n        # 前缀和\n        pre = [0]\n        for i, num in enumerate(nums):\n            pre.append(pre[-1] + num)\n        \n        best = max((pre[right[i] + 1] - pre[left[i]]) * num for i, num in enumerate(nums))\n        return best % mod"
+      },
+      "id": 310
+    },
+    {
+      "title": "有向图中最大颜色值",
+      "titleSlug": "largest-color-value-in-a-directed-graph",
+      "tags": [
+        "图",
+        "拓扑排序",
+        "记忆化",
+        "哈希表",
+        "字符串",
+        "动态规划",
+        "计数"
+      ],
+      "difficulty": "困难",
+      "acceptance": 59.05,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/largest-color-value-in-a-directed-graph/",
+      "hotCompanies": [
+        "谷歌",
+        "苹果",
+        "facebook"
+      ],
+      "statementZh": "给你一个 有向图 ，它含有 n 个节点和 m 条边。节点编号从 0 到 n - 1 。\n\n给你一个字符串 colors ，其中 colors[i] 是小写英文字母，表示图中第 i 个节点的 颜色 （下标从 0 开始）。同时给你一个二维数组 edges ，其中 edges[j] = [aj, bj] 表示从节点 aj 到节点 bj 有一条 有向边 。\n\n图中一条有效 路径 是一个点序列 x1 -> x2 -> x3 -> ... -> xk ，对于所有 1 <= i < k ，从 xi 到 xi+1 在图中有一条有向边。路径的 颜色值 是路径中 出现次数最多 颜色的节点数目。\n\n请你返回给定图中有效路径里面的 最大颜色值 。如果图中含有环，请返回 -1 。\n\n \n\n示例 1：\n\n输入：colors = \"abaca\", edges = [[0,1],[0,2],[2,3],[3,4]]\n输出：3\n解释：路径 0 -> 2 -> 3 -> 4 含有 3 个颜色为 \"a\" 的节点（上图中的红色节点）。\n\n示例 2：\n\n输入：colors = \"a\", edges = [[0,0]]\n输出：-1\n解释：从 0 到 0 有一个环。\n\n \n\n提示：\n\n\tn == colors.length\n\n\tm == edges.length\n\n\t1 <= n <= 105\n\n\t0 <= m <= 105\n\n\tcolors 只含有小写英文字母。\n\n\t0 <= aj, bj < n",
+      "statementEn": "There is a directed graph of n colored nodes and m edges. The nodes are numbered from 0 to n - 1.\n\nYou are given a string colors where colors[i] is a lowercase English letter representing the color of the ith node in this graph (0-indexed). You are also given a 2D array edges where edges[j] = [aj, bj] indicates that there is a directed edge from node aj to node bj.\n\nA valid path in the graph is a sequence of nodes x1 -> x2 -> x3 -> ... -> xk such that there is a directed edge from xi to xi+1 for every 1 <= i < k. The color value of the path is the number of nodes that are colored the most frequently occurring color along that path.\n\nReturn the largest color value of any valid path in the given graph, or -1 if the graph contains a cycle.\n\n \n\nExample 1:\n\nInput: colors = \"abaca\", edges = [[0,1],[0,2],[2,3],[3,4]]\nOutput: 3\nExplanation: The path 0 -> 2 -> 3 -> 4 contains 3 nodes that are colored \"a\" (red in the above image).\n\nExample 2:\n\nInput: colors = \"a\", edges = [[0,0]]\nOutput: -1\nExplanation: There is a cycle from 0 to 0.\n\n \n\nConstraints:\n\n\tn == colors.length\n\n\tm == edges.length\n\n\t1 <= n <= 105\n\n\t0 <= m <= 105\n\n\tcolors consists of lowercase English letters.\n\n\t0 <= aj, bj < n",
+      "statement": "给你一个 有向图 ，它含有 n 个节点和 m 条边。节点编号从 0 到 n - 1 。\n\n给你一个字符串 colors ，其中 colors[i] 是小写英文字母，表示图中第 i 个节点的 颜色 （下标从 0 开始）。同时给你一个二维数组 edges ，其中 edges[j] = [aj, bj] 表示从节点 aj 到节点 bj 有一条 有向边 。\n\n图中一条有效 路径 是一个点序列 x1 -> x2 -> x3 -> ... -> xk ，对于所有 1 <= i < k ，从 xi 到 xi+1 在图中有一条有向边。路径的 颜色值 是路径中 出现次数最多 颜色的节点数目。\n\n请你返回给定图中有效路径里面的 最大颜色值 。如果图中含有环，请返回 -1 。\n\n \n\n示例 1：\n\n输入：colors = \"abaca\", edges = [[0,1],[0,2],[2,3],[3,4]]\n输出：3\n解释：路径 0 -> 2 -> 3 -> 4 含有 3 个颜色为 \"a\" 的节点（上图中的红色节点）。\n\n示例 2：\n\n输入：colors = \"a\", edges = [[0,0]]\n输出：-1\n解释：从 0 到 0 有一个环。\n\n \n\n提示：\n\n\tn == colors.length\n\n\tm == edges.length\n\n\t1 <= n <= 105\n\n\t0 <= m <= 105\n\n\tcolors 只含有小写英文字母。\n\n\t0 <= aj, bj < n",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "struct ListNode *createListNode(int val) {\n    struct ListNode *obj = (struct ListNode *)malloc(sizeof(struct ListNode));\n    obj->val = val;\n    obj->next = NULL;\n    return obj;\n}\n\nvoid freeList(struct ListNode *list) {\n    while (list) {\n        struct ListNode *p = list;\n        list = list->next;\n        free(p);\n    }\n}\n\nint largestPathValue(char* colors, int** edges, int edgesSize, int* edgesColSize) {\n    int n = strlen(colors);\n    // 邻接表\n    struct ListNode *g[n];\n    // 节点的入度统计，用于找出拓扑排序中最开始的节点\n    int indeg[n];\n    for (int i = 0; i < n; i++) {\n        g[i] = NULL;\n        indeg[i] = 0;\n    }\n    for (int i = 0; i < edgesSize; ++i) {\n        int x = edges[i][0], y = edges[i][1];\n        ++indeg[y];\n        struct ListNode *node = createListNode(y);\n        node->next = g[x];\n        g[x] = node;\n    }\n\n    // 记录拓扑排序过程中遇到的节点个数\n    // 如果最终 found 的值不为 n，说明图中存在环\n    int found = 0;\n    int f[n][26];\n    int queue[n];\n    int head = 0, tail = 0;\n    memset(f, 0, sizeof(f));\n    for (int i = 0; i < n; ++i) {\n        if (indeg[i] == 0) {\n            queue[tail++] = i;\n        }\n    }\n\n    while (head != tail) {\n        ++found;\n        int u = queue[head];\n        head++;\n        // 将节点 u 对应的颜色增加 1\n        ++f[u][colors[u] - 'a'];\n        // 枚举 u 的后继节点 v\n        for (struct ListNode *p = g[u]; p != NULL; p = p->next) {\n            int v = p->val;\n            --indeg[v];\n            // 将 f(v,c) 更新为其与 f(u,c) 的较大值\n            for (int c = 0; c < 26; ++c) {\n                f[v][c] = (f[v][c] > f[u][c]) ? f[v][c] : f[u][c];\n            }\n            if (indeg[v] == 0) {\n                queue[tail++] = v;\n            }\n        }\n    }\n\n    if (found != n) {\n        return -1;\n    }\n    int ans = 0;\n    for (int i = 0; i < n; ++i) {\n        for (int c = 0; c < 26; ++c) {\n            if (f[i][c] > ans) {\n                ans = f[i][c];\n            }\n        }\n        freeList(g[i]);\n    }\n    \n    return ans;\n}",
+        "python": "class Solution:\n    def largestPathValue(self, colors: str, edges: List[List[int]]) -> int:\n        n = len(colors)\n        # 邻接表\n        g = collections.defaultdict(list)\n        # 节点的入度统计，用于找出拓扑排序中最开始的节点\n        indeg = [0] * n\n\n        for x, y in edges:\n            indeg[y] += 1\n            g[x].append(y)\n        \n        # 记录拓扑排序过程中遇到的节点个数\n        # 如果最终 found 的值不为 n，说明图中存在环\n        found = 0\n        f = [[0] * 26 for _ in range(n)]\n        q = collections.deque()\n        for i in range(n):\n            if indeg[i] == 0:\n                q.append(i)\n    \n        while q:\n            found += 1\n            u = q.popleft()\n            # 将节点 u 对应的颜色增加 1\n            f[u][ord(colors[u]) - ord(\"a\")] += 1\n            # 枚举 u 的后继节点 v\n            for v in g[u]:\n                indeg[v] -= 1\n                # 将 f(v,c) 更新为其与 f(u,c) 的较大值\n                for c in range(26):\n                    f[v][c] = max(f[v][c], f[u][c])\n                if indeg[v] == 0:\n                    q.append(v)\n        \n        if found != n:\n            return -1\n        \n        ans = 0\n        for i in range(n):\n            ans = max(ans, max(f[i]))\n        return ans",
+        "java": "class Solution {\n    public int largestPathValue(String colors, int[][] edges) {\n        int n = colors.length();\n        // 邻接表\n        List<List<Integer>> g = new ArrayList<>();\n        for (int i = 0; i < n; ++i) {\n            g.add(new ArrayList<>());\n        }\n        // 节点的入度统计，用于找出拓扑排序中最开始的节点\n        int[] indeg = new int[n];\n        for (int[] edge : edges) {\n            ++indeg[edge[1]];\n            g.get(edge[0]).add(edge[1]);\n        }\n        \n        // 记录拓扑排序过程中遇到的节点个数\n        // 如果最终 found 的值不为 n，说明图中存在环\n        int found = 0;\n        int[][] f = new int[n][26];\n        Queue<Integer> q = new LinkedList<>();\n        for (int i = 0; i < n; ++i) {\n            if (indeg[i] == 0) {\n                q.offer(i);\n            }\n        }\n        while (!q.isEmpty()) {\n            ++found;\n            int u = q.poll();\n            // 将节点 u 对应的颜色增加 1\n            ++f[u][colors.charAt(u) - 'a'];\n            // 枚举 u 的后继节点 v\n            for (int v : g.get(u)) {\n                --indeg[v];\n                // 将 f(v,c) 更新为其与 f(u,c) 的较大值\n                for (int c = 0; c < 26; ++c) {\n                    f[v][c] = Math.max(f[v][c], f[u][c]);\n                }\n                if (indeg[v] == 0) {\n                    q.offer(v);\n                }\n            }\n        }\n        if (found != n) {\n            return -1;\n        }\n        int ans = 0;\n        for (int i = 0; i < n; ++i) {\n            ans = Math.max(ans, Arrays.stream(f[i]).max().getAsInt());\n        }\n        return ans;\n    }\n}",
+        "go": "func largestPathValue(colors string, edges [][]int) int {\n    n := len(colors)\n    // 邻接表\n    g := make([][]int, n)\n    // 节点的入度统计，用于找出拓扑排序中最开始的节点\n    indeg := make([]int, n)\n    for _, edge := range edges {\n        indeg[edge[1]]++\n        g[edge[0]] = append(g[edge[0]], edge[1])\n    }\n\n    // 记录拓扑排序过程中遇到的节点个数\n    // 如果最终 found 的值不为 n，说明图中存在环\n    found := 0\n    f := make([][26]int, n)\n    q := []int{}\n    for i := 0; i < n; i++ {\n        if indeg[i] == 0 {\n            q = append(q, i)\n        }\n    }\n\n    for len(q) > 0 {\n        found++\n        u := q[0]\n        q = q[1:]\n        // 将节点 u 对应的颜色增加 1\n        f[u][colors[u]-'a']++\n        // 枚举 u 的后继节点 v\n        for _, v := range g[u] {\n            indeg[v]--\n            // 将 f(v,c) 更新为其与 f(u,c) 的较大值\n            for c := 0; c < 26; c++ {\n                f[v][c] = max(f[v][c], f[u][c])\n            }\n            if indeg[v] == 0 {\n                q = append(q, v)\n            }\n        }\n    }\n    if found != n {\n        return -1\n    }\n    ans := 0\n    for i := 0; i < n; i++ {\n        for c := 0; c < 26; c++ {\n            ans = max(ans, f[i][c])\n        }\n    }\n    return ans\n}",
+        "javascript": "var largestPathValue = function(colors, edges) {\n    const n = colors.length;\n    // 邻接表\n    const g = Array.from({ length: n }, () => []);\n    // 节点的入度统计，用于找出拓扑排序中最开始的节点\n    const indeg = Array(n).fill(0);\n    for (const [u, v] of edges) {\n        indeg[v]++;\n        g[u].push(v);\n    }\n    // 记录拓扑排序过程中遇到的节点个数\n    // 如果最终 found 的值不为 n，说明图中存在环\n    let found = 0;\n    const f = Array.from({ length: n }, () => Array(26).fill(0));\n    const q = [];\n    for (let i = 0; i < n; i++) {\n        if (indeg[i] === 0) {\n            q.push(i);\n        }\n    }\n    while (q.length > 0) {\n        found++;\n        const u = q.shift();\n        // 将节点 u 对应的颜色增加 1\n        f[u][colors.charCodeAt(u) - 'a'.charCodeAt(0)]++;\n        // 枚举 u 的后继节点 v\n        for (const v of g[u]) {\n            indeg[v]--;\n            // 将 f(v,c) 更新为其与 f(u,c) 的较大值\n            for (let c = 0; c < 26; c++) {\n                f[v][c] = Math.max(f[v][c], f[u][c]);\n            }\n            if (indeg[v] === 0) {\n                q.push(v);\n            }\n        }\n    }\n    if (found !== n) {\n        return -1;\n    }\n    let ans = 0;\n    for (let i = 0; i < n; i++) {\n        ans = Math.max(ans, ...f[i]);\n    }\n    return ans;\n}",
+        "typescript": "function largestPathValue(colors: string, edges: number[][]): number {\n    const n = colors.length;\n    // 邻接表\n    const g: number[][] = Array.from({ length: n }, () => []);\n    // 节点的入度统计，用于找出拓扑排序中最开始的节点\n    const indeg: number[] = Array(n).fill(0);\n    for (const [u, v] of edges) {\n        indeg[v]++;\n        g[u].push(v);\n    }\n    // 记录拓扑排序过程中遇到的节点个数\n    // 如果最终 found 的值不为 n，说明图中存在环\n    let found = 0;\n    const f: number[][] = Array.from({ length: n }, () => Array(26).fill(0));\n    const q: number[] = [];\n    for (let i = 0; i < n; i++) {\n        if (indeg[i] === 0) {\n            q.push(i);\n        }\n    }\n    while (q.length > 0) {\n        found++;\n        const u = q.shift()!;\n        // 将节点 u 对应的颜色增加 1\n        f[u][colors.charCodeAt(u) - 'a'.charCodeAt(0)]++;\n        // 枚举 u 的后继节点 v\n        for (const v of g[u]) {\n            indeg[v]--;\n            // 将 f(v,c) 更新为其与 f(u,c) 的较大值\n            for (let c = 0; c < 26; c++) {\n                f[v][c] = Math.max(f[v][c], f[u][c]);\n            }\n            if (indeg[v] === 0) {\n                q.push(v);\n            }\n        }\n    }\n\n    if (found !== n) {\n        return -1;\n    }\n\n    let ans = 0;\n    for (let i = 0; i < n; i++) {\n        ans = Math.max(ans, ...f[i]);\n    }\n    return ans;\n};"
+      },
+      "id": 311
+    },
+    {
+      "title": "包含所有前缀的最长单词",
+      "titleSlug": "longest-word-with-all-prefixes",
+      "tags": [
+        "深度优先搜索",
+        "字典树",
+        "数组",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 66.68,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/longest-word-with-all-prefixes/",
+      "hotCompanies": [
+        "谷歌",
+        "微软",
+        "linkedin"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 312
+    },
+    {
+      "title": "将句子排序",
+      "titleSlug": "sorting-the-sentence",
+      "tags": [
+        "字符串",
+        "排序"
+      ],
+      "difficulty": "简单",
+      "acceptance": 74.13,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/sorting-the-sentence/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "facebook"
+      ],
+      "statementZh": "一个 句子 指的是一个序列的单词用单个空格连接起来，且开头和结尾没有任何空格。每个单词都只包含小写或大写英文字母。\n\n我们可以给一个句子添加 从 1 开始的单词位置索引 ，并且将句子中所有单词 打乱顺序 。\n\n\t比方说，句子 \"This is a sentence\" 可以被打乱顺序得到 \"sentence4 a3 is2 This1\" 或者 \"is2 sentence4 This1 a3\" 。\n\n给你一个 打乱顺序 的句子 s ，它包含的单词不超过 9 个，请你重新构造并得到原本顺序的句子。\n\n \n\n示例 1：\n\n输入：s = \"is2 sentence4 This1 a3\"\n输出：\"This is a sentence\"\n解释：将 s 中的单词按照初始位置排序，得到 \"This1 is2 a3 sentence4\" ，然后删除数字。\n\n示例 2：\n\n输入：s = \"Myself2 Me1 I4 and3\"\n输出：\"Me Myself and I\"\n解释：将 s 中的单词按照初始位置排序，得到 \"Me1 Myself2 and3 I4\" ，然后删除数字。\n\n \n\n提示：\n\n\t2 \n\n\ts 只包含小写和大写英文字母、空格以及从 1 到 9 的数字。\n\n\ts 中单词数目为 1 到 9 个。\n\n\ts 中的单词由单个空格分隔。\n\n\ts 不包含任何前导或者后缀空格。",
+      "statementEn": "A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each word consists of lowercase and uppercase English letters.\n\nA sentence can be shuffled by appending the 1-indexed word position to each word then rearranging the words in the sentence.\n\n\tFor example, the sentence \"This is a sentence\" can be shuffled as \"sentence4 a3 is2 This1\" or \"is2 sentence4 This1 a3\".\n\nGiven a shuffled sentence s containing no more than 9 words, reconstruct and return the original sentence.\n\n \n\nExample 1:\n\nInput: s = \"is2 sentence4 This1 a3\"\nOutput: \"This is a sentence\"\nExplanation: Sort the words in s to their original positions \"This1 is2 a3 sentence4\", then remove the numbers.\n\nExample 2:\n\nInput: s = \"Myself2 Me1 I4 and3\"\nOutput: \"Me Myself and I\"\nExplanation: Sort the words in s to their original positions \"Me1 Myself2 and3 I4\", then remove the numbers.\n\n \n\nConstraints:\n\n\t2 <= s.length <= 200\n\n\ts consists of lowercase and uppercase English letters, spaces, and digits from 1 to 9.\n\n\tThe number of words in s is between 1 and 9.\n\n\tThe words in s are separated by a single space.\n\n\ts contains no leading or trailing spaces.",
+      "statement": "一个 句子 指的是一个序列的单词用单个空格连接起来，且开头和结尾没有任何空格。每个单词都只包含小写或大写英文字母。\n\n我们可以给一个句子添加 从 1 开始的单词位置索引 ，并且将句子中所有单词 打乱顺序 。\n\n\t比方说，句子 \"This is a sentence\" 可以被打乱顺序得到 \"sentence4 a3 is2 This1\" 或者 \"is2 sentence4 This1 a3\" 。\n\n给你一个 打乱顺序 的句子 s ，它包含的单词不超过 9 个，请你重新构造并得到原本顺序的句子。\n\n \n\n示例 1：\n\n输入：s = \"is2 sentence4 This1 a3\"\n输出：\"This is a sentence\"\n解释：将 s 中的单词按照初始位置排序，得到 \"This1 is2 a3 sentence4\" ，然后删除数字。\n\n示例 2：\n\n输入：s = \"Myself2 Me1 I4 and3\"\n输出：\"Me Myself and I\"\n解释：将 s 中的单词按照初始位置排序，得到 \"Me1 Myself2 and3 I4\" ，然后删除数字。\n\n \n\n提示：\n\n\t2 \n\n\ts 只包含小写和大写英文字母、空格以及从 1 到 9 的数字。\n\n\ts 中单词数目为 1 到 9 个。\n\n\ts 中的单词由单个空格分隔。\n\n\ts 不包含任何前导或者后缀空格。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    string sortSentence(string s) {\n        vector<string> arr(9);   // 单词数组\n        string tmp = \"\";   // 当前单词\n        int n = 0;   // 单词数量\n        // 遍历字符串\n        for (auto c: s){\n            if (c >= '0' && c <= '9'){\n                // 如果为数字，计算对应的单词数组下标，将单词放入对应位置，并清空当前单词\n                // 数组下标为 0 开头，位置索引为 1 开头\n                arr[c-'0'-1] = tmp;\n                tmp.clear();\n                ++n;\n            }\n            else if (c != ' '){\n                // 如果为字母，更新当前单词\n                tmp.push_back(c);\n            }\n        }\n        string res = arr[0];   // 原本顺序的句子 \n        for (int i = 1; i < n; ++i){\n            res += \" \" + arr[i];\n        }\n        return res;\n    }\n};",
+        "python": "class Solution:\n    def sortSentence(self, s: str) -> str:\n        s = s.split()\n        n = len(s)   # 单词数量\n        arr = [\"\" for _ in range(n)]   # 单词数组\n        for wd in s:\n            # 计算位置索引对应的单词数组下标，并将单词放入对应位置\n            # 数组下标为 0 开头，位置索引为 1 开头\n            arr[int(wd[-1])-1] = wd[:-1]\n        return \" \".join(arr)"
+      },
+      "id": 313
+    },
+    {
+      "title": "增长的内存泄露",
+      "titleSlug": "incremental-memory-leak",
+      "tags": [
+        "数学",
+        "模拟"
+      ],
+      "difficulty": "中等",
+      "acceptance": 77.17,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/incremental-memory-leak/",
+      "hotCompanies": [
+        "字节",
+        "uber"
+      ],
+      "statementZh": "给你两个整数 memory1 和 memory2 分别表示两个内存条剩余可用内存的位数。现在有一个程序每秒递增的速度消耗着内存。\n\n在第 i 秒（秒数从 1 开始），有 i 位内存被分配到 剩余内存较多 的内存条（如果两者一样多，则分配到第一个内存条）。如果两者剩余内存都不足 i 位，那么程序将 意外退出 。\n\n请你返回一个数组，包含 [crashTime, memory1crash, memory2crash] ，其中 crashTime是程序意外退出的时间（单位为秒）， memory1crash 和 memory2crash 分别是两个内存条最后剩余内存的位数。\n\n \n\n示例 1：\n\n输入：memory1 = 2, memory2 = 2\n输出：[3,1,0]\n解释：内存分配如下：\n- 第 1 秒，内存条 1 被占用 1 位内存。内存条 1 现在有 1 位剩余可用内存。\n- 第 2 秒，内存条 2 被占用 2 位内存。内存条 2 现在有 0 位剩余可用内存。\n- 第 3 秒，程序意外退出，两个内存条分别有 1 位和 0 位剩余可用内存。\n\n示例 2：\n\n输入：memory1 = 8, memory2 = 11\n输出：[6,0,4]\n解释：内存分配如下：\n- 第 1 秒，内存条 2 被占用 1 位内存，内存条 2 现在有 10 位剩余可用内存。\n- 第 2 秒，内存条 2 被占用 2 位内存，内存条 2 现在有 8 位剩余可用内存。\n- 第 3 秒，内存条 1 被占用 3 位内存，内存条 1 现在有 5 位剩余可用内存。\n- 第 4 秒，内存条 2 被占用 4 位内存，内存条 2 现在有 4 位剩余可用内存。\n- 第 5 秒，内存条 1 被占用 5 位内存，内存条 1 现在有 0 位剩余可用内存。\n- 第 6 秒，程序意外退出，两个内存条分别有 0 位和 4 位剩余可用内存。\n\n \n\n提示：\n\n\t0 <= memory1, memory2 <= 231 - 1",
+      "statementEn": "You are given two integers memory1 and memory2 representing the available memory in bits on two memory sticks. There is currently a faulty program running that consumes an increasing amount of memory every second.\n\nAt the ith second (starting from 1), i bits of memory are allocated to the stick with more available memory (or from the first memory stick if both have the same available memory). If neither stick has at least i bits of available memory, the program crashes.\n\nReturn an array containing [crashTime, memory1crash, memory2crash], where crashTime is the time (in seconds) when the program crashed and memory1crash and memory2crash are the available bits of memory in the first and second sticks respectively.\n\n \n\nExample 1:\n\nInput: memory1 = 2, memory2 = 2\nOutput: [3,1,0]\nExplanation: The memory is allocated as follows:\n- At the 1st second, 1 bit of memory is allocated to stick 1. The first stick now has 1 bit of available memory.\n- At the 2nd second, 2 bits of memory are allocated to stick 2. The second stick now has 0 bits of available memory.\n- At the 3rd second, the program crashes. The sticks have 1 and 0 bits available respectively.\n\nExample 2:\n\nInput: memory1 = 8, memory2 = 11\nOutput: [6,0,4]\nExplanation: The memory is allocated as follows:\n- At the 1st second, 1 bit of memory is allocated to stick 2. The second stick now has 10 bit of available memory.\n- At the 2nd second, 2 bits of memory are allocated to stick 2. The second stick now has 8 bits of available memory.\n- At the 3rd second, 3 bits of memory are allocated to stick 1. The first stick now has 5 bits of available memory.\n- At the 4th second, 4 bits of memory are allocated to stick 2. The second stick now has 4 bits of available memory.\n- At the 5th second, 5 bits of memory are allocated to stick 1. The first stick now has 0 bits of available memory.\n- At the 6th second, the program crashes. The sticks have 0 and 4 bits available respectively.\n\n \n\nConstraints:\n\n\t0 <= memory1, memory2 <= 231 - 1",
+      "statement": "给你两个整数 memory1 和 memory2 分别表示两个内存条剩余可用内存的位数。现在有一个程序每秒递增的速度消耗着内存。\n\n在第 i 秒（秒数从 1 开始），有 i 位内存被分配到 剩余内存较多 的内存条（如果两者一样多，则分配到第一个内存条）。如果两者剩余内存都不足 i 位，那么程序将 意外退出 。\n\n请你返回一个数组，包含 [crashTime, memory1crash, memory2crash] ，其中 crashTime是程序意外退出的时间（单位为秒）， memory1crash 和 memory2crash 分别是两个内存条最后剩余内存的位数。\n\n \n\n示例 1：\n\n输入：memory1 = 2, memory2 = 2\n输出：[3,1,0]\n解释：内存分配如下：\n- 第 1 秒，内存条 1 被占用 1 位内存。内存条 1 现在有 1 位剩余可用内存。\n- 第 2 秒，内存条 2 被占用 2 位内存。内存条 2 现在有 0 位剩余可用内存。\n- 第 3 秒，程序意外退出，两个内存条分别有 1 位和 0 位剩余可用内存。\n\n示例 2：\n\n输入：memory1 = 8, memory2 = 11\n输出：[6,0,4]\n解释：内存分配如下：\n- 第 1 秒，内存条 2 被占用 1 位内存，内存条 2 现在有 10 位剩余可用内存。\n- 第 2 秒，内存条 2 被占用 2 位内存，内存条 2 现在有 8 位剩余可用内存。\n- 第 3 秒，内存条 1 被占用 3 位内存，内存条 1 现在有 5 位剩余可用内存。\n- 第 4 秒，内存条 2 被占用 4 位内存，内存条 2 现在有 4 位剩余可用内存。\n- 第 5 秒，内存条 1 被占用 5 位内存，内存条 1 现在有 0 位剩余可用内存。\n- 第 6 秒，程序意外退出，两个内存条分别有 0 位和 4 位剩余可用内存。\n\n \n\n提示：\n\n\t0 <= memory1, memory2 <= 231 - 1",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    vector<int> memLeak(int memory1, int memory2) {\n        int t = 1;\n        while (t <= max(memory1, memory2)){   // 是否可分配\n            if (memory1 < memory2){   // 分配给 2\n                memory2 -= t;\n            }\n            else {   // 分配给 1\n                memory1 -= t;\n            }\n            ++t;\n        }\n        return {t, memory1, memory2};\n    }\n};",
+        "python": "class Solution:\n    def memLeak(self, memory1: int, memory2: int) -> List[int]:\n        t = 1\n        while t <= max(memory1, memory2):   # 是否可分配\n            if memory1 < memory2:   # 分配给 2\n                memory2 -= t\n            else:   # 分配给 1\n                memory1 -= t\n            t += 1\n        return [t, memory1, memory2]"
+      },
+      "id": 314
+    },
+    {
+      "title": "旋转盒子",
+      "titleSlug": "rotating-the-box",
+      "tags": [
+        "数组",
+        "双指针",
+        "矩阵"
+      ],
+      "difficulty": "中等",
+      "acceptance": 74.65,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/rotating-the-box/",
+      "hotCompanies": [
+        "uber",
+        "capital-one",
+        "square"
+      ],
+      "statementZh": "给你一个 m x n 的字符矩阵 boxGrid ，它表示一个箱子的侧视图。箱子的每一个格子可能为：\n\n\t'#' 表示石头\n\n\t'*' 表示固定的障碍物\n\n\t'.' 表示空位置\n\n这个箱子被 顺时针旋转 90 度 ，由于重力原因，部分石头的位置会发生改变。每个石头会垂直掉落，直到它遇到障碍物，另一个石头或者箱子的底部。重力 不会 影响障碍物的位置，同时箱子旋转不会产生惯性 ，也就是说石头的水平位置不会发生改变。\n\n题目保证初始时 boxGrid 中的石头要么在一个障碍物上，要么在另一个石头上，要么在箱子的底部。\n\n请你返回一个 n x m 的矩阵，表示按照上述旋转后，箱子内的结果。\n\n \n\n示例 1：\n\n输入：box = [[\"#\",\".\",\"#\"]]\n输出：[[\".\"],\n      [\"#\"],\n      [\"#\"]]\n\n示例 2：\n\n输入：box = [[\"#\",\".\",\"*\",\".\"],\n            [\"#\",\"#\",\"*\",\".\"]]\n输出：[[\"#\",\".\"],\n      [\"#\",\"#\"],\n      [\"*\",\"*\"],\n      [\".\",\".\"]]\n\n示例 3：\n\n输入：box = [[\"#\",\"#\",\"*\",\".\",\"*\",\".\"],\n            [\"#\",\"#\",\"#\",\"*\",\".\",\".\"],\n            [\"#\",\"#\",\"#\",\".\",\"#\",\".\"]]\n输出：[[\".\",\"#\",\"#\"],\n      [\".\",\"#\",\"#\"],\n      [\"#\",\"#\",\"*\"],\n      [\"#\",\"*\",\".\"],\n      [\"#\",\".\",\"*\"],\n      [\"#\",\".\",\".\"]]\n\n \n\n提示：\n\n\tm == boxGrid.length\n\n\tn == boxGrid[i].length\n\n\t1 <= m, n <= 500\n\n\tboxGrid[i][j] 只可能是 '#' ，'*' 或者 '.' 。",
+      "statementEn": "You are given an m x n matrix of characters boxGrid representing a side-view of a box. Each cell of the box is one of the following:\n\n\tA stone &#39;#&#39;\n\n\tA stationary obstacle &#39;*&#39;\n\n\tEmpty &#39;.&#39;\n\nThe box is rotated 90 degrees clockwise, causing some of the stones to fall due to gravity. Each stone falls down until it lands on an obstacle, another stone, or the bottom of the box. Gravity does not affect the obstacles&#39; positions, and the inertia from the box&#39;s rotation does not affect the stones&#39; horizontal positions.\n\nIt is guaranteed that each stone in boxGrid rests on an obstacle, another stone, or the bottom of the box.\n\nReturn an n x m matrix representing the box after the rotation described above.\n\n \n\nExample 1:\n\nInput: boxGrid = [[\"#\",\".\",\"#\"]]\nOutput: [[\".\"],\n         [\"#\"],\n         [\"#\"]]\n\nExample 2:\n\nInput: boxGrid = [[\"#\",\".\",\"*\",\".\"],\n              [\"#\",\"#\",\"*\",\".\"]]\nOutput: [[\"#\",\".\"],\n         [\"#\",\"#\"],\n         [\"*\",\"*\"],\n         [\".\",\".\"]]\n\nExample 3:\n\nInput: boxGrid = [[\"#\",\"#\",\"*\",\".\",\"*\",\".\"],\n              [\"#\",\"#\",\"#\",\"*\",\".\",\".\"],\n              [\"#\",\"#\",\"#\",\".\",\"#\",\".\"]]\nOutput: [[\".\",\"#\",\"#\"],\n         [\".\",\"#\",\"#\"],\n         [\"#\",\"#\",\"*\"],\n         [\"#\",\"*\",\".\"],\n         [\"#\",\".\",\"*\"],\n         [\"#\",\".\",\".\"]]\n\n \n\nConstraints:\n\n\tm == boxGrid.length\n\n\tn == boxGrid[i].length\n\n\t1 <= m, n <= 500\n\n\tboxGrid[i][j] is either &#39;#&#39;, &#39;*&#39;, or &#39;.&#39;.",
+      "statement": "给你一个 m x n 的字符矩阵 boxGrid ，它表示一个箱子的侧视图。箱子的每一个格子可能为：\n\n\t'#' 表示石头\n\n\t'*' 表示固定的障碍物\n\n\t'.' 表示空位置\n\n这个箱子被 顺时针旋转 90 度 ，由于重力原因，部分石头的位置会发生改变。每个石头会垂直掉落，直到它遇到障碍物，另一个石头或者箱子的底部。重力 不会 影响障碍物的位置，同时箱子旋转不会产生惯性 ，也就是说石头的水平位置不会发生改变。\n\n题目保证初始时 boxGrid 中的石头要么在一个障碍物上，要么在另一个石头上，要么在箱子的底部。\n\n请你返回一个 n x m 的矩阵，表示按照上述旋转后，箱子内的结果。\n\n \n\n示例 1：\n\n输入：box = [[\"#\",\".\",\"#\"]]\n输出：[[\".\"],\n      [\"#\"],\n      [\"#\"]]\n\n示例 2：\n\n输入：box = [[\"#\",\".\",\"*\",\".\"],\n            [\"#\",\"#\",\"*\",\".\"]]\n输出：[[\"#\",\".\"],\n      [\"#\",\"#\"],\n      [\"*\",\"*\"],\n      [\".\",\".\"]]\n\n示例 3：\n\n输入：box = [[\"#\",\"#\",\"*\",\".\",\"*\",\".\"],\n            [\"#\",\"#\",\"#\",\"*\",\".\",\".\"],\n            [\"#\",\"#\",\"#\",\".\",\"#\",\".\"]]\n输出：[[\".\",\"#\",\"#\"],\n      [\".\",\"#\",\"#\"],\n      [\"#\",\"#\",\"*\"],\n      [\"#\",\"*\",\".\"],\n      [\"#\",\".\",\"*\"],\n      [\"#\",\".\",\".\"]]\n\n \n\n提示：\n\n\tm == boxGrid.length\n\n\tn == boxGrid[i].length\n\n\t1 <= m, n <= 500\n\n\tboxGrid[i][j] 只可能是 '#' ，'*' 或者 '.' 。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    vector<vector<char>> rotateTheBox(vector<vector<char>>& box) {\n        int m = box.size();\n        int n = box[0].size();\n\n        for (int i = 0; i < m; ++i) {\n            deque<int> q;\n            for (int j = n - 1; j >= 0; --j) {\n                if (box[i][j] == '*') {\n                    // 遇到障碍物，清空队列\n                    q.clear();\n                }\n                else if (box[i][j] == '#') {\n                    if (!q.empty()) {\n                        // 如果队列不为空，石头就会下落\n                        int pos = q.front();\n                        q.pop_front();\n                        box[i][pos] = '#';\n                        box[i][j] = '.';\n                        // 由于下落，石头变为空位，也需要加入队列\n                        q.push_back(j);\n                    }\n                }\n                else {\n                    // 将空位加入队列\n                    q.push_back(j);\n                }\n            }\n        }\n\n        // 将矩阵顺时针旋转 90 度放入答案\n        vector<vector<char>> ans(n, vector<char>(m));\n        for (int i = 0; i < m; ++i) {\n            for (int j = 0; j < n; ++j) {\n                ans[j][m - i - 1] = box[i][j];\n            }\n        }\n        return ans;\n    }\n};",
+        "python": "class Solution:\n    def rotateTheBox(self, box: List[List[str]]) -> List[List[str]]:\n        m, n = len(box), len(box[0])\n\n        for i in range(m):\n            q = deque()\n            for j in range(n - 1, -1, -1):\n                if box[i][j] == \"*\":\n                    # 遇到障碍物，清空队列\n                    q.clear()\n                elif box[i][j] == \"#\":\n                    if q:\n                        # 如果队列不为空，石头就会下落\n                        pos = q.popleft()\n                        box[i][pos] = \"#\"\n                        box[i][j] = \".\"\n                        # 由于下落，石头变为空位，也需要加入队列\n                        q.append(j)\n                else:\n                    # 将空位加入队列\n                    q.append(j)\n\n        # 将矩阵顺时针旋转 90 度放入答案\n        ans = [[\"\"] * m for _ in range(n)]\n        for i in range(m):\n            for j in range(n):\n                ans[j][m - i - 1] = box[i][j]\n        return ans"
+      },
+      "id": 315
+    },
+    {
+      "title": "向下取整数对和",
+      "titleSlug": "sum-of-floored-pairs",
+      "tags": [
+        "数组",
+        "数学",
+        "二分查找",
+        "计数",
+        "枚举",
+        "前缀和"
+      ],
+      "difficulty": "困难",
+      "acceptance": 37.35,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/sum-of-floored-pairs/",
+      "hotCompanies": [
+        "rakuten",
+        "谷歌",
+        "facebook"
+      ],
+      "statementZh": "给你一个整数数组 nums ，请你返回所有下标对 0 <= i, j < nums.length 的 floor(nums[i] / nums[j]) 结果之和。由于答案可能会很大，请你返回答案对109 + 7 取余 的结果。\n\n函数 floor() 返回输入数字的整数部分。\n\n \n\n示例 1：\n\n输入：nums = [2,5,9]\n输出：10\n解释：\nfloor(2 / 5) = floor(2 / 9) = floor(5 / 9) = 0\nfloor(2 / 2) = floor(5 / 5) = floor(9 / 9) = 1\nfloor(5 / 2) = 2\nfloor(9 / 2) = 4\nfloor(9 / 5) = 1\n我们计算每一个数对商向下取整的结果并求和得到 10 。\n\n示例 2：\n\n输入：nums = [7,7,7,7,7,7,7]\n输出：49\n\n \n\n提示：\n\n\t1 <= nums.length <= 105\n\n\t1 <= nums[i] <= 105",
+      "statementEn": "Given an integer array nums, return the sum of floor(nums[i] / nums[j]) for all pairs of indices 0 <= i, j < nums.length in the array. Since the answer may be too large, return it modulo 109 + 7.\n\nThe floor() function returns the integer part of the division.\n\n \n\nExample 1:\n\nInput: nums = [2,5,9]\nOutput: 10\nExplanation:\nfloor(2 / 5) = floor(2 / 9) = floor(5 / 9) = 0\nfloor(2 / 2) = floor(5 / 5) = floor(9 / 9) = 1\nfloor(5 / 2) = 2\nfloor(9 / 2) = 4\nfloor(9 / 5) = 1\nWe calculate the floor of the division for every pair of indices in the array then sum them up.\n\nExample 2:\n\nInput: nums = [7,7,7,7,7,7,7]\nOutput: 49\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 105\n\n\t1 <= nums[i] <= 105",
+      "statement": "给你一个整数数组 nums ，请你返回所有下标对 0 <= i, j < nums.length 的 floor(nums[i] / nums[j]) 结果之和。由于答案可能会很大，请你返回答案对109 + 7 取余 的结果。\n\n函数 floor() 返回输入数字的整数部分。\n\n \n\n示例 1：\n\n输入：nums = [2,5,9]\n输出：10\n解释：\nfloor(2 / 5) = floor(2 / 9) = floor(5 / 9) = 0\nfloor(2 / 2) = floor(5 / 5) = floor(9 / 9) = 1\nfloor(5 / 2) = 2\nfloor(9 / 2) = 4\nfloor(9 / 5) = 1\n我们计算每一个数对商向下取整的结果并求和得到 10 。\n\n示例 2：\n\n输入：nums = [7,7,7,7,7,7,7]\n输出：49\n\n \n\n提示：\n\n\t1 <= nums.length <= 105\n\n\t1 <= nums[i] <= 105",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\nprivate:\n    static constexpr int mod = 1000000007;\n    \n    using LL = long long;\n\npublic:\n    int sumOfFlooredPairs(vector<int>& nums) {\n        // 元素最大值\n        int upper = *max_element(nums.begin(), nums.end());\n        vector<int> cnt(upper + 1);\n        for (int num: nums) {\n            ++cnt[num];\n        }\n        // 预处理前缀和\n        vector<int> pre(upper + 1);\n        for (int i = 1; i <= upper; ++i) {\n            pre[i] = pre[i - 1] + cnt[i];\n        }\n        \n        LL ans = 0;\n        for (int y = 1; y <= upper; ++y) {\n            // 一个小优化，如果数组中没有 y 可以跳过\n            if (cnt[y]) {\n                for (int d = 1; d * y <= upper; ++d) {\n                    ans += (LL)cnt[y] * d * (pre[min((d + 1) * y - 1, upper)] - pre[d * y - 1]);\n                }\n            }\n        }\n        return ans % mod;\n    }\n};",
+        "python": "class Solution:\n    def sumOfFlooredPairs(self, nums: List[int]) -> int:\n        mod = 10**9 + 7\n        \n        # 元素最大值\n        upper = max(nums)\n        cnt = [0] * (upper + 1)\n        for num in nums:\n            cnt[num] += 1\n        # 预处理前缀和\n        pre = [0] * (upper + 1)\n        for i in range(1, upper + 1):\n            pre[i] = pre[i - 1] + cnt[i]\n        \n        ans = 0\n        for y in range(1, upper + 1):\n            # 一个小优化，如果数组中没有 y 可以跳过\n            if cnt[y]:\n                d = 1\n                while d * y <= upper:\n                    ans += cnt[y] * d * (pre[min((d + 1) * y - 1, upper)] - pre[d * y - 1])\n                    d += 1\n        return ans % mod"
+      },
+      "id": 316
+    },
+    {
+      "title": "找出所有子集的异或总和再求和",
+      "titleSlug": "sum-of-all-subset-xor-totals",
+      "tags": [
+        "位运算",
+        "数组",
+        "数学",
+        "回溯",
+        "组合数学",
+        "枚举"
+      ],
+      "difficulty": "简单",
+      "acceptance": 85.93,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/sum-of-all-subset-xor-totals/",
+      "hotCompanies": [
+        "亚马逊",
+        "adobe",
+        "谷歌"
+      ],
+      "statementZh": "一个数组的 异或总和 定义为数组中所有元素按位 XOR 的结果；如果数组为 空 ，则异或总和为 0 。\n\n\t例如，数组 [2,5,6] 的 异或总和 为 2 XOR 5 XOR 6 = 1 。\n\n给你一个数组 nums ，请你求出 nums 中每个 子集 的 异或总和 ，计算并返回这些值相加之 和 。\n\n注意：在本题中，元素 相同 的不同子集应 多次 计数。\n\n数组 a 是数组 b 的一个 子集 的前提条件是：从 b 删除几个（也可能不删除）元素能够得到 a 。\n\n \n\n示例 1：\n\n输入：nums = [1,3]\n输出：6\n解释：[1,3] 共有 4 个子集：\n- 空子集的异或总和是 0 。\n- [1] 的异或总和为 1 。\n- [3] 的异或总和为 3 。\n- [1,3] 的异或总和为 1 XOR 3 = 2 。\n0 + 1 + 3 + 2 = 6\n\n示例 2：\n\n输入：nums = [5,1,6]\n输出：28\n解释：[5,1,6] 共有 8 个子集：\n- 空子集的异或总和是 0 。\n- [5] 的异或总和为 5 。\n- [1] 的异或总和为 1 。\n- [6] 的异或总和为 6 。\n- [5,1] 的异或总和为 5 XOR 1 = 4 。\n- [5,6] 的异或总和为 5 XOR 6 = 3 。\n- [1,6] 的异或总和为 1 XOR 6 = 7 。\n- [5,1,6] 的异或总和为 5 XOR 1 XOR 6 = 2 。\n0 + 5 + 1 + 6 + 4 + 3 + 7 + 2 = 28\n\n示例 3：\n\n输入：nums = [3,4,5,6,7,8]\n输出：480\n解释：每个子集的全部异或总和值之和为 480 。\n\n \n\n提示：\n\n\t1 <= nums.length <= 12\n\n\t1 <= nums[i] <= 20",
+      "statementEn": "The XOR total of an array is defined as the bitwise XOR of all its elements, or 0 if the array is empty.\n\n\tFor example, the XOR total of the array [2,5,6] is 2 XOR 5 XOR 6 = 1.\n\nGiven an array nums, return the sum of all XOR totals for every subset of nums. \n\nNote: Subsets with the same elements should be counted multiple times.\n\nAn array a is a subset of an array b if a can be obtained from b by deleting some (possibly zero) elements of b.\n\n \n\nExample 1:\n\nInput: nums = [1,3]\nOutput: 6\nExplanation: The 4 subsets of [1,3] are:\n- The empty subset has an XOR total of 0.\n- [1] has an XOR total of 1.\n- [3] has an XOR total of 3.\n- [1,3] has an XOR total of 1 XOR 3 = 2.\n0 + 1 + 3 + 2 = 6\n\nExample 2:\n\nInput: nums = [5,1,6]\nOutput: 28\nExplanation: The 8 subsets of [5,1,6] are:\n- The empty subset has an XOR total of 0.\n- [5] has an XOR total of 5.\n- [1] has an XOR total of 1.\n- [6] has an XOR total of 6.\n- [5,1] has an XOR total of 5 XOR 1 = 4.\n- [5,6] has an XOR total of 5 XOR 6 = 3.\n- [1,6] has an XOR total of 1 XOR 6 = 7.\n- [5,1,6] has an XOR total of 5 XOR 1 XOR 6 = 2.\n0 + 5 + 1 + 6 + 4 + 3 + 7 + 2 = 28\n\nExample 3:\n\nInput: nums = [3,4,5,6,7,8]\nOutput: 480\nExplanation: The sum of all XOR totals for every subset is 480.\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 12\n\n\t1 <= nums[i] <= 20",
+      "statement": "一个数组的 异或总和 定义为数组中所有元素按位 XOR 的结果；如果数组为 空 ，则异或总和为 0 。\n\n\t例如，数组 [2,5,6] 的 异或总和 为 2 XOR 5 XOR 6 = 1 。\n\n给你一个数组 nums ，请你求出 nums 中每个 子集 的 异或总和 ，计算并返回这些值相加之 和 。\n\n注意：在本题中，元素 相同 的不同子集应 多次 计数。\n\n数组 a 是数组 b 的一个 子集 的前提条件是：从 b 删除几个（也可能不删除）元素能够得到 a 。\n\n \n\n示例 1：\n\n输入：nums = [1,3]\n输出：6\n解释：[1,3] 共有 4 个子集：\n- 空子集的异或总和是 0 。\n- [1] 的异或总和为 1 。\n- [3] 的异或总和为 3 。\n- [1,3] 的异或总和为 1 XOR 3 = 2 。\n0 + 1 + 3 + 2 = 6\n\n示例 2：\n\n输入：nums = [5,1,6]\n输出：28\n解释：[5,1,6] 共有 8 个子集：\n- 空子集的异或总和是 0 。\n- [5] 的异或总和为 5 。\n- [1] 的异或总和为 1 。\n- [6] 的异或总和为 6 。\n- [5,1] 的异或总和为 5 XOR 1 = 4 。\n- [5,6] 的异或总和为 5 XOR 6 = 3 。\n- [1,6] 的异或总和为 1 XOR 6 = 7 。\n- [5,1,6] 的异或总和为 5 XOR 1 XOR 6 = 2 。\n0 + 5 + 1 + 6 + 4 + 3 + 7 + 2 = 28\n\n示例 3：\n\n输入：nums = [3,4,5,6,7,8]\n输出：480\n解释：每个子集的全部异或总和值之和为 480 。\n\n \n\n提示：\n\n\t1 <= nums.length <= 12\n\n\t1 <= nums[i] <= 20",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int res;\n    int n;\n    \n    void dfs(int val, int idx, vector<int>& nums){\n        if (idx == n){\n            // 终止递归\n            res += val;\n            return;\n        }\n        // 考虑选择当前数字\n        dfs(val ^ nums[idx], idx + 1, nums);\n        // 考虑不选择当前数字\n        dfs(val, idx + 1, nums);\n    }\n    \n    int subsetXORSum(vector<int>& nums) {\n        res = 0;\n        n = nums.size();\n        dfs(0, 0, nums);\n        return res;\n    }\n};",
+        "python": "class Solution:\n    def subsetXORSum(self, nums: List[int]) -> int:\n        res = 0\n        n = len(nums)\n        def dfs(val, idx):\n            nonlocal res\n            if idx == n:\n                # 终止递归\n                res += val\n                return\n            # 考虑选择当前数字\n            dfs(val ^ nums[idx], idx + 1)\n            # 考虑不选择当前数字\n            dfs(val, idx + 1)\n        \n        dfs(0, 0)\n        return res",
+        "java": "class Solution {\n    int res;\n    int n;\n\n    // 深度优先搜索\n    void dfs(int val, int idx, int[] nums) {\n        if (idx == n) {\n            // 终止递归\n            res += val;\n            return;\n        }\n        // 考虑选择当前数字\n        dfs(val ^ nums[idx], idx + 1, nums);\n        // 考虑不选择当前数字\n        dfs(val, idx + 1, nums);\n    }\n\n    public int subsetXORSum(int[] nums) {\n        res = 0;\n        n = nums.length;\n        dfs(0, 0, nums);\n        return res;\n    }\n}",
+        "go": "func subsetXORSum(nums []int) int {\n    res := 0\n    n := len(nums)\n    for i := 0; i < (1 << n); i++ {\n        tmp := 0\n        for j := 0; j < n; j++ {\n            if (i & (1 << j)) != 0 {\n                tmp ^= nums[j]\n            }\n        }\n        res += tmp\n    }\n    return res\n}",
+        "javascript": "var subsetXORSum = function(nums) {\n    let res = 0;\n    let n = nums.length;\n    for (let i = 0; i < (1 << n); i++) {\n        let tmp = 0;\n        for (let j = 0; j < n; j++) {\n            if (i & (1 << j)) {\n                tmp ^= nums[j];\n            }\n        }\n        res += tmp;\n    }\n    return res;\n};",
+        "typescript": "function subsetXORSum(nums: number[]): number {\n    let res = 0;\n    const n = nums.length;\n    for (let i = 0; i < (1 << n); i++) {\n        let tmp = 0;\n        for (let j = 0; j < n; j++) {\n            if ((i & (1 << j)) !== 0) {\n                tmp ^= nums[j];\n            }\n        }\n        res += tmp;\n    }\n    return res;\n}"
+      },
+      "id": 317
+    },
+    {
+      "title": "构成交替字符串需要的最小交换次数",
+      "titleSlug": "minimum-number-of-swaps-to-make-the-binary-string-alternating",
+      "tags": [
+        "贪心",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 43,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-number-of-swaps-to-make-the-binary-string-alternating/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "字节"
+      ],
+      "statementZh": "给你一个二进制字符串 s ，现需要将其转化为一个 交替字符串 。请你计算并返回转化所需的 最小 字符交换次数，如果无法完成转化，返回 -1 。\n\n交替字符串 是指：相邻字符之间不存在相等情况的字符串。例如，字符串 \"010\" 和 \"1010\" 属于交替字符串，但 \"0100\" 不是。\n\n任意两个字符都可以进行交换，不必相邻 。\n\n \n\n示例 1：\n\n输入：s = \"111000\"\n输出：1\n解释：交换位置 1 和 4：\"111000\" -> \"101010\" ，字符串变为交替字符串。\n\n示例 2：\n\n输入：s = \"010\"\n输出：0\n解释：字符串已经是交替字符串了，不需要交换。\n\n示例 3：\n\n输入：s = \"1110\"\n输出：-1\n\n \n\n提示：\n\n\t1 \n\n\ts[i] 的值为 '0' 或 '1'",
+      "statementEn": "Given a binary string s, return the minimum number of character swaps to make it alternating, or -1 if it is impossible.\n\nThe string is called alternating if no two adjacent characters are equal. For example, the strings \"010\" and \"1010\" are alternating, while the string \"0100\" is not.\n\nAny two characters may be swapped, even if they are not adjacent.\n\n \n\nExample 1:\n\nInput: s = \"111000\"\nOutput: 1\nExplanation: Swap positions 1 and 4: \"111000\" -> \"101010\"\nThe string is now alternating.\n\nExample 2:\n\nInput: s = \"010\"\nOutput: 0\nExplanation: The string is already alternating, no swaps are needed.\n\nExample 3:\n\nInput: s = \"1110\"\nOutput: -1\n\n \n\nConstraints:\n\n\t1 <= s.length <= 1000\n\n\ts[i] is either &#39;0&#39; or &#39;1&#39;.",
+      "statement": "给你一个二进制字符串 s ，现需要将其转化为一个 交替字符串 。请你计算并返回转化所需的 最小 字符交换次数，如果无法完成转化，返回 -1 。\n\n交替字符串 是指：相邻字符之间不存在相等情况的字符串。例如，字符串 \"010\" 和 \"1010\" 属于交替字符串，但 \"0100\" 不是。\n\n任意两个字符都可以进行交换，不必相邻 。\n\n \n\n示例 1：\n\n输入：s = \"111000\"\n输出：1\n解释：交换位置 1 和 4：\"111000\" -> \"101010\" ，字符串变为交替字符串。\n\n示例 2：\n\n输入：s = \"010\"\n输出：0\n解释：字符串已经是交替字符串了，不需要交换。\n\n示例 3：\n\n输入：s = \"1110\"\n输出：-1\n\n \n\n提示：\n\n\t1 \n\n\ts[i] 的值为 '0' 或 '1'",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int minSwaps(string s) {\n        int n = s.size();\n        int n0 = count(s.begin(), s.end(), '0');\n        int n1 = count(s.begin(), s.end(), '1');\n        int res = INT_MAX;\n        // \"1010...\"\n        if (n1 == (n + 1) / 2 && n0 == n / 2){   // 不同字符个数相等\n            int diff1 = 0;\n            for (int i = 0; i < n; ++i){\n                if (s[i] - '0' == i % 2){   // 对应位数不同\n                    ++diff1;\n                }\n            }\n            res = min(res, diff1 / 2);\n        }\n        // \"0101...\"\n        if (n0 == (n + 1) / 2 && n1 == n / 2){   // 不同字符个数相等\n            int diff2 = 0;\n            for (int i = 0; i < n; ++i){\n                if (s[i] - '0' != i % 2){   // 对应位数不同\n                    ++diff2;\n                }\n            }\n            res = min(res, diff2 / 2);\n        }\n        if (res == INT_MAX){\n            return -1;   // 不存在\n        }\n        else {\n            return res;\n        }\n    }\n};",
+        "python": "class Solution:\n    def minSwaps(self, s: str) -> int:\n        n = len(s)\n        n0, n1 = s.count('0'), s.count('1')\n        res = float(\"INF\")\n        # \"1010...\"\n        if n1 == (n + 1) // 2 and n0 == n // 2:   # 不同字符个数相等\n            diff1 = 0\n            for i in range(n):\n                if int(s[i]) == i % 2:   # 对应位数不同\n                    diff1 += 1\n            res = min(res, diff1 // 2)\n        # \"0101...\"\n        if n0 == (n + 1) // 2 and n1 == n // 2:   # 不同字符个数相等\n            diff2 = 0\n            for i in range(n):\n                if int(s[i]) != i % 2:   # 对应位数不同\n                    diff2 += 1\n            res = min(res, diff2 // 2)\n        if res == float(\"INF\"):\n            return -1   # 不存在\n        else:\n            return res"
+      },
+      "id": 318
+    },
+    {
+      "title": "找出和为指定值的下标对",
+      "titleSlug": "finding-pairs-with-a-certain-sum",
+      "tags": [
+        "设计",
+        "数组",
+        "哈希表"
+      ],
+      "difficulty": "中等",
+      "acceptance": 58.49,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/finding-pairs-with-a-certain-sum/",
+      "hotCompanies": [
+        "bloomberg",
+        "facebook",
+        "谷歌"
+      ],
+      "statementZh": "给你两个整数数组 nums1 和 nums2 ，请你实现一个支持下述两类查询的数据结构：\n\n\t累加 ，将一个正整数加到 nums2 中指定下标对应元素上。\n\n\t计数 ，统计满足 nums1[i] + nums2[j] 等于指定值的下标对 (i, j) 数目（0  且 0 ）。\n\n实现 FindSumPairs 类：\n\n\tFindSumPairs(int[] nums1, int[] nums2) 使用整数数组 nums1 和 nums2 初始化 FindSumPairs 对象。\n\n\tvoid add(int index, int val) 将 val 加到 nums2[index] 上，即，执行 nums2[index] += val 。\n\n\tint count(int tot) 返回满足 nums1[i] + nums2[j] == tot 的下标对 (i, j) 数目。\n\n \n\n示例：\n\n输入：\n[\"FindSumPairs\", \"count\", \"add\", \"count\", \"count\", \"add\", \"add\", \"count\"]\n[[[1, 1, 2, 2, 2, 3], [1, 4, 5, 2, 5, 4]], [7], [3, 2], [8], [4], [0, 1], [1, 1], [7]]\n输出：\n[null, 8, null, 2, 1, null, null, 11]\n\n解释：\nFindSumPairs findSumPairs = new FindSumPairs([1, 1, 2, 2, 2, 3], [1, 4, 5, 2, 5, 4]);\nfindSumPairs.count(7);  // 返回 8 ; 下标对 (2,2), (3,2), (4,2), (2,4), (3,4), (4,4) 满足 2 + 5 = 7 ，下标对 (5,1), (5,5) 满足 3 + 4 = 7\nfindSumPairs.add(3, 2); // 此时 nums2 = [1,4,5,4,5,4]\nfindSumPairs.count(8);  // 返回 2 ；下标对 (5,2), (5,4) 满足 3 + 5 = 8\nfindSumPairs.count(4);  // 返回 1 ；下标对 (5,0) 满足 3 + 1 = 4\nfindSumPairs.add(0, 1); // 此时 nums2 = [2,4,5,4,5,4]\nfindSumPairs.add(1, 1); // 此时 nums2 = [2,5,5,4,5,4]\nfindSumPairs.count(7);  // 返回 11 ；下标对 (2,1), (2,2), (2,4), (3,1), (3,2), (3,4), (4,1), (4,2), (4,4) 满足 2 + 5 = 7 ，下标对 (5,3), (5,5) 满足 3 + 4 = 7\n\n \n\n提示：\n\n\t1 \n\n\t1 5\n\n\t1 9\n\n\t1 5\n\n\t0 \n\n\t1 5\n\n\t1 9\n\n\t最多调用 add 和 count 函数各 1000 次",
+      "statementEn": "You are given two integer arrays nums1 and nums2. You are tasked to implement a data structure that supports queries of two types:\n\n\tAdd a positive integer to an element of a given index in the array nums2.\n\n\tCount the number of pairs (i, j) such that nums1[i] + nums2[j] equals a given value (0 <= i < nums1.length and 0 <= j < nums2.length).\n\nImplement the FindSumPairs class:\n\n\tFindSumPairs(int[] nums1, int[] nums2) Initializes the FindSumPairs object with two integer arrays nums1 and nums2.\n\n\tvoid add(int index, int val) Adds val to nums2[index], i.e., apply nums2[index] += val.\n\n\tint count(int tot) Returns the number of pairs (i, j) such that nums1[i] + nums2[j] == tot.\n\n \n\nExample 1:\n\nInput\n[\"FindSumPairs\", \"count\", \"add\", \"count\", \"count\", \"add\", \"add\", \"count\"]\n[[[1, 1, 2, 2, 2, 3], [1, 4, 5, 2, 5, 4]], [7], [3, 2], [8], [4], [0, 1], [1, 1], [7]]\nOutput\n[null, 8, null, 2, 1, null, null, 11]\n\nExplanation\nFindSumPairs findSumPairs = new FindSumPairs([1, 1, 2, 2, 2, 3], [1, 4, 5, 2, 5, 4]);\nfindSumPairs.count(7);  // return 8; pairs (2,2), (3,2), (4,2), (2,4), (3,4), (4,4) make 2 + 5 and pairs (5,1), (5,5) make 3 + 4\nfindSumPairs.add(3, 2); // now nums2 = [1,4,5,4,5,4]\nfindSumPairs.count(8);  // return 2; pairs (5,2), (5,4) make 3 + 5\nfindSumPairs.count(4);  // return 1; pair (5,0) makes 3 + 1\nfindSumPairs.add(0, 1); // now nums2 = [2,4,5,4,5,4]\nfindSumPairs.add(1, 1); // now nums2 = [2,5,5,4,5,4]\nfindSumPairs.count(7);  // return 11; pairs (2,1), (2,2), (2,4), (3,1), (3,2), (3,4), (4,1), (4,2), (4,4) make 2 + 5 and pairs (5,3), (5,5) make 3 + 4\n\n \n\nConstraints:\n\n\t1 <= nums1.length <= 1000\n\n\t1 <= nums2.length <= 105\n\n\t1 <= nums1[i] <= 109\n\n\t1 <= nums2[i] <= 105\n\n\t0 <= index < nums2.length\n\n\t1 <= val <= 105\n\n\t1 <= tot <= 109\n\n\tAt most 1000 calls are made to add and count each.",
+      "statement": "给你两个整数数组 nums1 和 nums2 ，请你实现一个支持下述两类查询的数据结构：\n\n\t累加 ，将一个正整数加到 nums2 中指定下标对应元素上。\n\n\t计数 ，统计满足 nums1[i] + nums2[j] 等于指定值的下标对 (i, j) 数目（0  且 0 ）。\n\n实现 FindSumPairs 类：\n\n\tFindSumPairs(int[] nums1, int[] nums2) 使用整数数组 nums1 和 nums2 初始化 FindSumPairs 对象。\n\n\tvoid add(int index, int val) 将 val 加到 nums2[index] 上，即，执行 nums2[index] += val 。\n\n\tint count(int tot) 返回满足 nums1[i] + nums2[j] == tot 的下标对 (i, j) 数目。\n\n \n\n示例：\n\n输入：\n[\"FindSumPairs\", \"count\", \"add\", \"count\", \"count\", \"add\", \"add\", \"count\"]\n[[[1, 1, 2, 2, 2, 3], [1, 4, 5, 2, 5, 4]], [7], [3, 2], [8], [4], [0, 1], [1, 1], [7]]\n输出：\n[null, 8, null, 2, 1, null, null, 11]\n\n解释：\nFindSumPairs findSumPairs = new FindSumPairs([1, 1, 2, 2, 2, 3], [1, 4, 5, 2, 5, 4]);\nfindSumPairs.count(7);  // 返回 8 ; 下标对 (2,2), (3,2), (4,2), (2,4), (3,4), (4,4) 满足 2 + 5 = 7 ，下标对 (5,1), (5,5) 满足 3 + 4 = 7\nfindSumPairs.add(3, 2); // 此时 nums2 = [1,4,5,4,5,4]\nfindSumPairs.count(8);  // 返回 2 ；下标对 (5,2), (5,4) 满足 3 + 5 = 8\nfindSumPairs.count(4);  // 返回 1 ；下标对 (5,0) 满足 3 + 1 = 4\nfindSumPairs.add(0, 1); // 此时 nums2 = [2,4,5,4,5,4]\nfindSumPairs.add(1, 1); // 此时 nums2 = [2,5,5,4,5,4]\nfindSumPairs.count(7);  // 返回 11 ；下标对 (2,1), (2,2), (2,4), (3,1), (3,2), (3,4), (4,1), (4,2), (4,4) 满足 2 + 5 = 7 ，下标对 (5,3), (5,5) 满足 3 + 4 = 7\n\n \n\n提示：\n\n\t1 \n\n\t1 5\n\n\t1 9\n\n\t1 5\n\n\t0 \n\n\t1 5\n\n\t1 9\n\n\t最多调用 add 和 count 函数各 1000 次",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "typedef struct {\n    int key;\n    int val;\n    UT_hash_handle hh;\n} HashItem; \n\nHashItem *hashFindItem(HashItem **obj, int key) {\n    HashItem *pEntry = NULL;\n    HASH_FIND_INT(*obj, &key, pEntry);\n    return pEntry;\n}\n\nbool hashAddItem(HashItem **obj, int key, int val) {\n    if (hashFindItem(obj, key)) {\n        return false;\n    }\n    HashItem *pEntry = (HashItem *)malloc(sizeof(HashItem));\n    pEntry->key = key;\n    pEntry->val = val;\n    HASH_ADD_INT(*obj, key, pEntry);\n    return true;\n}\n\nbool hashSetItem(HashItem **obj, int key, int val) {\n    HashItem *pEntry = hashFindItem(obj, key);\n    if (!pEntry) {\n        hashAddItem(obj, key, val);\n    } else {\n        pEntry->val = val;\n    }\n    return true;\n}\n\nint hashGetItem(HashItem **obj, int key, int defaultVal) {\n    HashItem *pEntry = hashFindItem(obj, key);\n    if (!pEntry) {\n        return defaultVal;\n    }\n    return pEntry->val;\n}\n\nvoid hashFree(HashItem **obj) {\n    HashItem *curr = NULL, *tmp = NULL;\n    HASH_ITER(hh, *obj, curr, tmp) {\n        HASH_DEL(*obj, curr);  \n        free(curr);\n    }\n}\n\ntypedef struct {\n    int *nums1, *nums2;\n    int nums1Size, nums2Size;\n    HashItem *cnt;\n} FindSumPairs;\n\n\nFindSumPairs* findSumPairsCreate(int* nums1, int nums1Size, int* nums2, int nums2Size) {\n    FindSumPairs *obj = (FindSumPairs *)malloc(sizeof(FindSumPairs));\n    obj->nums1 = nums1;\n    obj->nums1Size = nums1Size;\n    obj->nums2 = nums2;\n    obj->nums2Size = nums2Size;\n    obj->cnt = NULL;\n    for (int i = 0; i < nums2Size; i++) {\n        hashSetItem(&obj->cnt, nums2[i], hashGetItem(&obj->cnt, nums2[i], 0) + 1);\n    }\n    return obj;\n}\n\nvoid findSumPairsAdd(FindSumPairs* obj, int index, int val) {\n    hashSetItem(&obj->cnt, obj->nums2[index], hashGetItem(&obj->cnt, obj->nums2[index], 0) - 1);\n    obj->nums2[index] += val;\n    hashSetItem(&obj->cnt, obj->nums2[index], hashGetItem(&obj->cnt, obj->nums2[index], 0) + 1);\n}\n\nint findSumPairsCount(FindSumPairs* obj, int tot) {\n    int ans = 0;\n    for (int i = 0; i < obj->nums1Size; i++) {\n        int rest = tot - obj->nums1[i];\n        if (hashFindItem(&obj->cnt, rest)) {\n            ans += hashGetItem(&obj->cnt, rest, 0);\n        }\n    }\n    return ans;\n}\n\nvoid findSumPairsFree(FindSumPairs* obj) {\n    hashFree(&obj->cnt);\n    free(obj);\n}",
+        "python": "class FindSumPairs:\n\n    def __init__(self, nums1: List[int], nums2: List[int]):\n        self.nums1 = nums1\n        self.nums2 = nums2\n        self.cnt = Counter(nums2)\n\n    def add(self, index: int, val: int) -> None:\n        _nums2, _cnt = self.nums2, self.cnt\n\n        _cnt[_nums2[index]] -= 1\n        _nums2[index] += val\n        _cnt[_nums2[index]] += 1\n\n    def count(self, tot: int) -> int:\n        _nums1, _cnt = self.nums1, self.cnt\n\n        ans = 0\n        for num in _nums1:\n            if (rest := tot - num) in _cnt:\n                ans += _cnt[rest]\n        return ans",
+        "java": "class FindSumPairs {\n    private int[] nums1;\n    private int[] nums2;\n    private Map<Integer, Integer> cnt;\n\n    public FindSumPairs(int[] nums1, int[] nums2) {\n        this.nums1 = nums1;\n        this.nums2 = nums2;\n        this.cnt = new HashMap<>();\n        for (int num : nums2) {\n            cnt.put(num, cnt.getOrDefault(num, 0) + 1);\n        }\n    }\n    \n    public void add(int index, int val) {\n        int oldVal = nums2[index];\n        cnt.put(oldVal, cnt.get(oldVal) - 1);\n        nums2[index] += val;\n        cnt.put(nums2[index], cnt.getOrDefault(nums2[index], 0) + 1);\n    }\n    \n    public int count(int tot) {\n        int ans = 0;\n        for (int num : nums1) {\n            int rest = tot - num;\n            ans += cnt.getOrDefault(rest, 0);\n        }\n        return ans;\n    }\n}",
+        "go": "type FindSumPairs struct {\n    nums1 []int\n    nums2 []int\n    cnt   map[int]int\n}\n\nfunc Constructor(nums1 []int, nums2 []int) FindSumPairs {\n    cnt := make(map[int]int)\n    for _, num := range nums2 {\n        cnt[num]++\n    }\n    return FindSumPairs{\n        nums1: nums1,\n        nums2: nums2,\n        cnt:   cnt,\n    }\n}\n\nfunc (this *FindSumPairs) Add(index int, val int) {\n    oldVal := this.nums2[index]\n    this.cnt[oldVal]--\n    this.nums2[index] += val\n    this.cnt[this.nums2[index]]++\n}\n\nfunc (this *FindSumPairs) Count(tot int) int {\n    ans := 0\n    for _, num := range this.nums1 {\n        rest := tot - num\n        ans += this.cnt[rest]\n    }\n    return ans\n}",
+        "javascript": "var FindSumPairs = function(nums1, nums2) {\n    this.nums1 = nums1;\n    this.nums2 = nums2;\n    this.cnt = new Map();\n    for (const num of nums2) {\n        this.cnt.set(num, (this.cnt.get(num) || 0) + 1);\n    }\n};\n\nFindSumPairs.prototype.add = function(index, val) {\n    const oldVal = this.nums2[index];\n    this.cnt.set(oldVal, (this.cnt.get(oldVal) || 0) - 1);\n    this.nums2[index] += val;\n    const newVal = this.nums2[index];\n    this.cnt.set(newVal, (this.cnt.get(newVal) || 0) + 1);\n};\n\nFindSumPairs.prototype.count = function(tot) {\n    let ans = 0;\n    for (const num of this.nums1) {\n        const rest = tot - num;\n        ans += this.cnt.get(rest) || 0;\n    }\n    return ans;\n};",
+        "typescript": "class FindSumPairs {\n    private nums1: number[];\n    private nums2: number[];\n    private cnt: Map<number, number>;\n\n    constructor(nums1: number[], nums2: number[]) {\n        this.nums1 = nums1;\n        this.nums2 = nums2;\n        this.cnt = new Map();\n        for (const num of nums2) {\n            this.cnt.set(num, (this.cnt.get(num) || 0) + 1);\n        }\n    }\n\n    add(index: number, val: number): void {\n        const oldVal = this.nums2[index];\n        this.cnt.set(oldVal, (this.cnt.get(oldVal) || 0) - 1);\n        this.nums2[index] += val;\n        const newVal = this.nums2[index];\n        this.cnt.set(newVal, (this.cnt.get(newVal) || 0) + 1);\n    }\n\n    count(tot: number): number {\n        let ans = 0;\n        for (const num of this.nums1) {\n            const rest = tot - num;\n            ans += this.cnt.get(rest) || 0;\n        }\n        return ans;\n    }\n}"
+      },
+      "id": 319
     }
   ],
   "errors": []
