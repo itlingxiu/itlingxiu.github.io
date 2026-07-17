@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-16T17:46:48.081Z",
-  "dateKey": "2026-07-17",
+  "crawledAt": "2026-07-17T17:38:36.563Z",
+  "dateKey": "2026-07-18",
   "sources": [
     "leetcode-cn",
     "nowcoder"
@@ -591,7 +591,7 @@
         "数组"
       ],
       "difficulty": "中等",
-      "acceptance": 26.37,
+      "acceptance": 26.38,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e",
       "statement": "牛客编程题 JZ4：二维数组中的查找。完整描述请访问牛客练习页。",
@@ -818,7 +818,7 @@
         "数组"
       ],
       "difficulty": "简单",
-      "acceptance": 44.35,
+      "acceptance": 44.36,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/4436c93e568c48f6b28ff436173b997f",
       "statement": "牛客编程题 JZ17：打印从1到最大的n位数。完整描述请访问牛客练习页。",
@@ -835,7 +835,7 @@
         "链表"
       ],
       "difficulty": "简单",
-      "acceptance": 47.32,
+      "acceptance": 47.33,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/f9f78ca89ad643c99701a7142bd59f5d",
       "statement": "牛客编程题 JZ18：删除链表的节点。完整描述请访问牛客练习页。",
@@ -871,7 +871,7 @@
         "字符串"
       ],
       "difficulty": "困难",
-      "acceptance": 21.92,
+      "acceptance": 21.93,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/e69148f8528c4039ad89bb2546fd4ff8",
       "statement": "牛客编程题 JZ20：表示数值的字符串。完整描述请访问牛客练习页。",
@@ -7921,6 +7921,405 @@
         "typescript": "class FindSumPairs {\n    private nums1: number[];\n    private nums2: number[];\n    private cnt: Map<number, number>;\n\n    constructor(nums1: number[], nums2: number[]) {\n        this.nums1 = nums1;\n        this.nums2 = nums2;\n        this.cnt = new Map();\n        for (const num of nums2) {\n            this.cnt.set(num, (this.cnt.get(num) || 0) + 1);\n        }\n    }\n\n    add(index: number, val: number): void {\n        const oldVal = this.nums2[index];\n        this.cnt.set(oldVal, (this.cnt.get(oldVal) || 0) - 1);\n        this.nums2[index] += val;\n        const newVal = this.nums2[index];\n        this.cnt.set(newVal, (this.cnt.get(newVal) || 0) + 1);\n    }\n\n    count(tot: number): number {\n        let ans = 0;\n        for (const num of this.nums1) {\n            const rest = tot - num;\n            ans += this.cnt.get(rest) || 0;\n        }\n        return ans;\n    }\n}"
       },
       "id": 319
+    },
+    {
+      "title": "寻找峰值 II",
+      "titleSlug": "find-a-peak-element-ii",
+      "tags": [
+        "数组",
+        "二分查找",
+        "矩阵"
+      ],
+      "difficulty": "中等",
+      "acceptance": 57.69,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/find-a-peak-element-ii/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "facebook"
+      ],
+      "statementZh": "一个 2D 网格中的 峰值 是指那些 严格大于 其相邻格子(上、下、左、右)的元素。\n\n给你一个 从 0 开始编号 的 m x n 矩阵 mat ，其中任意两个相邻格子的值都 不相同 。找出 任意一个 峰值 mat[i][j] 并 返回其位置 [i,j] 。\n\n你可以假设整个矩阵周边环绕着一圈值为 -1 的格子。\n\n要求必须写出时间复杂度为 O(m log(n)) 或 O(n log(m)) 的算法\n\n \n\n \n\n示例 1:\n\n输入: mat = [[1,4],[3,2]]\n输出: [0,1]\n解释: 3 和 4 都是峰值，所以[1,0]和[0,1]都是可接受的答案。\n\n示例 2:\n\n输入: mat = [[10,20,15],[21,30,14],[7,16,32]]\n输出: [1,1]\n解释: 30 和 32 都是峰值，所以[1,1]和[2,2]都是可接受的答案。\n\n \n\n提示：\n\n\tm == mat.length\n\n\tn == mat[i].length\n\n\t1 <= m, n <= 500\n\n\t1 <= mat[i][j] <= 105\n\n\t任意两个相邻元素均不相等.",
+      "statementEn": "A peak element in a 2D grid is an element that is strictly greater than all of its adjacent neighbors to the left, right, top, and bottom.\n\nGiven a 0-indexed m x n matrix mat where no two adjacent cells are equal, find any peak element mat[i][j] and return the length 2 array [i,j].\n\nYou may assume that the entire matrix is surrounded by an outer perimeter with the value -1 in each cell.\n\nYou must write an algorithm that runs in O(m log(n)) or O(n log(m)) time.\n\n \n\nExample 1:\n\nInput: mat = [[1,4],[3,2]]\nOutput: [0,1]\nExplanation: Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptable answers.\n\nExample 2:\n\nInput: mat = [[10,20,15],[21,30,14],[7,16,32]]\nOutput: [1,1]\nExplanation: Both 30 and 32 are peak elements so [1,1] and [2,2] are both acceptable answers.\n\n \n\nConstraints:\n\n\tm == mat.length\n\n\tn == mat[i].length\n\n\t1 <= m, n <= 500\n\n\t1 <= mat[i][j] <= 105\n\n\tNo two adjacent cells are equal.",
+      "statement": "一个 2D 网格中的 峰值 是指那些 严格大于 其相邻格子(上、下、左、右)的元素。\n\n给你一个 从 0 开始编号 的 m x n 矩阵 mat ，其中任意两个相邻格子的值都 不相同 。找出 任意一个 峰值 mat[i][j] 并 返回其位置 [i,j] 。\n\n你可以假设整个矩阵周边环绕着一圈值为 -1 的格子。\n\n要求必须写出时间复杂度为 O(m log(n)) 或 O(n log(m)) 的算法\n\n \n\n \n\n示例 1:\n\n输入: mat = [[1,4],[3,2]]\n输出: [0,1]\n解释: 3 和 4 都是峰值，所以[1,0]和[0,1]都是可接受的答案。\n\n示例 2:\n\n输入: mat = [[10,20,15],[21,30,14],[7,16,32]]\n输出: [1,1]\n解释: 30 和 32 都是峰值，所以[1,1]和[2,2]都是可接受的答案。\n\n \n\n提示：\n\n\tm == mat.length\n\n\tn == mat[i].length\n\n\t1 <= m, n <= 500\n\n\t1 <= mat[i][j] <= 105\n\n\t任意两个相邻元素均不相等.",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "int maxElement(int *row, int n) {\n    int i = 0;\n    for (int j = 0; j < n; j++) {\n        if (row[i] < row[j]) {\n            i = j;\n        }\n    }\n    return i;\n}\n\nint* findPeakGrid(int **mat, int matSize, int *matColSize, int *returnSize) {\n    int m = matSize, n = matColSize[0];\n    int low = 0, high = m - 1;\n    while (low <= high) {\n        int i = (low + high) / 2;\n        int j = maxElement(mat[i], n);\n        if (i - 1 >= 0 && mat[i][j] < mat[i - 1][j]) {\n            high = i - 1;\n            continue;\n        }\n        if (i + 1 < m && mat[i][j] < mat[i + 1][j]) {\n            low = i + 1;\n            continue;\n        }\n        int *ret = (int *)malloc(sizeof(int) * 2);\n        ret[0] = i;\n        ret[1] = j;\n        *returnSize = 2;\n        return ret;\n    }\n    *returnSize = 0;\n    return NULL; // impossible\n}",
+        "java": "class Solution {\n    public int[] findPeakGrid(int[][] mat) {\n        int m = mat.length, n = mat[0].length;\n        int low = 0, high = m - 1;\n        while (low <= high) {\n            int i = (low + high) / 2;\n            int j = -1, maxElement = -1;\n            for (int k = 0; k < n; k++) {\n                if (mat[i][k] > maxElement) {\n                    j = k;\n                    maxElement = mat[i][k];\n                }\n            }\n            if (i - 1 >= 0 && mat[i][j] < mat[i - 1][j]) {\n                high = i - 1;\n                continue;\n            }\n            if (i + 1 < m && mat[i][j] < mat[i + 1][j]) {\n                low = i + 1;\n                continue;\n            }\n            return new int[]{i, j};\n        }\n        return new int[0]; // impossible\n    }\n}",
+        "go": "func maxElement(row []int) int {\n    i := 0\n    for j := range row {\n        if row[i] < row[j] {\n            i = j\n        }\n    }\n    return i\n}\n\nfunc findPeakGrid(mat [][]int) []int {\n    m := len(mat)\n    low, high := 0, m - 1\n    for low <= high {\n        i := (low + high) / 2\n        j := maxElement(mat[i])\n        if i - 1 >= 0 && mat[i][j] < mat[i - 1][j] {\n            high = i - 1\n            continue\n        }\n        if i + 1 < m && mat[i][j] < mat[i + 1][j] {\n            low = i + 1\n            continue\n        }\n        return []int{i, j}\n    }\n    return nil // impossible\n}",
+        "python": "class Solution:\n    def findPeakGrid(self, mat: List[List[int]]) -> List[int]:\n        m = len(mat)\n        low, high = 0, m - 1\n        while low <= high:\n            i = (low + high) // 2\n            j = mat[i].index(max(mat[i]))\n            if i - 1 >= 0 and mat[i][j] < mat[i - 1][j]:\n                high = i - 1\n                continue\n            if i + 1 < m and mat[i][j] < mat[i + 1][j]:\n                low = i + 1\n                continue\n            return [i, j]\n        return None # impossible",
+        "javascript": "var maxElement = function(arr) {\n    let i = 0;\n    for (let j = 0; j < arr.length; j++) {\n        if (arr[i] < arr[j]) {\n            i = j;\n        }\n    }\n    return i;\n}\n\nvar findPeakGrid = function(mat) {\n    const m = mat.length;\n    let low = 0, high = m - 1;\n    while (low <= high) {\n        let i = Math.floor((low + high) / 2);\n        let j = maxElement(mat[i]);\n        if (i - 1 >= 0 && mat[i][j] < mat[i - 1][j]) {\n            high = i - 1;\n            continue;\n        }\n        if (i + 1 < m && mat[i][j] < mat[i + 1][j]) {\n            low = i + 1;\n            continue;\n        }\n        return [i, j];\n    }\n    return []; // impossible\n};"
+      },
+      "id": 320
+    },
+    {
+      "title": "给定二叉搜索树的插入顺序求深度",
+      "titleSlug": "depth-of-bst-given-insertion-order",
+      "tags": [
+        "树",
+        "二叉搜索树",
+        "数组",
+        "二叉树",
+        "有序集合"
+      ],
+      "difficulty": "中等",
+      "acceptance": 45.45,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/depth-of-bst-given-insertion-order/",
+      "hotCompanies": [
+        "谷歌",
+        "adobe"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 321
+    },
+    {
+      "title": "字符串中的最大奇数",
+      "titleSlug": "largest-odd-number-in-string",
+      "tags": [
+        "贪心",
+        "数学",
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 63.27,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/largest-odd-number-in-string/",
+      "hotCompanies": [
+        "亚马逊",
+        "bloomberg",
+        "谷歌"
+      ],
+      "statementZh": "给你一个字符串 num ，表示一个大整数。请你在字符串 num 的所有 非空子字符串 中找出 值最大的奇数 ，并以字符串形式返回。如果不存在奇数，则返回一个空字符串 \"\" 。\n\n子字符串 是字符串中的一个连续的字符序列。\n\n \n\n示例 1：\n\n输入：num = \"52\"\n输出：\"5\"\n解释：非空子字符串仅有 \"5\"、\"2\" 和 \"52\" 。\"5\" 是其中唯一的奇数。\n\n示例 2：\n\n输入：num = \"4206\"\n输出：\"\"\n解释：在 \"4206\" 中不存在奇数。\n\n示例 3：\n\n输入：num = \"35427\"\n输出：\"35427\"\n解释：\"35427\" 本身就是一个奇数。\n\n \n\n提示：\n\n\t1 5\n\n\tnum 仅由数字组成且不含前导零",
+      "statementEn": "You are given a string num, representing a large integer. Return the largest-valued odd integer (as a string) that is a non-empty substring of num, or an empty string \"\" if no odd integer exists.\n\nA substring is a contiguous sequence of characters within a string.\n\n \n\nExample 1:\n\nInput: num = \"52\"\nOutput: \"5\"\nExplanation: The only non-empty substrings are \"5\", \"2\", and \"52\". \"5\" is the only odd number.\n\nExample 2:\n\nInput: num = \"4206\"\nOutput: \"\"\nExplanation: There are no odd numbers in \"4206\".\n\nExample 3:\n\nInput: num = \"35427\"\nOutput: \"35427\"\nExplanation: \"35427\" is already an odd number.\n\n \n\nConstraints:\n\n\t1 <= num.length <= 105\n\n\tnum only consists of digits and does not contain any leading zeros.",
+      "statement": "给你一个字符串 num ，表示一个大整数。请你在字符串 num 的所有 非空子字符串 中找出 值最大的奇数 ，并以字符串形式返回。如果不存在奇数，则返回一个空字符串 \"\" 。\n\n子字符串 是字符串中的一个连续的字符序列。\n\n \n\n示例 1：\n\n输入：num = \"52\"\n输出：\"5\"\n解释：非空子字符串仅有 \"5\"、\"2\" 和 \"52\" 。\"5\" 是其中唯一的奇数。\n\n示例 2：\n\n输入：num = \"4206\"\n输出：\"\"\n解释：在 \"4206\" 中不存在奇数。\n\n示例 3：\n\n输入：num = \"35427\"\n输出：\"35427\"\n解释：\"35427\" 本身就是一个奇数。\n\n \n\n提示：\n\n\t1 5\n\n\tnum 仅由数字组成且不含前导零",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    string largestOddNumber(string num) {\n        int n = num.size();\n        for (int i = n - 1; i >= 0; --i){\n            if ((num[i] - '0') % 2 == 1){\n                // 找到第一个值为奇数的字符，返回 num[0:i+1]\n                return num.substr(0, i + 1);\n            }\n        }\n        // 未找到值为奇数的字符，返回空字符串\n        return \"\";\n    }\n};",
+        "python": "class Solution:\n    def largestOddNumber(self, num: str) -> str:\n        n = len(num)\n        for i in range(n - 1, -1, -1):\n            if int(num[i]) % 2 == 1:\n                # 找到第一个值为奇数的字符，返回 num[0:i+1]\n                return num[:i+1]\n        # 未找到值为奇数的字符，返回空字符串\n        return \"\""
+      },
+      "id": 322
+    },
+    {
+      "title": "你完成的完整对局数",
+      "titleSlug": "the-number-of-full-rounds-you-have-played",
+      "tags": [
+        "数学",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 33.6,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/the-number-of-full-rounds-you-have-played/",
+      "hotCompanies": [
+        "wayfair",
+        "微软"
+      ],
+      "statementZh": "一款新的在线电子游戏在近期发布，在该电子游戏中，以 刻钟 为周期规划若干时长为 15 分钟 的游戏对局。这意味着，在 HH:00、HH:15、HH:30 和 HH:45 ，将会开始一个新的对局，其中 HH 用一个从 00 到 23 的整数表示。游戏中使用 24 小时制的时钟 ，所以一天中最早的时间是 00:00 ，最晚的时间是 23:59 。\n\n给你两个字符串 startTime 和 finishTime ，均符合 \"HH:MM\" 格式，分别表示你 进入 和 退出 游戏的确切时间，请计算在整个游戏会话期间，你完成的 完整对局的对局数 。\n\n\t例如，如果 startTime = \"05:20\" 且 finishTime = \"05:59\" ，这意味着你仅仅完成从 05:30 到 05:45 这一个完整对局。而你没有完成从 05:15 到 05:30 的完整对局，因为你是在对局开始后进入的游戏；同时，你也没有完成从 05:45 到 06:00 的完整对局，因为你是在对局结束前退出的游戏。\n\n如果 finishTime 早于 startTime ，这表示你玩了个通宵（也就是从 startTime 到午夜，再从午夜到 finishTime）。\n\n假设你是从 startTime 进入游戏，并在 finishTime 退出游戏，请计算并返回你完成的 完整对局的对局数 。\n\n \n\n示例 1：\n\n输入：startTime = \"12:01\", finishTime = \"12:44\"\n输出：1\n解释：你完成了从 12:15 到 12:30 的一个完整对局。\n你没有完成从 12:00 到 12:15 的完整对局，因为你是在对局开始后的 12:01 进入的游戏。\n你没有完成从 12:30 到 12:45 的完整对局，因为你是在对局结束前的 12:44 退出的游戏。\n\n示例 2：\n\n输入：startTime = \"20:00\", finishTime = \"06:00\"\n输出：40\n解释：你完成了从 20:00 到 00:00 的 16 个完整的对局，以及从 00:00 到 06:00 的 24 个完整的对局。\n16 + 24 = 40\n\n示例 3：\n\n输入：startTime = \"00:00\", finishTime = \"23:59\"\n输出：95\n解释：除最后一个小时你只完成了 3 个完整对局外，其余每个小时均完成了 4 场完整对局。\n\n \n\n提示：\n\n\tstartTime 和 finishTime 的格式为 HH:MM\n\n\t00 \n\n\t00 \n\n\tstartTime 和 finishTime 不相等",
+      "statementEn": "You are participating in an online chess tournament. There is a chess round that starts every 15 minutes. The first round of the day starts at 00:00, and after every 15 minutes, a new round starts.\n\n\tFor example, the second round starts at 00:15, the fourth round starts at 00:45, and the seventh round starts at 01:30.\n\nYou are given two strings loginTime and logoutTime where:\n\n\tloginTime is the time you will login to the game, and\n\n\tlogoutTime is the time you will logout from the game.\n\nIf logoutTime is earlier than loginTime, this means you have played from loginTime to midnight and from midnight to logoutTime.\n\nReturn the number of full chess rounds you have played in the tournament.\n\nNote: All the given times follow the 24-hour clock. That means the first round of the day starts at 00:00 and the last round of the day starts at 23:45.\n\n \n\nExample 1:\n\nInput: loginTime = \"09:31\", logoutTime = \"10:14\"\nOutput: 1\nExplanation: You played one full round from 09:45 to 10:00.\nYou did not play the full round from 09:30 to 09:45 because you logged in at 09:31 after it began.\nYou did not play the full round from 10:00 to 10:15 because you logged out at 10:14 before it ended.\n\nExample 2:\n\nInput: loginTime = \"21:30\", logoutTime = \"03:00\"\nOutput: 22\nExplanation: You played 10 full rounds from 21:30 to 00:00 and 12 full rounds from 00:00 to 03:00.\n10 + 12 = 22.\n\n \n\nConstraints:\n\n\tloginTime and logoutTime are in the format hh:mm.\n\n\t00 <= hh <= 23\n\n\t00 <= mm <= 59\n\n\tloginTime and logoutTime are not equal.",
+      "statement": "一款新的在线电子游戏在近期发布，在该电子游戏中，以 刻钟 为周期规划若干时长为 15 分钟 的游戏对局。这意味着，在 HH:00、HH:15、HH:30 和 HH:45 ，将会开始一个新的对局，其中 HH 用一个从 00 到 23 的整数表示。游戏中使用 24 小时制的时钟 ，所以一天中最早的时间是 00:00 ，最晚的时间是 23:59 。\n\n给你两个字符串 startTime 和 finishTime ，均符合 \"HH:MM\" 格式，分别表示你 进入 和 退出 游戏的确切时间，请计算在整个游戏会话期间，你完成的 完整对局的对局数 。\n\n\t例如，如果 startTime = \"05:20\" 且 finishTime = \"05:59\" ，这意味着你仅仅完成从 05:30 到 05:45 这一个完整对局。而你没有完成从 05:15 到 05:30 的完整对局，因为你是在对局开始后进入的游戏；同时，你也没有完成从 05:45 到 06:00 的完整对局，因为你是在对局结束前退出的游戏。\n\n如果 finishTime 早于 startTime ，这表示你玩了个通宵（也就是从 startTime 到午夜，再从午夜到 finishTime）。\n\n假设你是从 startTime 进入游戏，并在 finishTime 退出游戏，请计算并返回你完成的 完整对局的对局数 。\n\n \n\n示例 1：\n\n输入：startTime = \"12:01\", finishTime = \"12:44\"\n输出：1\n解释：你完成了从 12:15 到 12:30 的一个完整对局。\n你没有完成从 12:00 到 12:15 的完整对局，因为你是在对局开始后的 12:01 进入的游戏。\n你没有完成从 12:30 到 12:45 的完整对局，因为你是在对局结束前的 12:44 退出的游戏。\n\n示例 2：\n\n输入：startTime = \"20:00\", finishTime = \"06:00\"\n输出：40\n解释：你完成了从 20:00 到 00:00 的 16 个完整的对局，以及从 00:00 到 06:00 的 24 个完整的对局。\n16 + 24 = 40\n\n示例 3：\n\n输入：startTime = \"00:00\", finishTime = \"23:59\"\n输出：95\n解释：除最后一个小时你只完成了 3 个完整对局外，其余每个小时均完成了 4 场完整对局。\n\n \n\n提示：\n\n\tstartTime 和 finishTime 的格式为 HH:MM\n\n\t00 \n\n\t00 \n\n\tstartTime 和 finishTime 不相等",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int numberOfRounds(string startTime, string finishTime) {\n        // 转化为分钟\n        int t0 = 60 * stoi(startTime.substr(0, 2)) + stoi(startTime.substr(3, 2));\n        int t1 = 60 * stoi(finishTime.substr(0, 2)) + stoi(finishTime.substr(3, 2));\n        if (t1 < t0){\n            // 此时 finishTime 为第二天\n            t1 += 1440;\n        }\n        // 第一个小于等于 finishTime 的完整对局的结束时间\n        t1 = t1 / 15 * 15;\n        return max(0, (t1 - t0)) / 15;\n    }\n};",
+        "python": "class Solution:\n    def numberOfRounds(self, startTime: str, finishTime: str) -> int:\n        # 转化为分钟\n        t0 = 60 * int(startTime[:2]) + int(startTime[3:])\n        t1 = 60 * int(finishTime[:2]) + int(finishTime[3:])\n        if t1 < t0:\n            # 此时 finishTime 为第二天\n            t1 += 1440\n        # 第一个小于等于 finishTime 的完整对局的结束时间\n        t1 = t1 // 15 * 15\n        return max(0, (t1 - t0)) // 15"
+      },
+      "id": 323
+    },
+    {
+      "title": "统计子岛屿",
+      "titleSlug": "count-sub-islands",
+      "tags": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "数组",
+        "矩阵"
+      ],
+      "difficulty": "中等",
+      "acceptance": 69.11,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/count-sub-islands/",
+      "hotCompanies": [
+        "亚马逊",
+        "字节",
+        "谷歌"
+      ],
+      "statementZh": "给你两个 m x n 的二进制矩阵 grid1 和 grid2 ，它们只包含 0 （表示水域）和 1 （表示陆地）。一个 岛屿 是由 四个方向 （水平或者竖直）上相邻的 1 组成的区域。任何矩阵以外的区域都视为水域。\n\n如果 grid2 的一个岛屿，被 grid1 的一个岛屿 完全 包含，也就是说 grid2 中该岛屿的每一个格子都被 grid1 中同一个岛屿完全包含，那么我们称 grid2 中的这个岛屿为 子岛屿 。\n\n请你返回 grid2 中 子岛屿 的 数目 。\n\n \n\n示例 1：\n\n输入：grid1 = [[1,1,1,0,0],[0,1,1,1,1],[0,0,0,0,0],[1,0,0,0,0],[1,1,0,1,1]], grid2 = [[1,1,1,0,0],[0,0,1,1,1],[0,1,0,0,0],[1,0,1,1,0],[0,1,0,1,0]]\n输出：3\n解释：如上图所示，左边为 grid1 ，右边为 grid2 。\ngrid2 中标红的 1 区域是子岛屿，总共有 3 个子岛屿。\n\n示例 2：\n\n输入：grid1 = [[1,0,1,0,1],[1,1,1,1,1],[0,0,0,0,0],[1,1,1,1,1],[1,0,1,0,1]], grid2 = [[0,0,0,0,0],[1,1,1,1,1],[0,1,0,1,0],[0,1,0,1,0],[1,0,0,0,1]]\n输出：2 \n解释：如上图所示，左边为 grid1 ，右边为 grid2 。\ngrid2 中标红的 1 区域是子岛屿，总共有 2 个子岛屿。\n\n \n\n提示：\n\n\tm == grid1.length == grid2.length\n\n\tn == grid1[i].length == grid2[i].length\n\n\t1 <= m, n <= 500\n\n\tgrid1[i][j] 和 grid2[i][j] 都要么是 0 要么是 1 。",
+      "statementEn": "You are given two m x n binary matrices grid1 and grid2 containing only 0&#39;s (representing water) and 1&#39;s (representing land). An island is a group of 1&#39;s connected 4-directionally (horizontal or vertical). Any cells outside of the grid are considered water cells.\n\nAn island in grid2 is considered a sub-island if there is an island in grid1 that contains all the cells that make up this island in grid2.\n\nReturn the number of islands in grid2 that are considered sub-islands.\n\n \n\nExample 1:\n\nInput: grid1 = [[1,1,1,0,0],[0,1,1,1,1],[0,0,0,0,0],[1,0,0,0,0],[1,1,0,1,1]], grid2 = [[1,1,1,0,0],[0,0,1,1,1],[0,1,0,0,0],[1,0,1,1,0],[0,1,0,1,0]]\nOutput: 3\nExplanation: In the picture above, the grid on the left is grid1 and the grid on the right is grid2.\nThe 1s colored red in grid2 are those considered to be part of a sub-island. There are three sub-islands.\n\nExample 2:\n\nInput: grid1 = [[1,0,1,0,1],[1,1,1,1,1],[0,0,0,0,0],[1,1,1,1,1],[1,0,1,0,1]], grid2 = [[0,0,0,0,0],[1,1,1,1,1],[0,1,0,1,0],[0,1,0,1,0],[1,0,0,0,1]]\nOutput: 2 \nExplanation: In the picture above, the grid on the left is grid1 and the grid on the right is grid2.\nThe 1s colored red in grid2 are those considered to be part of a sub-island. There are two sub-islands.\n\n \n\nConstraints:\n\n\tm == grid1.length == grid2.length\n\n\tn == grid1[i].length == grid2[i].length\n\n\t1 <= m, n <= 500\n\n\tgrid1[i][j] and grid2[i][j] are either 0 or 1.",
+      "statement": "给你两个 m x n 的二进制矩阵 grid1 和 grid2 ，它们只包含 0 （表示水域）和 1 （表示陆地）。一个 岛屿 是由 四个方向 （水平或者竖直）上相邻的 1 组成的区域。任何矩阵以外的区域都视为水域。\n\n如果 grid2 的一个岛屿，被 grid1 的一个岛屿 完全 包含，也就是说 grid2 中该岛屿的每一个格子都被 grid1 中同一个岛屿完全包含，那么我们称 grid2 中的这个岛屿为 子岛屿 。\n\n请你返回 grid2 中 子岛屿 的 数目 。\n\n \n\n示例 1：\n\n输入：grid1 = [[1,1,1,0,0],[0,1,1,1,1],[0,0,0,0,0],[1,0,0,0,0],[1,1,0,1,1]], grid2 = [[1,1,1,0,0],[0,0,1,1,1],[0,1,0,0,0],[1,0,1,1,0],[0,1,0,1,0]]\n输出：3\n解释：如上图所示，左边为 grid1 ，右边为 grid2 。\ngrid2 中标红的 1 区域是子岛屿，总共有 3 个子岛屿。\n\n示例 2：\n\n输入：grid1 = [[1,0,1,0,1],[1,1,1,1,1],[0,0,0,0,0],[1,1,1,1,1],[1,0,1,0,1]], grid2 = [[0,0,0,0,0],[1,1,1,1,1],[0,1,0,1,0],[0,1,0,1,0],[1,0,0,0,1]]\n输出：2 \n解释：如上图所示，左边为 grid1 ，右边为 grid2 。\ngrid2 中标红的 1 区域是子岛屿，总共有 2 个子岛屿。\n\n \n\n提示：\n\n\tm == grid1.length == grid2.length\n\n\tn == grid1[i].length == grid2[i].length\n\n\t1 <= m, n <= 500\n\n\tgrid1[i][j] 和 grid2[i][j] 都要么是 0 要么是 1 。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\nprivate:\n    static constexpr array<array<int, 2>, 4> dirs = {{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}};\npublic:\n    int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {\n        int m = grid1.size(), n = grid1[0].size();\n\n        auto bfs = [&](int sx, int sy) {\n            queue<pair<int,int>> q;\n            q.emplace(sx, sy);\n            grid2[sx][sy] = 0;\n            // 判断岛屿包含的每一个格子是否都在 grid1 中出现了\n            bool check = grid1[sx][sy];\n            while (!q.empty()) {\n                auto [x, y] = q.front();\n                q.pop();\n                for (int d = 0; d < 4; ++d) {\n                    int nx = x + dirs[d][0];\n                    int ny = y + dirs[d][1];\n                    if (nx >= 0 && nx < m && ny >= 0 && ny < n && grid2[nx][ny] == 1) {\n                        q.emplace(nx, ny);\n                        grid2[nx][ny] = 0;\n                        if (grid1[nx][ny] != 1) {\n                            check = false;\n                        }\n                    }\n                }\n            }\n            return check;\n        };\n\n        int ans = 0;\n        for (int i = 0; i < m; ++i) {\n            for (int j = 0; j < n; ++j) {\n                if (grid2[i][j] == 1) {\n                    ans += bfs(i, j);\n                }\n            }\n        }\n        return ans;\n    }\n};",
+        "python": "class Solution:\n    def countSubIslands(self, grid1: List[List[int]], grid2: List[List[int]]) -> int:\n        m, n = len(grid1), len(grid1[0])\n\n        def bfs(sx: int, sy: int) -> int:\n            q = deque([(sx, sy)])\n            grid2[sx][sy] = 0\n            # 判断岛屿包含的每一个格子是否都在 grid1 中出现了\n            check = (grid1[sx][sy] == 1)\n            while q:\n                x, y = q.popleft()\n                for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):\n                    if 0 <= nx < m and 0 <= ny < n and grid2[nx][ny] == 1:\n                        q.append((nx, ny))\n                        grid2[nx][ny] = 0\n                        if grid1[nx][ny] != 1:\n                            check = False\n            \n            return int(check)\n\n        ans = 0\n        for i in range(m):\n            for j in range(n):\n                if grid2[i][j] == 1:\n                    ans += bfs(i, j)\n        return ans"
+      },
+      "id": 324
+    },
+    {
+      "title": "查询差绝对值的最小值",
+      "titleSlug": "minimum-absolute-difference-queries",
+      "tags": [
+        "数组",
+        "前缀和"
+      ],
+      "difficulty": "中等",
+      "acceptance": 47.58,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-absolute-difference-queries/",
+      "hotCompanies": [
+        "谷歌",
+        "苹果",
+        "字节"
+      ],
+      "statementZh": "一个数组 a 的 差绝对值的最小值 定义为：0  且 a[i] != a[j] 的 |a[i] - a[j]| 的 最小值。如果 a 中所有元素都 相同 ，那么差绝对值的最小值为 -1 。\n\n\t比方说，数组 [5,2,3,7,2] 差绝对值的最小值是 |2 - 3| = 1 。注意答案不为 0 ，因为 a[i] 和 a[j] 必须不相等。\n\n给你一个整数数组 nums 和查询数组 queries ，其中 queries[i] = [li, ri] 。对于每个查询 i ，计算 子数组 nums[li...ri] 中 差绝对值的最小值 ，子数组 nums[li...ri] 包含 nums 数组（下标从 0 开始）中下标在 li 和 ri 之间的所有元素（包含 li 和 ri 在内）。\n\n请你返回 ans 数组，其中 ans[i] 是第 i 个查询的答案。\n\n子数组 是一个数组中连续的一段元素。\n\n|x| 的值定义为：\n\n\t如果 x >= 0 ，那么值为 x 。\n\n\t如果 x  ，那么值为 -x 。\n\n \n\n示例 1：\n\n输入：nums = [1,3,4,8], queries = [[0,1],[1,2],[2,3],[0,3]]\n输出：[2,1,4,1]\n解释：查询结果如下：\n- queries[0] = [0,1]：子数组是 [1,3] ，差绝对值的最小值为 |1-3| = 2 。\n- queries[1] = [1,2]：子数组是 [3,4] ，差绝对值的最小值为 |3-4| = 1 。\n- queries[2] = [2,3]：子数组是 [4,8] ，差绝对值的最小值为 |4-8| = 4 。\n- queries[3] = [0,3]：子数组是 [1,3,4,8] ，差的绝对值的最小值为 |3-4| = 1 。\n\n示例 2：\n\n输入：nums = [4,5,2,2,7,10], queries = [[2,3],[0,2],[0,5],[3,5]]\n输出：[-1,1,1,3]\n解释：查询结果如下：\n- queries[0] = [2,3]：子数组是 [2,2] ，差绝对值的最小值为 -1 ，因为所有元素相等。\n- queries[1] = [0,2]：子数组是 [4,5,2] ，差绝对值的最小值为 |4-5| = 1 。\n- queries[2] = [0,5]：子数组是 [4,5,2,2,7,10] ，差绝对值的最小值为 |4-5| = 1 。\n- queries[3] = [3,5]：子数组是 [2,7,10] ，差绝对值的最小值为 |7-10| = 3 。\n\n \n\n提示：\n\n\t2 5\n\n\t1 \n\n\t1 4\n\n\t0 i i",
+      "statementEn": "The minimum absolute difference of an array a is defined as the minimum value of |a[i] - a[j]|, where 0 <= i < j < a.length and a[i] != a[j]. If all elements of a are the same, the minimum absolute difference is -1.\n\n\tFor example, the minimum absolute difference of the array [5,2,3,7,2] is |2 - 3| = 1. Note that it is not 0 because a[i] and a[j] must be different.\n\nYou are given an integer array nums and the array queries where queries[i] = [li, ri]. For each query i, compute the minimum absolute difference of the subarray nums[li...ri] containing the elements of nums between the 0-based indices li and ri (inclusive).\n\nReturn an array ans where ans[i] is the answer to the ith query.\n\nA subarray is a contiguous sequence of elements in an array.\n\nThe value of |x| is defined as:\n\n\tx if x >= 0.\n\n\t-x if x < 0.\n\n \n\nExample 1:\n\nInput: nums = [1,3,4,8], queries = [[0,1],[1,2],[2,3],[0,3]]\nOutput: [2,1,4,1]\nExplanation: The queries are processed as follows:\n- queries[0] = [0,1]: The subarray is [1,3] and the minimum absolute difference is |1-3| = 2.\n- queries[1] = [1,2]: The subarray is [3,4] and the minimum absolute difference is |3-4| = 1.\n- queries[2] = [2,3]: The subarray is [4,8] and the minimum absolute difference is |4-8| = 4.\n- queries[3] = [0,3]: The subarray is [1,3,4,8] and the minimum absolute difference is |3-4| = 1.\n\nExample 2:\n\nInput: nums = [4,5,2,2,7,10], queries = [[2,3],[0,2],[0,5],[3,5]]\nOutput: [-1,1,1,3]\nExplanation: The queries are processed as follows:\n- queries[0] = [2,3]: The subarray is [2,2] and the minimum absolute difference is -1 because all the\n  elements are the same.\n- queries[1] = [0,2]: The subarray is [4,5,2] and the minimum absolute difference is |4-5| = 1.\n- queries[2] = [0,5]: The subarray is [4,5,2,2,7,10] and the minimum absolute difference is |4-5| = 1.\n- queries[3] = [3,5]: The subarray is [2,7,10] and the minimum absolute difference is |7-10| = 3.\n\n \n\nConstraints:\n\n\t2 <= nums.length <= 105\n\n\t1 <= nums[i] <= 100\n\n\t1 <= queries.length <= 2 * 104\n\n\t0 <= li < ri < nums.length",
+      "statement": "一个数组 a 的 差绝对值的最小值 定义为：0  且 a[i] != a[j] 的 |a[i] - a[j]| 的 最小值。如果 a 中所有元素都 相同 ，那么差绝对值的最小值为 -1 。\n\n\t比方说，数组 [5,2,3,7,2] 差绝对值的最小值是 |2 - 3| = 1 。注意答案不为 0 ，因为 a[i] 和 a[j] 必须不相等。\n\n给你一个整数数组 nums 和查询数组 queries ，其中 queries[i] = [li, ri] 。对于每个查询 i ，计算 子数组 nums[li...ri] 中 差绝对值的最小值 ，子数组 nums[li...ri] 包含 nums 数组（下标从 0 开始）中下标在 li 和 ri 之间的所有元素（包含 li 和 ri 在内）。\n\n请你返回 ans 数组，其中 ans[i] 是第 i 个查询的答案。\n\n子数组 是一个数组中连续的一段元素。\n\n|x| 的值定义为：\n\n\t如果 x >= 0 ，那么值为 x 。\n\n\t如果 x  ，那么值为 -x 。\n\n \n\n示例 1：\n\n输入：nums = [1,3,4,8], queries = [[0,1],[1,2],[2,3],[0,3]]\n输出：[2,1,4,1]\n解释：查询结果如下：\n- queries[0] = [0,1]：子数组是 [1,3] ，差绝对值的最小值为 |1-3| = 2 。\n- queries[1] = [1,2]：子数组是 [3,4] ，差绝对值的最小值为 |3-4| = 1 。\n- queries[2] = [2,3]：子数组是 [4,8] ，差绝对值的最小值为 |4-8| = 4 。\n- queries[3] = [0,3]：子数组是 [1,3,4,8] ，差的绝对值的最小值为 |3-4| = 1 。\n\n示例 2：\n\n输入：nums = [4,5,2,2,7,10], queries = [[2,3],[0,2],[0,5],[3,5]]\n输出：[-1,1,1,3]\n解释：查询结果如下：\n- queries[0] = [2,3]：子数组是 [2,2] ，差绝对值的最小值为 -1 ，因为所有元素相等。\n- queries[1] = [0,2]：子数组是 [4,5,2] ，差绝对值的最小值为 |4-5| = 1 。\n- queries[2] = [0,5]：子数组是 [4,5,2,2,7,10] ，差绝对值的最小值为 |4-5| = 1 。\n- queries[3] = [3,5]：子数组是 [2,7,10] ，差绝对值的最小值为 |7-10| = 3 。\n\n \n\n提示：\n\n\t2 5\n\n\t1 \n\n\t1 4\n\n\t0 i i",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\nprivate:\n    // 元素 c 的最大值\n    static constexpr int C = 100;\n\npublic:\n    vector<int> minDifference(vector<int>& nums, vector<vector<int>>& queries) {\n        int n = nums.size();\n        // 前缀和\n        vector<array<int, C + 1>> pre(n + 1);\n        fill(pre[0].begin(), pre[0].end(), 0);\n        for (int i = 0; i < nums.size(); ++i) {\n            copy_n(pre[i].begin(), C + 1, pre[i + 1].begin());\n            ++pre[i + 1][nums[i]];\n        }\n\n        int q = queries.size();\n        vector<int> ans;\n        for (int i = 0; i < q; ++i) {\n            int left = queries[i][0], right = queries[i][1];\n            // last 记录上一个出现的元素\n            // best 记录相邻两个元素差值的最小值\n            int last = 0, best = INT_MAX;\n            for (int j = 1; j <= C; ++j) {\n                if (pre[left][j] != pre[right + 1][j]) {\n                    if (last) {\n                        best = min(best, j - last);\n                    }\n                    last = j;\n                }\n            }\n            if (best == INT_MAX) {\n                best = -1;\n            }\n            ans.push_back(best);\n        }\n        return ans;\n    }\n};",
+        "python": "class Solution:\n    def minDifference(self, nums: List[int], queries: List[List[int]]) -> List[int]:\n        # 元素 c 的最大值\n        C = 100\n\n        n = len(nums)\n        # 前缀和\n        pre = [[0] * (C + 1)]\n        for i, num in enumerate(nums):\n            pre.append(pre[-1][:])\n            pre[-1][num] += 1\n\n        ans = list()\n        for left, right in queries:\n            # last 记录上一个出现的元素\n            # best 记录相邻两个元素差值的最小值\n            last = 0\n            best = float(\"inf\")\n            for j in range(1, C + 1):\n                if pre[left][j] != pre[right + 1][j]:\n                    if last != 0:\n                        best = min(best, j - last)\n                    last = j\n            \n            if best == float(\"inf\"):\n                best = -1\n            ans.append(best)\n        \n        return ans"
+      },
+      "id": 325
+    },
+    {
+      "title": "按分类统计薪水",
+      "titleSlug": "count-salary-categories",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 66.18,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/count-salary-categories/",
+      "hotCompanies": [
+        "bloomberg",
+        "谷歌",
+        "微软"
+      ],
+      "statementZh": "表: Accounts\n\n+-------------+------+\n| 列名        | 类型  |\n+-------------+------+\n| account_id  | int  |\n| income      | int  |\n+-------------+------+\n在 SQL 中，account_id 是这个表的主键。\n每一行都包含一个银行帐户的月收入的信息。\n\n \n\n查询每个工资类别的银行账户数量。 工资类别如下：\n\n\t\"Low Salary\"：所有工资 严格低于 20000 美元。\n\n\t\"Average Salary\"： 包含 范围内的所有工资 [$20000, $50000] 。\n\n\t\n\t\"High Salary\"：所有工资 严格大于 50000 美元。\n\n\t\n\n结果表 必须 包含所有三个类别。 如果某个类别中没有帐户，则报告 0 。\n\n按 任意顺序 返回结果表。\n\n查询结果格式如下示例。\n\n \n\n示例 1：\n\n输入：\nAccounts 表:\n+------------+--------+\n| account_id | income |\n+------------+--------+\n| 3          | 108939 |\n| 2          | 12747  |\n| 8          | 87709  |\n| 6          | 91796  |\n+------------+--------+\n输出：\n+----------------+----------------+\n| category       | accounts_count |\n+----------------+----------------+\n| Low Salary     | 1              |\n| Average Salary | 0              |\n| High Salary    | 3              |\n+----------------+----------------+\n解释：\n低薪: 有一个账户 2.\n中等薪水: 没有.\n高薪: 有三个账户，他们是 3, 6和 8.",
+      "statementEn": "Table: Accounts\n\n+-------------+------+\n| Column Name | Type |\n+-------------+------+\n| account_id  | int  |\n| income      | int  |\n+-------------+------+\naccount_id is the primary key (column with unique values) for this table.\nEach row contains information about the monthly income for one bank account.\n\n \n\nWrite a solution to calculate the number of bank accounts for each salary category. The salary categories are:\n\n\t\"Low Salary\": All the salaries strictly less than $20000.\n\n\t\"Average Salary\": All the salaries in the inclusive range [$20000, $50000].\n\n\t\"High Salary\": All the salaries strictly greater than $50000.\n\nThe result table must contain all three categories. If there are no accounts in a category, return 0.\n\nReturn the result table in any order.\n\nThe result format is in the following example.\n\n \n\nExample 1:\n\nInput: \nAccounts table:\n+------------+--------+\n| account_id | income |\n+------------+--------+\n| 3          | 108939 |\n| 2          | 12747  |\n| 8          | 87709  |\n| 6          | 91796  |\n+------------+--------+\nOutput: \n+----------------+----------------+\n| category       | accounts_count |\n+----------------+----------------+\n| Low Salary     | 1              |\n| Average Salary | 0              |\n| High Salary    | 3              |\n+----------------+----------------+\nExplanation: \nLow Salary: Account 2.\nAverage Salary: No accounts.\nHigh Salary: Accounts 3, 6, and 8.",
+      "statement": "表: Accounts\n\n+-------------+------+\n| 列名        | 类型  |\n+-------------+------+\n| account_id  | int  |\n| income      | int  |\n+-------------+------+\n在 SQL 中，account_id 是这个表的主键。\n每一行都包含一个银行帐户的月收入的信息。\n\n \n\n查询每个工资类别的银行账户数量。 工资类别如下：\n\n\t\"Low Salary\"：所有工资 严格低于 20000 美元。\n\n\t\"Average Salary\"： 包含 范围内的所有工资 [$20000, $50000] 。\n\n\t\n\t\"High Salary\"：所有工资 严格大于 50000 美元。\n\n\t\n\n结果表 必须 包含所有三个类别。 如果某个类别中没有帐户，则报告 0 。\n\n按 任意顺序 返回结果表。\n\n查询结果格式如下示例。\n\n \n\n示例 1：\n\n输入：\nAccounts 表:\n+------------+--------+\n| account_id | income |\n+------------+--------+\n| 3          | 108939 |\n| 2          | 12747  |\n| 8          | 87709  |\n| 6          | 91796  |\n+------------+--------+\n输出：\n+----------------+----------------+\n| category       | accounts_count |\n+----------------+----------------+\n| Low Salary     | 1              |\n| Average Salary | 0              |\n| High Salary    | 3              |\n+----------------+----------------+\n解释：\n低薪: 有一个账户 2.\n中等薪水: 没有.\n高薪: 有三个账户，他们是 3, 6和 8.",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "import pandas as pd\n\ndef count_salary_categories(accounts: pd.DataFrame) -> pd.DataFrame:\n    low_count = (accounts['income'] < 20000).sum()\n    average_count = ((accounts['income'] >= 20000) & (accounts['income'] <= 50000)).sum()\n    high_count = (accounts['income'] > 50000).sum()\n\n    ans = pd.DataFrame({\n        'category': ['Low Salary', 'Average Salary', 'High Salary'],\n        'accounts_count': [low_count, average_count, high_count]\n    })\n\n    return ans"
+      },
+      "id": 326
+    },
+    {
+      "title": "Nim 游戏 II",
+      "titleSlug": "game-of-nim",
+      "tags": [
+        "位运算",
+        "脑筋急转弯",
+        "数组",
+        "数学",
+        "动态规划",
+        "博弈"
+      ],
+      "difficulty": "中等",
+      "acceptance": 41.78,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/game-of-nim/",
+      "hotCompanies": [
+        "twitter"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 327
+    },
+    {
+      "title": "删除一个元素使数组严格递增",
+      "titleSlug": "remove-one-element-to-make-the-array-strictly-increasing",
+      "tags": [
+        "数组"
+      ],
+      "difficulty": "简单",
+      "acceptance": 32.54,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/remove-one-element-to-make-the-array-strictly-increasing/",
+      "hotCompanies": [
+        "谷歌",
+        "ebay",
+        "亚马逊"
+      ],
+      "statementZh": "给你一个下标从 0 开始的整数数组 nums ，如果 恰好 删除 一个 元素后，数组 严格递增 ，那么请你返回 true ，否则返回 false 。如果数组本身已经是严格递增的，请你也返回 true 。\n\n数组 nums 是 严格递增 的定义为：对于任意下标的 1 <= i < nums.length 都满足 nums[i - 1] < nums[i] 。\n\n \n\n示例 1：\n\n输入：nums = [1,2,10,5,7]\n输出：true\n解释：从 nums 中删除下标 2 处的 10 ，得到 [1,2,5,7] 。\n[1,2,5,7] 是严格递增的，所以返回 true 。\n\n示例 2：\n\n输入：nums = [2,3,1,2]\n输出：false\n解释：\n[3,1,2] 是删除下标 0 处元素后得到的结果。\n[2,1,2] 是删除下标 1 处元素后得到的结果。\n[2,3,2] 是删除下标 2 处元素后得到的结果。\n[2,3,1] 是删除下标 3 处元素后得到的结果。\n没有任何结果数组是严格递增的，所以返回 false 。\n\n示例 3：\n\n输入：nums = [1,1,1]\n输出：false\n解释：删除任意元素后的结果都是 [1,1] 。\n[1,1] 不是严格递增的，所以返回 false 。\n\n示例 4：\n\n输入：nums = [1,2,3]\n输出：true\n解释：[1,2,3] 已经是严格递增的，所以返回 true 。\n\n \n\n提示：\n\n\t2 <= nums.length <= 1000\n\n\t1 <= nums[i] <= 1000",
+      "statementEn": "Given a 0-indexed integer array nums, return true if it can be made strictly increasing after removing exactly one element, or false otherwise. If the array is already strictly increasing, return true.\n\nThe array nums is strictly increasing if nums[i - 1] < nums[i] for each index (1 <= i < nums.length).\n\n \n\nExample 1:\n\nInput: nums = [1,2,10,5,7]\nOutput: true\nExplanation: By removing 10 at index 2 from nums, it becomes [1,2,5,7].\n[1,2,5,7] is strictly increasing, so return true.\n\nExample 2:\n\nInput: nums = [2,3,1,2]\nOutput: false\nExplanation:\n[3,1,2] is the result of removing the element at index 0.\n[2,1,2] is the result of removing the element at index 1.\n[2,3,2] is the result of removing the element at index 2.\n[2,3,1] is the result of removing the element at index 3.\nNo resulting array is strictly increasing, so return false.\n\nExample 3:\n\nInput: nums = [1,1,1]\nOutput: false\nExplanation: The result of removing any element is [1,1].\n[1,1] is not strictly increasing, so return false.\n\n \n\nConstraints:\n\n\t2 <= nums.length <= 1000\n\n\t1 <= nums[i] <= 1000",
+      "statement": "给你一个下标从 0 开始的整数数组 nums ，如果 恰好 删除 一个 元素后，数组 严格递增 ，那么请你返回 true ，否则返回 false 。如果数组本身已经是严格递增的，请你也返回 true 。\n\n数组 nums 是 严格递增 的定义为：对于任意下标的 1 <= i < nums.length 都满足 nums[i - 1] < nums[i] 。\n\n \n\n示例 1：\n\n输入：nums = [1,2,10,5,7]\n输出：true\n解释：从 nums 中删除下标 2 处的 10 ，得到 [1,2,5,7] 。\n[1,2,5,7] 是严格递增的，所以返回 true 。\n\n示例 2：\n\n输入：nums = [2,3,1,2]\n输出：false\n解释：\n[3,1,2] 是删除下标 0 处元素后得到的结果。\n[2,1,2] 是删除下标 1 处元素后得到的结果。\n[2,3,2] 是删除下标 2 处元素后得到的结果。\n[2,3,1] 是删除下标 3 处元素后得到的结果。\n没有任何结果数组是严格递增的，所以返回 false 。\n\n示例 3：\n\n输入：nums = [1,1,1]\n输出：false\n解释：删除任意元素后的结果都是 [1,1] 。\n[1,1] 不是严格递增的，所以返回 false 。\n\n示例 4：\n\n输入：nums = [1,2,3]\n输出：true\n解释：[1,2,3] 已经是严格递增的，所以返回 true 。\n\n \n\n提示：\n\n\t2 <= nums.length <= 1000\n\n\t1 <= nums[i] <= 1000",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    bool canBeIncreasing(vector<int>& nums) {\n        int n = nums.size();\n        // 检查数组 nums 在删去下标为 idx 的元素后是否严格递增\n        auto check = [&](const int idx) -> bool{\n            for (int i = 1; i < n - 1; ++i){\n                int prev = i - 1;\n                if (prev >= idx){\n                    ++prev;\n                }\n                int curr = i;\n                if (curr >= idx){\n                    ++curr;\n                }\n                if (nums[curr] <= nums[prev]){\n                    return false;\n                }\n            }\n            return true;\n        };\n\n        for (int i = 1; i < n; ++i){\n            // 寻找非递增相邻下标对\n            if (nums[i] <= nums[i-1]){\n                return check(i - 1) || check(i);\n            }\n        }\n        return true;\n    }\n};",
+        "python": "class Solution:\n    def canBeIncreasing(self, nums: List[int]) -> bool:\n        n = len(nums)\n        # 检查数组 nums 在删去下标为 idx 的元素后是否严格递增\n        def check(idx: int) -> bool:\n            for i in range(1, n - 1):\n                prev, curr = i - 1, i\n                if prev >= idx:\n                    prev += 1\n                if curr >= idx:\n                    curr += 1\n                if nums[curr] <= nums[prev]:\n                    return False\n            return True\n        \n        for i in range(1, n):\n            # 寻找非递增相邻下标对\n            if nums[i] <= nums[i-1]:\n                return check(i) or check(i - 1)\n        return True"
+      },
+      "id": 328
+    },
+    {
+      "title": "删除一个字符串中所有出现的给定子字符串",
+      "titleSlug": "remove-all-occurrences-of-a-substring",
+      "tags": [
+        "栈",
+        "字符串",
+        "模拟"
+      ],
+      "difficulty": "中等",
+      "acceptance": 67.26,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/remove-all-occurrences-of-a-substring/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "微软"
+      ],
+      "statementZh": "给你两个字符串 s 和 part ，请你对 s 反复执行以下操作直到 所有 子字符串 part 都被删除：\n\n\t找到 s 中 最左边 的子字符串 part ，并将它从 s 中删除。\n\n请你返回从 s 中删除所有 part 子字符串以后得到的剩余字符串。\n\n一个 子字符串 是一个字符串中连续的字符序列。\n\n \n\n示例 1：\n\n输入：s = \"daabcbaabcbc\", part = \"abc\"\n输出：\"dab\"\n解释：以下操作按顺序执行：\n- s = \"daabcbaabcbc\" ，删除下标从 2 开始的 \"abc\" ，得到 s = \"dabaabcbc\" 。\n- s = \"dabaabcbc\" ，删除下标从 4 开始的 \"abc\" ，得到 s = \"dababc\" 。\n- s = \"dababc\" ，删除下标从 3 开始的 \"abc\" ，得到 s = \"dab\" 。\n此时 s 中不再含有子字符串 \"abc\" 。\n\n示例 2：\n\n输入：s = \"axxxxyyyyb\", part = \"xy\"\n输出：\"ab\"\n解释：以下操作按顺序执行：\n- s = \"axxxxyyyyb\" ，删除下标从 4 开始的 \"xy\" ，得到 s = \"axxxyyyb\" 。\n- s = \"axxxyyyb\" ，删除下标从 3 开始的 \"xy\" ，得到 s = \"axxyyb\" 。\n- s = \"axxyyb\" ，删除下标从 2 开始的 \"xy\" ，得到 s = \"axyb\" 。\n- s = \"axyb\" ，删除下标从 1 开始的 \"xy\" ，得到 s = \"ab\" 。\n此时 s 中不再含有子字符串 \"xy\" 。\n\n \n\n提示：\n\n\t1 <= s.length <= 1000\n\n\t1 <= part.length <= 1000\n\n\ts​​​​​​ 和 part 只包小写英文字母。",
+      "statementEn": "Given two strings s and part, perform the following operation on s until all occurrences of the substring part are removed:\n\n\tFind the leftmost occurrence of the substring part and remove it from s.\n\nReturn s after removing all occurrences of part.\n\nA substring is a contiguous sequence of characters in a string.\n\n \n\nExample 1:\n\nInput: s = \"daabcbaabcbc\", part = \"abc\"\nOutput: \"dab\"\nExplanation: The following operations are done:\n- s = \"daabcbaabcbc\", remove \"abc\" starting at index 2, so s = \"dabaabcbc\".\n- s = \"dabaabcbc\", remove \"abc\" starting at index 4, so s = \"dababc\".\n- s = \"dababc\", remove \"abc\" starting at index 3, so s = \"dab\".\nNow s has no occurrences of \"abc\".\n\nExample 2:\n\nInput: s = \"axxxxyyyyb\", part = \"xy\"\nOutput: \"ab\"\nExplanation: The following operations are done:\n- s = \"axxxxyyyyb\", remove \"xy\" starting at index 4 so s = \"axxxyyyb\".\n- s = \"axxxyyyb\", remove \"xy\" starting at index 3 so s = \"axxyyb\".\n- s = \"axxyyb\", remove \"xy\" starting at index 2 so s = \"axyb\".\n- s = \"axyb\", remove \"xy\" starting at index 1 so s = \"ab\".\nNow s has no occurrences of \"xy\".\n\n \n\nConstraints:\n\n\t1 <= s.length <= 1000\n\n\t1 <= part.length <= 1000\n\n\ts​​​​​​ and part consists of lowercase English letters.",
+      "statement": "给你两个字符串 s 和 part ，请你对 s 反复执行以下操作直到 所有 子字符串 part 都被删除：\n\n\t找到 s 中 最左边 的子字符串 part ，并将它从 s 中删除。\n\n请你返回从 s 中删除所有 part 子字符串以后得到的剩余字符串。\n\n一个 子字符串 是一个字符串中连续的字符序列。\n\n \n\n示例 1：\n\n输入：s = \"daabcbaabcbc\", part = \"abc\"\n输出：\"dab\"\n解释：以下操作按顺序执行：\n- s = \"daabcbaabcbc\" ，删除下标从 2 开始的 \"abc\" ，得到 s = \"dabaabcbc\" 。\n- s = \"dabaabcbc\" ，删除下标从 4 开始的 \"abc\" ，得到 s = \"dababc\" 。\n- s = \"dababc\" ，删除下标从 3 开始的 \"abc\" ，得到 s = \"dab\" 。\n此时 s 中不再含有子字符串 \"abc\" 。\n\n示例 2：\n\n输入：s = \"axxxxyyyyb\", part = \"xy\"\n输出：\"ab\"\n解释：以下操作按顺序执行：\n- s = \"axxxxyyyyb\" ，删除下标从 4 开始的 \"xy\" ，得到 s = \"axxxyyyb\" 。\n- s = \"axxxyyyb\" ，删除下标从 3 开始的 \"xy\" ，得到 s = \"axxyyb\" 。\n- s = \"axxyyb\" ，删除下标从 2 开始的 \"xy\" ，得到 s = \"axyb\" 。\n- s = \"axyb\" ，删除下标从 1 开始的 \"xy\" ，得到 s = \"ab\" 。\n此时 s 中不再含有子字符串 \"xy\" 。\n\n \n\n提示：\n\n\t1 <= s.length <= 1000\n\n\t1 <= part.length <= 1000\n\n\ts​​​​​​ 和 part 只包小写英文字母。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    string removeOccurrences(string s, string part) {\n        int m = part.size();\n        vector<int> pi1(m);   // part 的前缀数组\n        // 更新 part 的前缀数组\n        for (int i = 1, j = 0; i < m; i++) {\n            while (j > 0 && part[i] != part[j]) {\n                j = pi1[j-1];\n            }\n            if (part[i] == part[j]) {\n                j++;\n            }\n            pi1[i] = j;\n        }\n\n        string res;\n        vector<int> pi2 = {0};   // res 的前缀数组\n        for (const char ch: s) {\n            // 模拟从左至右匹配的过程\n            res.push_back(ch);\n            // 更新 res 的前缀数组\n            int j = pi2.back();\n            while (j > 0 && ch != part[j]) {\n                j = pi1[j-1];\n            }\n            if (ch == part[j]){\n                ++j;\n            }\n            pi2.push_back(j);\n            if (j == m) {\n                // 如果匹配成功，那么删去对应后缀\n                pi2.erase(pi2.end() - m, pi2.end());\n                res.erase(res.end() - m, res.end());\n            }\n        }\n        return res;\n    }\n};",
+        "python": "class Solution:\n    def removeOccurrences(self, s: str, part: str) -> str:\n        m = len(part)\n        pi1 = [0] * m   # part 的前缀数组\n        # 更新 part 的前缀数组\n        j = 0\n        for i in range(1, m):\n            while j > 0 and part[i] != part[j]:\n                j = pi1[j-1]\n            if part[i] == part[j]:\n                j += 1\n            pi1[i] = j\n        \n        res = []\n        pi2 = [0]   # res 的前缀数组\n        for ch in s:\n            # 模拟从左至右匹配的过程\n            res.append(ch)\n            # 更新 res 的前缀数组\n            j = pi2[-1]\n            while j > 0 and ch != part[j]:\n                j = pi1[j-1]\n            if ch == part[j]:\n                j += 1\n            pi2.append(j)\n            if j == m:\n                # 如果匹配成功，那么删去对应后缀\n                pi2[-m:] = []\n                res[-m:] = []\n        return \"\".join(res)"
+      },
+      "id": 329
+    },
+    {
+      "title": "最大交替子序列和",
+      "titleSlug": "maximum-alternating-subsequence-sum",
+      "tags": [
+        "数组",
+        "动态规划"
+      ],
+      "difficulty": "中等",
+      "acceptance": 68.61,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-alternating-subsequence-sum/",
+      "hotCompanies": [
+        "亚马逊",
+        "字节",
+        "谷歌"
+      ],
+      "statementZh": "一个下标从 0 开始的数组的 交替和 定义为 偶数 下标处元素之 和 减去 奇数 下标处元素之 和 。\n\n\t比方说，数组 [4,2,5,3] 的交替和为 (4 + 5) - (2 + 3) = 4 。\n\n给你一个数组 nums ，请你返回 nums 中任意子序列的 最大交替和 （子序列的下标 重新 从 0 开始编号）。\n\n一个数组的 子序列 是从原数组中删除一些元素后（也可能一个也不删除）剩余元素不改变顺序组成的数组。比方说，[2,7,4] 是 [4,2,3,7,2,1,4] 的一个子序列（加粗元素），但是 [2,4,2] 不是。\n\n \n\n示例 1：\n\n输入：nums = [4,2,5,3]\n输出：7\n解释：最优子序列为 [4,2,5] ，交替和为 (4 + 5) - 2 = 7 。\n\n示例 2：\n\n输入：nums = [5,6,7,8]\n输出：8\n解释：最优子序列为 [8] ，交替和为 8 。\n\n示例 3：\n\n输入：nums = [6,2,1,2,4,5]\n输出：10\n解释：最优子序列为 [6,1,5] ，交替和为 (6 + 5) - 1 = 10 。\n\n \n\n提示：\n\n\t1 <= nums.length <= 105\n\n\t1 <= nums[i] <= 105",
+      "statementEn": "The alternating sum of a 0-indexed array is defined as the sum of the elements at even indices minus the sum of the elements at odd indices.\n\r\n\r\n\r\n\tFor example, the alternating sum of [4,2,5,3] is (4 + 5) - (2 + 3) = 4.\n\r\n\r\n\r\nGiven an array nums, return the maximum alternating sum of any subsequence of nums (after reindexing the elements of the subsequence).\n\r\n\r\n\r\n\r\n\r\nA subsequence of an array is a new array generated from the original array by deleting some elements (possibly none) without changing the remaining elements&#39; relative order. For example, [2,7,4] is a subsequence of [4,2,3,7,2,1,4] (the underlined elements), while [2,4,2] is not.\n\r\n\r\n \n\r\nExample 1:\n\r\n\r\n\r\nInput: nums = [4,2,5,3]\r\nOutput: 7\r\nExplanation: It is optimal to choose the subsequence [4,2,5] with alternating sum (4 + 5) - 2 = 7.\r\n\r\n\r\nExample 2:\n\r\n\r\n\r\nInput: nums = [5,6,7,8]\r\nOutput: 8\r\nExplanation: It is optimal to choose the subsequence [8] with alternating sum 8.\r\n\r\n\r\nExample 3:\n\r\n\r\n\r\nInput: nums = [6,2,1,2,4,5]\r\nOutput: 10\r\nExplanation: It is optimal to choose the subsequence [6,1,5] with alternating sum (6 + 5) - 1 = 10.\r\n\r\n\r\n \n\r\nConstraints:\n\r\n\r\n\r\n\t1 <= nums.length <= 105\n\r\n\t1 <= nums[i] <= 105",
+      "statement": "一个下标从 0 开始的数组的 交替和 定义为 偶数 下标处元素之 和 减去 奇数 下标处元素之 和 。\n\n\t比方说，数组 [4,2,5,3] 的交替和为 (4 + 5) - (2 + 3) = 4 。\n\n给你一个数组 nums ，请你返回 nums 中任意子序列的 最大交替和 （子序列的下标 重新 从 0 开始编号）。\n\n一个数组的 子序列 是从原数组中删除一些元素后（也可能一个也不删除）剩余元素不改变顺序组成的数组。比方说，[2,7,4] 是 [4,2,3,7,2,1,4] 的一个子序列（加粗元素），但是 [2,4,2] 不是。\n\n \n\n示例 1：\n\n输入：nums = [4,2,5,3]\n输出：7\n解释：最优子序列为 [4,2,5] ，交替和为 (4 + 5) - 2 = 7 。\n\n示例 2：\n\n输入：nums = [5,6,7,8]\n输出：8\n解释：最优子序列为 [8] ，交替和为 8 。\n\n示例 3：\n\n输入：nums = [6,2,1,2,4,5]\n输出：10\n解释：最优子序列为 [6,1,5] ，交替和为 (6 + 5) - 1 = 10 。\n\n \n\n提示：\n\n\t1 <= nums.length <= 105\n\n\t1 <= nums[i] <= 105",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def maxAlternatingSum(self, nums: List[int]) -> int:\n        even, odd = nums[0], 0\n        for i in range(1, len(nums)):\n            even, odd = max(even, odd + nums[i]), max(odd, even - nums[i])\n        return even",
+        "java": "class Solution {\n    public long maxAlternatingSum(int[] nums) {\n        long even = nums[0], odd = 0;\n        for (int i = 1; i < nums.length; i++) {\n            even = Math.max(even, odd + nums[i]);\n            odd = Math.max(odd, even - nums[i]);\n        }\n        return even;\n    }\n}",
+        "cpp": "class Solution {\npublic:\n    long long maxAlternatingSum(vector<int>& nums) {\n        long long even = nums[0], odd = 0;\n        for (int i = 1; i < nums.size(); i++) {\n            even = max(even, odd + nums[i]);\n            odd = max(odd, even - nums[i]);\n        }\n        return even;\n    }\n};",
+        "javascript": "var maxAlternatingSum = function(nums) {\n    let even = nums[0], odd = 0;\n    for (let i = 1; i < nums.length; i++) {\n        even = Math.max(even, odd + nums[i]);\n        odd = Math.max(odd, even - nums[i]);\n    }\n    return even;\n};",
+        "go": "func maxAlternatingSum(nums []int) int64 {\n    even, odd := nums[0], 0\n    for i := 1; i < len(nums); i++ {\n        even = max(even, odd + nums[i])\n        odd = max(odd, even - nums[i])\n    }\n    return int64(even)\n}\n\nfunc max(a, b int) int {\n    if a > b {\n        return a\n    }\n    return b\n}"
+      },
+      "id": 330
+    },
+    {
+      "title": "设计电影租借系统",
+      "titleSlug": "design-movie-rental-system",
+      "tags": [
+        "设计",
+        "数组",
+        "哈希表",
+        "有序集合",
+        "堆（优先队列）"
+      ],
+      "difficulty": "困难",
+      "acceptance": 38.41,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/design-movie-rental-system/",
+      "hotCompanies": [
+        "uber",
+        "亚马逊",
+        "谷歌"
+      ],
+      "statementZh": "你有一个电影租借公司和 n 个电影商店。你想要实现一个电影租借系统，它支持查询、预订和返还电影的操作。同时系统还能生成一份当前被借出电影的报告。\n\n所有电影用二维整数数组 entries 表示，其中 entries[i] = [shopi, moviei, pricei] 表示商店 shopi 有一份电影 moviei 的拷贝，租借价格为 pricei 。每个商店有 至多一份 编号为 moviei 的电影拷贝。\n\n系统需要支持以下操作：\n\n\tSearch：找到拥有指定电影且 未借出 的商店中 最便宜的 5 个 。商店需要按照 价格 升序排序，如果价格相同，则 shopi 较小 的商店排在前面。如果查询结果少于 5 个商店，则将它们全部返回。如果查询结果没有任何商店，则返回空列表。\n\n\tRent：从指定商店借出指定电影，题目保证指定电影在指定商店 未借出 。\n\n\tDrop：在指定商店返还 之前已借出 的指定电影。\n\n\tReport：返回 最便宜的 5 部已借出电影 （可能有重复的电影 ID），将结果用二维列表 res 返回，其中 res[j] = [shopj, moviej] 表示第 j 便宜的已借出电影是从商店 shopj 借出的电影 moviej 。res 中的电影需要按 价格 升序排序；如果价格相同，则 shopj 较小 的排在前面；如果仍然相同，则 moviej 较小 的排在前面。如果当前借出的电影小于 5 部，则将它们全部返回。如果当前没有借出电影，则返回一个空的列表。\n\n请你实现 MovieRentingSystem 类：\n\n\tMovieRentingSystem(int n, int[][] entries) 将 MovieRentingSystem 对象用 n 个商店和 entries 表示的电影列表初始化。\n\n\tList<Integer> search(int movie) 如上所述，返回 未借出 指定 movie 的商店列表。\n\n\tvoid rent(int shop, int movie) 从指定商店 shop 借出指定电影 movie 。\n\n\tvoid drop(int shop, int movie) 在指定商店 shop 返还之前借出的电影 movie 。\n\n\tList<List<Integer>> report() 如上所述，返回最便宜的 已借出 电影列表。\n\n注意：测试数据保证 rent 操作中指定商店拥有 未借出 的指定电影，且 drop 操作指定的商店 之前已借出 指定电影。\n\n \n\n示例 1：\n\n输入：\n[\"MovieRentingSystem\", \"search\", \"rent\", \"rent\", \"report\", \"drop\", \"search\"]\n[[3, [[0, 1, 5], [0, 2, 6], [0, 3, 7], [1, 1, 4], [1, 2, 7], [2, 1, 5]]], [1], [0, 1], [1, 2], [], [1, 2], [2]]\n输出：\n[null, [1, 0, 2], null, null, [[0, 1], [1, 2]], null, [0, 1]]\n\n解释：\nMovieRentingSystem movieRentingSystem = new MovieRentingSystem(3, [[0, 1, 5], [0, 2, 6], [0, 3, 7], [1, 1, 4], [1, 2, 7], [2, 1, 5]]);\nmovieRentingSystem.search(1);  // 返回 [1, 0, 2] ，商店 1，0 和 2 有未借出的 ID 为 1 的电影。商店 1 最便宜，商店 0 和 2 价格相同，所以按商店编号排序。\nmovieRentingSystem.rent(0, 1); // 从商店 0 借出电影 1 。现在商店 0 未借出电影编号为 [2,3] 。\nmovieRentingSystem.rent(1, 2); // 从商店 1 借出电影 2 。现在商店 1 未借出的电影编号为 [1] 。\nmovieRentingSystem.report();   // 返回 [[0, 1], [1, 2]] 。商店 0 借出的电影 1 最便宜，然后是商店 1 借出的电影 2 。\nmovieRentingSystem.drop(1, 2); // 在商店 1 返还电影 2 。现在商店 1 未借出的电影编号为 [1,2] 。\nmovieRentingSystem.search(2);  // 返回 [0, 1] 。商店 0 和 1 有未借出的 ID 为 2 的电影。商店 0 最便宜，然后是商店 1 。\n\n \n\n提示：\n\n\t1 5\n\n\t1 5\n\n\t0 i \n\n\t1 i, pricei 4\n\n\t每个商店 至多 有一份电影 moviei 的拷贝。\n\n\tsearch，rent，drop 和 report 的调用 总共 不超过 105 次。",
+      "statementEn": "You have a movie renting company consisting of n shops. You want to implement a renting system that supports searching for, booking, and returning movies. The system should also support generating a report of the currently rented movies.\n\nEach movie is given as a 2D integer array entries where entries[i] = [shopi, moviei, pricei] indicates that there is a copy of movie moviei at shop shopi with a rental price of pricei. Each shop carries at most one copy of a movie moviei.\n\nThe system should support the following functions:\n\n\tSearch: Finds the cheapest 5 shops that have an unrented copy of a given movie. The shops should be sorted by price in ascending order, and in case of a tie, the one with the smaller shopi should appear first. If there are less than 5 matching shops, then all of them should be returned. If no shop has an unrented copy, then an empty list should be returned.\n\n\tRent: Rents an unrented copy of a given movie from a given shop.\n\n\tDrop: Drops off a previously rented copy of a given movie at a given shop.\n\n\tReport: Returns the cheapest 5 rented movies (possibly of the same movie ID) as a 2D list res where res[j] = [shopj, moviej] describes that the jth cheapest rented movie moviej was rented from the shop shopj. The movies in res should be sorted by price in ascending order, and in case of a tie, the one with the smaller shopj should appear first, and if there is still tie, the one with the smaller moviej should appear first. If there are fewer than 5 rented movies, then all of them should be returned. If no movies are currently being rented, then an empty list should be returned.\n\nImplement the MovieRentingSystem class:\n\n\tMovieRentingSystem(int n, int[][] entries) Initializes the MovieRentingSystem object with n shops and the movies in entries.\n\n\tList<Integer> search(int movie) Returns a list of shops that have an unrented copy of the given movie as described above.\n\n\tvoid rent(int shop, int movie) Rents the given movie from the given shop.\n\n\tvoid drop(int shop, int movie) Drops off a previously rented movie at the given shop.\n\n\tList<List<Integer>> report() Returns a list of cheapest rented movies as described above.\n\nNote: The test cases will be generated such that rent will only be called if the shop has an unrented copy of the movie, and drop will only be called if the shop had previously rented out the movie.\n\n \n\nExample 1:\n\nInput\n[\"MovieRentingSystem\", \"search\", \"rent\", \"rent\", \"report\", \"drop\", \"search\"]\n[[3, [[0, 1, 5], [0, 2, 6], [0, 3, 7], [1, 1, 4], [1, 2, 7], [2, 1, 5]]], [1], [0, 1], [1, 2], [], [1, 2], [2]]\nOutput\n[null, [1, 0, 2], null, null, [[0, 1], [1, 2]], null, [0, 1]]\n\nExplanation\nMovieRentingSystem movieRentingSystem = new MovieRentingSystem(3, [[0, 1, 5], [0, 2, 6], [0, 3, 7], [1, 1, 4], [1, 2, 7], [2, 1, 5]]);\nmovieRentingSystem.search(1);  // return [1, 0, 2], Movies of ID 1 are unrented at shops 1, 0, and 2. Shop 1 is cheapest; shop 0 and 2 are the same price, so order by shop number.\nmovieRentingSystem.rent(0, 1); // Rent movie 1 from shop 0. Unrented movies at shop 0 are now [2,3].\nmovieRentingSystem.rent(1, 2); // Rent movie 2 from shop 1. Unrented movies at shop 1 are now [1].\nmovieRentingSystem.report();   // return [[0, 1], [1, 2]]. Movie 1 from shop 0 is cheapest, followed by movie 2 from shop 1.\nmovieRentingSystem.drop(1, 2); // Drop off movie 2 at shop 1. Unrented movies at shop 1 are now [1,2].\nmovieRentingSystem.search(2);  // return [0, 1]. Movies of ID 2 are unrented at shops 0 and 1. Shop 0 is cheapest, followed by shop 1.\n\n \n\nConstraints:\n\n\t1 <= n <= 3 * 105\n\n\t1 <= entries.length <= 105\n\n\t0 <= shopi < n\n\n\t1 <= moviei, pricei <= 104\n\n\tEach shop carries at most one copy of a movie moviei.\n\n\tAt most 105 calls in total will be made to search, rent, drop and report.",
+      "statement": "你有一个电影租借公司和 n 个电影商店。你想要实现一个电影租借系统，它支持查询、预订和返还电影的操作。同时系统还能生成一份当前被借出电影的报告。\n\n所有电影用二维整数数组 entries 表示，其中 entries[i] = [shopi, moviei, pricei] 表示商店 shopi 有一份电影 moviei 的拷贝，租借价格为 pricei 。每个商店有 至多一份 编号为 moviei 的电影拷贝。\n\n系统需要支持以下操作：\n\n\tSearch：找到拥有指定电影且 未借出 的商店中 最便宜的 5 个 。商店需要按照 价格 升序排序，如果价格相同，则 shopi 较小 的商店排在前面。如果查询结果少于 5 个商店，则将它们全部返回。如果查询结果没有任何商店，则返回空列表。\n\n\tRent：从指定商店借出指定电影，题目保证指定电影在指定商店 未借出 。\n\n\tDrop：在指定商店返还 之前已借出 的指定电影。\n\n\tReport：返回 最便宜的 5 部已借出电影 （可能有重复的电影 ID），将结果用二维列表 res 返回，其中 res[j] = [shopj, moviej] 表示第 j 便宜的已借出电影是从商店 shopj 借出的电影 moviej 。res 中的电影需要按 价格 升序排序；如果价格相同，则 shopj 较小 的排在前面；如果仍然相同，则 moviej 较小 的排在前面。如果当前借出的电影小于 5 部，则将它们全部返回。如果当前没有借出电影，则返回一个空的列表。\n\n请你实现 MovieRentingSystem 类：\n\n\tMovieRentingSystem(int n, int[][] entries) 将 MovieRentingSystem 对象用 n 个商店和 entries 表示的电影列表初始化。\n\n\tList<Integer> search(int movie) 如上所述，返回 未借出 指定 movie 的商店列表。\n\n\tvoid rent(int shop, int movie) 从指定商店 shop 借出指定电影 movie 。\n\n\tvoid drop(int shop, int movie) 在指定商店 shop 返还之前借出的电影 movie 。\n\n\tList<List<Integer>> report() 如上所述，返回最便宜的 已借出 电影列表。\n\n注意：测试数据保证 rent 操作中指定商店拥有 未借出 的指定电影，且 drop 操作指定的商店 之前已借出 指定电影。\n\n \n\n示例 1：\n\n输入：\n[\"MovieRentingSystem\", \"search\", \"rent\", \"rent\", \"report\", \"drop\", \"search\"]\n[[3, [[0, 1, 5], [0, 2, 6], [0, 3, 7], [1, 1, 4], [1, 2, 7], [2, 1, 5]]], [1], [0, 1], [1, 2], [], [1, 2], [2]]\n输出：\n[null, [1, 0, 2], null, null, [[0, 1], [1, 2]], null, [0, 1]]\n\n解释：\nMovieRentingSystem movieRentingSystem = new MovieRentingSystem(3, [[0, 1, 5], [0, 2, 6], [0, 3, 7], [1, 1, 4], [1, 2, 7], [2, 1, 5]]);\nmovieRentingSystem.search(1);  // 返回 [1, 0, 2] ，商店 1，0 和 2 有未借出的 ID 为 1 的电影。商店 1 最便宜，商店 0 和 2 价格相同，所以按商店编号排序。\nmovieRentingSystem.rent(0, 1); // 从商店 0 借出电影 1 。现在商店 0 未借出电影编号为 [2,3] 。\nmovieRentingSystem.rent(1, 2); // 从商店 1 借出电影 2 。现在商店 1 未借出的电影编号为 [1] 。\nmovieRentingSystem.report();   // 返回 [[0, 1], [1, 2]] 。商店 0 借出的电影 1 最便宜，然后是商店 1 借出的电影 2 。\nmovieRentingSystem.drop(1, 2); // 在商店 1 返还电影 2 。现在商店 1 未借出的电影编号为 [1,2] 。\nmovieRentingSystem.search(2);  // 返回 [0, 1] 。商店 0 和 1 有未借出的 ID 为 2 的电影。商店 0 最便宜，然后是商店 1 。\n\n \n\n提示：\n\n\t1 5\n\n\t1 5\n\n\t0 i \n\n\t1 i, pricei 4\n\n\t每个商店 至多 有一份电影 moviei 的拷贝。\n\n\tsearch，rent，drop 和 report 的调用 总共 不超过 105 次。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "struct Pair : IEquatable<Pair> {\n    public int First { get; }\n    public int Second { get; }\n    \n    public Pair(int first, int second) {\n        First = first;\n        Second = second;\n    }\n    \n    public bool Equals(Pair other) => First == other.First && Second == other.Second;\n    public override bool Equals(object obj) => obj is Pair other && Equals(other);\n    public override int GetHashCode() => (First << 16) ^ Second;\n}\n\npublic class MovieRentingSystem {\n    private Dictionary<Pair, int> tPrice = new Dictionary<Pair, int>();\n    private Dictionary<int, SortedSet<Pair>> tValid = new Dictionary<int, SortedSet<Pair>>();\n    private SortedSet<(int price, int shop, int movie)> tRent = new SortedSet<(int, int, int)>();\n    \n    public MovieRentingSystem(int n, int[][] entries) {\n        foreach (var entry in entries) {\n            var p = new Pair(entry[0], entry[1]);\n            tPrice[p] = entry[2];\n            if (!tValid.ContainsKey(entry[1])) {\n                tValid[entry[1]] = new SortedSet<Pair>(Comparer<Pair>.Create((a, b) => \n                    a.First != b.First ? a.First.CompareTo(b.First) : a.Second.CompareTo(b.Second)));\n            }\n            tValid[entry[1]].Add(new Pair(entry[2], entry[0]));\n        }\n    }\n    \n    public IList<int> Search(int movie) {\n        if (!tValid.ContainsKey(movie)) {\n            return new List<int>();\n        }\n        return tValid[movie].Take(5).Select(p => p.Second).ToList();\n    }\n    \n    public void Rent(int shop, int movie) {\n        var p = new Pair(shop, movie);\n        int price = tPrice[p];\n        tValid[movie].Remove(new Pair(price, shop));\n        tRent.Add((price, shop, movie));\n    }\n    \n    public void Drop(int shop, int movie) {\n        var p = new Pair(shop, movie);\n        int price = tPrice[p];\n        tValid[movie].Add(new Pair(price, shop));\n        tRent.Remove((price, shop, movie));\n    }\n    \n    public IList<IList<int>> Report() {\n        return tRent.Take(5).Select(t => new List<int> { t.shop, t.movie }).ToList<IList<int>>();\n    }\n}",
+        "python": "class MovieRentingSystem:\n\n    def __init__(self, n: int, entries: List[List[int]]):\n        self.t_price = dict()\n        self.t_valid = defaultdict(sortedcontainers.SortedList)\n        self.t_rent = sortedcontainers.SortedList()\n        \n        for shop, movie, price in entries:\n            self.t_price[(shop, movie)] = price\n            self.t_valid[movie].add((price, shop))\n\n    def search(self, movie: int) -> List[int]:\n        t_valid_ = self.t_valid\n        \n        if movie not in t_valid_:\n            return []\n        \n        return [shop for (price, shop) in t_valid_[movie][:5]]\n        \n    def rent(self, shop: int, movie: int) -> None:\n        price = self.t_price[(shop, movie)]\n        self.t_valid[movie].discard((price, shop))\n        self.t_rent.add((price, shop, movie))\n\n    def drop(self, shop: int, movie: int) -> None:\n        price = self.t_price[(shop, movie)]\n        self.t_valid[movie].add((price, shop))\n        self.t_rent.discard((price, shop, movie))\n\n    def report(self) -> List[List[int]]:\n        return [(shop, movie) for price, shop, movie in self.t_rent[:5]]",
+        "java": "class Pair {\n    int first, second;\n    Pair(int first, int second) {\n        this.first = first;\n        this.second = second;\n    }\n    \n    @Override\n    public boolean equals(Object o) {\n        if (this == o) {\n            return true;\n        }\n        if (o == null || getClass() != o.getClass()) {\n            return false;\n        }\n        Pair pair = (Pair) o;\n        return first == pair.first && second == pair.second;\n    }\n    \n    @Override\n    public int hashCode() {\n        return (first << 16) ^ second;\n    }\n}\n\nclass Triple implements Comparable<Triple> {\n    int price, shop, movie;\n    Triple(int price, int shop, int movie) {\n        this.price = price;\n        this.shop = shop;\n        this.movie = movie;\n    }\n    \n    @Override\n    public int compareTo(Triple o) {\n        if (price != o.price) {\n            return Integer.compare(price, o.price);\n        }\n        if (shop != o.shop) {\n            return Integer.compare(shop, o.shop);\n        }\n        return Integer.compare(movie, o.movie);\n    }\n}\n\nclass MovieRentingSystem {\n    private Map<Pair, Integer> tPrice = new HashMap<>();\n    private Map<Integer, TreeSet<Pair>> tValid = new HashMap<>();\n    private TreeSet<Triple> tRent = new TreeSet<>();\n\n    public MovieRentingSystem(int n, int[][] entries) {\n        for (int[] entry : entries) {\n            Pair p = new Pair(entry[0], entry[1]);\n            tPrice.put(p, entry[2]);\n            tValid.computeIfAbsent(entry[1], k -> new TreeSet<>(\n                (a, b) -> a.first != b.first ? Integer.compare(a.first, b.first) \n                                             : Integer.compare(a.second, b.second)\n            )).add(new Pair(entry[2], entry[0]));\n        }\n    }\n    \n    public List<Integer> search(int movie) {\n        if (!tValid.containsKey(movie)) {\n            return Collections.emptyList();\n        }\n        return tValid.get(movie).stream()\n            .limit(5)\n            .map(p -> p.second)\n            .collect(Collectors.toList());\n    }\n    \n    public void rent(int shop, int movie) {\n        int price = tPrice.get(new Pair(shop, movie));\n        tValid.get(movie).remove(new Pair(price, shop));\n        tRent.add(new Triple(price, shop, movie));\n    }\n    \n    public void drop(int shop, int movie) {\n        int price = tPrice.get(new Pair(shop, movie));\n        tValid.get(movie).add(new Pair(price, shop));\n        tRent.remove(new Triple(price, shop, movie));\n    }\n    \n    public List<List<Integer>> report() {\n        return tRent.stream()\n            .limit(5)\n            .map(t -> Arrays.asList(t.shop, t.movie))\n            .collect(Collectors.toList());\n    }\n}"
+      },
+      "id": 331
+    },
+    {
+      "title": "两个数对之间的最大乘积差",
+      "titleSlug": "maximum-product-difference-between-two-pairs",
+      "tags": [
+        "数组",
+        "排序"
+      ],
+      "difficulty": "简单",
+      "acceptance": 80.28,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-product-difference-between-two-pairs/",
+      "hotCompanies": [
+        "苹果",
+        "亚马逊",
+        "谷歌"
+      ],
+      "statementZh": "两个数对 (a, b) 和 (c, d) 之间的 乘积差 定义为 (a * b) - (c * d) 。\n\n\t例如，(5, 6) 和 (2, 7) 之间的乘积差是 (5 * 6) - (2 * 7) = 16 。\n\n给你一个整数数组 nums ，选出四个 不同的 下标 w、x、y 和 z ，使数对 (nums[w], nums[x]) 和 (nums[y], nums[z]) 之间的 乘积差 取到 最大值 。\n\n返回以这种方式取得的乘积差中的 最大值 。\n\n \n\n示例 1：\n\n输入：nums = [5,6,2,7,4]\n输出：34\n解释：可以选出下标为 1 和 3 的元素构成第一个数对 (6, 7) 以及下标 2 和 4 构成第二个数对 (2, 4)\n乘积差是 (6 * 7) - (2 * 4) = 34\n\n示例 2：\n\n输入：nums = [4,2,5,9,7,4,8]\n输出：64\n解释：可以选出下标为 3 和 6 的元素构成第一个数对 (9, 8) 以及下标 1 和 5 构成第二个数对 (2, 4)\n乘积差是 (9 * 8) - (2 * 4) = 64\n\n \n\n提示：\n\n\t4 <= nums.length <= 104\n\n\t1 <= nums[i] <= 104",
+      "statementEn": "The product difference between two pairs (a, b) and (c, d) is defined as (a * b) - (c * d).\n\r\n\r\n\r\n\tFor example, the product difference between (5, 6) and (2, 7) is (5 * 6) - (2 * 7) = 16.\n\r\n\r\n\r\nGiven an integer array nums, choose four distinct indices w, x, y, and z such that the product difference between pairs (nums[w], nums[x]) and (nums[y], nums[z]) is maximized.\n\r\n\r\nReturn the maximum such product difference.\n\r\n\r\n \n\r\nExample 1:\n\r\n\r\n\r\nInput: nums = [5,6,2,7,4]\r\nOutput: 34\r\nExplanation: We can choose indices 1 and 3 for the first pair (6, 7) and indices 2 and 4 for the second pair (2, 4).\r\nThe product difference is (6 * 7) - (2 * 4) = 34.\r\n\r\n\r\nExample 2:\n\r\n\r\n\r\nInput: nums = [4,2,5,9,7,4,8]\r\nOutput: 64\r\nExplanation: We can choose indices 3 and 6 for the first pair (9, 8) and indices 1 and 5 for the second pair (2, 4).\r\nThe product difference is (9 * 8) - (2 * 4) = 64.\r\n\r\n\r\n \n\r\nConstraints:\n\r\n\r\n\r\n\t4 <= nums.length <= 104\n\r\n\t1 <= nums[i] <= 104",
+      "statement": "两个数对 (a, b) 和 (c, d) 之间的 乘积差 定义为 (a * b) - (c * d) 。\n\n\t例如，(5, 6) 和 (2, 7) 之间的乘积差是 (5 * 6) - (2 * 7) = 16 。\n\n给你一个整数数组 nums ，选出四个 不同的 下标 w、x、y 和 z ，使数对 (nums[w], nums[x]) 和 (nums[y], nums[z]) 之间的 乘积差 取到 最大值 。\n\n返回以这种方式取得的乘积差中的 最大值 。\n\n \n\n示例 1：\n\n输入：nums = [5,6,2,7,4]\n输出：34\n解释：可以选出下标为 1 和 3 的元素构成第一个数对 (6, 7) 以及下标 2 和 4 构成第二个数对 (2, 4)\n乘积差是 (6 * 7) - (2 * 4) = 34\n\n示例 2：\n\n输入：nums = [4,2,5,9,7,4,8]\n输出：64\n解释：可以选出下标为 3 和 6 的元素构成第一个数对 (9, 8) 以及下标 1 和 5 构成第二个数对 (2, 4)\n乘积差是 (9 * 8) - (2 * 4) = 64\n\n \n\n提示：\n\n\t4 <= nums.length <= 104\n\n\t1 <= nums[i] <= 104",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int maxProductDifference(vector<int>& nums) {\n        int n = nums.size();\n        // 数组中最大的两个值\n        int mx1 = max(nums[0], nums[1]);\n        int mx2 = min(nums[0], nums[1]);\n        // 数组中最小的两个值\n        int mn1 = min(nums[0], nums[1]);\n        int mn2 = max(nums[0], nums[1]);\n        for (int i = 2; i < n; ++i){\n            int tmp = nums[i];\n            if (tmp > mx1){\n                mx2 = mx1;\n                mx1 = tmp;\n            }\n            else if (tmp > mx2){\n                mx2 = tmp;\n            }\n            if (tmp < mn1){\n                mn2 = mn1;\n                mn1 = tmp;\n            }\n            else if (tmp < mn2){\n                mn2 = tmp;\n            }\n        }\n        return (mx1 * mx2) - (mn1 * mn2);\n    }\n};",
+        "python": "class Solution:\n    def maxProductDifference(self, nums: List[int]) -> int:\n        n = len(nums)\n        # 数组中最大的两个值\n        mx1, mx2 = max(nums[0], nums[1]), min(nums[0], nums[1])\n        # 数组中最小的两个值\n        mn1, mn2 = min(nums[0], nums[1]), max(nums[0], nums[1])\n        for i in range(2, n):\n            tmp = nums[i]\n            if tmp > mx1:\n                mx1, mx2 = tmp, mx1\n            elif tmp > mx2:\n                mx2 = tmp\n            if tmp < mn1:\n                mn1, mn2 = tmp, mn1\n            elif tmp < mn2:\n                mn2 = tmp\n        return (mx1 * mx2) - (mn1 * mn2)"
+      },
+      "id": 332
+    },
+    {
+      "title": "循环轮转矩阵",
+      "titleSlug": "cyclically-rotating-a-grid",
+      "tags": [
+        "数组",
+        "矩阵",
+        "模拟"
+      ],
+      "difficulty": "中等",
+      "acceptance": 60.64,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/cyclically-rotating-a-grid/",
+      "hotCompanies": [
+        "亚马逊",
+        "facebook",
+        "微软"
+      ],
+      "statementZh": "给你一个大小为 m x n 的整数矩阵 grid​​​ ，其中 m 和 n 都是 偶数 ；另给你一个整数 k 。\n\n矩阵由若干层组成，如下图所示，每种颜色代表一层：\n\n矩阵的循环轮转是通过分别循环轮转矩阵中的每一层完成的。在对某一层进行一次循环旋转操作时，层中的每一个元素将会取代其 逆时针 方向的相邻元素。轮转示例如下：\n\n返回执行 k 次循环轮转操作后的矩阵。\n\n \n\n示例 1：\n\n输入：grid = [[40,10],[30,20]], k = 1\n输出：[[10,20],[40,30]]\n解释：上图展示了矩阵在执行循环轮转操作时每一步的状态。\n\n示例 2：\n\n  \n\n输入：grid = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]], k = 2\n输出：[[3,4,8,12],[2,11,10,16],[1,7,6,15],[5,9,13,14]]\n解释：上图展示了矩阵在执行循环轮转操作时每一步的状态。\n\n \n\n提示：\n\n\tm == grid.length\n\n\tn == grid[i].length\n\n\t2 <= m, n <= 50\n\n\tm 和 n 都是 偶数\n\n\t1 <= grid[i][j] <= 5000\n\n\t1 <= k <= 109",
+      "statementEn": "You are given an m x n integer matrix grid​​​, where m and n are both even integers, and an integer k.\n\r\n\r\nThe matrix is composed of several layers, which is shown in the below image, where each color is its own layer:\n\r\n\r\n\n\r\n\r\nA cyclic rotation of the matrix is done by cyclically rotating each layer in the matrix. To cyclically rotate a layer once, each element in the layer will take the place of the adjacent element in the counter-clockwise direction. An example rotation is shown below:\n\r\n\r\nReturn the matrix after applying k cyclic rotations to it.\n\r\n\r\n \n\r\nExample 1:\n\r\n\r\n\r\nInput: grid = [[40,10],[30,20]], k = 1\r\nOutput: [[10,20],[40,30]]\r\nExplanation: The figures above represent the grid at every state.\r\n\r\n\r\nExample 2:\n\r\n  \r\n\r\n\r\nInput: grid = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]], k = 2\r\nOutput: [[3,4,8,12],[2,11,10,16],[1,7,6,15],[5,9,13,14]]\r\nExplanation: The figures above represent the grid at every state.\r\n\r\n\r\n \n\r\nConstraints:\n\r\n\r\n\r\n\tm == grid.length\n\r\n\tn == grid[i].length\n\r\n\t2 <= m, n <= 50\n\r\n\tBoth m and n are even integers.\n\r\n\t1 <= grid[i][j] <= 5000\n\r\n\t1 <= k <= 109",
+      "statement": "给你一个大小为 m x n 的整数矩阵 grid​​​ ，其中 m 和 n 都是 偶数 ；另给你一个整数 k 。\n\n矩阵由若干层组成，如下图所示，每种颜色代表一层：\n\n矩阵的循环轮转是通过分别循环轮转矩阵中的每一层完成的。在对某一层进行一次循环旋转操作时，层中的每一个元素将会取代其 逆时针 方向的相邻元素。轮转示例如下：\n\n返回执行 k 次循环轮转操作后的矩阵。\n\n \n\n示例 1：\n\n输入：grid = [[40,10],[30,20]], k = 1\n输出：[[10,20],[40,30]]\n解释：上图展示了矩阵在执行循环轮转操作时每一步的状态。\n\n示例 2：\n\n  \n\n输入：grid = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]], k = 2\n输出：[[3,4,8,12],[2,11,10,16],[1,7,6,15],[5,9,13,14]]\n解释：上图展示了矩阵在执行循环轮转操作时每一步的状态。\n\n \n\n提示：\n\n\tm == grid.length\n\n\tn == grid[i].length\n\n\t2 <= m, n <= 50\n\n\tm 和 n 都是 偶数\n\n\t1 <= grid[i][j] <= 5000\n\n\t1 <= k <= 109",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "int** rotateGrid(int** grid, int gridSize, int* gridColSize, int k, int* returnSize, int** returnColumnSizes) {\n    int m = gridSize;\n    int n = gridColSize[0];\n    *returnSize = m;\n    *returnColumnSizes = (int*)malloc(m * sizeof(int));\n    for (int i = 0; i < m; i++) {\n        (*returnColumnSizes)[i] = n;\n    }\n    \n    int nlayer = fmin(m / 2, n / 2);   // 层数\n    // 从左上角起逆时针枚举每一层\n    for (int layer = 0; layer < nlayer; ++layer) {\n        int maxSize = 2 * (m + n - 4 * layer - 2);\n        int* r = (int*)malloc(maxSize * sizeof(int));\n        int* c = (int*)malloc(maxSize * sizeof(int));\n        int* val = (int*)malloc(maxSize * sizeof(int));   // 每个元素的行下标，列下标与数值\n        int idx = 0;\n        \n        for (int i = layer; i < m - layer - 1; ++i) {   // 左\n            r[idx] = i;\n            c[idx] = layer;\n            val[idx] = grid[i][layer];\n            idx++;\n        }\n        for (int j = layer; j < n - layer - 1; ++j) {   // 下\n            r[idx] = m - layer - 1;\n            c[idx] = j;\n            val[idx] = grid[m - layer - 1][j];\n            idx++;\n        }\n        for (int i = m - layer - 1; i > layer; --i) {   // 右\n            r[idx] = i;\n            c[idx] = n - layer - 1;\n            val[idx] = grid[i][n - layer - 1];\n            idx++;\n        }\n        for (int j = n - layer - 1; j > layer; --j) {   // 上\n            r[idx] = layer;\n            c[idx] = j;\n            val[idx] = grid[layer][j];\n            idx++;\n        }\n        \n        int total = idx;   // 每一层的元素总数\n        int kk = k % total;   // 等效轮转次数\n        // 找到每个下标对应的轮转后的取值\n        for (int i = 0; i < total; ++i) {\n            int pos = (i + total - kk) % total;   // 轮转后取值对应的下标\n            grid[r[i]][c[i]] = val[pos];\n        }\n        \n        free(r);\n        free(c);\n        free(val);\n    }\n    return grid;\n}",
+        "python": "class Solution:\n    def rotateGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:\n        m, n = len(grid), len(grid[0])\n        nlayer = min(m // 2, n // 2)   # 层数\n        # 从左上角起逆时针枚举每一层\n        for layer in range(nlayer):\n            r = []   # 每个元素的行下标\n            c = []   # 每个元素的列下标\n            val = []   # 每个元素的数值\n            for i in range(layer, m - layer - 1):   # 左 \n                r.append(i)\n                c.append(layer)\n                val.append(grid[i][layer])\n            for j in range(layer, n - layer - 1):   # 下\n                r.append(m - layer - 1)\n                c.append(j)\n                val.append(grid[m-layer-1][j])\n            for i in range(m - layer - 1, layer, -1):   # 右\n                r.append(i)\n                c.append(n - layer - 1)\n                val.append(grid[i][n-layer-1])\n            for j in range(n - layer - 1, layer, -1):   # 上\n                r.append(layer)\n                c.append(j)\n                val.append(grid[layer][j])\n            total = len(val)   # 每一层的元素总数\n            kk = k % total   # 等效轮转次数\n            # 找到每个下标对应的轮转后的取值\n            for i in range(total):\n                idx = (i + total - kk) % total   # 轮转后取值对应的下标\n                grid[r[i]][c[i]] = val[idx]\n        return grid",
+        "java": "class Solution {\n    public int[][] rotateGrid(int[][] grid, int k) {\n        int m = grid.length;\n        int n = grid[0].length;\n        int nlayer = Math.min(m / 2, n / 2);   // 层数\n        // 从左上角起逆时针枚举每一层\n        for (int layer = 0; layer < nlayer; ++layer){\n            List<Integer> r = new ArrayList<>();\n            List<Integer> c = new ArrayList<>();\n            List<Integer> val = new ArrayList<>();   // 每个元素的行下标，列下标与数值\n            for (int i = layer; i < m - layer - 1; ++i){   // 左\n                r.add(i);\n                c.add(layer);\n                val.add(grid[i][layer]);\n            }\n            for (int j = layer; j < n - layer - 1; ++j){   // 下\n                r.add(m - layer - 1);\n                c.add(j);\n                val.add(grid[m - layer - 1][j]);\n            }\n            for (int i = m - layer - 1; i > layer; --i){   // 右\n                r.add(i);\n                c.add(n - layer - 1);\n                val.add(grid[i][n - layer - 1]);\n            }\n            for (int j = n - layer - 1; j > layer; --j){   // 上\n                r.add(layer);\n                c.add(j);\n                val.add(grid[layer][j]);\n            }\n            int total = val.size();   // 每一层的元素总数\n            int kk = k % total;   // 等效轮转次数\n            // 找到每个下标对应的轮转后的取值\n            for (int i = 0; i < total; ++i){\n                int idx = (i + total - kk) % total;   // 轮转后取值对应的下标\n                grid[r.get(i)][c.get(i)] = val.get(idx);\n            }\n        }\n        return grid;\n    }\n}",
+        "go": "func rotateGrid(grid [][]int, k int) [][]int {\n    m := len(grid)\n    n := len(grid[0])\n    nlayer := min(m / 2, n / 2)   // 层数\n    // 从左上角起逆时针枚举每一层\n    for layer := 0; layer < nlayer; layer++ {\n        r := make([]int, 0)\n        c := make([]int, 0)\n        val := make([]int, 0)   // 每个元素的行下标，列下标与数值\n        for i := layer; i < m - layer - 1; i++ {   // 左\n            r = append(r, i)\n            c = append(c, layer)\n            val = append(val, grid[i][layer])\n        }\n        for j := layer; j < n - layer - 1; j++ {   // 下\n            r = append(r, m - layer - 1)\n            c = append(c, j)\n            val = append(val, grid[m-layer - 1][j])\n        }\n        for i := m - layer - 1; i > layer; i-- {   // 右\n            r = append(r, i)\n            c = append(c, n - layer - 1)\n            val = append(val, grid[i][n - layer - 1])\n        }\n        for j := n - layer - 1; j > layer; j-- {   // 上\n            r = append(r, layer)\n            c = append(c, j)\n            val = append(val, grid[layer][j])\n        }\n        total := len(val)   // 每一层的元素总数\n        kk := k % total   // 等效轮转次数\n        // 找到每个下标对应的轮转后的取值\n        for i := 0; i < total; i++ {\n            idx := (i + total - kk) % total   // 轮转后取值对应的下标\n            grid[r[i]][c[i]] = val[idx]\n        }\n    }\n    return grid\n}",
+        "javascript": "var rotateGrid = function(grid, k) {\n    const m = grid.length;\n    const n = grid[0].length;\n    const nlayer = Math.min(Math.floor(m / 2), Math.floor(n / 2));   // 层数\n    // 从左上角起逆时针枚举每一层\n    for (let layer = 0; layer < nlayer; ++layer) {\n        const r = [];\n        const c = [];\n        const val = [];   // 每个元素的行下标，列下标与数值\n        for (let i = layer; i < m - layer - 1; ++i) {   // 左\n            r.push(i);\n            c.push(layer);\n            val.push(grid[i][layer]);\n        }\n        for (let j = layer; j < n - layer - 1; ++j) {   // 下\n            r.push(m - layer - 1);\n            c.push(j);\n            val.push(grid[m - layer - 1][j]);\n        }\n        for (let i = m - layer - 1; i > layer; --i) {   // 右\n            r.push(i);\n            c.push(n - layer - 1);\n            val.push(grid[i][n - layer - 1]);\n        }\n        for (let j = n - layer - 1; j > layer; --j) {   // 上\n            r.push(layer);\n            c.push(j);\n            val.push(grid[layer][j]);\n        }\n        const total = val.length;   // 每一层的元素总数\n        const kk = k % total;   // 等效轮转次数\n        // 找到每个下标对应的轮转后的取值\n        for (let i = 0; i < total; ++i) {\n            const idx = (i + total - kk) % total;   // 轮转后取值对应的下标\n            grid[r[i]][c[i]] = val[idx];\n        }\n    }\n    return grid;\n};",
+        "typescript": "function rotateGrid(grid: number[][], k: number): number[][] {\n    const m: number = grid.length;\n    const n: number = grid[0].length;\n    const nlayer: number = Math.min(Math.floor(m / 2), Math.floor(n / 2));   // 层数\n    // 从左上角起逆时针枚举每一层\n    for (let layer = 0; layer < nlayer; ++layer) {\n        const r: number[] = [];\n        const c: number[] = [];\n        const val: number[] = [];   // 每个元素的行下标，列下标与数值\n        for (let i = layer; i < m - layer - 1; ++i) {   // 左\n            r.push(i);\n            c.push(layer);\n            val.push(grid[i][layer]);\n        }\n        for (let j = layer; j < n - layer - 1; ++j) {   // 下\n            r.push(m - layer - 1);\n            c.push(j);\n            val.push(grid[m - layer - 1][j]);\n        }\n        for (let i = m - layer - 1; i > layer; --i) {   // 右\n            r.push(i);\n            c.push(n - layer - 1);\n            val.push(grid[i][n - layer - 1]);\n        }\n        for (let j = n - layer - 1; j > layer; --j) {   // 上\n            r.push(layer);\n            c.push(j);\n            val.push(grid[layer][j]);\n        }\n        const total: number = val.length;   // 每一层的元素总数\n        const kk: number = k % total;   // 等效轮转次数\n        // 找到每个下标对应的轮转后的取值\n        for (let i = 0; i < total; ++i) {\n            const idx: number = (i + total - kk) % total;   // 轮转后取值对应的下标\n            grid[r[i]][c[i]] = val[idx];\n        }\n    }\n    return grid;\n}"
+      },
+      "id": 333
+    },
+    {
+      "title": "最美子字符串的数目",
+      "titleSlug": "number-of-wonderful-substrings",
+      "tags": [
+        "位运算",
+        "哈希表",
+        "字符串",
+        "前缀和"
+      ],
+      "difficulty": "中等",
+      "acceptance": 51.69,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/number-of-wonderful-substrings/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "bloomberg"
+      ],
+      "statementZh": "如果某个字符串中 至多一个 字母出现 奇数 次，则称其为 最美 字符串。\n\n\t例如，\"ccjjc\" 和 \"abab\" 都是最美字符串，但 \"ab\" 不是。\n\n给你一个字符串 word ，该字符串由前十个小写英文字母组成（'a' 到 'j'）。请你返回 word 中 最美非空子字符串 的数目。如果同样的子字符串在 word 中出现多次，那么应当对 每次出现 分别计数。\n\n子字符串 是字符串中的一个连续字符序列。\n\n \n\n示例 1：\n\n输入：word = \"aba\"\n输出：4\n解释：4 个最美子字符串如下所示：\n- \"aba\" -> \"a\"\n- \"aba\" -> \"b\"\n- \"aba\" -> \"a\"\n- \"aba\" -> \"aba\"\n\n示例 2：\n\n输入：word = \"aabb\"\n输出：9\n解释：9 个最美子字符串如下所示：\n- \"aabb\" -> \"a\"\n- \"aabb\" -> \"aa\"\n- \"aabb\" -> \"aab\"\n- \"aabb\" -> \"aabb\"\n- \"aabb\" -> \"a\"\n- \"aabb\" -> \"abb\"\n- \"aabb\" -> \"b\"\n- \"aabb\" -> \"bb\"\n- \"aabb\" -> \"b\"\n\n示例 3：\n\n输入：word = \"he\"\n输出：2\n解释：2 个最美子字符串如下所示：\n- \"he\" -> \"h\"\n- \"he\" -> \"e\"\n\n \n\n提示：\n\n\t1 5\n\n\tword 由从 'a' 到 'j' 的小写英文字母组成",
+      "statementEn": "A wonderful string is a string where at most one letter appears an odd number of times.\n\r\n\r\n\r\n\tFor example, \"ccjjc\" and \"abab\" are wonderful, but \"ab\" is not.\n\r\n\r\n\r\nGiven a string word that consists of the first ten lowercase English letters (&#39;a&#39; through &#39;j&#39;), return the number of wonderful non-empty substrings in word. If the same substring appears multiple times in word, then count each occurrence separately.\n\r\n\r\nA substring is a contiguous sequence of characters in a string.\n\r\n\r\n \n\r\nExample 1:\n\r\n\r\n\r\nInput: word = \"aba\"\r\nOutput: 4\r\nExplanation: The four wonderful substrings are underlined below:\r\n- \"aba\" -> \"a\"\r\n- \"aba\" -> \"b\"\r\n- \"aba\" -> \"a\"\r\n- \"aba\" -> \"aba\"\r\n\r\n\r\nExample 2:\n\r\n\r\n\r\nInput: word = \"aabb\"\r\nOutput: 9\r\nExplanation: The nine wonderful substrings are underlined below:\r\n- \"aabb\" -> \"a\"\r\n- \"aabb\" -> \"aa\"\r\n- \"aabb\" -> \"aab\"\r\n- \"aabb\" -> \"aabb\"\r\n- \"aabb\" -> \"a\"\r\n- \"aabb\" -> \"abb\"\r\n- \"aabb\" -> \"b\"\r\n- \"aabb\" -> \"bb\"\r\n- \"aabb\" -> \"b\"\r\n\r\n\r\nExample 3:\n\r\n\r\n\r\nInput: word = \"he\"\r\nOutput: 2\r\nExplanation: The two wonderful substrings are underlined below:\r\n- \"he\" -> \"h\"\r\n- \"he\" -> \"e\"\r\n\r\n\r\n \n\r\nConstraints:\n\r\n\r\n\r\n\t1 <= word.length <= 105\n\r\n\tword consists of lowercase English letters from &#39;a&#39; to &#39;j&#39;.",
+      "statement": "如果某个字符串中 至多一个 字母出现 奇数 次，则称其为 最美 字符串。\n\n\t例如，\"ccjjc\" 和 \"abab\" 都是最美字符串，但 \"ab\" 不是。\n\n给你一个字符串 word ，该字符串由前十个小写英文字母组成（'a' 到 'j'）。请你返回 word 中 最美非空子字符串 的数目。如果同样的子字符串在 word 中出现多次，那么应当对 每次出现 分别计数。\n\n子字符串 是字符串中的一个连续字符序列。\n\n \n\n示例 1：\n\n输入：word = \"aba\"\n输出：4\n解释：4 个最美子字符串如下所示：\n- \"aba\" -> \"a\"\n- \"aba\" -> \"b\"\n- \"aba\" -> \"a\"\n- \"aba\" -> \"aba\"\n\n示例 2：\n\n输入：word = \"aabb\"\n输出：9\n解释：9 个最美子字符串如下所示：\n- \"aabb\" -> \"a\"\n- \"aabb\" -> \"aa\"\n- \"aabb\" -> \"aab\"\n- \"aabb\" -> \"aabb\"\n- \"aabb\" -> \"a\"\n- \"aabb\" -> \"abb\"\n- \"aabb\" -> \"b\"\n- \"aabb\" -> \"bb\"\n- \"aabb\" -> \"b\"\n\n示例 3：\n\n输入：word = \"he\"\n输出：2\n解释：2 个最美子字符串如下所示：\n- \"he\" -> \"h\"\n- \"he\" -> \"e\"\n\n \n\n提示：\n\n\t1 5\n\n\tword 由从 'a' 到 'j' 的小写英文字母组成",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    long long wonderfulSubstrings(string word) {\n        unordered_map<int, int> freq = {{0, 1}};\n        int mask = 0;\n        long long ans = 0;\n        for (char ch: word) {\n            int idx = ch - 'a';\n            mask ^= (1 << idx);\n            if (freq.count(mask)) {\n                ans += freq[mask];\n            }\n            for (int i = 0; i < 10; ++i) {\n                if (int mask_pre = mask ^ (1 << i); freq.count(mask_pre)) {\n                    ans += freq[mask_pre];\n                }\n            }\n            ++freq[mask];\n        }\n        return ans;\n    }\n};",
+        "python": "class Solution:\n    def wonderfulSubstrings(self, word: str) -> int:\n        freq = Counter([0])\n        mask, ans = 0, 0\n        \n        for ch in word:\n            idx = ord(ch) - ord(\"a\")\n            mask ^= (1 << idx)\n            if mask in freq:\n                ans += freq[mask]\n            for i in range(10):\n                mask_pre = mask ^ (1 << i)\n                if (mask_pre := mask ^ (1 << i)) in freq:\n                    ans += freq[mask_pre]\n            freq[mask] += 1\n        \n        return ans"
+      },
+      "id": 334
     }
   ],
   "errors": []
