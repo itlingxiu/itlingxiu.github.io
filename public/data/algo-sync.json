@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-17T17:38:36.563Z",
-  "dateKey": "2026-07-18",
+  "crawledAt": "2026-07-18T17:32:02.812Z",
+  "dateKey": "2026-07-19",
   "sources": [
     "leetcode-cn",
     "nowcoder"
@@ -181,7 +181,7 @@
         "链表"
       ],
       "difficulty": "简单",
-      "acceptance": 40.15,
+      "acceptance": 40.16,
       "hotCompanies": [
         "牛客高频"
       ],
@@ -733,7 +733,7 @@
         "dfs"
       ],
       "difficulty": "中等",
-      "acceptance": 31.25,
+      "acceptance": 31.26,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/2a49359695a544b8939c77358d29b7e6",
       "statement": "牛客编程题 JZ12：矩阵中的路径。完整描述请访问牛客练习页。",
@@ -784,7 +784,7 @@
         "基础数学"
       ],
       "difficulty": "简单",
-      "acceptance": 35.28,
+      "acceptance": 35.29,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/8ee967e43c2c4ec193b040ea7fbb10b8",
       "statement": "牛客编程题 JZ15：二进制中1的个数。完整描述请访问牛客练习页。",
@@ -854,7 +854,7 @@
         "动态规划"
       ],
       "difficulty": "困难",
-      "acceptance": 27.15,
+      "acceptance": 27.16,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/28970c15befb4ff3a264189087b99ad4",
       "statement": "牛客编程题 JZ19：正则表达式匹配。完整描述请访问牛客练习页。",
@@ -975,7 +975,7 @@
         "树"
       ],
       "difficulty": "简单",
-      "acceptance": 65.71,
+      "acceptance": 65.72,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/a9d0ecbacef9410ca97463e4a5c83be7",
       "statement": "牛客编程题 JZ27：二叉树的镜像。完整描述请访问牛客练习页。",
@@ -8320,6 +8320,408 @@
         "python": "class Solution:\n    def wonderfulSubstrings(self, word: str) -> int:\n        freq = Counter([0])\n        mask, ans = 0, 0\n        \n        for ch in word:\n            idx = ord(ch) - ord(\"a\")\n            mask ^= (1 << idx)\n            if mask in freq:\n                ans += freq[mask]\n            for i in range(10):\n                mask_pre = mask ^ (1 << i)\n                if (mask_pre := mask ^ (1 << i)) in freq:\n                    ans += freq[mask_pre]\n            freq[mask] += 1\n        \n        return ans"
       },
       "id": 334
+    },
+    {
+      "title": "查询具有最多共同关注者的所有两两结对组",
+      "titleSlug": "all-the-pairs-with-the-maximum-number-of-common-followers",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "中等",
+      "acceptance": 64.87,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/all-the-pairs-with-the-maximum-number-of-common-followers/",
+      "hotCompanies": [
+        "力扣高频"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 335
+    },
+    {
+      "title": "三除数",
+      "titleSlug": "three-divisors",
+      "tags": [
+        "数学",
+        "枚举",
+        "数论"
+      ],
+      "difficulty": "简单",
+      "acceptance": 56.57,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/three-divisors/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "adobe"
+      ],
+      "statementZh": "给你一个整数 n 。如果 n 恰好有三个正除数 ，返回 true ；否则，返回 false 。\n\n如果存在整数 k ，满足 n = k * m ，那么整数 m 就是 n 的一个 除数 。\n\n \n\n示例 1：\n\n输入：n = 2\n输出：false\n解释：2 只有两个除数：1 和 2 。\n\n示例 2：\n\n输入：n = 4\n输出：true\n解释：4 有三个除数：1、2 和 4 。\n\n \n\n提示：\n\n\t1 <= n <= 104",
+      "statementEn": "Given an integer n, return true if n has exactly three positive divisors. Otherwise, return false.\n\nAn integer m is a divisor of n if there exists an integer k such that n = k * m.\n\n \n\nExample 1:\n\nInput: n = 2\nOutput: false\nExplantion: 2 has only two divisors: 1 and 2.\n\nExample 2:\n\nInput: n = 4\nOutput: true\nExplantion: 4 has three divisors: 1, 2, and 4.\n\n \n\nConstraints:\n\n\t1 <= n <= 104",
+      "statement": "给你一个整数 n 。如果 n 恰好有三个正除数 ，返回 true ；否则，返回 false 。\n\n如果存在整数 k ，满足 n = k * m ，那么整数 m 就是 n 的一个 除数 。\n\n \n\n示例 1：\n\n输入：n = 2\n输出：false\n解释：2 只有两个除数：1 和 2 。\n\n示例 2：\n\n输入：n = 4\n输出：true\n解释：4 有三个除数：1、2 和 4 。\n\n \n\n提示：\n\n\t1 <= n <= 104",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    bool isThree(int n) {\n        int cnt = 0;\n        for (int i = 1; i * i <= n; ++i){\n            if (n % i == 0){\n                if (i != n / i){\n                    // 此时 i 与 n / i 为不同整数\n                    cnt += 2;\n                }\n                else{\n                    // 此时 i 与 n / i 相等\n                    cnt += 1;\n                }\n            }\n        }\n        return cnt == 3;\n    }\n};",
+        "python": "from math import sqrt\n\nclass Solution:\n    def isThree(self, n: int) -> bool:\n        cnt = 0\n        i = 1\n        while i * i <= n:\n            if n % i == 0:\n                if i != n // i:\n                    # 此时 i 与 n / i 为不同整数\n                    cnt += 2\n                else:\n                    /# 此时 i 与 n / i 相等\n                    cnt += 1\n            i += 1\n        return cnt == 3"
+      },
+      "id": 336
+    },
+    {
+      "title": "你可以工作的最大周数",
+      "titleSlug": "maximum-number-of-weeks-for-which-you-can-work",
+      "tags": [
+        "贪心",
+        "数组"
+      ],
+      "difficulty": "中等",
+      "acceptance": 50.94,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-number-of-weeks-for-which-you-can-work/",
+      "hotCompanies": [
+        "亚马逊",
+        "sap",
+        "bloomberg"
+      ],
+      "statementZh": "给你 n 个项目，编号从 0 到 n - 1 。同时给你一个整数数组 milestones ，其中每个 milestones[i] 表示第 i 个项目中的阶段任务数量。\n\n你可以按下面两个规则参与项目中的工作：\n\n\t每周，你将会完成 某一个 项目中的 恰好一个 阶段任务。你每周都 必须 工作。\n\n\t在 连续的 两周中，你 不能 参与并完成同一个项目中的两个阶段任务。\n\n一旦所有项目中的全部阶段任务都完成，或者执行仅剩的一个阶段任务将会导致你违反上面的规则，你将 停止工作。注意，由于这些条件的限制，你可能无法完成所有阶段任务。\n\n返回在不违反上面规则的情况下你 最多 能工作多少周。\n\n \n\n示例 1：\n\n输入：milestones = [1,2,3]\n输出：6\n解释：一种可能的情形是：\n​​​​- 第 1 周，你参与并完成项目 0 中的一个阶段任务。\n- 第 2 周，你参与并完成项目 2 中的一个阶段任务。\n- 第 3 周，你参与并完成项目 1 中的一个阶段任务。\n- 第 4 周，你参与并完成项目 2 中的一个阶段任务。\n- 第 5 周，你参与并完成项目 1 中的一个阶段任务。\n- 第 6 周，你参与并完成项目 2 中的一个阶段任务。\n总周数是 6 。\n\n示例 2：\n\n输入：milestones = [5,2,1]\n输出：7\n解释：一种可能的情形是：\n- 第 1 周，你参与并完成项目 0 中的一个阶段任务。\n- 第 2 周，你参与并完成项目 1 中的一个阶段任务。\n- 第 3 周，你参与并完成项目 0 中的一个阶段任务。\n- 第 4 周，你参与并完成项目 1 中的一个阶段任务。\n- 第 5 周，你参与并完成项目 0 中的一个阶段任务。\n- 第 6 周，你参与并完成项目 2 中的一个阶段任务。\n- 第 7 周，你参与并完成项目 0 中的一个阶段任务。\n总周数是 7 。\n注意，你不能在第 8 周参与完成项目 0 中的最后一个阶段任务，因为这会违反规则。\n因此，项目 0 中会有一个阶段任务维持未完成状态。\n\n \n\n提示：\n\n\tn == milestones.length\n\n\t1 <= n <= 105\n\n\t1 <= milestones[i] <= 109",
+      "statementEn": "There are n projects numbered from 0 to n - 1. You are given an integer array milestones where each milestones[i] denotes the number of milestones the ith project has.\n\nYou can work on the projects following these two rules:\n\n\tEvery week, you will finish exactly one milestone of one project. You must work every week.\n\n\tYou cannot work on two milestones from the same project for two consecutive weeks.\n\nOnce all the milestones of all the projects are finished, or if the only milestones that you can work on will cause you to violate the above rules, you will stop working. Note that you may not be able to finish every project&#39;s milestones due to these constraints.\n\nReturn the maximum number of weeks you would be able to work on the projects without violating the rules mentioned above.\n\n \n\nExample 1:\n\nInput: milestones = [1,2,3]\nOutput: 6\nExplanation: One possible scenario is:\n​​​​- During the 1st week, you will work on a milestone of project 0.\n- During the 2nd week, you will work on a milestone of project 2.\n- During the 3rd week, you will work on a milestone of project 1.\n- During the 4th week, you will work on a milestone of project 2.\n- During the 5th week, you will work on a milestone of project 1.\n- During the 6th week, you will work on a milestone of project 2.\nThe total number of weeks is 6.\n\nExample 2:\n\nInput: milestones = [5,2,1]\nOutput: 7\nExplanation: One possible scenario is:\n- During the 1st week, you will work on a milestone of project 0.\n- During the 2nd week, you will work on a milestone of project 1.\n- During the 3rd week, you will work on a milestone of project 0.\n- During the 4th week, you will work on a milestone of project 1.\n- During the 5th week, you will work on a milestone of project 0.\n- During the 6th week, you will work on a milestone of project 2.\n- During the 7th week, you will work on a milestone of project 0.\nThe total number of weeks is 7.\nNote that you cannot work on the last milestone of project 0 on 8th week because it would violate the rules.\nThus, one milestone in project 0 will remain unfinished.\n\n \n\nConstraints:\n\n\tn == milestones.length\n\n\t1 <= n <= 105\n\n\t1 <= milestones[i] <= 109",
+      "statement": "给你 n 个项目，编号从 0 到 n - 1 。同时给你一个整数数组 milestones ，其中每个 milestones[i] 表示第 i 个项目中的阶段任务数量。\n\n你可以按下面两个规则参与项目中的工作：\n\n\t每周，你将会完成 某一个 项目中的 恰好一个 阶段任务。你每周都 必须 工作。\n\n\t在 连续的 两周中，你 不能 参与并完成同一个项目中的两个阶段任务。\n\n一旦所有项目中的全部阶段任务都完成，或者执行仅剩的一个阶段任务将会导致你违反上面的规则，你将 停止工作。注意，由于这些条件的限制，你可能无法完成所有阶段任务。\n\n返回在不违反上面规则的情况下你 最多 能工作多少周。\n\n \n\n示例 1：\n\n输入：milestones = [1,2,3]\n输出：6\n解释：一种可能的情形是：\n​​​​- 第 1 周，你参与并完成项目 0 中的一个阶段任务。\n- 第 2 周，你参与并完成项目 2 中的一个阶段任务。\n- 第 3 周，你参与并完成项目 1 中的一个阶段任务。\n- 第 4 周，你参与并完成项目 2 中的一个阶段任务。\n- 第 5 周，你参与并完成项目 1 中的一个阶段任务。\n- 第 6 周，你参与并完成项目 2 中的一个阶段任务。\n总周数是 6 。\n\n示例 2：\n\n输入：milestones = [5,2,1]\n输出：7\n解释：一种可能的情形是：\n- 第 1 周，你参与并完成项目 0 中的一个阶段任务。\n- 第 2 周，你参与并完成项目 1 中的一个阶段任务。\n- 第 3 周，你参与并完成项目 0 中的一个阶段任务。\n- 第 4 周，你参与并完成项目 1 中的一个阶段任务。\n- 第 5 周，你参与并完成项目 0 中的一个阶段任务。\n- 第 6 周，你参与并完成项目 2 中的一个阶段任务。\n- 第 7 周，你参与并完成项目 0 中的一个阶段任务。\n总周数是 7 。\n注意，你不能在第 8 周参与完成项目 0 中的最后一个阶段任务，因为这会违反规则。\n因此，项目 0 中会有一个阶段任务维持未完成状态。\n\n \n\n提示：\n\n\tn == milestones.length\n\n\t1 <= n <= 105\n\n\t1 <= milestones[i] <= 109",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    long long numberOfWeeks(vector<int>& milestones) {\n        // 耗时最长工作所需周数\n        long long longest = *max_element(milestones.begin(), milestones.end());\n        // 其余工作共计所需周数\n        long long rest = accumulate(milestones.begin(), milestones.end(), 0LL) - longest;\n        if (longest > rest + 1){\n            // 此时无法完成所耗时最长的工作\n            return rest * 2 + 1;\n        }\n        else {\n            // 此时可以完成所有工作\n            return longest + rest;\n        }\n    }\n};",
+        "python": "class Solution:\n    def numberOfWeeks(self, milestones: List[int]):\n        # 耗时最长工作所需周数\n        longest = max(milestones)\n        # 其余工作共计所需周数\n        rest = sum(milestones) - longest\n        if longest > rest + 1:\n            # 此时无法完成所耗时最长的工作\n            return rest * 2 + 1\n        else:\n            # 此时可以完成所有工作\n            return longest + rest",
+        "java": "class Solution {\n    public long numberOfWeeks(int[] milestones) {\n        int longest = milestones[0]; // 耗时最长工作所需周数\n        long rest = 0;\n        for (int count : milestones) {\n            longest = Math.max(longest, count);\n            rest += count;\n        }\n        // 其余工作共计所需周数\n        rest -= longest;\n        if (longest > rest + 1) {\n            // 此时无法完成所耗时最长的工作\n            return rest * 2 + 1;\n        } else {\n            // 此时可以完成所有工作\n            return longest + rest;\n        }\n    }\n}",
+        "go": "func numberOfWeeks(milestones []int) int64 {\n    // 耗时最长工作所需周数\n    longest := 0\n    rest := int64(0)\n    for _, count := range milestones {\n        longest = max(longest, count)\n        rest += int64(count)\n    }\n    // 其余工作共计所需周数\n    rest -= int64(longest)\n    if int64(longest) > rest + 1 {\n        // 此时无法完成所耗时最长的工作\n        return rest * 2 + 1\n    } else {\n        // 此时可以完成所有工作\n        return int64(longest) + rest\n    }\n}",
+        "javascript": "var numberOfWeeks = function(milestones) {\n    // 耗时最长工作所需周数\n    const longest = Math.max(...milestones);\n    // 其余工作共计所需周数\n    const rest = milestones.reduce((acc, cur) => acc + cur, 0) - longest;\n    if (longest > rest + 1) {\n        // 此时无法完成所耗时最长的工作\n        return rest * 2 + 1;\n    } else {\n        // 此时可以完成所有工作\n        return longest + rest;\n    }\n};",
+        "typescript": "function numberOfWeeks(milestones: number[]): number {\n    // 耗时最长工作所需周数\n    const longest = Math.max(...milestones);\n    // 其余工作共计所需周数\n    const rest = milestones.reduce((acc, cur) => acc + cur, 0) - longest;\n    if (longest > rest + 1) {\n        // 此时无法完成所耗时最长的工作\n        return rest * 2 + 1;\n    } else {\n        // 此时可以完成所有工作\n        return longest + rest;\n    }\n};"
+      },
+      "id": 337
+    },
+    {
+      "title": "收集足够苹果的最小花园周长",
+      "titleSlug": "minimum-garden-perimeter-to-collect-enough-apples",
+      "tags": [
+        "数学",
+        "二分查找"
+      ],
+      "difficulty": "中等",
+      "acceptance": 63.55,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-garden-perimeter-to-collect-enough-apples/",
+      "hotCompanies": [
+        "亚马逊",
+        "facebook",
+        "adobe"
+      ],
+      "statementZh": "给你一个用无限二维网格表示的花园，每一个 整数坐标处都有一棵苹果树。整数坐标 (i, j) 处的苹果树有 |i| + |j| 个苹果。\n\n你将会买下正中心坐标是 (0, 0) 的一块 正方形土地 ，且每条边都与两条坐标轴之一平行。\n\n给你一个整数 neededApples ，请你返回土地的 最小周长 ，使得 至少 有 neededApples 个苹果在土地 里面或者边缘上。\n\n|x| 的值定义为：\n\n\t如果 x >= 0 ，那么值为 x\n\n\t如果 x < 0 ，那么值为 -x\n\n \n\n示例 1：\n\n输入：neededApples = 1\n输出：8\n解释：边长长度为 1 的正方形不包含任何苹果。\n但是边长为 2 的正方形包含 12 个苹果（如上图所示）。\n周长为 2 * 4 = 8 。\n\n示例 2：\n\n输入：neededApples = 13\n输出：16\n\n示例 3：\n\n输入：neededApples = 1000000000\n输出：5040\n\n \n\n提示：\n\n\t1 <= neededApples <= 1015",
+      "statementEn": "In a garden represented as an infinite 2D grid, there is an apple tree planted at every integer coordinate. The apple tree planted at an integer coordinate (i, j) has |i| + |j| apples growing on it.\n\nYou will buy an axis-aligned square plot of land that is centered at (0, 0).\n\nGiven an integer neededApples, return the minimum perimeter of a plot such that at least neededApples apples are inside or on the perimeter of that plot.\n\nThe value of |x| is defined as:\n\n\tx if x >= 0\n\n\t-x if x < 0\n\n \n\nExample 1:\n\nInput: neededApples = 1\nOutput: 8\nExplanation: A square plot of side length 1 does not contain any apples.\nHowever, a square plot of side length 2 has 12 apples inside (as depicted in the image above).\nThe perimeter is 2 * 4 = 8.\n\nExample 2:\n\nInput: neededApples = 13\nOutput: 16\n\nExample 3:\n\nInput: neededApples = 1000000000\nOutput: 5040\n\n \n\nConstraints:\n\n\t1 <= neededApples <= 1015",
+      "statement": "给你一个用无限二维网格表示的花园，每一个 整数坐标处都有一棵苹果树。整数坐标 (i, j) 处的苹果树有 |i| + |j| 个苹果。\n\n你将会买下正中心坐标是 (0, 0) 的一块 正方形土地 ，且每条边都与两条坐标轴之一平行。\n\n给你一个整数 neededApples ，请你返回土地的 最小周长 ，使得 至少 有 neededApples 个苹果在土地 里面或者边缘上。\n\n|x| 的值定义为：\n\n\t如果 x >= 0 ，那么值为 x\n\n\t如果 x < 0 ，那么值为 -x\n\n \n\n示例 1：\n\n输入：neededApples = 1\n输出：8\n解释：边长长度为 1 的正方形不包含任何苹果。\n但是边长为 2 的正方形包含 12 个苹果（如上图所示）。\n周长为 2 * 4 = 8 。\n\n示例 2：\n\n输入：neededApples = 13\n输出：16\n\n示例 3：\n\n输入：neededApples = 1000000000\n输出：5040\n\n \n\n提示：\n\n\t1 <= neededApples <= 1015",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    long long minimumPerimeter(long long neededApples) {\n        long long left = 1, right = 100000, ans = 0;\n        while (left <= right) {\n            long long mid = (left + right) / 2;\n            if (2 * mid * (mid + 1) * (mid * 2 + 1) >= neededApples) {\n                ans = mid;\n                right = mid - 1;\n            }\n            else {\n                left = mid + 1;\n            }\n        }\n        return ans * 8;\n    }\n};",
+        "python": "class Solution:\n    def minimumPerimeter(self, neededApples: int) -> int:\n        left, right, ans = 1, 100000, 0\n        while left <= right:\n            mid = (left + right) // 2\n            if 2 * mid * (mid + 1) * (mid * 2 + 1) >= neededApples:\n                ans = mid\n                right = mid - 1\n            else:\n                left = mid + 1\n        return ans * 8",
+        "java": "class Solution {\n    public long minimumPerimeter(long neededApples) {\n        long left = 1, right = 100000, ans = 0;\n        while (left <= right) {\n            long mid = (left + right) / 2;\n            if (2 * mid * (mid + 1) * (mid * 2 + 1) >= neededApples) {\n                ans = mid;\n                right = mid - 1;\n            } else {\n                left = mid + 1;\n            }\n        }\n        return ans * 8;\n    }\n}",
+        "go": "func minimumPerimeter(neededApples int64) int64 {\n    left, right := int64(1), int64(100000)\n    ans := int64(0)\n    for left <= right {\n        mid := (left + right) / 2\n        if 2 * mid * (mid + 1) * (mid * 2 + 1) >= neededApples {\n            ans = mid\n            right = mid - 1\n        } else {\n            left = mid + 1\n        }\n    }\n    return ans * 8\n}",
+        "javascript": "var minimumPerimeter = function(neededApples) {\n    let left = 1, right = 100000, ans = 0;\n    while (left <= right) {\n        const mid = (left + right) >> 1;\n        if (2 * mid * (mid + 1) * (mid * 2 + 1) >= neededApples) {\n            ans = mid;\n            right = mid - 1;\n        } else {\n            left = mid + 1;\n        }\n    }\n    return ans * 8;\n};"
+      },
+      "id": 338
+    },
+    {
+      "title": "统计特殊子序列的数目",
+      "titleSlug": "count-number-of-special-subsequences",
+      "tags": [
+        "数组",
+        "动态规划"
+      ],
+      "difficulty": "困难",
+      "acceptance": 53.72,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/count-number-of-special-subsequences/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "字节"
+      ],
+      "statementZh": "特殊序列 是由 正整数 个 0 ，紧接着 正整数 个 1 ，最后 正整数 个 2 组成的序列。\n\n\t比方说，[0,1,2] 和 [0,0,1,1,1,2] 是特殊序列。\n\n\t相反，[2,1,0] ，[1] 和 [0,1,2,0] 就不是特殊序列。\n\n给你一个数组 nums （仅 包含整数 0，1 和 2），请你返回 不同特殊子序列的数目 。由于答案可能很大，请你将它对 109 + 7 取余 后返回。\n\n一个数组的 子序列 是从原数组中删除零个或者若干个元素后，剩下元素不改变顺序得到的序列。如果两个子序列的 下标集合 不同，那么这两个子序列是 不同的 。\n\n \n\n示例 1：\n\n输入：nums = [0,1,2,2]\n输出：3\n解释：特殊子序列为 [0,1,2,2]，[0,1,2,2] 和 [0,1,2,2] 。\n\n示例 2：\n\n输入：nums = [2,2,0,0]\n输出：0\n解释：数组 [2,2,0,0] 中没有特殊子序列。\n\n示例 3：\n\n输入：nums = [0,1,2,0,1,2]\n输出：7\n解释：特殊子序列包括：\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n\n \n\n提示：\n\n\t1 <= nums.length <= 105\n\n\t0 <= nums[i] <= 2",
+      "statementEn": "A sequence is special if it consists of a positive number of 0s, followed by a positive number of 1s, then a positive number of 2s.\n\n\tFor example, [0,1,2] and [0,0,1,1,1,2] are special.\n\n\tIn contrast, [2,1,0], [1], and [0,1,2,0] are not special.\n\nGiven an array nums (consisting of only integers 0, 1, and 2), return the number of different subsequences that are special. Since the answer may be very large, return it modulo 109 + 7.\n\nA subsequence of an array is a sequence that can be derived from the array by deleting some or no elements without changing the order of the remaining elements. Two subsequences are different if the set of indices chosen are different.\n\n \n\nExample 1:\n\nInput: nums = [0,1,2,2]\nOutput: 3\nExplanation: The special subsequences are bolded [0,1,2,2], [0,1,2,2], and [0,1,2,2].\n\nExample 2:\n\nInput: nums = [2,2,0,0]\nOutput: 0\nExplanation: There are no special subsequences in [2,2,0,0].\n\nExample 3:\n\nInput: nums = [0,1,2,0,1,2]\nOutput: 7\nExplanation: The special subsequences are bolded:\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 105\n\n\t0 <= nums[i] <= 2",
+      "statement": "特殊序列 是由 正整数 个 0 ，紧接着 正整数 个 1 ，最后 正整数 个 2 组成的序列。\n\n\t比方说，[0,1,2] 和 [0,0,1,1,1,2] 是特殊序列。\n\n\t相反，[2,1,0] ，[1] 和 [0,1,2,0] 就不是特殊序列。\n\n给你一个数组 nums （仅 包含整数 0，1 和 2），请你返回 不同特殊子序列的数目 。由于答案可能很大，请你将它对 109 + 7 取余 后返回。\n\n一个数组的 子序列 是从原数组中删除零个或者若干个元素后，剩下元素不改变顺序得到的序列。如果两个子序列的 下标集合 不同，那么这两个子序列是 不同的 。\n\n \n\n示例 1：\n\n输入：nums = [0,1,2,2]\n输出：3\n解释：特殊子序列为 [0,1,2,2]，[0,1,2,2] 和 [0,1,2,2] 。\n\n示例 2：\n\n输入：nums = [2,2,0,0]\n输出：0\n解释：数组 [2,2,0,0] 中没有特殊子序列。\n\n示例 3：\n\n输入：nums = [0,1,2,0,1,2]\n输出：7\n解释：特殊子序列包括：\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n- [0,1,2,0,1,2]\n\n \n\n提示：\n\n\t1 <= nums.length <= 105\n\n\t0 <= nums[i] <= 2",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\nprivate:\n    static constexpr int mod = 1000000007;\n\npublic:\n    int countSpecialSubsequences(vector<int>& nums) {\n        int f0 = 0, f1 = 0, f2 = 0;\n        for (int num: nums) {\n            if (num == 0) {\n                f0 = (f0 * 2 + 1) % mod;\n            }\n            else if (num == 1) {\n                f1 = (f1 * 2 % mod + f0) % mod;\n            }\n            else {\n                f2 = (f2 * 2 % mod + f1) % mod;\n            }\n        }\n        return f2;\n    }\n};",
+        "python": "class Solution:\n    def countSpecialSubsequences(self, nums: List[int]) -> int:\n        mod = 10**9 + 7\n        f0 = f1 = f2 = 0\n        for num in nums:\n            if num == 0:\n                f0 = (f0 * 2 + 1) % mod\n            elif num == 1:\n                f1 = (f1 * 2 + f0) % mod\n            else:\n                f2 = (f2 * 2 + f1) % mod\n        return f2"
+      },
+      "id": 339
+    },
+    {
+      "title": "感染 K 种病毒所需的最短时间",
+      "titleSlug": "minimum-time-for-k-virus-variants-to-spread",
+      "tags": [
+        "几何",
+        "数组",
+        "数学",
+        "二分查找",
+        "枚举",
+        "有序集合",
+        "滑动窗口"
+      ],
+      "difficulty": "困难",
+      "acceptance": 34.69,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-time-for-k-virus-variants-to-spread/",
+      "hotCompanies": [
+        "字节"
+      ],
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 340
+    },
+    {
+      "title": "删除字符使字符串变好",
+      "titleSlug": "delete-characters-to-make-fancy-string",
+      "tags": [
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 69.72,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/delete-characters-to-make-fancy-string/",
+      "hotCompanies": [
+        "谷歌",
+        "微软",
+        "bloomberg"
+      ],
+      "statementZh": "一个字符串如果没有 三个连续 相同字符，那么它就是一个 好字符串 。\n\n给你一个字符串 s ，请你从 s 删除 最少 的字符，使它变成一个 好字符串 。\n\n请你返回删除后的字符串。题目数据保证答案总是 唯一的 。\n\n \n\n示例 1：\n\n输入：s = \"leeetcode\"\n输出：\"leetcode\"\n解释：\n从第一组 'e' 里面删除一个 'e' ，得到 \"leetcode\" 。\n没有连续三个相同字符，所以返回 \"leetcode\" 。\n\n示例 2：\n\n输入：s = \"aaabaaaa\"\n输出：\"aabaa\"\n解释：\n从第一组 'a' 里面删除一个 'a' ，得到 \"aabaaaa\" 。\n从第二组 'a' 里面删除两个 'a' ，得到 \"aabaa\" 。\n没有连续三个相同字符，所以返回 \"aabaa\" 。\n\n示例 3：\n\n输入：s = \"aab\"\n输出：\"aab\"\n解释：没有连续三个相同字符，所以返回 \"aab\" 。\n\n \n\n提示：\n\n\t1 <= s.length <= 105\n\n\ts 只包含小写英文字母。",
+      "statementEn": "A fancy string is a string where no three consecutive characters are equal.\n\nGiven a string s, delete the minimum possible number of characters from s to make it fancy.\n\nReturn the final string after the deletion. It can be shown that the answer will always be unique.\n\n \n\nExample 1:\n\nInput: s = \"leeetcode\"\nOutput: \"leetcode\"\nExplanation:\nRemove an &#39;e&#39; from the first group of &#39;e&#39;s to create \"leetcode\".\nNo three consecutive characters are equal, so return \"leetcode\".\n\nExample 2:\n\nInput: s = \"aaabaaaa\"\nOutput: \"aabaa\"\nExplanation:\nRemove an &#39;a&#39; from the first group of &#39;a&#39;s to create \"aabaaaa\".\nRemove two &#39;a&#39;s from the second group of &#39;a&#39;s to create \"aabaa\".\nNo three consecutive characters are equal, so return \"aabaa\".\n\nExample 3:\n\nInput: s = \"aab\"\nOutput: \"aab\"\nExplanation: No three consecutive characters are equal, so return \"aab\".\n\n \n\nConstraints:\n\n\t1 <= s.length <= 105\n\n\ts consists only of lowercase English letters.",
+      "statement": "一个字符串如果没有 三个连续 相同字符，那么它就是一个 好字符串 。\n\n给你一个字符串 s ，请你从 s 删除 最少 的字符，使它变成一个 好字符串 。\n\n请你返回删除后的字符串。题目数据保证答案总是 唯一的 。\n\n \n\n示例 1：\n\n输入：s = \"leeetcode\"\n输出：\"leetcode\"\n解释：\n从第一组 'e' 里面删除一个 'e' ，得到 \"leetcode\" 。\n没有连续三个相同字符，所以返回 \"leetcode\" 。\n\n示例 2：\n\n输入：s = \"aaabaaaa\"\n输出：\"aabaa\"\n解释：\n从第一组 'a' 里面删除一个 'a' ，得到 \"aabaaaa\" 。\n从第二组 'a' 里面删除两个 'a' ，得到 \"aabaa\" 。\n没有连续三个相同字符，所以返回 \"aabaa\" 。\n\n示例 3：\n\n输入：s = \"aab\"\n输出：\"aab\"\n解释：没有连续三个相同字符，所以返回 \"aab\" 。\n\n \n\n提示：\n\n\t1 <= s.length <= 105\n\n\ts 只包含小写英文字母。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "public class Solution {\n    public string MakeFancyString(string s) {\n        StringBuilder res = new StringBuilder();   // 删除后的字符串\n        // 遍历 s 模拟删除过程\n        foreach (char ch in s) {\n            int n = res.Length;\n            if (n >= 2 && res[n-1] == ch && res[n-2] == ch) {\n                // 如果 res 最后两个字符与当前字符均相等，则不添加\n                continue;\n            }\n            // 反之则添加\n            res.Append(ch);\n        }\n        return res.ToString();\n    }\n}",
+        "python": "class Solution:\n    def makeFancyString(self, s: str) -> str:\n        res = []   # 删除后的字符串\n        # 遍历 s 模拟删除过程\n        for ch in s:\n            if len(res) >= 2 and res[-1] == res[-2] == ch:\n                # 如果 res 最后两个字符与当前字符均相等，则不添加\n                continue\n            # 反之则添加\n            res.append(ch)\n        return \"\".join(res)",
+        "java": "class Solution {\n    public String makeFancyString(String s) {\n        StringBuilder res = new StringBuilder();   // 删除后的字符串\n        // 遍历 s 模拟删除过程\n        for (char ch : s.toCharArray()) {\n            int n = res.length();\n            if (n >= 2 && res.charAt(n - 1) == ch && res.charAt(n - 2) == ch) {\n                // 如果 res 最后两个字符与当前字符均相等，则不添加\n                continue;\n            }\n            // 反之则添加\n            res.append(ch);\n        }\n        return res.toString();\n    }\n}",
+        "go": "func makeFancyString(s string) string {\n    res := []rune{}   // 删除后的字符串\n    // 遍历 s 模拟删除过程\n    for _, ch := range s {\n        n := len(res)\n        if n >= 2 && res[n - 1] == ch && res[n - 2] == ch {\n            // 如果 res 最后两个字符与当前字符均相等，则不添加\n            continue\n        }\n        // 反之则添加\n        res = append(res, ch)\n    }\n    return string(res)\n}",
+        "javascript": "var makeFancyString = function(s) {\n    let res = [];   // 删除后的字符串\n    // 遍历 s 模拟删除过程\n    for (const ch of s) {\n        const n = res.length;\n        if (n >= 2 && res[n - 1] === ch && res[n - 2] === ch) {\n            // 如果 res 最后两个字符与当前字符均相等，则不添加\n            continue;\n        }\n        // 反之则添加\n        res.push(ch);\n    }\n    return res.join('');\n};",
+        "typescript": "function makeFancyString(s: string): string {\n    const res: string[] = [];   // 删除后的字符串\n    // 遍历 s 模拟删除过程\n    for (const ch of s) {\n        const n = res.length;\n        if (n >= 2 && res[n - 1] === ch && res[n - 2] === ch) {\n            // 如果 res 最后两个字符与当前字符均相等，则不添加\n            continue;\n        }\n        // 反之则添加\n        res.push(ch);\n    }\n    return res.join('');\n};"
+      },
+      "id": 341
+    },
+    {
+      "title": "检查操作是否合法",
+      "titleSlug": "check-if-move-is-legal",
+      "tags": [
+        "数组",
+        "枚举",
+        "矩阵"
+      ],
+      "difficulty": "中等",
+      "acceptance": 57.87,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/check-if-move-is-legal/",
+      "hotCompanies": [
+        "亚马逊",
+        "flexport",
+        "uber"
+      ],
+      "statementZh": "给你一个下标从 0 开始的 8 x 8 网格 board ，其中 board[r][c] 表示游戏棋盘上的格子 (r, c) 。棋盘上空格用 '.' 表示，白色格子用 'W' 表示，黑色格子用 'B' 表示。\n\n游戏中每次操作步骤为：选择一个空格子，将它变成你正在执行的颜色（要么白色，要么黑色）。但是，合法 操作必须满足：涂色后这个格子是 好线段的一个端点 （好线段可以是水平的，竖直的或者是对角线）。\n\n好线段 指的是一个包含 三个或者更多格子（包含端点格子）的线段，线段两个端点格子为 同一种颜色 ，且中间剩余格子的颜色都为 另一种颜色 （线段上不能有任何空格子）。你可以在下图找到好线段的例子：\n\n给你两个整数 rMove 和 cMove 以及一个字符 color ，表示你正在执行操作的颜色（白或者黑），如果将格子 (rMove, cMove) 变成颜色 color 后，是一个 合法 操作，那么返回 true ，如果不是合法操作返回 false 。\n\n \n\n示例 1：\n\n输入：board = [[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\"W\",\"B\",\"B\",\".\",\"W\",\"W\",\"W\",\"B\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"]], rMove = 4, cMove = 3, color = \"B\"\n输出：true\n解释：'.'，'W' 和 'B' 分别用颜色蓝色，白色和黑色表示。格子 (rMove, cMove) 用 'X' 标记。\n以选中格子为端点的两个好线段在上图中用红色矩形标注出来了。\n\n示例 2：\n\n输入：board = [[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\"B\",\".\",\".\",\"W\",\".\",\".\",\".\"],[\".\",\".\",\"W\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\"B\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\"B\",\"W\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\"W\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\"B\"]], rMove = 4, cMove = 4, color = \"W\"\n输出：false\n解释：虽然选中格子涂色后，棋盘上产生了好线段，但选中格子是作为中间格子，没有产生以选中格子为端点的好线段。\n\n \n\n提示：\n\n\tboard.length == board[r].length == 8\n\n\t0 <= rMove, cMove < 8\n\n\tboard[rMove][cMove] == '.'\n\n\tcolor 要么是 'B' 要么是 'W' 。",
+      "statementEn": "You are given a 0-indexed 8 x 8 grid board, where board[r][c] represents the cell (r, c) on a game board. On the board, free cells are represented by &#39;.&#39;, white cells are represented by &#39;W&#39;, and black cells are represented by &#39;B&#39;.\n\nEach move in this game consists of choosing a free cell and changing it to the color you are playing as (either white or black). However, a move is only legal if, after changing it, the cell becomes the endpoint of a good line (horizontal, vertical, or diagonal).\n\nA good line is a line of three or more cells (including the endpoints) where the endpoints of the line are one color, and the remaining cells in the middle are the opposite color (no cells in the line are free). You can find examples for good lines in the figure below:\n\nGiven two integers rMove and cMove and a character color representing the color you are playing as (white or black), return true if changing cell (rMove, cMove) to color color is a legal move, or false if it is not legal.\n\n \n\nExample 1:\n\nInput: board = [[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\"W\",\"B\",\"B\",\".\",\"W\",\"W\",\"W\",\"B\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"]], rMove = 4, cMove = 3, color = \"B\"\nOutput: true\nExplanation: &#39;.&#39;, &#39;W&#39;, and &#39;B&#39; are represented by the colors blue, white, and black respectively, and cell (rMove, cMove) is marked with an &#39;X&#39;.\nThe two good lines with the chosen cell as an endpoint are annotated above with the red rectangles.\n\nExample 2:\n\nInput: board = [[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\"B\",\".\",\".\",\"W\",\".\",\".\",\".\"],[\".\",\".\",\"W\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\"B\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\"B\",\"W\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\"W\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\"B\"]], rMove = 4, cMove = 4, color = \"W\"\nOutput: false\nExplanation: While there are good lines with the chosen cell as a middle cell, there are no good lines with the chosen cell as an endpoint.\n\n \n\nConstraints:\n\n\tboard.length == board[r].length == 8\n\n\t0 <= rMove, cMove < 8\n\n\tboard[rMove][cMove] == &#39;.&#39;\n\n\tcolor is either &#39;B&#39; or &#39;W&#39;.",
+      "statement": "给你一个下标从 0 开始的 8 x 8 网格 board ，其中 board[r][c] 表示游戏棋盘上的格子 (r, c) 。棋盘上空格用 '.' 表示，白色格子用 'W' 表示，黑色格子用 'B' 表示。\n\n游戏中每次操作步骤为：选择一个空格子，将它变成你正在执行的颜色（要么白色，要么黑色）。但是，合法 操作必须满足：涂色后这个格子是 好线段的一个端点 （好线段可以是水平的，竖直的或者是对角线）。\n\n好线段 指的是一个包含 三个或者更多格子（包含端点格子）的线段，线段两个端点格子为 同一种颜色 ，且中间剩余格子的颜色都为 另一种颜色 （线段上不能有任何空格子）。你可以在下图找到好线段的例子：\n\n给你两个整数 rMove 和 cMove 以及一个字符 color ，表示你正在执行操作的颜色（白或者黑），如果将格子 (rMove, cMove) 变成颜色 color 后，是一个 合法 操作，那么返回 true ，如果不是合法操作返回 false 。\n\n \n\n示例 1：\n\n输入：board = [[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\"W\",\"B\",\"B\",\".\",\"W\",\"W\",\"W\",\"B\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"]], rMove = 4, cMove = 3, color = \"B\"\n输出：true\n解释：'.'，'W' 和 'B' 分别用颜色蓝色，白色和黑色表示。格子 (rMove, cMove) 用 'X' 标记。\n以选中格子为端点的两个好线段在上图中用红色矩形标注出来了。\n\n示例 2：\n\n输入：board = [[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\"B\",\".\",\".\",\"W\",\".\",\".\",\".\"],[\".\",\".\",\"W\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\"B\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\"B\",\"W\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\"W\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\"B\"]], rMove = 4, cMove = 4, color = \"W\"\n输出：false\n解释：虽然选中格子涂色后，棋盘上产生了好线段，但选中格子是作为中间格子，没有产生以选中格子为端点的好线段。\n\n \n\n提示：\n\n\tboard.length == board[r].length == 8\n\n\t0 <= rMove, cMove < 8\n\n\tboard[rMove][cMove] == '.'\n\n\tcolor 要么是 'B' 要么是 'W' 。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    bool checkMove(vector<vector<char>>& board, int rMove, int cMove, char color) {\n        // 判断每个方向是否存在以操作位置为起点的好线段\n        auto check = [&](int dx, int dy) -> bool{\n            int x = rMove + dx;\n            int y = cMove + dy;\n            int step = 1;   // 当前遍历到的节点序号\n            while (x >= 0 && x < 8 && y >= 0 && y < 8) {\n                if (step == 1) {\n                    // 第一个点必须为相反颜色\n                    if (board[x][y] == '.' || board[x][y] == color) {\n                        return false;\n                    }\n                }\n                else {\n                    // 好线段中不应存在空格子\n                    if (board[x][y] == '.') {\n                        return false;\n                    }\n                    // 遍历到好线段的终点，返回 true\n                    if (board[x][y] == color) {\n                        return true;\n                    }\n                }\n                ++step;\n                x += dx;\n                y += dy;\n            }\n            // 不存在符合要求的好线段\n            return false;\n        };\n        \n        // 从 x 轴正方向开始逆时针枚举 8 个方向\n        vector<int> dx = {1, 1, 0, -1, -1, -1, 0, 1};   // 行改变量\n        vector<int> dy = {0, 1, 1, 1, 0, -1, -1, -1};   // 列改变量\n        for (int k = 0; k < 8; ++k) {\n            if (check(dx[k], dy[k])) {\n                return true;\n            }\n        }\n        return false;\n    }\n};",
+        "java": "class Solution {\n    public boolean checkMove(char[][] board, int rMove, int cMove, char color) {\n        // 从 x 轴正方向开始逆时针枚举 8 个方向\n        int[] dx = {1, 1, 0, -1, -1, -1, 0, 1};   // 行改变量\n        int[] dy = {0, 1, 1, 1, 0, -1, -1, -1};   // 列改变量\n        for (int k = 0; k < 8; ++k) {\n            if (check(board, rMove, cMove, color, dx[k], dy[k])) {\n                return true;\n            }\n        }\n        return false;\n    }\n\n    // 判断每个方向是否存在以操作位置为起点的好线段\n    public boolean check(char[][] board, int rMove, int cMove, char color, int dx, int dy) {\n        int x = rMove + dx;\n        int y = cMove + dy;\n        int step = 1;   // 当前遍历到的节点序号\n        while (x >= 0 && x < 8 && y >= 0 && y < 8) {\n            if (step == 1) {\n                // 第一个点必须为相反颜色\n                if (board[x][y] == '.' || board[x][y] == color) {\n                    return false;\n                }\n            } else {\n                // 好线段中不应存在空格子\n                if (board[x][y] == '.') {\n                    return false;\n                }\n                // 遍历到好线段的终点，返回 true\n                if (board[x][y] == color) {\n                    return true;\n                }\n            }\n            ++step;\n            x += dx;\n            y += dy;\n        }\n        // 不存在符合要求的好线段\n        return false;\n    }\n}",
+        "python": "class Solution:\n    def checkMove(self, board: List[List[str]], rMove: int, cMove: int, color: str) -> bool:\n        # 判断每个方向是否存在以操作位置为起点的好线段\n        def check(dx: int, dy: int) -> bool:\n            x, y = rMove + dx, cMove + dy\n            step = 1   # 当前遍历到的节点序号\n            while 0 <= x < 8 and 0 <= y < 8:\n                if step == 1:\n                    # 第一个点必须为相反颜色\n                    if board[x][y] == \".\" or board[x][y] == color:\n                        return False\n                else:\n                    # 好线段中不应存在空格子\n                    if board[x][y] == \".\":\n                        return False\n                    # 遍历到好线段的终点，返回 true\n                    if board[x][y] == color:\n                        return True\n                step += 1\n                x += dx\n                y += dy\n            # 不存在符合要求的好线段\n            return False\n        \n        # 从 x 轴正方向开始逆时针枚举 8 个方向\n        dx = [1, 1, 0, -1, -1, -1, 0, 1]   # 行改变量\n        dy = [0, 1, 1, 1, 0, -1, -1, -1]   # 列改变量\n        for k in range(8):\n            if check(dx[k], dy[k]):\n                return True\n        return False",
+        "go": "func checkMove(board [][]byte, rMove int, cMove int, color byte) bool {\n    // 判断每个方向是否存在以操作位置为起点的好线段\n    check := func(dx, dy int) bool {\n        x, y := rMove+dx, cMove+dy\n        step := 1   // 当前遍历到的节点序号\n        for x >= 0 && x < 8 && y >= 0 && y < 8 {\n            if step == 1 {\n                // 第一个点必须为相反颜色\n                if board[x][y] == '.' || board[x][y] == color {\n                    return false\n                }\n            } else {\n                // 好线段中不应存在空格子\n                if board[x][y] == '.' {\n                    return false\n                }\n                // 遍历到好线段的终点，返回 true\n                if board[x][y] == color {\n                    return true\n                }\n            }\n            step++\n            x += dx\n            y += dy\n        }\n        // 不存在符合要求的好线段\n        return false\n    }\n\n    // 从 x 轴正方向开始逆时针枚举 8 个方向\n    dx := []int{1, 1, 0, -1, -1, -1, 0, 1}   // 行改变量\n    dy := []int{0, 1, 1, 1, 0, -1, -1, -1}   // 列改变量\n    for k := 0; k < 8; k++ {\n        if check(dx[k], dy[k]) {\n            return true\n        }\n    }\n    return false\n}",
+        "javascript": "var checkMove = function(board, rMove, cMove, color) {\n    // 判断每个方向是否存在以操作位置为起点的好线段\n    const check = (dx, dy) => {\n        let x = rMove + dx;\n        let y = cMove + dy;\n        let step = 1;   // 当前遍历到的节点序号\n        while (x >= 0 && x < 8 && y >= 0 && y < 8) {\n            if (step === 1) {\n                // 第一个点必须为相反颜色\n                if (board[x][y] === '.' || board[x][y] === color) {\n                    return false;\n                }\n            } else {\n                // 好线段中不应存在空格子\n                if (board[x][y] === '.') {\n                    return false;\n                }\n                // 遍历到好线段的终点，返回 true\n                if (board[x][y] === color) {\n                    return true;\n                }\n            }\n            ++step;\n            x += dx;\n            y += dy;\n        }\n        // 不存在符合要求的好线段\n        return false;\n    };\n\n    // 从 x 轴正方向开始逆时针枚举 8 个方向\n    const dx = [1, 1, 0, -1, -1, -1, 0, 1];   // 行改变量\n    const dy = [0, 1, 1, 1, 0, -1, -1, -1];   // 列改变量\n    for (let k = 0; k < 8; ++k) {\n        if (check(dx[k], dy[k])) {\n            return true;\n        }\n    }\n    return false;\n};",
+        "typescript": "function checkMove(board: string[][], rMove: number, cMove: number, color: string): boolean {\n    // 判断每个方向是否存在以操作位置为起点的好线段\n    const check = (dx: number, dy: number): boolean => {\n        let x = rMove + dx;\n        let y = cMove + dy;\n        let step = 1;   // 当前遍历到的节点序号\n        while (x >= 0 && x < 8 && y >= 0 && y < 8) {\n            if (step === 1) {\n                // 第一个点必须为相反颜色\n                if (board[x][y] === '.' || board[x][y] === color) {\n                    return false;\n                }\n            } else {\n                // 好线段中不应存在空格子\n                if (board[x][y] === '.') {\n                    return false;\n                }\n                // 遍历到好线段的终点，返回 true\n                if (board[x][y] === color) {\n                    return true;\n                }\n            }\n            ++step;\n            x += dx;\n            y += dy;\n        }\n        // 不存在符合要求的好线段\n        return false;\n    };\n\n    // 从 x 轴正方向开始逆时针枚举 8 个方向\n    const dx = [1, 1, 0, -1, -1, -1, 0, 1];   // 行改变量\n    const dy = [0, 1, 1, 1, 0, -1, -1, -1];   // 列改变量\n    for (let k = 0; k < 8; ++k) {\n        if (check(dx[k], dy[k])) {\n            return true;\n        }\n    }\n    return false;\n};"
+      },
+      "id": 342
+    },
+    {
+      "title": "K 次调整数组大小浪费的最小总空间",
+      "titleSlug": "minimum-total-space-wasted-with-k-resizing-operations",
+      "tags": [
+        "数组",
+        "动态规划",
+        "前缀和"
+      ],
+      "difficulty": "中等",
+      "acceptance": 52.03,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-total-space-wasted-with-k-resizing-operations/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "adobe"
+      ],
+      "statementZh": "你正在设计一个动态数组。给你一个下标从 0 开始的整数数组 nums ，其中 nums[i] 是 i 时刻数组中的元素数目。除此以外，你还有一个整数 k ，表示你可以 调整 数组大小的 最多 次数（每次都可以调整成 任意 大小）。\n\nt 时刻数组的大小 sizet 必须大于等于 nums[t] ，因为数组需要有足够的空间容纳所有元素。t 时刻 浪费的空间 为 sizet - nums[t] ，总 浪费空间为满足 0 <= t < nums.length 的每一个时刻 t 浪费的空间 之和 。\n\n在调整数组大小不超过 k 次的前提下，请你返回 最小总浪费空间 。\n\n注意：数组最开始时可以为 任意大小 ，且 不计入 调整大小的操作次数。\n\n \n\n示例 1：\n\n输入：nums = [10,20], k = 0\n输出：10\n解释：size = [20,20].\n我们可以让数组初始大小为 20 。\n总浪费空间为 (20 - 10) + (20 - 20) = 10 。\n\n示例 2：\n\n输入：nums = [10,20,30], k = 1\n输出：10\n解释：size = [20,20,30].\n我们可以让数组初始大小为 20 ，然后时刻 2 调整大小为 30 。\n总浪费空间为 (20 - 10) + (20 - 20) + (30 - 30) = 10 。\n\n示例 3：\n\n输入：nums = [10,20,15,30,20], k = 2\n输出：15\n解释：size = [10,20,20,30,30].\n我们可以让数组初始大小为 10 ，时刻 1 调整大小为 20 ，时刻 3 调整大小为 30 。\n总浪费空间为 (10 - 10) + (20 - 20) + (20 - 15) + (30 - 30) + (30 - 20) = 15 。\n\n \n\n提示：\n\n\t1 <= nums.length <= 200\n\n\t1 <= nums[i] <= 106\n\n\t0 <= k <= nums.length - 1",
+      "statementEn": "You are currently designing a dynamic array. You are given a 0-indexed integer array nums, where nums[i] is the number of elements that will be in the array at time i. In addition, you are given an integer k, the maximum number of times you can resize the array (to any size).\n\nThe size of the array at time t, sizet, must be at least nums[t] because there needs to be enough space in the array to hold all the elements. The space wasted at time t is defined as sizet - nums[t], and the total space wasted is the sum of the space wasted across every time t where 0 <= t < nums.length.\n\nReturn the minimum total space wasted if you can resize the array at most k times.\n\nNote: The array can have any size at the start and does not count towards the number of resizing operations.\n\n \n\nExample 1:\n\nInput: nums = [10,20], k = 0\nOutput: 10\nExplanation: size = [20,20].\nWe can set the initial size to be 20.\nThe total wasted space is (20 - 10) + (20 - 20) = 10.\n\nExample 2:\n\nInput: nums = [10,20,30], k = 1\nOutput: 10\nExplanation: size = [20,20,30].\nWe can set the initial size to be 20 and resize to 30 at time 2. \nThe total wasted space is (20 - 10) + (20 - 20) + (30 - 30) = 10.\n\nExample 3:\n\nInput: nums = [10,20,15,30,20], k = 2\nOutput: 15\nExplanation: size = [10,20,20,30,30].\nWe can set the initial size to 10, resize to 20 at time 1, and resize to 30 at time 3.\nThe total wasted space is (10 - 10) + (20 - 20) + (20 - 15) + (30 - 30) + (30 - 20) = 15.\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 200\n\n\t1 <= nums[i] <= 106\n\n\t0 <= k <= nums.length - 1",
+      "statement": "你正在设计一个动态数组。给你一个下标从 0 开始的整数数组 nums ，其中 nums[i] 是 i 时刻数组中的元素数目。除此以外，你还有一个整数 k ，表示你可以 调整 数组大小的 最多 次数（每次都可以调整成 任意 大小）。\n\nt 时刻数组的大小 sizet 必须大于等于 nums[t] ，因为数组需要有足够的空间容纳所有元素。t 时刻 浪费的空间 为 sizet - nums[t] ，总 浪费空间为满足 0 <= t < nums.length 的每一个时刻 t 浪费的空间 之和 。\n\n在调整数组大小不超过 k 次的前提下，请你返回 最小总浪费空间 。\n\n注意：数组最开始时可以为 任意大小 ，且 不计入 调整大小的操作次数。\n\n \n\n示例 1：\n\n输入：nums = [10,20], k = 0\n输出：10\n解释：size = [20,20].\n我们可以让数组初始大小为 20 。\n总浪费空间为 (20 - 10) + (20 - 20) = 10 。\n\n示例 2：\n\n输入：nums = [10,20,30], k = 1\n输出：10\n解释：size = [20,20,30].\n我们可以让数组初始大小为 20 ，然后时刻 2 调整大小为 30 。\n总浪费空间为 (20 - 10) + (20 - 20) + (30 - 30) = 10 。\n\n示例 3：\n\n输入：nums = [10,20,15,30,20], k = 2\n输出：15\n解释：size = [10,20,20,30,30].\n我们可以让数组初始大小为 10 ，时刻 1 调整大小为 20 ，时刻 3 调整大小为 30 。\n总浪费空间为 (10 - 10) + (20 - 20) + (20 - 15) + (30 - 30) + (30 - 20) = 15 。\n\n \n\n提示：\n\n\t1 <= nums.length <= 200\n\n\t1 <= nums[i] <= 106\n\n\t0 <= k <= nums.length - 1",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int minSpaceWastedKResizing(vector<int>& nums, int k) {\n        int n = nums.size();\n\n        // 预处理数组 g\n        vector<vector<int>> g(n, vector<int>(n));\n        for (int i = 0; i < n; ++i) {\n            // 记录子数组的最大值\n            int best = INT_MIN;\n            // 记录子数组的和\n            int total = 0;\n            for (int j = i; j < n; ++j) {\n                best = max(best, nums[j]);\n                total += nums[j];\n                g[i][j] = best * (j - i + 1) - total;\n            }\n        }\n        \n        vector<vector<int>> f(n, vector<int>(k + 2, INT_MAX / 2));\n        for (int i = 0; i < n; ++i) {\n            for (int j = 1; j <= k + 1; ++j) {\n                for (int i0 = 0; i0 <= i; ++i0) {\n                    f[i][j] = min(f[i][j], (i0 == 0 ? 0 : f[i0 - 1][j - 1]) + g[i0][i]);\n                }\n            }\n        }\n\n        return f[n - 1][k + 1];\n    }\n};",
+        "python": "class Solution:\n    def minSpaceWastedKResizing(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        \n        # 预处理数组 g\n        g = [[0] * n for _ in range(n)]\n        for i in range(n):\n            # 记录子数组的最大值\n            best = float(\"-inf\")\n            # 记录子数组的和\n            total = 0\n            for j in range(i, n):\n                best = max(best, nums[j])\n                total += nums[j]\n                g[i][j] = best * (j - i + 1) - total\n        \n        f = [[float(\"inf\")] * (k + 2) for _ in range(n)]\n        for i in range(n):\n            for j in range(1, k + 2):\n                for i0 in range(i + 1):\n                    f[i][j] = min(f[i][j], (0 if i0 == 0 else f[i0 - 1][j - 1]) + g[i0][i])\n\n        return f[n - 1][k + 1]"
+      },
+      "id": 343
+    },
+    {
+      "title": "两个回文子字符串长度的最大乘积",
+      "titleSlug": "maximum-product-of-the-length-of-two-palindromic-substrings",
+      "tags": [
+        "双指针",
+        "字符串",
+        "哈希函数",
+        "滚动哈希"
+      ],
+      "difficulty": "困难",
+      "acceptance": 34.61,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/maximum-product-of-the-length-of-two-palindromic-substrings/",
+      "hotCompanies": [
+        "bloomberg",
+        "shopee",
+        "亚马逊"
+      ],
+      "statementZh": "给你一个下标从 0 开始的字符串 s ，你需要找到两个 不重叠的回文 子字符串，它们的长度都必须为 奇数 ，使得它们长度的乘积最大。\n\n更正式地，你想要选择四个整数 i ，j ，k ，l ，使得 0 <= i <= j < k <= l < s.length ，且子字符串 s[i...j] 和 s[k...l] 都是回文串且长度为奇数。s[i...j] 表示下标从 i 到 j 且 包含 两端下标的子字符串。\n\n请你返回两个不重叠回文子字符串长度的 最大 乘积。\n\n回文字符串 指的是一个从前往后读和从后往前读一模一样的字符串。子字符串 指的是一个字符串中一段连续字符。\n\n \n\n示例 1：\n\n输入：s = \"ababbb\"\n输出：9\n解释：子字符串 \"aba\" 和 \"bbb\" 为奇数长度的回文串。乘积为 3 * 3 = 9 。\n\n示例 2：\n\n输入：s = \"zaaaxbbby\"\n输出：9\n解释：子字符串 \"aaa\" 和 \"bbb\" 为奇数长度的回文串。乘积为 3 * 3 = 9 。\n\n \n\n提示：\n\n\t2 <= s.length <= 105\n\n\ts 只包含小写英文字母。",
+      "statementEn": "You are given a 0-indexed string s and are tasked with finding two non-intersecting palindromic substrings of odd length such that the product of their lengths is maximized.\n\nMore formally, you want to choose four integers i, j, k, l such that 0 <= i <= j < k <= l < s.length and both the substrings s[i...j] and s[k...l] are palindromes and have odd lengths. s[i...j] denotes a substring from index i to index j inclusive.\n\nReturn the maximum possible product of the lengths of the two non-intersecting palindromic substrings.\n\nA palindrome is a string that is the same forward and backward. A substring is a contiguous sequence of characters in a string.\n\n \n\nExample 1:\n\nInput: s = \"ababbb\"\nOutput: 9\nExplanation: Substrings \"aba\" and \"bbb\" are palindromes with odd length. product = 3 * 3 = 9.\n\nExample 2:\n\nInput: s = \"zaaaxbbby\"\nOutput: 9\nExplanation: Substrings \"aaa\" and \"bbb\" are palindromes with odd length. product = 3 * 3 = 9.\n\n \n\nConstraints:\n\n\t2 <= s.length <= 105\n\n\ts consists of lowercase English letters.",
+      "statement": "给你一个下标从 0 开始的字符串 s ，你需要找到两个 不重叠的回文 子字符串，它们的长度都必须为 奇数 ，使得它们长度的乘积最大。\n\n更正式地，你想要选择四个整数 i ，j ，k ，l ，使得 0 <= i <= j < k <= l < s.length ，且子字符串 s[i...j] 和 s[k...l] 都是回文串且长度为奇数。s[i...j] 表示下标从 i 到 j 且 包含 两端下标的子字符串。\n\n请你返回两个不重叠回文子字符串长度的 最大 乘积。\n\n回文字符串 指的是一个从前往后读和从后往前读一模一样的字符串。子字符串 指的是一个字符串中一段连续字符。\n\n \n\n示例 1：\n\n输入：s = \"ababbb\"\n输出：9\n解释：子字符串 \"aba\" 和 \"bbb\" 为奇数长度的回文串。乘积为 3 * 3 = 9 。\n\n示例 2：\n\n输入：s = \"zaaaxbbby\"\n输出：9\n解释：子字符串 \"aaa\" 和 \"bbb\" 为奇数长度的回文串。乘积为 3 * 3 = 9 。\n\n \n\n提示：\n\n\t2 <= s.length <= 105\n\n\ts 只包含小写英文字母。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    long long maxProduct(string s) {\n        int n = s.size();\n        vector<int> span(n);\n\n        // manacher\n        for (int i = 0, l = 0, r = -1; i < n; ++i) {\n            span[i] = (i <= r ? min(span[l + r - i], r - i + 1) : 1);\n            while (i - span[i] >= 0 && i + span[i] < n && s[i - span[i]] == s[i + span[i]]) {\n                ++span[i];\n            }\n            if (i + span[i] - 1 > r) {\n                l = i - span[i] + 1;\n                r = i + span[i] - 1;\n            }\n        }\n\n        vector<int> pre(n), suf(n);\n        for (int i = 0; i < n; ++i) {\n            pre[i + span[i] - 1] = max(pre[i + span[i] - 1], span[i] * 2 - 1);\n            suf[i - span[i] + 1] = max(suf[i - span[i] + 1], span[i] * 2 - 1);\n        }\n\n        for (int i = 1; i < n; ++i) {\n            pre[i] = max(pre[i], pre[i - 1]);\n        }\n        for (int i = n - 2; i >= 0; --i) {\n            pre[i] = max(pre[i], pre[i + 1] - 2);\n        }\n        for (int i = n - 2; i >= 0; --i) {\n            suf[i] = max(suf[i], suf[i + 1]);\n        }\n        for (int i = 1; i < n; ++i) {\n            suf[i] = max(suf[i], suf[i - 1] - 2);\n        }\n\n        long long ans = 0;\n        for (int i = 0; i < n - 1; ++i) {\n            ans = max(ans, (long long)pre[i] * suf[i + 1]);\n        }\n        return ans;\n    }\n};",
+        "python": "class Solution:\n    def maxProduct(self, s: str) -> int:\n        n = len(s)\n        span = [0] * n\n        l, r = 0, -1\n\n        for i in range(n):\n            span[i] = (min(span[l + r - i], r - i + 1) if i <= r else 1)\n            while i - span[i] >= 0 and i + span[i] < n and s[i - span[i]] == s[i + span[i]]:\n                span[i] += 1\n            if i + span[i] - 1 > r:\n                l = i - span[i] + 1\n                r = i + span[i] - 1\n\n        pre, suf = [0] * n, [0] * n\n        for i in range(n):\n            pre[i + span[i] - 1] = max(pre[i + span[i] - 1], span[i] * 2 - 1)\n            suf[i - span[i] + 1] = max(suf[i - span[i] + 1], span[i] * 2 - 1)\n        \n        for i in range(1, n):\n            pre[i] = max(pre[i], pre[i - 1])\n        for i in range(n - 2, -1, -1):\n            pre[i] = max(pre[i], pre[i + 1] - 2)\n        for i in range(n - 2, -1, -1):\n            suf[i] = max(suf[i], suf[i + 1])\n        for i in range(1, n):\n            suf[i] = max(suf[i], suf[i - 1] - 2)\n\n        ans = max(pre[i] * suf[i + 1] for i in range(n - 1))\n        return ans"
+      },
+      "id": 344
+    },
+    {
+      "title": "检查字符串是否为数组前缀",
+      "titleSlug": "check-if-string-is-a-prefix-of-array",
+      "tags": [
+        "数组",
+        "双指针",
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 53.47,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/check-if-string-is-a-prefix-of-array/",
+      "hotCompanies": [
+        "亚马逊",
+        "uber",
+        "bloomberg"
+      ],
+      "statementZh": "给你一个字符串 s 和一个字符串数组 words ，请你判断 s 是否为 words 的 前缀字符串 。\n\n字符串 s 要成为 words 的 前缀字符串 ，需要满足：s 可以由 words 中的前 k（k 为 正数 ）个字符串按顺序相连得到，且 k 不超过 words.length 。\n\n如果 s 是 words 的 前缀字符串 ，返回 true ；否则，返回 false 。\n\n \n\n示例 1：\n\n输入：s = \"iloveleetcode\", words = [\"i\",\"love\",\"leetcode\",\"apples\"]\n输出：true\n解释：\ns 可以由 \"i\"、\"love\" 和 \"leetcode\" 相连得到。\n\n示例 2：\n\n输入：s = \"iloveleetcode\", words = [\"apples\",\"i\",\"love\",\"leetcode\"]\n输出：false\n解释：\n数组的前缀相连无法得到 s 。\n\n \n\n提示：\n\n\t1 <= words.length <= 100\n\n\t1 <= words[i].length <= 20\n\n\t1 <= s.length <= 1000\n\n\twords[i] 和 s 仅由小写英文字母组成",
+      "statementEn": "Given a string s and an array of strings words, determine whether s is a prefix string of words.\n\nA string s is a prefix string of words if s can be made by concatenating the first k strings in words for some positive k no larger than words.length.\n\nReturn true if s is a prefix string of words, or false otherwise.\n\n \n\nExample 1:\n\nInput: s = \"iloveleetcode\", words = [\"i\",\"love\",\"leetcode\",\"apples\"]\nOutput: true\nExplanation:\ns can be made by concatenating \"i\", \"love\", and \"leetcode\" together.\n\nExample 2:\n\nInput: s = \"iloveleetcode\", words = [\"apples\",\"i\",\"love\",\"leetcode\"]\nOutput: false\nExplanation:\nIt is impossible to make s using a prefix of arr.\n\n \n\nConstraints:\n\n\t1 <= words.length <= 100\n\n\t1 <= words[i].length <= 20\n\n\t1 <= s.length <= 1000\n\n\twords[i] and s consist of only lowercase English letters.",
+      "statement": "给你一个字符串 s 和一个字符串数组 words ，请你判断 s 是否为 words 的 前缀字符串 。\n\n字符串 s 要成为 words 的 前缀字符串 ，需要满足：s 可以由 words 中的前 k（k 为 正数 ）个字符串按顺序相连得到，且 k 不超过 words.length 。\n\n如果 s 是 words 的 前缀字符串 ，返回 true ；否则，返回 false 。\n\n \n\n示例 1：\n\n输入：s = \"iloveleetcode\", words = [\"i\",\"love\",\"leetcode\",\"apples\"]\n输出：true\n解释：\ns 可以由 \"i\"、\"love\" 和 \"leetcode\" 相连得到。\n\n示例 2：\n\n输入：s = \"iloveleetcode\", words = [\"apples\",\"i\",\"love\",\"leetcode\"]\n输出：false\n解释：\n数组的前缀相连无法得到 s 。\n\n \n\n提示：\n\n\t1 <= words.length <= 100\n\n\t1 <= words[i].length <= 20\n\n\t1 <= s.length <= 1000\n\n\twords[i] 和 s 仅由小写英文字母组成",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    bool isPrefixString(string s, vector<string>& words) {\n        int i = 0;\n        int n = s.size();\n        for (const string& word : words){\n            for (char ch : word){\n                if (i < n && ch == s[i]){\n                    ++i;\n                }\n                else{\n                    // s 提前遍历完成或当前字符不匹配\n                    return false;\n                }\n            }\n            if (i == n){\n                // 此时满足前缀定义\n                return true;\n            }\n        }\n        // 遍历完成 words 时 s 仍未遍历完成\n        return false;\n    }\n};",
+        "python": "class Solution:\n    def isPrefixString(self, s: str, words: List[str]) -> bool:\n        i = 0\n        n = len(s)\n        for word in words:\n            for ch in word:\n                if i < n and ch == s[i]:\n                    i += 1\n                else:\n                    # s 提前遍历完成或当前字符不匹配\n                    return False\n            if i == n:\n                # 此时满足前缀定义\n                return True\n        # 遍历完成 words 时 s 仍未遍历完成\n        return False"
+      },
+      "id": 345
+    },
+    {
+      "title": "移除石子使总数最小",
+      "titleSlug": "remove-stones-to-minimize-the-total",
+      "tags": [
+        "贪心",
+        "数组",
+        "堆（优先队列）"
+      ],
+      "difficulty": "中等",
+      "acceptance": 62.22,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/remove-stones-to-minimize-the-total/",
+      "hotCompanies": [
+        "亚马逊",
+        "facebook",
+        "nvidia"
+      ],
+      "statementZh": "给你一个整数数组 piles ，数组 下标从 0 开始 ，其中 piles[i] 表示第 i 堆石子中的石子数量。另给你一个整数 k ，请你执行下述操作 恰好 k 次：\n\n\t选出任一石子堆 piles[i] ，并从中 移除 floor(piles[i] / 2) 颗石子。\n\n注意：你可以对 同一堆 石子多次执行此操作。\n\n返回执行 k 次操作后，剩下石子的 最小 总数。\n\nfloor(x) 为 小于 或 等于 x 的 最大 整数。（即，对 x 向下取整）。\n\n \n\n示例 1：\n\n输入：piles = [5,4,9], k = 2\n输出：12\n解释：可能的执行情景如下：\n- 对第 2 堆石子执行移除操作，石子分布情况变成 [5,4,5] 。\n- 对第 0 堆石子执行移除操作，石子分布情况变成 [3,4,5] 。\n剩下石子的总数为 12 。\n\n示例 2：\n\n输入：piles = [4,3,6,7], k = 3\n输出：12\n解释：可能的执行情景如下：\n- 对第 2 堆石子执行移除操作，石子分布情况变成 [4,3,3,7] 。\n- 对第 3 堆石子执行移除操作，石子分布情况变成 [4,3,3,4] 。\n- 对第 0 堆石子执行移除操作，石子分布情况变成 [2,3,3,4] 。\n剩下石子的总数为 12 。\n\n \n\n提示：\n\n\t1 <= piles.length <= 105\n\n\t1 <= piles[i] <= 104\n\n\t1 <= k <= 105",
+      "statementEn": "You are given a 0-indexed integer array piles, where piles[i] represents the number of stones in the ith pile, and an integer k. You should apply the following operation exactly k times:\n\n\tChoose any piles[i] and remove floor(piles[i] / 2) stones from it.\n\nNotice that you can apply the operation on the same pile more than once.\n\nReturn the minimum possible total number of stones remaining after applying the k operations.\n\nfloor(x) is the largest integer that is smaller than or equal to x (i.e., rounds x down).\n\n \n\nExample 1:\n\nInput: piles = [5,4,9], k = 2\nOutput: 12\nExplanation: Steps of a possible scenario are:\n- Apply the operation on pile 2. The resulting piles are [5,4,5].\n- Apply the operation on pile 0. The resulting piles are [3,4,5].\nThe total number of stones in [3,4,5] is 12.\n\nExample 2:\n\nInput: piles = [4,3,6,7], k = 3\nOutput: 12\nExplanation: Steps of a possible scenario are:\n- Apply the operation on pile 2. The resulting piles are [4,3,3,7].\n- Apply the operation on pile 3. The resulting piles are [4,3,3,4].\n- Apply the operation on pile 0. The resulting piles are [2,3,3,4].\nThe total number of stones in [2,3,3,4] is 12.\n\n \n\nConstraints:\n\n\t1 <= piles.length <= 105\n\n\t1 <= piles[i] <= 104\n\n\t1 <= k <= 105",
+      "statement": "给你一个整数数组 piles ，数组 下标从 0 开始 ，其中 piles[i] 表示第 i 堆石子中的石子数量。另给你一个整数 k ，请你执行下述操作 恰好 k 次：\n\n\t选出任一石子堆 piles[i] ，并从中 移除 floor(piles[i] / 2) 颗石子。\n\n注意：你可以对 同一堆 石子多次执行此操作。\n\n返回执行 k 次操作后，剩下石子的 最小 总数。\n\nfloor(x) 为 小于 或 等于 x 的 最大 整数。（即，对 x 向下取整）。\n\n \n\n示例 1：\n\n输入：piles = [5,4,9], k = 2\n输出：12\n解释：可能的执行情景如下：\n- 对第 2 堆石子执行移除操作，石子分布情况变成 [5,4,5] 。\n- 对第 0 堆石子执行移除操作，石子分布情况变成 [3,4,5] 。\n剩下石子的总数为 12 。\n\n示例 2：\n\n输入：piles = [4,3,6,7], k = 3\n输出：12\n解释：可能的执行情景如下：\n- 对第 2 堆石子执行移除操作，石子分布情况变成 [4,3,3,7] 。\n- 对第 3 堆石子执行移除操作，石子分布情况变成 [4,3,3,4] 。\n- 对第 0 堆石子执行移除操作，石子分布情况变成 [2,3,3,4] 。\n剩下石子的总数为 12 。\n\n \n\n提示：\n\n\t1 <= piles.length <= 105\n\n\t1 <= piles[i] <= 104\n\n\t1 <= k <= 105",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def minStoneSum(self, piles: List[int], k: int) -> int:\n        heap = [-a for a in piles]\n        heapify(heap)\n        for i in range(k):\n            a = -heappop(heap)\n            a = a - a//2\n            heappush(heap, -a)\n        return -sum(heap)",
+        "java": "class Solution {\n    public int minStoneSum(int[] piles, int k) {\n        PriorityQueue<Integer> pq = new PriorityQueue<Integer>((a, b) -> (b - a));\n        for (int pile : piles) {\n            pq.offer(pile);\n        }\n        for (int i = 0; i < k; i++) {\n            int pile = pq.poll();\n            pile -= pile / 2;\n            pq.offer(pile);\n        }\n        int sum = 0;\n        while (!pq.isEmpty()) {\n            sum += pq.poll();\n        }\n        return sum;\n    }\n}",
+        "cpp": "void swap(int *nums, int i, int j) {\n    int x = nums[i];\n    nums[i] = nums[j];\n    nums[j] = x;\n}\n\nvoid down(int *nums, int size, int i) {\n    for (int k = 2 * i + 1; k < size; k = 2 * k + 1) {\n        // 父节点 (k - 1) / 2，左子节点 k，右子节点 k + 1\n        if (k + 1 < size && nums[k] < nums[k + 1]) {\n            k++;\n        }\n        if (nums[k] < nums[(k - 1) / 2]) {\n            break;\n        }\n        swap(nums, k, (k - 1) / 2);\n    }\n}\n\nvoid Init(int *nums, int size) {\n    for (int i = size / 2 - 1; i >= 0; i--) {\n        down(nums, size, i);\n    }\n}\n\nvoid Push(int *nums, int size, int x) {\n    nums[size] = x;\n    for (int i = size; i > 0 && nums[(i - 1) / 2] < nums[i]; i = (i - 1) / 2) {\n        swap(nums, i, (i - 1) / 2);\n    }\n}\n\nint Pop(int *nums, int size) {\n    swap(nums, 0, size - 1);\n    down(nums, size - 1, 0);\n    return nums[size - 1];\n}\n\nint minStoneSum(int* piles, int pilesSize, int k) {\n    int *pq = piles, n = pilesSize;\n    Init(pq, n);\n    for (int i = 0; i < k; i++) {\n        int pile = Pop(pq, n);\n        n--;\n        pile -= pile / 2;\n        Push(pq, n, pile);\n        n++;\n    }\n    int sum = 0;\n    while (n > 0) {\n        sum += Pop(pq, n);\n        n--;\n    }\n    return sum;\n}",
+        "go": "type PriorityQueue struct {\n    sort.IntSlice\n}\n\nfunc (pq *PriorityQueue) Less(i, j int) bool {\n    return pq.IntSlice[i] > pq.IntSlice[j]\n}\n\nfunc (pq *PriorityQueue) Push(v interface{}) {\n    pq.IntSlice = append(pq.IntSlice, v.(int))\n}\n\nfunc (pq *PriorityQueue) Pop() interface{} {\n    arr := pq.IntSlice\n    v := arr[len(arr) - 1]\n    pq.IntSlice = arr[:len(arr) - 1]\n    return v\n}\n\nfunc minStoneSum(piles []int, k int) int {\n    pq := &PriorityQueue{piles}\n    heap.Init(pq)\n    for i := 0; i < k; i++ {\n        pile := heap.Pop(pq).(int)\n        pile -= pile / 2\n        heap.Push(pq, pile)\n    }\n    sum := 0\n    for len(pq.IntSlice) > 0 {\n        sum += heap.Pop(pq).(int)\n    }\n    return sum\n}",
+        "javascript": "var minStoneSum = function(piles, k) {\n    const pq = new MaxPriorityQueue();\n    for (const pile of piles) {\n        pq.enqueue(pile, pile);\n    }\n    for (let i = 0; i < k; i++) {\n        let pile = pq.front().element;\n        pq.dequeue();\n        pile -= Math.floor(pile / 2);\n        pq.enqueue(pile, pile);\n    }\n    let sum = 0;\n    while (!pq.isEmpty()) {\n        sum += pq.front().element;\n        pq.dequeue();\n    }\n    return sum;\n};"
+      },
+      "id": 346
+    },
+    {
+      "title": "使字符串平衡的最小交换次数",
+      "titleSlug": "minimum-number-of-swaps-to-make-the-string-balanced",
+      "tags": [
+        "栈",
+        "贪心",
+        "双指针",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 75.08,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-number-of-swaps-to-make-the-string-balanced/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "facebook"
+      ],
+      "statementZh": "给你一个字符串 s ，下标从 0 开始 ，且长度为偶数 n 。字符串 恰好 由 n / 2 个开括号 '[' 和 n / 2 个闭括号 ']' 组成。\n\n只有能满足下述所有条件的字符串才能称为 平衡字符串 ：\n\n\t字符串是一个空字符串，或者\n\n\t字符串可以记作 AB ，其中 A 和 B 都是 平衡字符串 ，或者\n\n\t字符串可以写成 [C] ，其中 C 是一个 平衡字符串 。\n\n你可以交换 任意 两个下标所对应的括号 任意 次数。\n\n返回使 s 变成 平衡字符串 所需要的 最小 交换次数。\n\n \n\n示例 1：\n\n输入：s = \"][][\"\n输出：1\n解释：交换下标 0 和下标 3 对应的括号，可以使字符串变成平衡字符串。\n最终字符串变成 \"[[]]\" 。\n\n示例 2：\n\n输入：s = \"]]][[[\"\n输出：2\n解释：执行下述操作可以使字符串变成平衡字符串：\n- 交换下标 0 和下标 4 对应的括号，s = \"[]][][\" 。\n- 交换下标 1 和下标 5 对应的括号，s = \"[[][]]\" 。\n最终字符串变成 \"[[][]]\" 。\n\n示例 3：\n\n输入：s = \"[]\"\n输出：0\n解释：这个字符串已经是平衡字符串。\n\n \n\n提示：\n\n\tn == s.length\n\n\t2 <= n <= 106\n\n\tn 为偶数\n\n\ts[i] 为'[' 或 ']'\n\n\t开括号 '[' 的数目为 n / 2 ，闭括号 ']' 的数目也是 n / 2",
+      "statementEn": "You are given a 0-indexed string s of even length n. The string consists of exactly n / 2 opening brackets &#39;[&#39; and n / 2 closing brackets &#39;]&#39;.\n\nA string is called balanced if and only if:\n\n\tIt is the empty string, or\n\n\tIt can be written as AB, where both A and B are balanced strings, or\n\n\tIt can be written as [C], where C is a balanced string.\n\nYou may swap the brackets at any two indices any number of times.\n\nReturn the minimum number of swaps to make s balanced.\n\n \n\nExample 1:\n\nInput: s = \"][][\"\nOutput: 1\nExplanation: You can make the string balanced by swapping index 0 with index 3.\nThe resulting string is \"[[]]\".\n\nExample 2:\n\nInput: s = \"]]][[[\"\nOutput: 2\nExplanation: You can do the following to make the string balanced:\n- Swap index 0 with index 4. s = \"[]][][\".\n- Swap index 1 with index 5. s = \"[[][]]\".\nThe resulting string is \"[[][]]\".\n\nExample 3:\n\nInput: s = \"[]\"\nOutput: 0\nExplanation: The string is already balanced.\n\n \n\nConstraints:\n\n\tn == s.length\n\n\t2 <= n <= 106\n\n\tn is even.\n\n\ts[i] is either &#39;[&#39; or &#39;]&#39;.\n\n\tThe number of opening brackets &#39;[&#39; equals n / 2, and the number of closing brackets &#39;]&#39; equals n / 2.",
+      "statement": "给你一个字符串 s ，下标从 0 开始 ，且长度为偶数 n 。字符串 恰好 由 n / 2 个开括号 '[' 和 n / 2 个闭括号 ']' 组成。\n\n只有能满足下述所有条件的字符串才能称为 平衡字符串 ：\n\n\t字符串是一个空字符串，或者\n\n\t字符串可以记作 AB ，其中 A 和 B 都是 平衡字符串 ，或者\n\n\t字符串可以写成 [C] ，其中 C 是一个 平衡字符串 。\n\n你可以交换 任意 两个下标所对应的括号 任意 次数。\n\n返回使 s 变成 平衡字符串 所需要的 最小 交换次数。\n\n \n\n示例 1：\n\n输入：s = \"][][\"\n输出：1\n解释：交换下标 0 和下标 3 对应的括号，可以使字符串变成平衡字符串。\n最终字符串变成 \"[[]]\" 。\n\n示例 2：\n\n输入：s = \"]]][[[\"\n输出：2\n解释：执行下述操作可以使字符串变成平衡字符串：\n- 交换下标 0 和下标 4 对应的括号，s = \"[]][][\" 。\n- 交换下标 1 和下标 5 对应的括号，s = \"[[][]]\" 。\n最终字符串变成 \"[[][]]\" 。\n\n示例 3：\n\n输入：s = \"[]\"\n输出：0\n解释：这个字符串已经是平衡字符串。\n\n \n\n提示：\n\n\tn == s.length\n\n\t2 <= n <= 106\n\n\tn 为偶数\n\n\ts[i] 为'[' 或 ']'\n\n\t开括号 '[' 的数目为 n / 2 ，闭括号 ']' 的数目也是 n / 2",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "public class Solution {\n    public int MinSwaps(string s) {\n        int cnt = 0, mincnt = 0;\n        foreach (char ch in s) {\n            if (ch == '[') {\n                cnt += 1;\n            } else {\n                cnt -= 1;\n                mincnt = Math.Min(mincnt, cnt);\n            }\n        }\n        return (-mincnt + 1) / 2;\n    }\n}",
+        "python": "class Solution:\n    def minSwaps(self, s: str) -> int:\n        cnt = mincnt = 0\n        for ch in s:\n            if ch == '[':\n                cnt += 1\n            else:\n                cnt -= 1\n                mincnt = min(mincnt, cnt)\n        return (-mincnt + 1) // 2",
+        "java": "class Solution {\n    public int minSwaps(String s) {\n        int cnt = 0, mincnt = 0;\n        for (char ch : s.toCharArray()) {\n            if (ch == '[') {\n                cnt += 1;\n            } else {\n                cnt -= 1;\n                mincnt = Math.min(mincnt, cnt);\n            }\n        }\n        return (-mincnt + 1) / 2;\n    }\n}",
+        "go": "func minSwaps(s string) int {\n    cnt, mincnt := 0, 0\n    for _, ch := range s {\n        if ch == '[' {\n            cnt++\n        } else {\n            cnt--\n            mincnt = min(mincnt, cnt)\n        }\n    }\n    return (-mincnt + 1) / 2\n}",
+        "javascript": "var minSwaps = function(s) {\n    let cnt = 0, mincnt = 0;\n    for (let ch of s) {\n        if (ch === '[') {\n            cnt += 1;\n        } else {\n            cnt -= 1;\n            mincnt = Math.min(mincnt, cnt);\n        }\n    }\n    return Math.floor((-mincnt + 1) / 2);\n};",
+        "typescript": "function minSwaps(s: string): number {\n    let cnt = 0, mincnt = 0;\n    for (let ch of s) {\n        if (ch === '[') {\n            cnt += 1;\n        } else {\n            cnt -= 1;\n            mincnt = Math.min(mincnt, cnt);\n        }\n    }\n    return Math.floor((-mincnt + 1) / 2);\n};"
+      },
+      "id": 347
+    },
+    {
+      "title": "找出到每个位置为止最长的有效障碍赛跑路线",
+      "titleSlug": "find-the-longest-valid-obstacle-course-at-each-position",
+      "tags": [
+        "树状数组",
+        "数组",
+        "二分查找"
+      ],
+      "difficulty": "困难",
+      "acceptance": 51.15,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/find-the-longest-valid-obstacle-course-at-each-position/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "morgan-stanley"
+      ],
+      "statementZh": "你打算构建一些障碍赛跑路线。给你一个 下标从 0 开始 的整数数组 obstacles ，数组长度为 n ，其中 obstacles[i] 表示第 i 个障碍的高度。\n\n对于每个介于 0 和 n - 1 之间（包含 0 和 n - 1）的下标  i ，在满足下述条件的前提下，请你找出 obstacles 能构成的最长障碍路线的长度：\n\n\t你可以选择下标介于 0 到 i 之间（包含 0 和 i）的任意个障碍。\n\n\t在这条路线中，必须包含第 i 个障碍。\n\n\t你必须按障碍在 obstacles 中的 出现顺序 布置这些障碍。\n\n\t除第一个障碍外，路线中每个障碍的高度都必须和前一个障碍 相同 或者 更高 。\n\n返回长度为 n 的答案数组 ans ，其中 ans[i] 是上面所述的下标 i 对应的最长障碍赛跑路线的长度。\n\n \n\n示例 1：\n\n输入：obstacles = [1,2,3,2]\n输出：[1,2,3,3]\n解释：每个位置的最长有效障碍路线是：\n- i = 0: [1], [1] 长度为 1\n- i = 1: [1,2], [1,2] 长度为 2\n- i = 2: [1,2,3], [1,2,3] 长度为 3\n- i = 3: [1,2,3,2], [1,2,2] 长度为 3\n\n示例 2：\n\n输入：obstacles = [2,2,1]\n输出：[1,2,1]\n解释：每个位置的最长有效障碍路线是：\n- i = 0: [2], [2] 长度为 1\n- i = 1: [2,2], [2,2] 长度为 2\n- i = 2: [2,2,1], [1] 长度为 1\n\n示例 3：\n\n输入：obstacles = [3,1,5,6,4,2]\n输出：[1,1,2,3,2,2]\n解释：每个位置的最长有效障碍路线是：\n- i = 0: [3], [3] 长度为 1\n- i = 1: [3,1], [1] 长度为 1\n- i = 2: [3,1,5], [3,5] 长度为 2, [1,5] 也是有效的障碍赛跑路线\n- i = 3: [3,1,5,6], [3,5,6] 长度为 3, [1,5,6] 也是有效的障碍赛跑路线\n- i = 4: [3,1,5,6,4], [3,4] 长度为 2, [1,4] 也是有效的障碍赛跑路线\n- i = 5: [3,1,5,6,4,2], [1,2] 长度为 2\n\n \n\n提示：\n\n\tn == obstacles.length\n\n\t1 <= n <= 105\n\n\t1 <= obstacles[i] <= 107",
+      "statementEn": "You want to build some obstacle courses. You are given a 0-indexed integer array obstacles of length n, where obstacles[i] describes the height of the ith obstacle.\n\nFor every index i between 0 and n - 1 (inclusive), find the length of the longest obstacle course in obstacles such that:\n\n\tYou choose any number of obstacles between 0 and i inclusive.\n\n\tYou must include the ith obstacle in the course.\n\n\tYou must put the chosen obstacles in the same order as they appear in obstacles.\n\n\tEvery obstacle (except the first) is taller than or the same height as the obstacle immediately before it.\n\nReturn an array ans of length n, where ans[i] is the length of the longest obstacle course for index i as described above.\n\n \n\nExample 1:\n\nInput: obstacles = [1,2,3,2]\nOutput: [1,2,3,3]\nExplanation: The longest valid obstacle course at each position is:\n- i = 0: [1], [1] has length 1.\n- i = 1: [1,2], [1,2] has length 2.\n- i = 2: [1,2,3], [1,2,3] has length 3.\n- i = 3: [1,2,3,2], [1,2,2] has length 3.\n\nExample 2:\n\nInput: obstacles = [2,2,1]\nOutput: [1,2,1]\nExplanation: The longest valid obstacle course at each position is:\n- i = 0: [2], [2] has length 1.\n- i = 1: [2,2], [2,2] has length 2.\n- i = 2: [2,2,1], [1] has length 1.\n\nExample 3:\n\nInput: obstacles = [3,1,5,6,4,2]\nOutput: [1,1,2,3,2,2]\nExplanation: The longest valid obstacle course at each position is:\n- i = 0: [3], [3] has length 1.\n- i = 1: [3,1], [1] has length 1.\n- i = 2: [3,1,5], [3,5] has length 2. [1,5] is also valid.\n- i = 3: [3,1,5,6], [3,5,6] has length 3. [1,5,6] is also valid.\n- i = 4: [3,1,5,6,4], [3,4] has length 2. [1,4] is also valid.\n- i = 5: [3,1,5,6,4,2], [1,2] has length 2.\n\n \n\nConstraints:\n\n\tn == obstacles.length\n\n\t1 <= n <= 105\n\n\t1 <= obstacles[i] <= 107",
+      "statement": "你打算构建一些障碍赛跑路线。给你一个 下标从 0 开始 的整数数组 obstacles ，数组长度为 n ，其中 obstacles[i] 表示第 i 个障碍的高度。\n\n对于每个介于 0 和 n - 1 之间（包含 0 和 n - 1）的下标  i ，在满足下述条件的前提下，请你找出 obstacles 能构成的最长障碍路线的长度：\n\n\t你可以选择下标介于 0 到 i 之间（包含 0 和 i）的任意个障碍。\n\n\t在这条路线中，必须包含第 i 个障碍。\n\n\t你必须按障碍在 obstacles 中的 出现顺序 布置这些障碍。\n\n\t除第一个障碍外，路线中每个障碍的高度都必须和前一个障碍 相同 或者 更高 。\n\n返回长度为 n 的答案数组 ans ，其中 ans[i] 是上面所述的下标 i 对应的最长障碍赛跑路线的长度。\n\n \n\n示例 1：\n\n输入：obstacles = [1,2,3,2]\n输出：[1,2,3,3]\n解释：每个位置的最长有效障碍路线是：\n- i = 0: [1], [1] 长度为 1\n- i = 1: [1,2], [1,2] 长度为 2\n- i = 2: [1,2,3], [1,2,3] 长度为 3\n- i = 3: [1,2,3,2], [1,2,2] 长度为 3\n\n示例 2：\n\n输入：obstacles = [2,2,1]\n输出：[1,2,1]\n解释：每个位置的最长有效障碍路线是：\n- i = 0: [2], [2] 长度为 1\n- i = 1: [2,2], [2,2] 长度为 2\n- i = 2: [2,2,1], [1] 长度为 1\n\n示例 3：\n\n输入：obstacles = [3,1,5,6,4,2]\n输出：[1,1,2,3,2,2]\n解释：每个位置的最长有效障碍路线是：\n- i = 0: [3], [3] 长度为 1\n- i = 1: [3,1], [1] 长度为 1\n- i = 2: [3,1,5], [3,5] 长度为 2, [1,5] 也是有效的障碍赛跑路线\n- i = 3: [3,1,5,6], [3,5,6] 长度为 3, [1,5,6] 也是有效的障碍赛跑路线\n- i = 4: [3,1,5,6,4], [3,4] 长度为 2, [1,4] 也是有效的障碍赛跑路线\n- i = 5: [3,1,5,6,4,2], [1,2] 长度为 2\n\n \n\n提示：\n\n\tn == obstacles.length\n\n\t1 <= n <= 105\n\n\t1 <= obstacles[i] <= 107",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    vector<int> longestObstacleCourseAtEachPosition(vector<int>& obstacles) {\n        vector<int> d, ans;\n        for (int ob: obstacles) {\n            // 这里需要改成 >=\n            if (d.empty() || ob >= d.back()) {\n                d.push_back(ob);\n                ans.push_back(d.size());\n            }\n            else {\n                // 将 300 题解中的二分查找改为 API 调用使得代码更加直观\n                // 如果是最长严格递增子序列，这里是 lower_bound\n                // 如果是最长递增子序列，这里是 upper_bound\n                int loc = upper_bound(d.begin(), d.end(), ob) - d.begin();\n                ans.push_back(loc + 1);\n                d[loc] = ob;\n            }\n        }\n        return ans;\n    }\n};",
+        "python": "class Solution:\n    def longestObstacleCourseAtEachPosition(self, obstacles: List[int]) -> List[int]:\n        d = list()\n        ans = list()\n        for ob in obstacles:\n            # 这里需要改成 >=\n            if not d or ob >= d[-1]:\n                d.append(ob)\n                ans.append(len(d))\n            else:\n                # 将 300 题解中的二分查找改为 API 调用使得代码更加直观\n                # 如果是最长严格递增子序列，这里是 bisect_left\n                # 如果是最长递增子序列，这里是 bisect_right\n                loc = bisect_right(d, ob)\n                ans.append(loc + 1)\n                d[loc] = ob\n        \n        return ans"
+      },
+      "id": 348
+    },
+    {
+      "title": "丢失信息的雇员",
+      "titleSlug": "employees-with-missing-information",
+      "tags": [
+        "数据库"
+      ],
+      "difficulty": "简单",
+      "acceptance": 70.66,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/employees-with-missing-information/",
+      "hotCompanies": [
+        "字节",
+        "facebook",
+        "亚马逊"
+      ],
+      "statementZh": "表: Employees\n\n+-------------+---------+\n| Column Name | Type    |\n+-------------+---------+\n| employee_id | int     |\n| name        | varchar |\n+-------------+---------+\nemployee_id 是该表中具有唯一值的列。\n每一行表示雇员的 id 和他的姓名。\n\n表: Salaries\n\n+-------------+---------+\n| Column Name | Type    |\n+-------------+---------+\n| employee_id | int     |\n| salary      | int     |\n+-------------+---------+\nemployee_id 是该表中具有唯一值的列。\n每一行表示雇员的 id 和他的薪水。\n\n \n\n编写解决方案，找到所有 丢失信息 的雇员 id。当满足下面一个条件时，就被认为是雇员的信息丢失：\n\n\t雇员的 姓名 丢失了，或者\n\n\t雇员的 薪水信息 丢失了\n\n返回这些雇员的 id  employee_id ， 从小到大排序 。\n\n查询结果格式如下面的例子所示。\n\n \n\n示例 1：\n\n输入：\nEmployees table:\n+-------------+----------+\n| employee_id | name     |\n+-------------+----------+\n| 2           | Crew     |\n| 4           | Haven    |\n| 5           | Kristian |\n+-------------+----------+\nSalaries table:\n+-------------+--------+\n| employee_id | salary |\n+-------------+--------+\n| 5           | 76071  |\n| 1           | 22517  |\n| 4           | 63539  |\n+-------------+--------+\n输出：\n+-------------+\n| employee_id |\n+-------------+\n| 1           |\n| 2           |\n+-------------+\n解释：\n雇员 1，2，4，5 都在这个公司工作。\n1 号雇员的姓名丢失了。\n2 号雇员的薪水信息丢失了。",
+      "statementEn": "Table: Employees\n\n+-------------+---------+\n| Column Name | Type    |\n+-------------+---------+\n| employee_id | int     |\n| name        | varchar |\n+-------------+---------+\nemployee_id is the column with unique values for this table.\nEach row of this table indicates the name of the employee whose ID is employee_id.\n\n \n\nTable: Salaries\n\n+-------------+---------+\n| Column Name | Type    |\n+-------------+---------+\n| employee_id | int     |\n| salary      | int     |\n+-------------+---------+\nemployee_id is the column with unique values for this table.\nEach row of this table indicates the salary of the employee whose ID is employee_id.\n\n \n\nWrite a solution to report the IDs of all the employees with missing information. The information of an employee is missing if:\n\n\tThe employee&#39;s name is missing, or\n\n\tThe employee&#39;s salary is missing.\n\nReturn the result table ordered by employee_id in ascending order.\n\nThe result format is in the following example.\n\n \n\nExample 1:\n\nInput: \nEmployees table:\n+-------------+----------+\n| employee_id | name     |\n+-------------+----------+\n| 2           | Crew     |\n| 4           | Haven    |\n| 5           | Kristian |\n+-------------+----------+\nSalaries table:\n+-------------+--------+\n| employee_id | salary |\n+-------------+--------+\n| 5           | 76071  |\n| 1           | 22517  |\n| 4           | 63539  |\n+-------------+--------+\nOutput: \n+-------------+\n| employee_id |\n+-------------+\n| 1           |\n| 2           |\n+-------------+\nExplanation: \nEmployees 1, 2, 4, and 5 are working at this company.\nThe name of employee 1 is missing.\nThe salary of employee 2 is missing.",
+      "statement": "表: Employees\n\n+-------------+---------+\n| Column Name | Type    |\n+-------------+---------+\n| employee_id | int     |\n| name        | varchar |\n+-------------+---------+\nemployee_id 是该表中具有唯一值的列。\n每一行表示雇员的 id 和他的姓名。\n\n表: Salaries\n\n+-------------+---------+\n| Column Name | Type    |\n+-------------+---------+\n| employee_id | int     |\n| salary      | int     |\n+-------------+---------+\nemployee_id 是该表中具有唯一值的列。\n每一行表示雇员的 id 和他的薪水。\n\n \n\n编写解决方案，找到所有 丢失信息 的雇员 id。当满足下面一个条件时，就被认为是雇员的信息丢失：\n\n\t雇员的 姓名 丢失了，或者\n\n\t雇员的 薪水信息 丢失了\n\n返回这些雇员的 id  employee_id ， 从小到大排序 。\n\n查询结果格式如下面的例子所示。\n\n \n\n示例 1：\n\n输入：\nEmployees table:\n+-------------+----------+\n| employee_id | name     |\n+-------------+----------+\n| 2           | Crew     |\n| 4           | Haven    |\n| 5           | Kristian |\n+-------------+----------+\nSalaries table:\n+-------------+--------+\n| employee_id | salary |\n+-------------+--------+\n| 5           | 76071  |\n| 1           | 22517  |\n| 4           | 63539  |\n+-------------+--------+\n输出：\n+-------------+\n| employee_id |\n+-------------+\n| 1           |\n| 2           |\n+-------------+\n解释：\n雇员 1，2，4，5 都在这个公司工作。\n1 号雇员的姓名丢失了。\n2 号雇员的薪水信息丢失了。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "id": 349
     }
   ],
   "errors": []

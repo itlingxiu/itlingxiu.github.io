@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-17T17:38:13.889Z",
-  "dateKey": "2026-07-18",
+  "crawledAt": "2026-07-18T17:31:42.609Z",
+  "dateKey": "2026-07-19",
   "sources": [
     "nowcoder",
     "leetcode"
@@ -1136,6 +1136,16 @@
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/ta/review-java/review?page=19",
       "id": 124
+    },
+    {
+      "category": "Java",
+      "difficulty": "简单",
+      "acceptance": 55,
+      "question": "如何权衡是使用无序的数组还是有序的数组？",
+      "answer": "有序数组最大的好处在于查找的时间复杂度是O(log n)，而无序数组是O(n)。有序数组的缺点是插入操作的时间复杂度是O(n)，因为值大的元素需要往后移动来给新元素腾位置。相反，无序数组的插入时间复杂度是常量O(1)。 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-java/review?page=18",
+      "id": 125
     }
   ],
   "errors": []
