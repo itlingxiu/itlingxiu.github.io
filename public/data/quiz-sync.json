@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-18T17:31:42.609Z",
-  "dateKey": "2026-07-19",
+  "crawledAt": "2026-07-19T17:31:09.202Z",
+  "dateKey": "2026-07-20",
   "sources": [
     "nowcoder",
     "leetcode"
@@ -1146,6 +1146,16 @@
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/ta/review-java/review?page=18",
       "id": 125
+    },
+    {
+      "category": "Java",
+      "difficulty": "简单",
+      "acceptance": 35,
+      "question": "你了解大O符号(big-O notation)么？你能给出不同数据结构的例子么？",
+      "answer": "大O符号描述了当数据结构里面的元素增加的时候，算法的规模或者是 一个渐进上界 。 大O符号也可用来描述其他的行为，比如：内存消耗。因为集合类实际上是数据结构，我们一般使用大O符号基于时间，内存和性能来选择最好的实现。大O符号可以对大量数据的性能给出一个很好的说明。 纠错 收藏",
+      "source": "nowcoder",
+      "sourceUrl": "https://www.nowcoder.com/ta/review-java/review?page=17",
+      "id": 126
     }
   ],
   "errors": []
