@@ -1,13 +1,26 @@
-import type { Playlist, SearchResult, Track } from './types';
+import type { Platform, Playlist, SearchResult, Track } from './types';
 
-const API_ENDPOINTS = [
+/* ============================================================
+ * 网易云榜单接口（每日/每周更新的热榜数据源，多镜像 fallback）
+ * ========================================================== */
+const NETEASE_ENDPOINTS = [
   'https://netease-cloud-music-api-alpha-mocha.vercel.app',
   'https://music-api-lyart.vercel.app',
   'https://netease-cloud-music-api-woad-sigma-32.vercel.app',
 ];
 
-const STORAGE_KEY = 'gy_music_api_endpoint';
-const REQUEST_TIMEOUT = 6000;
+/* ============================================================
+ * GD Studio 多平台聚合接口（搜索 / 播放地址 / 封面 / 歌词）
+ * 覆盖：网易云 / QQ音乐 / 酷我 / 酷狗 / 咪咕
+ * ========================================================== */
+const GD_ENDPOINTS = [
+  'https://music-api.gdstudio.xyz/api.php',
+  'https://music-api.gdstudio.xyz/api.php',
+];
+
+const NETEASE_STORAGE_KEY = 'gy_music_api_endpoint';
+const GD_STORAGE_KEY = 'gy_music_gd_endpoint';
+const REQUEST_TIMEOUT = 8000;
 
 const CHART_PRESETS: Array<{ id: number; name: string; badge?: string }> = [
   { id: 3778678, name: '飙升榜', badge: '每日更新' },
@@ -22,27 +35,34 @@ function timeoutFetch(url: string, ms = REQUEST_TIMEOUT): Promise<Response> {
   return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
 }
 
-async function tryEndpoints<T>(path: string, parse: (data: unknown) => T): Promise<T> {
-  const preferred = localStorage.getItem(STORAGE_KEY);
+async function tryEndpoints<T>(
+  endpoints: string[],
+  storageKey: string,
+  buildUrl: (base: string) => string,
+  parse: (data: unknown) => T,
+): Promise<T> {
+  const preferred = localStorage.getItem(storageKey);
   const ordered = preferred
-    ? [preferred, ...API_ENDPOINTS.filter((e) => e !== preferred)]
-    : API_ENDPOINTS;
+    ? [preferred, ...endpoints.filter((e) => e !== preferred)]
+    : [...new Set(endpoints)];
 
   let lastError: unknown;
   for (const base of ordered) {
     try {
-      const res = await timeoutFetch(`${base}${path}`);
+      const res = await timeoutFetch(buildUrl(base));
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = (await res.json()) as unknown;
       const result = parse(json);
-      localStorage.setItem(STORAGE_KEY, base);
+      localStorage.setItem(storageKey, base);
       return result;
     } catch (err) {
       lastError = err;
     }
   }
-  throw lastError ?? new Error('All music API endpoints failed');
+  throw lastError ?? new Error('All endpoints failed');
 }
+
+/* ------------------------- 网易云榜单 ------------------------- */
 
 function normalizeArtist(artists: Array<{ name?: string } | undefined> | undefined): string {
   if (!artists || !artists.length) return '未知歌手';
@@ -52,7 +72,7 @@ function normalizeArtist(artists: Array<{ name?: string } | undefined> | undefin
     .join(' / ');
 }
 
-interface RawTrack {
+interface RawNeteaseTrack {
   id?: number | string;
   name?: string;
   ar?: Array<{ name?: string }>;
@@ -63,7 +83,7 @@ interface RawTrack {
   duration?: number;
 }
 
-function mapTrack(raw: RawTrack): Track {
+function mapNeteaseTrack(raw: RawNeteaseTrack): Track {
   return {
     id: raw.id ?? '',
     name: raw.name ?? '未知歌曲',
@@ -76,65 +96,139 @@ function mapTrack(raw: RawTrack): Track {
 }
 
 export async function fetchChartList(chartId: number): Promise<Playlist> {
-  return tryEndpoints(`/playlist/detail?id=${chartId}`, (data) => {
-    const d = data as {
-      playlist?: {
-        id?: number;
-        name?: string;
-        description?: string;
-        coverImgUrl?: string;
-        tracks?: RawTrack[];
-        updateFrequency?: string;
+  return tryEndpoints(
+    NETEASE_ENDPOINTS,
+    NETEASE_STORAGE_KEY,
+    (base) => `${base}/playlist/detail?id=${chartId}`,
+    (data) => {
+      const d = data as {
+        playlist?: {
+          id?: number;
+          name?: string;
+          description?: string;
+          coverImgUrl?: string;
+          tracks?: RawNeteaseTrack[];
+          updateFrequency?: string;
+        };
       };
-    };
-    const playlist = d.playlist;
-    if (!playlist) throw new Error('Invalid playlist response');
-    return {
-      id: playlist.id ?? chartId,
-      name: playlist.name ?? '热榜',
-      description: playlist.description,
-      cover: playlist.coverImgUrl,
-      updateFrequency: playlist.updateFrequency,
-      tracks: (playlist.tracks ?? []).slice(0, 50).map(mapTrack),
-    };
-  });
+      const playlist = d.playlist;
+      if (!playlist) throw new Error('Invalid playlist response');
+      return {
+        id: playlist.id ?? chartId,
+        name: playlist.name ?? '热榜',
+        description: playlist.description,
+        cover: playlist.coverImgUrl,
+        updateFrequency: playlist.updateFrequency,
+        tracks: (playlist.tracks ?? []).slice(0, 50).map(mapNeteaseTrack),
+      };
+    },
+  );
 }
 
 export async function fetchAllCharts(): Promise<Array<{ id: number; name: string; badge?: string }>> {
   return CHART_PRESETS;
 }
 
-export async function searchTracks(keyword: string, limit = 30): Promise<SearchResult> {
+/* ------------------------- GD Studio 多平台 ------------------------- */
+
+interface RawGdTrack {
+  id?: string | number;
+  name?: string;
+  artist?: string[];
+  album?: string;
+  pic_id?: string;
+  lyric_id?: string;
+  url_id?: string;
+  source?: string;
+}
+
+function mapGdTrack(raw: RawGdTrack, platform: Platform): Track {
+  return {
+    id: raw.id ?? raw.url_id ?? '',
+    name: raw.name ?? '未知歌曲',
+    artist: raw.artist && raw.artist.length ? raw.artist.filter(Boolean).join(' / ') : '未知歌手',
+    album: raw.album,
+    picId: raw.pic_id,
+    lyricId: raw.lyric_id,
+    source: platform,
+  };
+}
+
+export async function searchTracks(
+  keyword: string,
+  platform: Platform = 'netease',
+  count = 30,
+): Promise<SearchResult> {
   if (!keyword.trim()) return { tracks: [], total: 0 };
   return tryEndpoints(
-    `/cloudsearch?keywords=${encodeURIComponent(keyword)}&limit=${limit}`,
+    GD_ENDPOINTS,
+    GD_STORAGE_KEY,
+    (base) =>
+      `${base}?types=search&source=${platform}&name=${encodeURIComponent(keyword)}&count=${count}&pages=1`,
     (data) => {
-      const d = data as {
-        result?: {
-          songs?: RawTrack[];
-          songCount?: number;
-        };
-      };
-      const songs = d.result?.songs ?? [];
-      return {
-        tracks: songs.map(mapTrack),
-        total: d.result?.songCount ?? songs.length,
-      };
+      const list = (Array.isArray(data) ? data : []) as RawGdTrack[];
+      const tracks = list.map((item) => mapGdTrack(item, platform));
+      return { tracks, total: tracks.length };
     },
   );
 }
 
-export async function fetchSongUrl(id: number | string): Promise<string | null> {
+export async function fetchCover(picId: string, source: Platform): Promise<string | null> {
   try {
-    return await tryEndpoints(`/song/url/v1?id=${id}&level=standard`, (data) => {
-      const d = data as { data?: Array<{ url?: string | null }> };
-      const url = d.data?.[0]?.url;
-      return url ?? null;
-    });
+    return await tryEndpoints(
+      GD_ENDPOINTS,
+      GD_STORAGE_KEY,
+      (base) => `${base}?types=pic&source=${source}&id=${encodeURIComponent(picId)}&size=300`,
+      (data) => {
+        const d = data as { url?: string };
+        return d.url ?? null;
+      },
+    );
   } catch {
     return null;
   }
 }
+
+/**
+ * 解析播放地址。GD Studio 支持全部平台（含网易云榜单歌曲的 netease id）。
+ * 若首选源失败，网易云歌曲再尝试官方镜像兜底。
+ */
+export async function fetchSongUrl(track: Track): Promise<string | null> {
+  if (track.url) return track.url;
+  if (track.source === 'demo') return track.url ?? null;
+
+  const platform = track.source as Platform;
+
+  const gdUrl = await tryEndpoints(
+    GD_ENDPOINTS,
+    GD_STORAGE_KEY,
+    (base) => `${base}?types=url&source=${platform}&id=${encodeURIComponent(String(track.id))}&br=320`,
+    (data) => {
+      const d = data as { url?: string | null };
+      const url = d.url;
+      return url && url.length ? url.replace(/^http:/, 'https:') : null;
+    },
+  ).catch(() => null);
+
+  if (gdUrl) return gdUrl;
+
+  if (platform === 'netease') {
+    return tryEndpoints(
+      NETEASE_ENDPOINTS,
+      NETEASE_STORAGE_KEY,
+      (base) => `${base}/song/url/v1?id=${track.id}&level=standard`,
+      (data) => {
+        const d = data as { data?: Array<{ url?: string | null }> };
+        const url = d.data?.[0]?.url;
+        return url ? url.replace(/^http:/, 'https:') : null;
+      },
+    ).catch(() => null);
+  }
+
+  return null;
+}
+
+/* ------------------------- 本地降级歌单 ------------------------- */
 
 export const DEMO_TRACKS: Track[] = [
   {

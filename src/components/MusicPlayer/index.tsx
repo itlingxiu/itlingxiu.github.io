@@ -20,7 +20,8 @@ import {
 import { DEMO_PLAYLIST, fetchAllCharts, fetchChartList, searchTracks } from './api';
 import { useAudioPlayer } from './useAudioPlayer';
 import { useDraggable } from './useDraggable';
-import type { PlayMode, Playlist, TabKey, Track } from './types';
+import { PLATFORMS } from './types';
+import type { PlayMode, Platform, Playlist, TabKey, Track } from './types';
 import './index.less';
 
 const PANEL_SIZE = { width: 360, height: 520 };
@@ -106,10 +107,18 @@ const MusicPlayer: React.FC = () => {
   const [chartError, setChartError] = useState<string | null>(null);
 
   const [keyword, setKeyword] = useState('');
+  const [searchPlatform, setSearchPlatform] = useState<Platform>(() => {
+    const raw = localStorage.getItem('gy_music_search_platform');
+    return (raw as Platform) || 'netease';
+  });
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [searchResult, setSearchResult] = useState<Track[]>([]);
   const debounceRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem('gy_music_search_platform', searchPlatform);
+  }, [searchPlatform]);
 
   useEffect(() => {
     void fetchAllCharts();
@@ -163,11 +172,11 @@ const MusicPlayer: React.FC = () => {
       setSearchLoading(true);
       setSearchError(null);
       try {
-        const result = await searchTracks(keyword.trim(), 30);
+        const result = await searchTracks(keyword.trim(), searchPlatform, 30);
         setSearchResult(result.tracks);
       } catch (err) {
         console.warn('[MusicPlayer] search failed', err);
-        setSearchError('搜索接口暂时不可用，请稍后再试');
+        setSearchError('该平台搜索暂时不可用，试试切换其他平台');
         setSearchResult([]);
       } finally {
         setSearchLoading(false);
@@ -176,7 +185,7 @@ const MusicPlayer: React.FC = () => {
     return () => {
       if (debounceRef.current) window.clearTimeout(debounceRef.current);
     };
-  }, [keyword, tab]);
+  }, [keyword, searchPlatform, tab]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

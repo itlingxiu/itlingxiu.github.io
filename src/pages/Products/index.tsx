@@ -36,8 +36,8 @@ const products: ProductItem[] = [
     title: '案例站',
     tag: '作品展示',
     desc: '精选项目案例与建站作品，按分类浏览灵感与实现方案。',
-    url: 'https://www.yeing.top/#categories',
-    domain: 'yeing.top',
+    url: 'https://www.garpon.com',
+    domain: 'garpon.com',
     color: '#8b5cf6',
   },
   {

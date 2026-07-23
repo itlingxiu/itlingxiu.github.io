@@ -1,9 +1,55 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { fetchSongUrl } from './api';
-import type { PlayMode, Track } from './types';
+import { fetchCover, fetchSongUrl } from './api';
+import type { PlayMode, Platform, Track } from './types';
 
 const VOLUME_KEY = 'gy_music_volume';
 const MODE_KEY = 'gy_music_mode';
+
+/**
+ * 移动端浏览器（iOS Safari / 部分 Android WebView）要求 <audio> 必须在
+ * 用户手势的同步栈内首次调用 play() 才能"解锁"。若首帧解锁失败，之后
+ * 经过任何 await 的异步 play() 都会被静音或阻塞。
+ * 此函数在首次 pointer/touch 事件里同步调用 play()，用一个 1 帧静默
+ * data URI 兑现"用户手势"的授权，之后所有编程式 play() 都可以出声。
+ */
+const SILENT_WAV =
+  'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+
+function attachAudioUnlock(audio: HTMLAudioElement) {
+  let unlocked = false;
+  const unlock = () => {
+    if (unlocked) return;
+    unlocked = true;
+    const originalSrc = audio.src;
+    const originalMuted = audio.muted;
+    try {
+      audio.muted = true;
+      audio.src = SILENT_WAV;
+      const p = audio.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => {
+          audio.pause();
+          audio.currentTime = 0;
+          audio.muted = originalMuted;
+          if (originalSrc) audio.src = originalSrc;
+        }).catch(() => {
+          audio.muted = originalMuted;
+          if (originalSrc) audio.src = originalSrc;
+        });
+      }
+    } catch {
+      /* ignore */
+    }
+    window.removeEventListener('touchstart', unlock, true);
+    window.removeEventListener('touchend', unlock, true);
+    window.removeEventListener('pointerdown', unlock, true);
+    window.removeEventListener('click', unlock, true);
+  };
+  window.addEventListener('touchstart', unlock, { capture: true, passive: true });
+  window.addEventListener('touchend', unlock, { capture: true, passive: true });
+  window.addEventListener('pointerdown', unlock, { capture: true, passive: true });
+  window.addEventListener('click', unlock, { capture: true });
+}
 
 export function useAudioPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -27,9 +73,13 @@ export function useAudioPlayer() {
   const currentTrack = index >= 0 ? queue[index] : undefined;
 
   if (!audioRef.current && typeof window !== 'undefined') {
-    audioRef.current = new Audio();
-    audioRef.current.preload = 'metadata';
-    audioRef.current.crossOrigin = 'anonymous';
+    const audio = new Audio();
+    audio.preload = 'metadata';
+    // 不能设置 crossOrigin='anonymous'：多数音源没有 CORS 头，
+    // 设为 anonymous 会让浏览器拒绝加载媒体（iOS / Safari 表现为无声）。
+    audio.playsInline = true;
+    audioRef.current = audio;
+    attachAudioUnlock(audio);
   }
 
   useEffect(() => {
@@ -40,6 +90,10 @@ export function useAudioPlayer() {
   useEffect(() => {
     localStorage.setItem(MODE_KEY, mode);
   }, [mode]);
+
+  const patchTrack = useCallback((trackId: Track['id'], patch: Partial<Track>) => {
+    setQueue((prev) => prev.map((t) => (t.id === trackId ? { ...t, ...patch } : t)));
+  }, []);
 
   const playIndex = useCallback(
     async (nextIndex: number, list?: Track[]) => {
@@ -57,21 +111,18 @@ export function useAudioPlayer() {
       setCurrentTime(0);
       setDuration(track.duration ?? 0);
 
-      let url = track.url ?? null;
-      if (!url && track.source === 'netease') {
-        url = await fetchSongUrl(track.id);
-      }
+      const url = await fetchSongUrl(track);
 
       if (!url) {
         setLoading(false);
-        setErrorText('该歌曲暂无可播放源，已自动跳过');
+        setErrorText('该歌曲在当前平台暂无版权，已自动跳过');
         setTimeout(() => {
           setIndex((current) => {
             const target = ((current + 1) % workingList.length + workingList.length) % workingList.length;
             void playIndex(target, workingList);
             return current;
           });
-        }, 800);
+        }, 700);
         return;
       }
 
@@ -85,15 +136,22 @@ export function useAudioPlayer() {
       } finally {
         setLoading(false);
       }
+
+      // 异步补齐封面（GD Studio 需要按 picId 二次拉取）
+      if (!track.cover && track.picId && track.source !== 'demo') {
+        void fetchCover(track.picId, track.source as Platform).then((cover) => {
+          if (cover) patchTrack(track.id, { cover });
+        });
+      }
     },
-    [queue],
+    [patchTrack, queue],
   );
 
   const playTrack = useCallback(
     async (track: Track, list?: Track[]) => {
       const workingList = list && list.length ? list : [track];
       setQueue(workingList);
-      const target = workingList.findIndex((t) => t.id === track.id);
+      const target = workingList.findIndex((t) => t.id === track.id && t.source === track.source);
       await playIndex(target >= 0 ? target : 0, workingList);
     },
     [playIndex],
@@ -162,15 +220,21 @@ export function useAudioPlayer() {
       setErrorText('音频加载失败，尝试下一首');
       setTimeout(next, 500);
     };
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
     audio.addEventListener('timeupdate', onTime);
     audio.addEventListener('loadedmetadata', onMeta);
     audio.addEventListener('ended', onEnded);
     audio.addEventListener('error', onError);
+    audio.addEventListener('play', onPlay);
+    audio.addEventListener('pause', onPause);
     return () => {
       audio.removeEventListener('timeupdate', onTime);
       audio.removeEventListener('loadedmetadata', onMeta);
       audio.removeEventListener('ended', onEnded);
       audio.removeEventListener('error', onError);
+      audio.removeEventListener('play', onPlay);
+      audio.removeEventListener('pause', onPause);
     };
   }, [index, mode, next, queue.length]);
 
