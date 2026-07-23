@@ -3,6 +3,7 @@ import Header from './components/Header';
 import MobileNav from './components/MobileNav';
 import SocialSidebar from './components/SocialSidebar';
 import Layout from './components/Layout';
+import MusicPlayer from './components/MusicPlayer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Blog from './pages/Blog';
@@ -84,6 +85,7 @@ function App() {
           </Routes>
         </Layout>
         <MobileNav />
+        <MusicPlayer />
       </div>
     </Router>
   );

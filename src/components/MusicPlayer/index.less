@@ -1,0 +1,826 @@
+@import '../../styles/variables.less';
+
+@gy-z: 1200;
+
+/* ============================== 迷你球 ============================== */
+.gy-music-ball {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  border-radius: @border-radius-full;
+  background: @gradient-primary;
+  color: @text-color-white;
+  box-shadow: 0 12px 28px fade(@primary-color, 40%), 0 4px 10px rgba(15, 23, 42, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  z-index: @gy-z;
+  touch-action: none;
+  user-select: none;
+  transition:
+    transform @animation-duration-base ease-out,
+    box-shadow @animation-duration-base ease-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px fade(@primary-color, 48%), 0 6px 12px rgba(15, 23, 42, 0.14);
+  }
+
+  &.is-dragging {
+    cursor: grabbing;
+    transition: none;
+    transform: scale(1.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid @primary-color;
+    outline-offset: 3px;
+  }
+
+  .gy-music-ball-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: @border-radius-full;
+    border: 2px solid fade(@primary-color, 30%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &.is-playing .gy-music-ball-ring {
+    animation: gy-music-ball-pulse 2.4s ease-out infinite;
+  }
+
+  .gy-music-ball-icon {
+    font-size: 24px;
+  }
+
+  .gy-music-ball-cover {
+    width: 44px;
+    height: 44px;
+    border-radius: @border-radius-full;
+    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) inset;
+
+    &.is-spin {
+      animation: gy-music-spin 12s linear infinite;
+    }
+  }
+
+  .gy-music-ball-eq {
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    padding: 4px 5px;
+    background: @background-color-white;
+    border-radius: @border-radius-full;
+    box-shadow: @box-shadow-sm;
+
+    i {
+      display: block;
+      width: 3px;
+      height: 8px;
+      background: @primary-color;
+      border-radius: 2px;
+      animation: gy-music-eq 1s ease-in-out infinite;
+    }
+
+    i:nth-child(2) { animation-delay: 0.15s; }
+    i:nth-child(3) { animation-delay: 0.3s; }
+  }
+}
+
+@keyframes gy-music-ball-pulse {
+  0% { opacity: 0.7; transform: scale(0.9); }
+  70% { opacity: 0; transform: scale(1.35); }
+  100% { opacity: 0; transform: scale(1.35); }
+}
+
+@keyframes gy-music-eq {
+  0%, 100% { height: 4px; }
+  50% { height: 10px; }
+}
+
+@keyframes gy-music-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============================== 面板 ============================== */
+.gy-music-panel {
+  position: fixed;
+  z-index: @gy-z;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid @border-color-base;
+  border-radius: @border-radius-xl;
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.18),
+    0 8px 20px rgba(99, 102, 241, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  animation: gy-music-panel-in @animation-duration-slow cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes gy-music-panel-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.gy-music-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px 12px 16px;
+  gap: 8px;
+  cursor: grab;
+  border-bottom: 1px solid fade(@border-color-base, 60%);
+  background: linear-gradient(180deg, fade(@primary-light, 70%) 0%, transparent 100%);
+  touch-action: none;
+  user-select: none;
+
+  &.is-dragging {
+    cursor: grabbing;
+  }
+}
+
+.gy-music-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: @text-color;
+
+  .gy-music-panel-drag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: @border-radius-sm;
+    background: fade(@primary-color, 10%);
+    color: @primary-color;
+    font-size: 12px;
+  }
+
+  em {
+    font-style: normal;
+    font-size: 11px;
+    font-weight: 400;
+    color: @text-color-muted;
+  }
+}
+
+.gy-music-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: @border-radius-base;
+  background: transparent;
+  color: @text-color-secondary;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background @animation-duration-base ease-out, color @animation-duration-base ease-out;
+
+  &:hover {
+    background: fade(@primary-color, 10%);
+    color: @primary-color;
+  }
+
+  &:focus-visible {
+    outline: 2px solid @primary-color;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* ============================== Tabs ============================== */
+.gy-music-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px 0;
+}
+
+.gy-music-tab {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: @border-radius-base;
+  background: transparent;
+  color: @text-color-secondary;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background @animation-duration-base ease-out, color @animation-duration-base ease-out;
+
+  &:hover {
+    background: fade(@primary-color, 8%);
+    color: @primary-color;
+  }
+
+  &.is-active {
+    background: @gradient-primary;
+    color: @text-color-white;
+    box-shadow: 0 4px 10px fade(@primary-color, 30%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid @primary-color;
+    outline-offset: 2px;
+  }
+}
+
+/* ============================== 面板主体 ============================== */
+.gy-music-panel-body {
+  flex: 1;
+  overflow: hidden;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.gy-music-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 24px;
+  color: @text-color-muted;
+  font-size: 13px;
+  text-align: center;
+
+  &.small {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .gy-music-empty-hint {
+    font-size: 11px;
+    color: @text-color-muted;
+  }
+
+  .gy-music-empty-icon {
+    font-size: 28px;
+    color: fade(@primary-color, 60%);
+    margin-bottom: 4px;
+  }
+}
+
+.gy-music-inline-error {
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border-radius: @border-radius-base;
+  background: fade(@warning-color, 12%);
+  color: darken(@warning-color, 8%);
+  font-size: 12px;
+}
+
+/* ============================== 正在播放 ============================== */
+.gy-music-playing {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.gy-music-playing-hero {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-radius: @border-radius-lg;
+  background: linear-gradient(135deg, fade(@primary-color, 8%) 0%, fade(@secondary-color, 10%) 100%);
+  border: 1px solid fade(@primary-color, 12%);
+}
+
+.gy-music-playing-cover {
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+  border-radius: @border-radius-full;
+  background: @gradient-primary;
+  color: @text-color-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px fade(@primary-color, 30%);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: @border-radius-full;
+  }
+
+  &.is-spin img {
+    animation: gy-music-spin 14s linear infinite;
+  }
+}
+
+.gy-music-playing-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gy-music-playing-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: @text-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gy-music-playing-artist {
+  font-size: 12px;
+  color: @text-color-secondary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gy-music-playing-album {
+  font-size: 11px;
+  color: @text-color-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 进度条 */
+.gy-music-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gy-music-progress-time {
+  font-size: 11px;
+  color: @text-color-muted;
+  min-width: 32px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.gy-music-progress-bar {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  border-radius: @border-radius-full;
+  background: @border-color-base;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid @primary-color;
+    outline-offset: 3px;
+  }
+}
+
+.gy-music-progress-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: @border-radius-full;
+  background: @gradient-primary;
+  transition: width 0.08s linear;
+}
+
+.gy-music-progress-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: @border-radius-full;
+  background: @background-color-white;
+  border: 2px solid @primary-color;
+  box-shadow: 0 2px 6px fade(@primary-color, 40%);
+  opacity: 0;
+  transition: opacity @animation-duration-base ease-out;
+}
+
+.gy-music-progress-bar:hover .gy-music-progress-thumb,
+.gy-music-progress-bar:focus-visible .gy-music-progress-thumb {
+  opacity: 1;
+}
+
+/* 队列 */
+.gy-music-queue {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.gy-music-queue-title {
+  font-size: 11px;
+  color: @text-color-muted;
+  padding: 4px 4px 8px;
+}
+
+.gy-music-queue-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* ============================== 榜单 ============================== */
+.gy-music-chart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+.gy-music-chart-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gy-music-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border: 1px solid @border-color-base;
+  border-radius: @border-radius-full;
+  background: @background-color-white;
+  color: @text-color-secondary;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all @animation-duration-base ease-out;
+
+  em {
+    font-style: normal;
+    font-size: 10px;
+    color: @text-color-muted;
+    padding: 0 4px;
+    border-radius: @border-radius-sm;
+    background: @background-color-light;
+  }
+
+  &:hover {
+    border-color: @primary-color;
+    color: @primary-color;
+  }
+
+  &.is-active {
+    background: @gradient-primary;
+    border-color: transparent;
+    color: @text-color-white;
+    box-shadow: 0 4px 10px fade(@primary-color, 30%);
+
+    em {
+      background: rgba(255, 255, 255, 0.22);
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  &.refresh {
+    margin-left: auto;
+    padding: 5px 8px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid @primary-color;
+    outline-offset: 2px;
+  }
+}
+
+/* ============================== 搜索 ============================== */
+.gy-music-search {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+.gy-music-search-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid @border-color-base;
+  border-radius: @border-radius-full;
+  background: @background-color-white;
+  color: @text-color-muted;
+  transition: border-color @animation-duration-base ease-out, box-shadow @animation-duration-base ease-out;
+
+  &:focus-within {
+    border-color: @primary-color;
+    box-shadow: 0 0 0 3px fade(@primary-color, 15%);
+    color: @primary-color;
+  }
+
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 13px;
+    color: @text-color;
+
+    &::placeholder {
+      color: @text-color-muted;
+    }
+  }
+}
+
+.gy-music-search-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: @border-radius-full;
+  background: @background-color-light;
+  color: @text-color-muted;
+  cursor: pointer;
+
+  &:hover {
+    background: @border-color-base;
+    color: @text-color-secondary;
+  }
+}
+
+/* ============================== 通用列表 ============================== */
+.gy-music-list {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.gy-music-track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  border-radius: @border-radius-base;
+  transition: background @animation-duration-base ease-out;
+
+  &:hover {
+    background: fade(@primary-color, 8%);
+  }
+
+  &.is-active {
+    background: fade(@primary-color, 12%);
+
+    .gy-music-track-name {
+      color: @primary-color;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid @primary-color;
+    outline-offset: 2px;
+  }
+}
+
+.gy-music-track-index {
+  flex-shrink: 0;
+  width: 20px;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: @text-color-muted;
+  text-align: center;
+}
+
+.gy-music-track-cover {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: @border-radius-sm;
+  object-fit: cover;
+  background: @background-color-light;
+
+  &.placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: fade(@primary-color, 60%);
+    font-size: 16px;
+  }
+}
+
+.gy-music-track-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gy-music-track-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: @text-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gy-music-track-artist {
+  font-size: 11px;
+  color: @text-color-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gy-music-track-time {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: @text-color-muted;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================== Toast ============================== */
+.gy-music-panel-toast {
+  margin: 0 12px 8px;
+  padding: 8px 10px;
+  border-radius: @border-radius-base;
+  background: fade(@error-color, 10%);
+  color: @error-color;
+  font-size: 12px;
+  animation: gy-music-toast-in @animation-duration-slow ease-out;
+}
+
+@keyframes gy-music-toast-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================== 底部控制 ============================== */
+.gy-music-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-top: 1px solid fade(@border-color-base, 60%);
+  background: linear-gradient(0deg, fade(@primary-light, 60%) 0%, transparent 100%);
+}
+
+.gy-music-play-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: @border-radius-full;
+  border: none;
+  background: @gradient-primary;
+  color: @text-color-white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px fade(@primary-color, 40%);
+  transition: transform @animation-duration-base ease-out, box-shadow @animation-duration-base ease-out;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 18px fade(@primary-color, 48%);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid @primary-color;
+    outline-offset: 3px;
+  }
+}
+
+.gy-music-volume {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 8px;
+  color: @text-color-muted;
+
+  input[type='range'] {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: @border-color-base;
+    border-radius: @border-radius-full;
+    outline: none;
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: @border-radius-full;
+      background: @primary-color;
+      border: 2px solid @background-color-white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    &::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      border-radius: @border-radius-full;
+      background: @primary-color;
+      border: 2px solid @background-color-white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+/* ============================== 滚动条美化 ============================== */
+.gy-music-list::-webkit-scrollbar,
+.gy-music-queue-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.gy-music-list::-webkit-scrollbar-thumb,
+.gy-music-queue-scroll::-webkit-scrollbar-thumb {
+  background: fade(@primary-color, 25%);
+  border-radius: @border-radius-full;
+
+  &:hover {
+    background: fade(@primary-color, 40%);
+  }
+}
+
+.gy-music-list::-webkit-scrollbar-track,
+.gy-music-queue-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ============================== 响应式 ============================== */
+@media (max-width: @screen-sm) {
+  .gy-music-panel {
+    width: calc(100vw - 24px) !important;
+    max-width: 360px;
+    height: calc(100vh - 120px) !important;
+    max-height: 540px;
+    left: 12px !important;
+    top: auto !important;
+    bottom: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gy-music-ball,
+  .gy-music-ball-cover,
+  .gy-music-ball-ring,
+  .gy-music-ball-eq i,
+  .gy-music-playing-cover.is-spin img,
+  .gy-music-panel,
+  .gy-music-panel-toast {
+    animation: none !important;
+    transition: none !important;
+  }
+}
