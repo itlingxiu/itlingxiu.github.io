@@ -1,7 +1,7 @@
 import type { TechSource, TechUpdate, CrawlResult } from './types';
 import { generateFallbackUpdates } from './crawler';
 
-const SYNC_CACHE_PATH = `${import.meta.env.BASE_URL}data/roadmap-sync.json`;
+const SYNC_CACHE_PATH = '/data/roadmap-sync.json';
 
 interface SyncCachePayload {
   crawledAt?: string;

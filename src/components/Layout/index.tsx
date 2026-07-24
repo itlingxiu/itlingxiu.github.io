@@ -1,6 +1,8 @@
+'use client';
+
 import React from 'react';
 import type { ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@/lib/router-compat';
 import Sidebar from '../Sidebar';
 import './index.less';
 

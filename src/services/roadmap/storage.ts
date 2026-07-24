@@ -1,3 +1,4 @@
+import { storageGet, storageSet, storageRemove } from '@/lib/safeStorage';
 import { isValidElement } from 'react';
 import type { Roadmap } from '../../data/learningRoadmaps';
 import type { RoadmapChangeProposal, RoadmapSyncState } from './types';
@@ -24,7 +25,7 @@ const defaultState = (): RoadmapSyncState => ({
 export function loadSyncState(): RoadmapSyncState {
   if (typeof localStorage === 'undefined') return defaultState();
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = storageGet(STORAGE_KEY);
     if (!raw) return defaultState();
     return { ...defaultState(), ...JSON.parse(raw) };
   } catch {
@@ -34,7 +35,7 @@ export function loadSyncState(): RoadmapSyncState {
 
 export function saveSyncState(state: RoadmapSyncState): void {
   if (typeof localStorage === 'undefined') return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  storageSet(STORAGE_KEY, JSON.stringify(state));
 }
 
 export function mergeRoadmaps(

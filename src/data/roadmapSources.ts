@@ -1,3 +1,5 @@
+'use client';
+
 import type { TechSource } from '../services/roadmap/types';
 
 /** 权威技术信息源配置 */

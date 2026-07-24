@@ -1,3 +1,6 @@
+'use client';
+
+import { storageGet, storageSet, storageRemove } from '@/lib/safeStorage';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   CustomerServiceOutlined,
@@ -59,7 +62,7 @@ interface ChartCache {
 
 function readChartCache(): ChartCache {
   try {
-    const raw = localStorage.getItem(CHART_STORAGE_KEY);
+    const raw = storageGet(CHART_STORAGE_KEY);
     if (!raw) return { time: 0, data: {} };
     const parsed = JSON.parse(raw) as ChartCache;
     return parsed;
@@ -70,7 +73,7 @@ function readChartCache(): ChartCache {
 
 function writeChartCache(cache: ChartCache) {
   try {
-    localStorage.setItem(CHART_STORAGE_KEY, JSON.stringify(cache));
+    storageSet(CHART_STORAGE_KEY, JSON.stringify(cache));
   } catch {
     /* ignore */
   }
@@ -108,7 +111,7 @@ const MusicPlayer: React.FC = () => {
 
   const [keyword, setKeyword] = useState('');
   const [searchPlatform, setSearchPlatform] = useState<Platform>(() => {
-    const raw = localStorage.getItem('gy_music_search_platform');
+    const raw = storageGet('gy_music_search_platform');
     return (raw as Platform) || 'netease';
   });
   const [searchLoading, setSearchLoading] = useState(false);
@@ -117,7 +120,7 @@ const MusicPlayer: React.FC = () => {
   const debounceRef = useRef<number | null>(null);
 
   useEffect(() => {
-    localStorage.setItem('gy_music_search_platform', searchPlatform);
+    storageSet('gy_music_search_platform', searchPlatform);
   }, [searchPlatform]);
 
   useEffect(() => {

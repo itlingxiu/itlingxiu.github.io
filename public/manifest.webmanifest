@@ -1,0 +1,18 @@
+{
+  "name": "光影博客",
+  "short_name": "光影博客",
+  "description": "全栈开发技术分享、技术面试题与算法题整合资源",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#6366f1",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/images/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

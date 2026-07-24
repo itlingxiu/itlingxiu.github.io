@@ -4,7 +4,7 @@ export type FetchFn = (url: string) => Promise<string>;
 
 function canFetchExternal(): boolean {
   // 浏览器端禁止跨域爬取；Node/测试环境允许
-  if (import.meta.env.VITEST) return true;
+  if (process.env.NODE_ENV === 'test') return true;
   return typeof window === 'undefined';
 }
 

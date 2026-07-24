@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import type { QuizQuestion } from '../services/quizApi';
 import { fetchQuizSync } from '../services/quizApi';

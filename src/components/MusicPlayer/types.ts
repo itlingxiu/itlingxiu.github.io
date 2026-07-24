@@ -1,3 +1,5 @@
+'use client';
+
 export type Platform = 'netease' | 'tencent' | 'kuwo' | 'kugou' | 'migu';
 
 export type TrackSource = Platform | 'demo';

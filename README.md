@@ -1,73 +1,50 @@
-# React + TypeScript + Vite
+# 光影博客 · Next.js
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+基于最新 Next.js（App Router）复刻自 `itlingxiu.github.io`（Vite + React）的个人技术博客。
 
-Currently, two official plugins are available:
+## 功能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 首页技术生态导航、技术分类、资源导航、学习路线
+- 面试题库（`/dev-hub`）与算法题解（`/algorithm`）
+- 前端 / React / Vue / Node 教程页
+- 资源合作、证书办理、产品、关于
+- 社交侧栏、移动端底栏、音乐播放器
 
-## React Compiler
+## SEO / GEO
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- 每页 Metadata、Open Graph、Twitter Card、canonical
+- `sitemap.xml` / `robots.txt`（允许主流 AI 爬虫）
+- JSON-LD（WebSite / Organization）
+- `public/llms.txt` 供生成式引擎理解站点结构
+- Web App Manifest
 
-## Expanding the ESLint configuration
+## 开发
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+访问 http://localhost:3000
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+生产构建：
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
+npm start
+```
+
+可选环境变量：
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
+
+## 数据同步脚本
+
+```bash
+npm run quiz:sync
+npm run algo:sync
+npm run roadmap:sync
+npm run data:sync
 ```

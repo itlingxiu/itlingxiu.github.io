@@ -1,3 +1,6 @@
+'use client';
+
+import { storageGet, storageSet, storageRemove } from '@/lib/safeStorage';
 import type { Platform, Playlist, SearchResult, Track } from './types';
 
 /* ============================================================
@@ -41,7 +44,7 @@ async function tryEndpoints<T>(
   buildUrl: (base: string) => string,
   parse: (data: unknown) => T,
 ): Promise<T> {
-  const preferred = localStorage.getItem(storageKey);
+  const preferred = storageGet(storageKey);
   const ordered = preferred
     ? [preferred, ...endpoints.filter((e) => e !== preferred)]
     : [...new Set(endpoints)];
@@ -53,7 +56,7 @@ async function tryEndpoints<T>(
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = (await res.json()) as unknown;
       const result = parse(json);
-      localStorage.setItem(storageKey, base);
+      storageSet(storageKey, base);
       return result;
     } catch (err) {
       lastError = err;

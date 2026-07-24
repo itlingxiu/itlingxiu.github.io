@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import type { AlgoProblem } from '../data/algoBank';
 import { fetchAlgoSync } from '../data/algoBank';

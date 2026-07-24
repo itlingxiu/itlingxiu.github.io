@@ -1,3 +1,6 @@
+'use client';
+import { storageGet, storageSet, storageRemove } from '@/lib/safeStorage';
+
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { fetchCover, fetchSongUrl } from './api';
 import type { PlayMode, Platform, Track } from './types';
@@ -60,12 +63,12 @@ export function useAudioPlayer() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState<number>(() => {
-    const raw = localStorage.getItem(VOLUME_KEY);
+    const raw = storageGet(VOLUME_KEY);
     const parsed = raw ? Number.parseFloat(raw) : NaN;
     return Number.isFinite(parsed) ? Math.min(Math.max(parsed, 0), 1) : 0.6;
   });
   const [mode, setMode] = useState<PlayMode>(() => {
-    const raw = localStorage.getItem(MODE_KEY) as PlayMode | null;
+    const raw = storageGet(MODE_KEY) as PlayMode | null;
     return raw ?? 'loop';
   });
   const [errorText, setErrorText] = useState<string | null>(null);
@@ -77,18 +80,19 @@ export function useAudioPlayer() {
     audio.preload = 'metadata';
     // 不能设置 crossOrigin='anonymous'：多数音源没有 CORS 头，
     // 设为 anonymous 会让浏览器拒绝加载媒体（iOS / Safari 表现为无声）。
-    audio.playsInline = true;
+    audio.setAttribute('playsinline', 'true');
+    (audio as HTMLAudioElement & { playsInline?: boolean }).playsInline = true;
     audioRef.current = audio;
     attachAudioUnlock(audio);
   }
 
   useEffect(() => {
     if (audioRef.current) audioRef.current.volume = volume;
-    localStorage.setItem(VOLUME_KEY, String(volume));
+    storageSet(VOLUME_KEY, String(volume));
   }, [volume]);
 
   useEffect(() => {
-    localStorage.setItem(MODE_KEY, mode);
+    storageSet(MODE_KEY, mode);
   }, [mode]);
 
   const patchTrack = useCallback((trackId: Track['id'], patch: Partial<Track>) => {

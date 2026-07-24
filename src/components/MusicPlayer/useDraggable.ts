@@ -1,3 +1,6 @@
+'use client';
+
+import { storageGet, storageSet, storageRemove } from '@/lib/safeStorage';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Position } from './types';
 
@@ -13,7 +16,7 @@ const clamp = (value: number, min: number, max: number) => Math.min(Math.max(val
 function loadInitial(storageKey: string | undefined, fallback: Position): Position {
   if (!storageKey) return fallback;
   try {
-    const raw = localStorage.getItem(storageKey);
+    const raw = storageGet(storageKey);
     if (!raw) return fallback;
     const parsed = JSON.parse(raw) as Partial<Position>;
     if (typeof parsed.x === 'number' && typeof parsed.y === 'number') {
@@ -60,7 +63,7 @@ export function useDraggable({
   useEffect(() => {
     if (!storageKey) return;
     try {
-      localStorage.setItem(storageKey, JSON.stringify(position));
+      storageSet(storageKey, JSON.stringify(position));
     } catch {
       /* ignore */
     }

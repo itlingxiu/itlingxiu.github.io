@@ -1,3 +1,6 @@
+'use client';
+
+import { storageGet, storageSet, storageRemove } from '@/lib/safeStorage';
 import { useEffect, useMemo } from 'react';
 import { allLearningRoadmaps } from '../data/learningRoadmaps';
 
@@ -7,7 +10,7 @@ const LEGACY_STORAGE_KEY = 'roadmap-sync-state';
 export function useMergedRoadmaps() {
   useEffect(() => {
     try {
-      localStorage.removeItem(LEGACY_STORAGE_KEY);
+      storageRemove(LEGACY_STORAGE_KEY);
     } catch {
       // ignore
     }

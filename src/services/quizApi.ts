@@ -20,7 +20,7 @@ export interface QuizSyncPayload {
   errors?: Array<{ source: string; message: string }>;
 }
 
-const SYNC_PATH = `${import.meta.env.BASE_URL}data/quiz-sync.json`;
+const SYNC_PATH = '/data/quiz-sync.json';
 
 export async function fetchQuizSync(): Promise<QuizSyncPayload | null> {
   try {

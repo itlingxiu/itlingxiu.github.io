@@ -1,3 +1,5 @@
+'use client';
+
 export type AlgoDifficulty = '简单' | '中等' | '困难';
 export type SolutionLang = 'javascript' | 'typescript' | 'python' | 'java' | 'cpp' | 'go';
 export type ProblemSolutions = Partial<Record<SolutionLang, string>>;
@@ -30,7 +32,7 @@ export interface AlgoSyncPayload {
   errors?: Array<{ source: string; message: string }>;
 }
 
-const SYNC_PATH = `${import.meta.env.BASE_URL}data/algo-sync.json`;
+const SYNC_PATH = '/data/algo-sync.json';
 
 export async function fetchAlgoSync(): Promise<AlgoSyncPayload | null> {
   try {
