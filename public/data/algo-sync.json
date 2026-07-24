@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "crawledAt": "2026-07-22T17:49:14.439Z",
-  "dateKey": "2026-07-23",
+  "crawledAt": "2026-07-23T17:55:27.785Z",
+  "dateKey": "2026-07-24",
   "sources": [
     "leetcode-cn",
     "nowcoder"
@@ -248,19 +248,31 @@
       "id": 10,
       "title": "反转链表",
       "tags": [
+        "递归",
         "链表"
       ],
       "difficulty": "简单",
-      "acceptance": 40.16,
+      "acceptance": 76.48,
       "hotCompanies": [
-        "牛客高频"
+        "字节",
+        "亚马逊",
+        "微软"
       ],
-      "statement": "牛客编程题 JZ24：反转链表。完整描述请访问牛客练习页。",
-      "approach": "可参考牛客题解区与讨论区的常见解法。",
-      "source": "nowcoder",
+      "statement": "给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。\n\n \n\n示例 1：\n\n输入：head = [1,2,3,4,5]\n输出：[5,4,3,2,1]\n\n示例 2：\n\n输入：head = [1,2]\n输出：[2,1]\n\n示例 3：\n\n输入：head = []\n输出：[]\n\n \n\n提示：\n\n\t链表中节点的数目范围是 [0, 5000]\n\n\t-5000 \n\n \n\n进阶：链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？",
+      "approach": "## 解决方案\n---\n#### 方法一：迭代\n\n假设存在链表 `1 → 2 → 3 → Ø`，我们想要把它改成 `Ø ← 1 ← 2 ← 3`。\n\n在遍历列表时，将当前节点的 `next` 指针改为指向前一个元素。由于节点没有引用其上一个节点，因此必须事先存储其前一个元素。在更改引用之前，还需要另一个指针来存储下一个节点。不要忘记在最后返回新的头引用！\n\n[代码演示见力扣官网]\n\n**复杂度分析**\n\n* 时间复杂度：O(n) 。\n假设 n 是列表的长度，时间复杂度是 O(n)。\n\n* 空间复杂度：O(1) 。\n\n---\n#### 方法二：递归\n\n递归版本稍微复杂一些，其关键在于反向工作。假设列表的其余部分已经被反转，现在我该如何反转它前面的部分？假设列表为：n1 → … → nk-1 → nk → nk+1 → … → nm → Ø\n\n若从节点 nk+1 到 nm 已经被反转，而我们正处于 nk。\n\nn1 → … → nk-1 → nk → nk+1 ← … ← nm\n\n我们希望 nk+1 的下一个节点指向 nk。\n\n所以，\n\nnk.next.next = nk;\n\n要小心的是 n1 的下一个必须指向 Ø 。如果你忽略了这一点，你的链表中可能会产生循环。如果使用大小为 2 的链表测试代码，则可能会捕获此错误。\n\n[代码演示见力扣官网]\n\n**复杂度分析**\n\n* 时间复杂度：O(n) 。\n假设 n 是列表的长度，那么时间复杂度为 O(n)。\n\n* 空间复杂度：O(n) 。\n由于使用递归，将会使用隐式栈空间。递归深度可能会达到 n 层。",
+      "source": "leetcode",
       "solutionRef": 10,
-      "titleSlug": "75e878df47f24fdc9dc3e400ec6058ca",
-      "sourceUrl": "https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca"
+      "titleSlug": "reverse-linked-list",
+      "sourceUrl": "https://leetcode.cn/problems/reverse-linked-list/",
+      "statementZh": "给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。\n\n \n\n示例 1：\n\n输入：head = [1,2,3,4,5]\n输出：[5,4,3,2,1]\n\n示例 2：\n\n输入：head = [1,2]\n输出：[2,1]\n\n示例 3：\n\n输入：head = []\n输出：[]\n\n \n\n提示：\n\n\t链表中节点的数目范围是 [0, 5000]\n\n\t-5000 \n\n \n\n进阶：链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？",
+      "statementEn": "Given the head of a singly linked list, reverse the list, and return the reversed list.\n\n \n\nExample 1:\n\nInput: head = [1,2,3,4,5]\nOutput: [5,4,3,2,1]\n\nExample 2:\n\nInput: head = [1,2]\nOutput: [2,1]\n\nExample 3:\n\nInput: head = []\nOutput: []\n\n \n\nConstraints:\n\n\tThe number of nodes in the list is the range [0, 5000].\n\n\t-5000 <= Node.val <= 5000\n\n \n\nFollow up: A linked list can be reversed either iteratively or recursively. Could you implement both?",
+      "approachZh": "## 解决方案\n---\n#### 方法一：迭代\n\n假设存在链表 `1 → 2 → 3 → Ø`，我们想要把它改成 `Ø ← 1 ← 2 ← 3`。\n\n在遍历列表时，将当前节点的 `next` 指针改为指向前一个元素。由于节点没有引用其上一个节点，因此必须事先存储其前一个元素。在更改引用之前，还需要另一个指针来存储下一个节点。不要忘记在最后返回新的头引用！\n\n[代码演示见力扣官网]\n\n**复杂度分析**\n\n* 时间复杂度：O(n) 。\n假设 n 是列表的长度，时间复杂度是 O(n)。\n\n* 空间复杂度：O(1) 。\n\n---\n#### 方法二：递归\n\n递归版本稍微复杂一些，其关键在于反向工作。假设列表的其余部分已经被反转，现在我该如何反转它前面的部分？假设列表为：n1 → … → nk-1 → nk → nk+1 → … → nm → Ø\n\n若从节点 nk+1 到 nm 已经被反转，而我们正处于 nk。\n\nn1 → … → nk-1 → nk → nk+1 ← … ← nm\n\n我们希望 nk+1 的下一个节点指向 nk。\n\n所以，\n\nnk.next.next = nk;\n\n要小心的是 n1 的下一个必须指向 Ø 。如果你忽略了这一点，你的链表中可能会产生循环。如果使用大小为 2 的链表测试代码，则可能会捕获此错误。\n\n[代码演示见力扣官网]\n\n**复杂度分析**\n\n* 时间复杂度：O(n) 。\n假设 n 是列表的长度，那么时间复杂度为 O(n)。\n\n* 空间复杂度：O(n) 。\n由于使用递归，将会使用隐式栈空间。递归深度可能会达到 n 层。",
+      "solutions": {
+        "java": "class Solution {\n    public ListNode reverseList(ListNode head) {\n        ListNode prev = null;\n        ListNode curr = head;\n        while (curr != null) {\n            ListNode next = curr.next;\n            curr.next = prev;\n            prev = curr;\n            curr = next;\n        }\n        return prev;\n    }\n}",
+        "javascript": "var reverseList = function(head) {\n    if (head == null || head.next == null) {\n        return head;\n    }\n    const newHead = reverseList(head.next);\n    head.next.next = head;\n    head.next = null;\n    return newHead;\n};",
+        "go": "func reverseList(head *ListNode) *ListNode {\n    var prev *ListNode\n    curr := head\n    for curr != nil {\n        next := curr.Next\n        curr.Next = prev\n        prev = curr\n        curr = next\n    }\n    return prev\n}",
+        "cpp": "class Solution {\npublic:\n    ListNode* reverseList(ListNode* head) {\n        ListNode* prev = nullptr;\n        ListNode* curr = head;\n        while (curr) {\n            ListNode* next = curr->next;\n            curr->next = prev;\n            prev = curr;\n            curr = next;\n        }\n        return prev;\n    }\n};"
+      }
     },
     {
       "id": 11,
@@ -680,7 +692,7 @@
         "数组"
       ],
       "difficulty": "简单",
-      "acceptance": 46.48,
+      "acceptance": 46.49,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/6fe361ede7e54db1b84adc81d09d8524",
       "statement": "牛客编程题 JZ3：数组中重复的数字。完整描述请访问牛客练习页。",
@@ -714,7 +726,7 @@
         "字符串"
       ],
       "difficulty": "简单",
-      "acceptance": 55.9,
+      "acceptance": 55.89,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/0e26e5551f2b489b9f58bc83aa4b6c68",
       "statement": "牛客编程题 JZ5：替换空格。完整描述请访问牛客练习页。",
@@ -822,7 +834,7 @@
         "二分"
       ],
       "difficulty": "简单",
-      "acceptance": 32.95,
+      "acceptance": 32.96,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba",
       "statement": "牛客编程题 JZ11：旋转数组的最小数字。完整描述请访问牛客练习页。",
@@ -924,7 +936,7 @@
         "数组"
       ],
       "difficulty": "简单",
-      "acceptance": 44.36,
+      "acceptance": 44.37,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/4436c93e568c48f6b28ff436173b997f",
       "statement": "牛客编程题 JZ17：打印从1到最大的n位数。完整描述请访问牛客练习页。",
@@ -941,7 +953,7 @@
         "链表"
       ],
       "difficulty": "简单",
-      "acceptance": 47.33,
+      "acceptance": 47.34,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/f9f78ca89ad643c99701a7142bd59f5d",
       "statement": "牛客编程题 JZ18：删除链表的节点。完整描述请访问牛客练习页。",
@@ -987,7 +999,7 @@
         "字符串"
       ],
       "difficulty": "困难",
-      "acceptance": 21.92,
+      "acceptance": 21.93,
       "source": "nowcoder",
       "sourceUrl": "https://www.nowcoder.com/practice/e69148f8528c4039ad89bb2546fd4ff8",
       "statement": "牛客编程题 JZ20：表示数值的字符串。完整描述请访问牛客练习页。",
@@ -10244,6 +10256,421 @@
         "javascript": "var compareVersion = function(version1, version2) {\n    const n = version1.length, m = version2.length;\n    let i = 0, j = 0;\n    while (i < n || j < m) {\n        let x = 0;\n        for (; i < n && version1[i] !== '.'; ++i) {\n            x = x * 10 + version1[i].charCodeAt() - '0'.charCodeAt();\n        }\n        ++i; // 跳过点号\n        let y = 0;\n        for (; j < m && version2.charAt(j) !== '.'; ++j) {\n            y = y * 10 + version2[j].charCodeAt() - '0'.charCodeAt();\n        }\n        ++j; // 跳过点号\n        if (x !== y) {\n            return x > y ? 1 : -1;\n        }\n    }\n    return 0;\n};"
       },
       "id": 399
+    },
+    {
+      "title": "数字范围按位与",
+      "titleSlug": "bitwise-and-of-numbers-range",
+      "tags": [
+        "位运算"
+      ],
+      "difficulty": "中等",
+      "acceptance": 56.47,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/bitwise-and-of-numbers-range/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "adobe"
+      ],
+      "statementZh": "给你两个整数 left 和 right ，表示区间 [left, right] ，返回此区间内所有数字 按位与 的结果（包含 left 、right 端点）。\n\n \n\n示例 1：\n\n输入：left = 5, right = 7\n输出：4\n\n示例 2：\n\n输入：left = 0, right = 0\n输出：0\n\n示例 3：\n\n输入：left = 1, right = 2147483647\n输出：0\n\n \n\n提示：\n\n\t0 31 - 1",
+      "statementEn": "Given two integers left and right that represent the range [left, right], return the bitwise AND of all numbers in this range, inclusive.\n\n \n\nExample 1:\n\nInput: left = 5, right = 7\nOutput: 4\n\nExample 2:\n\nInput: left = 0, right = 0\nOutput: 0\n\nExample 3:\n\nInput: left = 1, right = 2147483647\nOutput: 0\n\n \n\nConstraints:\n\n\t0 <= left <= right <= 231 - 1",
+      "statement": "给你两个整数 left 和 right ，表示区间 [left, right] ，返回此区间内所有数字 按位与 的结果（包含 left 、right 端点）。\n\n \n\n示例 1：\n\n输入：left = 5, right = 7\n输出：4\n\n示例 2：\n\n输入：left = 0, right = 0\n输出：0\n\n示例 3：\n\n输入：left = 1, right = 2147483647\n输出：0\n\n \n\n提示：\n\n\t0 31 - 1",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "class Solution:\n    def rangeBitwiseAnd(self, m: int, n: int) -> int:\n        shift = 0   \n        # 找到公共前缀\n        while m < n:\n            m = m >> 1\n            n = n >> 1\n            shift += 1\n        return m << shift",
+        "java": "class Solution {\n    public int rangeBitwiseAnd(int m, int n) {\n        int shift = 0;\n        // 找到公共前缀\n        while (m < n) {\n            m >>= 1;\n            n >>= 1;\n            ++shift;\n        }\n        return m << shift;\n    }\n}",
+        "cpp": "class Solution {\npublic:\n    int rangeBitwiseAnd(int m, int n) {\n        int shift = 0;\n        // 找到公共前缀\n        while (m < n) {\n            m >>= 1;\n            n >>= 1;\n            ++shift;\n        }\n        return m << shift;\n    }\n};",
+        "javascript": "var rangeBitwiseAnd = function(m, n) {\n    let shift = 0;\n    // 找到公共前缀\n    while (m < n) {\n        m >>= 1;\n        n >>= 1;\n        ++shift;\n    }\n    return m << shift;\n};",
+        "go": "func rangeBitwiseAnd(m int, n int) int {\n    shift := 0\n    for m < n {\n        m, n = m >> 1, n >> 1\n        shift++\n    }\n    return m << shift\n}"
+      },
+      "id": 400
+    },
+    {
+      "title": "快乐数",
+      "titleSlug": "happy-number",
+      "tags": [
+        "哈希表",
+        "数学",
+        "双指针"
+      ],
+      "difficulty": "简单",
+      "acceptance": 66.06,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/happy-number/",
+      "hotCompanies": [
+        "谷歌",
+        "jpmorgan",
+        "亚马逊"
+      ],
+      "statementZh": "编写一个算法来判断一个数 n 是不是快乐数。\n\n「快乐数」 定义为：\n\n\t对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。\n\n\t然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。\n\n\t如果这个过程 结果为 1，那么这个数就是快乐数。\n\n如果 n 是 快乐数 就返回 true ；不是，则返回 false 。\n\n \n\n示例 1：\n\n输入：n = 19\n输出：true\n解释：\n12 + 92 = 82\n82 + 22 = 68\n62 + 82 = 100\n12 + 02 + 02 = 1\n\n示例 2：\n\n输入：n = 2\n输出：false\n\n \n\n提示：\n\n\t1 <= n <= 231 - 1",
+      "statementEn": "Write an algorithm to determine if a number n is happy.\n\nA happy number is a number defined by the following process:\n\n\tStarting with any positive integer, replace the number by the sum of the squares of its digits.\n\n\tRepeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.\n\n\tThose numbers for which this process ends in 1 are happy.\n\nReturn true if n is a happy number, and false if not.\n\n \n\nExample 1:\n\nInput: n = 19\nOutput: true\nExplanation:\n12 + 92 = 82\n82 + 22 = 68\n62 + 82 = 100\n12 + 02 + 02 = 1\n\nExample 2:\n\nInput: n = 2\nOutput: false\n\n \n\nConstraints:\n\n\t1 <= n <= 231 - 1",
+      "statement": "编写一个算法来判断一个数 n 是不是快乐数。\n\n「快乐数」 定义为：\n\n\t对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。\n\n\t然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。\n\n\t如果这个过程 结果为 1，那么这个数就是快乐数。\n\n如果 n 是 快乐数 就返回 true ；不是，则返回 false 。\n\n \n\n示例 1：\n\n输入：n = 19\n输出：true\n解释：\n12 + 92 = 82\n82 + 22 = 68\n62 + 82 = 100\n12 + 02 + 02 = 1\n\n示例 2：\n\n输入：n = 2\n输出：false\n\n \n\n提示：\n\n\t1 <= n <= 231 - 1",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "def isHappy(self, n: int) -> bool:  \n    def get_next(number):\n        total_sum = 0\n        while number > 0:\n            number, digit = divmod(number, 10)\n            total_sum += digit ** 2\n        return total_sum\n\n    slow_runner = n\n    fast_runner = get_next(n)\n    while fast_runner != 1 and slow_runner != fast_runner:\n        slow_runner = get_next(slow_runner)\n        fast_runner = get_next(get_next(fast_runner))\n    return fast_runner == 1",
+        "java": "class Solution {\n\n     public int getNext(int n) {\n        int totalSum = 0;\n        while (n > 0) {\n            int d = n % 10;\n            n = n / 10;\n            totalSum += d * d;\n        }\n        return totalSum;\n    }\n\n    public boolean isHappy(int n) {\n        int slowRunner = n;\n        int fastRunner = getNext(n);\n        while (fastRunner != 1 && slowRunner != fastRunner) {\n            slowRunner = getNext(slowRunner);\n            fastRunner = getNext(getNext(fastRunner));\n        }\n        return fastRunner == 1;\n    }\n}",
+        "cpp": "class Solution {\n    public int getNext(int n) {\n        int totalSum = 0;\n        while (n > 0) {\n            int d = n % 10;\n            n = n / 10;\n            totalSum += d * d;\n        }\n        return totalSum;\n    }\n\n    public bool IsHappy(int n) {\n        int slowRunner = n;\n        int fastRunner = getNext(n);\n        while (fastRunner != 1 && slowRunner != fastRunner) {\n            slowRunner = getNext(slowRunner);\n            fastRunner = getNext(getNext(fastRunner));\n        }\n        return fastRunner == 1;\n    }\n}",
+        "go": "func isHappy(n int) bool {\n    cycle := map[int]bool{4: true, 6: true, 37: true, 58: true, 89: true, 145: true, 42: true, 20: true}\n    for n != 1 && !cycle[n] {\n        n = step(n)\n    }\n    return n == 1\n}\n\nfunc step(n int) int {\n    sum := 0\n    for n > 0 {\n        sum += (n%10) * (n%10)\n        n = n/10\n    }\n    return sum\n}"
+      },
+      "id": 401
+    },
+    {
+      "title": "移除链表元素",
+      "titleSlug": "remove-linked-list-elements",
+      "tags": [
+        "递归",
+        "链表"
+      ],
+      "difficulty": "简单",
+      "acceptance": 59.51,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/remove-linked-list-elements/",
+      "hotCompanies": [
+        "亚马逊",
+        "facebook",
+        "谷歌"
+      ],
+      "statementZh": "给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。\n \n\n示例 1：\n\n输入：head = [1,2,6,3,4,5,6], val = 6\n输出：[1,2,3,4,5]\n\n示例 2：\n\n输入：head = [], val = 1\n输出：[]\n\n示例 3：\n\n输入：head = [7,7,7,7], val = 7\n输出：[]\n\n \n\n提示：\n\n\t列表中的节点数目在范围 [0, 104] 内\n\n\t1 \n\n\t0",
+      "statementEn": "Given the head of a linked list and an integer val, remove all the nodes of the linked list that has Node.val == val, and return the new head.\n\n \n\nExample 1:\n\nInput: head = [1,2,6,3,4,5,6], val = 6\nOutput: [1,2,3,4,5]\n\nExample 2:\n\nInput: head = [], val = 1\nOutput: []\n\nExample 3:\n\nInput: head = [7,7,7,7], val = 7\nOutput: []\n\n \n\nConstraints:\n\n\tThe number of nodes in the list is in the range [0, 104].\n\n\t1 <= Node.val <= 50\n\n\t0 <= val <= 50",
+      "statement": "给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。\n \n\n示例 1：\n\n输入：head = [1,2,6,3,4,5,6], val = 6\n输出：[1,2,3,4,5]\n\n示例 2：\n\n输入：head = [], val = 1\n输出：[]\n\n示例 3：\n\n输入：head = [7,7,7,7], val = 7\n输出：[]\n\n \n\n提示：\n\n\t列表中的节点数目在范围 [0, 104] 内\n\n\t1 \n\n\t0",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "java": "class Solution {\n    public ListNode removeElements(ListNode head, int val) {\n        ListNode dummyHead = new ListNode(0);\n        dummyHead.next = head;\n        ListNode temp = dummyHead;\n        while (temp.next != null) {\n            if (temp.next.val == val) {\n                temp.next = temp.next.next;\n            } else {\n                temp = temp.next;\n            }\n        }\n        return dummyHead.next;\n    }\n}",
+        "cpp": "public class Solution {\n    public ListNode RemoveElements(ListNode head, int val) {\n        ListNode dummyHead = new ListNode(0);\n        dummyHead.next = head;\n        ListNode temp = dummyHead;\n        while (temp.next != null) {\n            if (temp.next.val == val) {\n                temp.next = temp.next.next;\n            } else {\n                temp = temp.next;\n            }\n        }\n        return dummyHead.next;\n    }\n}",
+        "javascript": "var removeElements = function(head, val) {\n    const dummyHead = new ListNode(0);\n    dummyHead.next = head;\n    let temp = dummyHead;\n    while (temp.next !== null) {\n        if (temp.next.val == val) {\n            temp.next = temp.next.next;\n        } else {\n            temp = temp.next;\n        }\n    }\n    return dummyHead.next;\n};",
+        "go": "func removeElements(head *ListNode, val int) *ListNode {\n    dummyHead := &ListNode{Next: head}\n    for tmp := dummyHead; tmp.Next != nil; {\n        if tmp.Next.Val == val {\n            tmp.Next = tmp.Next.Next\n        } else {\n            tmp = tmp.Next\n        }\n    }\n    return dummyHead.Next\n}"
+      },
+      "id": 402
+    },
+    {
+      "title": "计数质数",
+      "titleSlug": "count-primes",
+      "tags": [
+        "数组",
+        "数学",
+        "枚举",
+        "数论"
+      ],
+      "difficulty": "中等",
+      "acceptance": 36.98,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/count-primes/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "微软"
+      ],
+      "statementZh": "给定整数 n ，返回 所有小于非负整数 n 的质数的数量 。\n\n \n\n示例 1：\n\n输入：n = 10\n输出：4\n解释：小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。\n\n示例 2：\n\n输入：n = 0\n输出：0\n\n示例 3：\n\n输入：n = 1\n输出：0\n\n \n\n提示：\n\n\t0 <= n <= 5 * 106",
+      "statementEn": "Given an integer n, return the number of prime numbers that are strictly less than n.\n\n \n\nExample 1:\n\nInput: n = 10\nOutput: 4\nExplanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.\n\nExample 2:\n\nInput: n = 0\nOutput: 0\n\nExample 3:\n\nInput: n = 1\nOutput: 0\n\n \n\nConstraints:\n\n\t0 <= n <= 5 * 106",
+      "statement": "给定整数 n ，返回 所有小于非负整数 n 的质数的数量 。\n\n \n\n示例 1：\n\n输入：n = 10\n输出：4\n解释：小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。\n\n示例 2：\n\n输入：n = 0\n输出：0\n\n示例 3：\n\n输入：n = 1\n输出：0\n\n \n\n提示：\n\n\t0 <= n <= 5 * 106",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    int countPrimes(int n) {\n        vector<int> primes;\n        vector<int> isPrime(n, 1);\n        for (int i = 2; i < n; ++i) {\n            if (isPrime[i]) {\n                primes.push_back(i);\n            }\n            for (int j = 0; j < primes.size() && i * primes[j] < n; ++j) {\n                isPrime[i * primes[j]] = 0;\n                if (i % primes[j] == 0) {\n                    break;\n                }\n            }\n        }\n        return primes.size();\n    }\n};",
+        "java": "class Solution {\n    public int countPrimes(int n) {\n        List<Integer> primes = new ArrayList<Integer>();\n        int[] isPrime = new int[n];\n        Arrays.fill(isPrime, 1);\n        for (int i = 2; i < n; ++i) {\n            if (isPrime[i] == 1) {\n                primes.add(i);\n            }\n            for (int j = 0; j < primes.size() && i * primes.get(j) < n; ++j) {\n                isPrime[i * primes.get(j)] = 0;\n                if (i % primes.get(j) == 0) {\n                    break;\n                }\n            }\n        }\n        return primes.size();\n    }\n}",
+        "javascript": "var countPrimes = function(n) {\n    const isPrime = new Array(n).fill(1);\n    const primes = [];\n    for (let i = 2; i < n; ++i) {\n        if (isPrime[i]) {\n            primes.push(i);\n        }\n        for (let j = 0; j < primes.length && i * primes[j] < n; ++j) {\n            isPrime[i * primes[j]] = 0;\n            if (i % primes[j] === 0) {\n                break;\n            }\n        }\n    }\n    return primes.length;\n};",
+        "go": "func countPrimes(n int) int {\n    primes := []int{}\n    isPrime := make([]bool, n)\n    for i := range isPrime {\n        isPrime[i] = true\n    }\n    for i := 2; i < n; i++ {\n        if isPrime[i] {\n            primes = append(primes, i)\n        }\n        for _, p := range primes {\n            if i*p >= n {\n                break\n            }\n            isPrime[i*p] = false\n            if i%p == 0 {\n                break\n            }\n        }\n    }\n    return len(primes)\n}"
+      },
+      "id": 403
+    },
+    {
+      "title": "同构字符串",
+      "titleSlug": "isomorphic-strings",
+      "tags": [
+        "哈希表",
+        "字符串"
+      ],
+      "difficulty": "简单",
+      "acceptance": 50.53,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/isomorphic-strings/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "linkedin"
+      ],
+      "statementZh": "给定两个字符串 s 和 t ，判断它们是否是同构的。\n\n如果 s 中的字符可以按某种映射关系替换得到 t ，那么这两个字符串是同构的。\n\n每个出现的字符都应当映射到另一个字符，同时不改变字符的顺序。不同字符不能映射到同一个字符上，相同字符只能映射到同一个字符上，字符可以映射到自己本身。\n\n \n\n示例 1：\n\n输入：s = \"egg\", t = \"add\"\n\n输出：true\n\n解释：\n\n字符串 s 和 t 可以通过以下方式变得相同：\n\n\t将 'e' 映射为 'a'。\n\n\t将 'g' 映射为 'd'。\n\n示例 2：\n\n输入：s = \"f11\", t = \"b23\"\n\n输出：false\n\n解释：\n\n字符串 s 和 t 无法变得相同，因为 '1' 需要同时映射到 '2' 和 '3'。\n\n示例 3：\n\n输入：s = \"paper\", t = \"title\"\n\n输出：true\n\n \n\n提示：\n\n\t1 <= s.length <= 5 * 104\n\n\tt.length == s.length\n\n\ts 和 t 由任意有效的 ASCII 字符组成",
+      "statementEn": "Given two strings s and t, determine if they are isomorphic.\n\nTwo strings s and t are isomorphic if the characters in s can be replaced to get t.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.\n\n \n\nExample 1:\n\nInput: s = \"egg\", t = \"add\"\n\nOutput: true\n\nExplanation:\n\nThe strings s and t can be made identical by:\n\n\tMapping &#39;e&#39; to &#39;a&#39;.\n\n\tMapping &#39;g&#39; to &#39;d&#39;.\n\nExample 2:\n\nInput: s = \"f11\", t = \"b23\"\n\nOutput: false\n\nExplanation:\n\nThe strings s and t can not be made identical as &#39;1&#39; needs to be mapped to both &#39;2&#39; and &#39;3&#39;.\n\nExample 3:\n\nInput: s = \"paper\", t = \"title\"\n\nOutput: true\n\n \n\nConstraints:\n\n\t1 <= s.length <= 5 * 104\n\n\tt.length == s.length\n\n\ts and t consist of any valid ascii character.",
+      "statement": "给定两个字符串 s 和 t ，判断它们是否是同构的。\n\n如果 s 中的字符可以按某种映射关系替换得到 t ，那么这两个字符串是同构的。\n\n每个出现的字符都应当映射到另一个字符，同时不改变字符的顺序。不同字符不能映射到同一个字符上，相同字符只能映射到同一个字符上，字符可以映射到自己本身。\n\n \n\n示例 1：\n\n输入：s = \"egg\", t = \"add\"\n\n输出：true\n\n解释：\n\n字符串 s 和 t 可以通过以下方式变得相同：\n\n\t将 'e' 映射为 'a'。\n\n\t将 'g' 映射为 'd'。\n\n示例 2：\n\n输入：s = \"f11\", t = \"b23\"\n\n输出：false\n\n解释：\n\n字符串 s 和 t 无法变得相同，因为 '1' 需要同时映射到 '2' 和 '3'。\n\n示例 3：\n\n输入：s = \"paper\", t = \"title\"\n\n输出：true\n\n \n\n提示：\n\n\t1 <= s.length <= 5 * 104\n\n\tt.length == s.length\n\n\ts 和 t 由任意有效的 ASCII 字符组成",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "struct HashTable {\n    char key;\n    char val;\n    UT_hash_handle hh;\n};\n\nbool isIsomorphic(char* s, char* t) {\n    struct HashTable* s2t = NULL;\n    struct HashTable* t2s = NULL;\n    int len = strlen(s);\n    for (int i = 0; i < len; ++i) {\n        char x = s[i], y = t[i];\n        struct HashTable *tmp1, *tmp2;\n        HASH_FIND(hh, s2t, &x, sizeof(char), tmp1);\n        HASH_FIND(hh, t2s, &y, sizeof(char), tmp2);\n        if (tmp1 != NULL) {\n            if (tmp1->val != y) {\n                return false;\n            }\n        } else {\n            tmp1 = malloc(sizeof(struct HashTable));\n            tmp1->key = x;\n            tmp1->val = y;\n            HASH_ADD(hh, s2t, key, sizeof(char), tmp1);\n        }\n        if (tmp2 != NULL) {\n            if (tmp2->val != x) {\n                return false;\n            }\n        } else {\n            tmp2 = malloc(sizeof(struct HashTable));\n            tmp2->key = y;\n            tmp2->val = x;\n            HASH_ADD(hh, t2s, key, sizeof(char), tmp2);\n        }\n    }\n    return true;\n}",
+        "java": "class Solution {\n    public boolean isIsomorphic(String s, String t) {\n        Map<Character, Character> s2t = new HashMap<Character, Character>();\n        Map<Character, Character> t2s = new HashMap<Character, Character>();\n        int len = s.length();\n        for (int i = 0; i < len; ++i) {\n            char x = s.charAt(i), y = t.charAt(i);\n            if ((s2t.containsKey(x) && s2t.get(x) != y) || (t2s.containsKey(y) && t2s.get(y) != x)) {\n                return false;\n            }\n            s2t.put(x, y);\n            t2s.put(y, x);\n        }\n        return true;\n    }\n}",
+        "javascript": "var isIsomorphic = function(s, t) {\n    const s2t = {};\n    const t2s = {};\n    const len = s.length;\n    for (let i = 0; i < len; ++i) {\n        const x = s[i], y = t[i];\n        if ((s2t[x] && s2t[x] !== y) || (t2s[y] && t2s[y] !== x)) {\n            return false;\n        }\n        s2t[x] = y;\n        t2s[y] = x;\n    }\n    return true;\n};",
+        "go": "func isIsomorphic(s, t string) bool {\n    s2t := map[byte]byte{}\n    t2s := map[byte]byte{}\n    for i := range s {\n        x, y := s[i], t[i]\n        if s2t[x] > 0 && s2t[x] != y || t2s[y] > 0 && t2s[y] != x {\n            return false\n        }\n        s2t[x] = y\n        t2s[y] = x\n    }\n    return true\n}"
+      },
+      "id": 404
+    },
+    {
+      "title": "课程表",
+      "titleSlug": "course-schedule",
+      "tags": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "拓扑排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 57.31,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/course-schedule/",
+      "hotCompanies": [
+        "亚马逊",
+        "facebook",
+        "谷歌"
+      ],
+      "statementZh": "你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。\n\n在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。\n\n\t例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。\n\n请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。\n\n \n\n示例 1：\n\n输入：numCourses = 2, prerequisites = [[1,0]]\n输出：true\n解释：总共有 2 门课程。学习课程 1 之前，你需要完成课程 0 。这是可能的。\n\n示例 2：\n\n输入：numCourses = 2, prerequisites = [[1,0],[0,1]]\n输出：false\n解释：总共有 2 门课程。学习课程 1 之前，你需要先完成​课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。\n\n \n\n提示：\n\n\t1 <= numCourses <= 2000\n\n\t0 <= prerequisites.length <= 5000\n\n\tprerequisites[i].length == 2\n\n\t0 <= ai, bi < numCourses\n\n\tprerequisites[i] 中的所有课程对 互不相同",
+      "statementEn": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.\n\n\tFor example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.\n\nReturn true if you can finish all courses. Otherwise, return false.\n\n \n\nExample 1:\n\nInput: numCourses = 2, prerequisites = [[1,0]]\nOutput: true\nExplanation: There are a total of 2 courses to take. \nTo take course 1 you should have finished course 0. So it is possible.\n\nExample 2:\n\nInput: numCourses = 2, prerequisites = [[1,0],[0,1]]\nOutput: false\nExplanation: There are a total of 2 courses to take. \nTo take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.\n\n \n\nConstraints:\n\n\t1 <= numCourses <= 2000\n\n\t0 <= prerequisites.length <= 5000\n\n\tprerequisites[i].length == 2\n\n\t0 <= ai, bi < numCourses\n\n\tAll the pairs prerequisites[i] are unique.",
+      "statement": "你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。\n\n在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。\n\n\t例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。\n\n请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。\n\n \n\n示例 1：\n\n输入：numCourses = 2, prerequisites = [[1,0]]\n输出：true\n解释：总共有 2 门课程。学习课程 1 之前，你需要完成课程 0 。这是可能的。\n\n示例 2：\n\n输入：numCourses = 2, prerequisites = [[1,0],[0,1]]\n输出：false\n解释：总共有 2 门课程。学习课程 1 之前，你需要先完成​课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。\n\n \n\n提示：\n\n\t1 <= numCourses <= 2000\n\n\t0 <= prerequisites.length <= 5000\n\n\tprerequisites[i].length == 2\n\n\t0 <= ai, bi < numCourses\n\n\tprerequisites[i] 中的所有课程对 互不相同",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "int** edges;\nint* edgeColSize;\nint* visited;\nbool valid;\n\nvoid dfs(int u) {\n    visited[u] = 1;\n    for (int i = 0; i < edgeColSize[u]; ++i) {\n        if (visited[edges[u][i]] == 0) {\n            dfs(edges[u][i]);\n            if (!valid) {\n                return;\n            }\n        } else if (visited[edges[u][i]] == 1) {\n            valid = false;\n            return;\n        }\n    }\n    visited[u] = 2;\n}\n\nbool canFinish(int numCourses, int** prerequisites, int prerequisitesSize, int* prerequisitesColSize) {\n    valid = true;\n    edges = (int**)malloc(sizeof(int*) * numCourses);\n    for (int i = 0; i < numCourses; i++) {\n        edges[i] = (int*)malloc(0);\n    }\n    edgeColSize = (int*)malloc(sizeof(int) * numCourses);\n    memset(edgeColSize, 0, sizeof(int) * numCourses);\n    visited = (int*)malloc(sizeof(int) * numCourses);\n    memset(visited, 0, sizeof(int) * numCourses);\n    for (int i = 0; i < prerequisitesSize; ++i) {\n        int a = prerequisites[i][1], b = prerequisites[i][0];\n        edgeColSize[a]++;\n        edges[a] = (int*)realloc(edges[a], sizeof(int) * edgeColSize[a]);\n        edges[a][edgeColSize[a] - 1] = b;\n    }\n    for (int i = 0; i < numCourses && valid; ++i) {\n        if (!visited[i]) {\n            dfs(i);\n        }\n    }\n    for (int i = 0; i < numCourses; i++) {\n        free(edges[i]);\n    }\n    free(edges);\n    free(edgeColSize);\n    free(visited);\n    return valid;\n}",
+        "java": "class Solution {\n    List<List<Integer>> edges;\n    int[] visited;\n    boolean valid = true;\n\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        edges = new ArrayList<List<Integer>>();\n        for (int i = 0; i < numCourses; ++i) {\n            edges.add(new ArrayList<Integer>());\n        }\n        visited = new int[numCourses];\n        for (int[] info : prerequisites) {\n            edges.get(info[1]).add(info[0]);\n        }\n        for (int i = 0; i < numCourses && valid; ++i) {\n            if (visited[i] == 0) {\n                dfs(i);\n            }\n        }\n        return valid;\n    }\n\n    public void dfs(int u) {\n        visited[u] = 1;\n        for (int v: edges.get(u)) {\n            if (visited[v] == 0) {\n                dfs(v);\n                if (!valid) {\n                    return;\n                }\n            } else if (visited[v] == 1) {\n                valid = false;\n                return;\n            }\n        }\n        visited[u] = 2;\n    }\n}",
+        "python": "class Solution:\n    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:\n        edges = collections.defaultdict(list)\n        visited = [0] * numCourses\n        result = list()\n        valid = True\n\n        for info in prerequisites:\n            edges[info[1]].append(info[0])\n        \n        def dfs(u: int):\n            nonlocal valid\n            visited[u] = 1\n            for v in edges[u]:\n                if visited[v] == 0:\n                    dfs(v)\n                    if not valid:\n                        return\n                elif visited[v] == 1:\n                    valid = False\n                    return\n            visited[u] = 2\n            result.append(u)\n        \n        for i in range(numCourses):\n            if valid and not visited[i]:\n                dfs(i)\n        \n        return valid",
+        "go": "func canFinish(numCourses int, prerequisites [][]int) bool {\n    var (\n        edges = make([][]int, numCourses)\n        visited = make([]int, numCourses)\n        result []int\n        valid = true\n        dfs func(u int)\n    )\n\n    dfs = func(u int) {\n        visited[u] = 1\n        for _, v := range edges[u] {\n            if visited[v] == 0 {\n                dfs(v)\n                if !valid {\n                    return\n                }\n            } else if visited[v] == 1 {\n                valid = false\n                return\n            }\n        }\n        visited[u] = 2\n        result = append(result, u)\n    }\n\n    for _, info := range prerequisites {\n        edges[info[1]] = append(edges[info[1]], info[0])\n    }\n\n    for i := 0; i < numCourses && valid; i++ {\n        if visited[i] == 0 {\n            dfs(i)\n        }\n    }\n    return valid\n}"
+      },
+      "id": 405
+    },
+    {
+      "title": "实现 Trie (前缀树)",
+      "titleSlug": "implement-trie-prefix-tree",
+      "tags": [
+        "设计",
+        "字典树",
+        "哈希表",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 72.53,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/implement-trie-prefix-tree/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "微软"
+      ],
+      "statementZh": "Trie（发音类似 \"try\"）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补全和拼写检查。\n\n请你实现 Trie 类：\n\n\tTrie() 初始化前缀树对象。\n\n\tvoid insert(String word) 向前缀树中插入字符串 word 。\n\n\tboolean search(String word) 如果字符串 word 在前缀树中，返回 true（即，在检索之前已经插入）；否则，返回 false 。\n\n\tboolean startsWith(String prefix) 如果之前已经插入的字符串 word 的前缀之一为 prefix ，返回 true ；否则，返回 false 。\n\n \n\n示例：\n\n输入\n[\"Trie\", \"insert\", \"search\", \"search\", \"startsWith\", \"insert\", \"search\"]\n[[], [\"apple\"], [\"apple\"], [\"app\"], [\"app\"], [\"app\"], [\"app\"]]\n输出\n[null, null, true, false, true, null, true]\n\n解释\nTrie trie = new Trie();\ntrie.insert(\"apple\");\ntrie.search(\"apple\");   // 返回 True\ntrie.search(\"app\");     // 返回 False\ntrie.startsWith(\"app\"); // 返回 True\ntrie.insert(\"app\");\ntrie.search(\"app\");     // 返回 True\n\n \n\n提示：\n\n\t1 <= word.length, prefix.length <= 2000\n\n\tword 和 prefix 仅由小写英文字母组成\n\n\tinsert、search 和 startsWith 调用次数 总计 不超过 3 * 104 次",
+      "statementEn": "A trie (pronounced as \"try\") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.\n\nImplement the Trie class:\n\n\tTrie() Initializes the trie object.\n\n\tvoid insert(String word) Inserts the string word into the trie.\n\n\tboolean search(String word) Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.\n\n\tboolean startsWith(String prefix) Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.\n\n \n\nExample 1:\n\nInput\n[\"Trie\", \"insert\", \"search\", \"search\", \"startsWith\", \"insert\", \"search\"]\n[[], [\"apple\"], [\"apple\"], [\"app\"], [\"app\"], [\"app\"], [\"app\"]]\nOutput\n[null, null, true, false, true, null, true]\n\nExplanation\nTrie trie = new Trie();\ntrie.insert(\"apple\");\ntrie.search(\"apple\");   // return True\ntrie.search(\"app\");     // return False\ntrie.startsWith(\"app\"); // return True\ntrie.insert(\"app\");\ntrie.search(\"app\");     // return True\n\n \n\nConstraints:\n\n\t1 <= word.length, prefix.length <= 2000\n\n\tword and prefix consist only of lowercase English letters.\n\n\tAt most 3 * 104 calls in total will be made to insert, search, and startsWith.",
+      "statement": "Trie（发音类似 \"try\"）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补全和拼写检查。\n\n请你实现 Trie 类：\n\n\tTrie() 初始化前缀树对象。\n\n\tvoid insert(String word) 向前缀树中插入字符串 word 。\n\n\tboolean search(String word) 如果字符串 word 在前缀树中，返回 true（即，在检索之前已经插入）；否则，返回 false 。\n\n\tboolean startsWith(String prefix) 如果之前已经插入的字符串 word 的前缀之一为 prefix ，返回 true ；否则，返回 false 。\n\n \n\n示例：\n\n输入\n[\"Trie\", \"insert\", \"search\", \"search\", \"startsWith\", \"insert\", \"search\"]\n[[], [\"apple\"], [\"apple\"], [\"app\"], [\"app\"], [\"app\"], [\"app\"]]\n输出\n[null, null, true, false, true, null, true]\n\n解释\nTrie trie = new Trie();\ntrie.insert(\"apple\");\ntrie.search(\"apple\");   // 返回 True\ntrie.search(\"app\");     // 返回 False\ntrie.startsWith(\"app\"); // 返回 True\ntrie.insert(\"app\");\ntrie.search(\"app\");     // 返回 True\n\n \n\n提示：\n\n\t1 <= word.length, prefix.length <= 2000\n\n\tword 和 prefix 仅由小写英文字母组成\n\n\tinsert、search 和 startsWith 调用次数 总计 不超过 3 * 104 次",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "typedef struct Trie {\n    struct Trie* children[26];\n    bool isEnd;\n} Trie;\n\nTrie* trieCreate() {\n    Trie* ret = malloc(sizeof(Trie));\n    memset(ret->children, 0, sizeof(ret->children));\n    ret->isEnd = false;\n    return ret;\n}\n\nvoid trieInsert(Trie* obj, char* word) {\n    int n = strlen(word);\n    for (int i = 0; i < n; i++) {\n        int ch = word[i] - 'a';\n        if (obj->children[ch] == NULL) {\n            obj->children[ch] = trieCreate();\n        }\n        obj = obj->children[ch];\n    }\n    obj->isEnd = true;\n}\n\nbool trieSearch(Trie* obj, char* word) {\n    int n = strlen(word);\n    for (int i = 0; i < n; i++) {\n        int ch = word[i] - 'a';\n        if (obj->children[ch] == NULL) {\n            return false;\n        }\n        obj = obj->children[ch];\n    }\n    return obj->isEnd;\n}\n\nbool trieStartsWith(Trie* obj, char* prefix) {\n    int n = strlen(prefix);\n    for (int i = 0; i < n; i++) {\n        int ch = prefix[i] - 'a';\n        if (obj->children[ch] == NULL) {\n            return false;\n        }\n        obj = obj->children[ch];\n    }\n    return true;\n}\n\nvoid trieFree(Trie* obj) {\n    for (int i = 0; i < 26; i++) {\n        if (obj->children[i]) {\n            trieFree(obj->children[i]);\n        }\n    }\n    free(obj);\n}",
+        "java": "class Trie {\n    private Trie[] children;\n    private boolean isEnd;\n\n    public Trie() {\n        children = new Trie[26];\n        isEnd = false;\n    }\n    \n    public void insert(String word) {\n        Trie node = this;\n        for (int i = 0; i < word.length(); i++) {\n            char ch = word.charAt(i);\n            int index = ch - 'a';\n            if (node.children[index] == null) {\n                node.children[index] = new Trie();\n            }\n            node = node.children[index];\n        }\n        node.isEnd = true;\n    }\n    \n    public boolean search(String word) {\n        Trie node = searchPrefix(word);\n        return node != null && node.isEnd;\n    }\n    \n    public boolean startsWith(String prefix) {\n        return searchPrefix(prefix) != null;\n    }\n\n    private Trie searchPrefix(String prefix) {\n        Trie node = this;\n        for (int i = 0; i < prefix.length(); i++) {\n            char ch = prefix.charAt(i);\n            int index = ch - 'a';\n            if (node.children[index] == null) {\n                return null;\n            }\n            node = node.children[index];\n        }\n        return node;\n    }\n}",
+        "go": "type Trie struct {\n    children [26]*Trie\n    isEnd    bool\n}\n\nfunc Constructor() Trie {\n    return Trie{}\n}\n\nfunc (t *Trie) Insert(word string) {\n    node := t\n    for _, ch := range word {\n        ch -= 'a'\n        if node.children[ch] == nil {\n            node.children[ch] = &Trie{}\n        }\n        node = node.children[ch]\n    }\n    node.isEnd = true\n}\n\nfunc (t *Trie) SearchPrefix(prefix string) *Trie {\n    node := t\n    for _, ch := range prefix {\n        ch -= 'a'\n        if node.children[ch] == nil {\n            return nil\n        }\n        node = node.children[ch]\n    }\n    return node\n}\n\nfunc (t *Trie) Search(word string) bool {\n    node := t.SearchPrefix(word)\n    return node != nil && node.isEnd\n}\n\nfunc (t *Trie) StartsWith(prefix string) bool {\n    return t.SearchPrefix(prefix) != nil\n}",
+        "javascript": "var Trie = function() {\n    this.children = {};\n};\n\nTrie.prototype.insert = function(word) {\n    let node = this.children;\n    for (const ch of word) {\n        if (!node[ch]) {\n            node[ch] = {};\n        }\n        node = node[ch];\n    }\n    node.isEnd = true;\n};\n\nTrie.prototype.searchPrefix = function(prefix) {\n    let node = this.children;\n    for (const ch of prefix) {\n        if (!node[ch]) {\n            return false;\n        }\n        node = node[ch];\n    }\n    return node;\n}\n\nTrie.prototype.search = function(word) {\n    const node = this.searchPrefix(word);\n    return node !== undefined && node.isEnd !== undefined;\n};\n\nTrie.prototype.startsWith = function(prefix) {\n    return this.searchPrefix(prefix);\n};",
+        "python": "class Trie:\n    def __init__(self):\n        self.children = [None] * 26\n        self.isEnd = False\n    \n    def searchPrefix(self, prefix: str) -> \"Trie\":\n        node = self\n        for ch in prefix:\n            ch = ord(ch) - ord(\"a\")\n            if not node.children[ch]:\n                return None\n            node = node.children[ch]\n        return node\n\n    def insert(self, word: str) -> None:\n        node = self\n        for ch in word:\n            ch = ord(ch) - ord(\"a\")\n            if not node.children[ch]:\n                node.children[ch] = Trie()\n            node = node.children[ch]\n        node.isEnd = True\n\n    def search(self, word: str) -> bool:\n        node = self.searchPrefix(word)\n        return node is not None and node.isEnd\n\n    def startsWith(self, prefix: str) -> bool:\n        return self.searchPrefix(prefix) is not None"
+      },
+      "id": 406
+    },
+    {
+      "title": "长度最小的子数组",
+      "titleSlug": "minimum-size-subarray-sum",
+      "tags": [
+        "数组",
+        "二分查找",
+        "前缀和",
+        "滑动窗口"
+      ],
+      "difficulty": "中等",
+      "acceptance": 47.49,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/minimum-size-subarray-sum/",
+      "hotCompanies": [
+        "亚马逊",
+        "goldman-sachs",
+        "字节"
+      ],
+      "statementZh": "给定一个含有 n 个正整数的数组和一个正整数 target 。\n\n找出该数组中满足其总和大于等于 target 的长度最小的 子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。\n\n \n\n示例 1：\n\n输入：target = 7, nums = [2,3,1,2,4,3]\n输出：2\n解释：子数组 [4,3] 是该条件下的长度最小的子数组。\n\n示例 2：\n\n输入：target = 4, nums = [1,4,4]\n输出：1\n\n示例 3：\n\n输入：target = 11, nums = [1,1,1,1,1,1,1,1]\n输出：0\n\n \n\n提示：\n\n\t1 <= target <= 109\n\n\t1 <= nums.length <= 105\n\n\t1 <= nums[i] <= 104\n\n \n\n进阶：\n\n\t如果你已经实现 O(n) 时间复杂度的解法, 请尝试设计一个 O(n log(n)) 时间复杂度的解法。",
+      "statementEn": "Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.\n\n \n\nExample 1:\n\nInput: target = 7, nums = [2,3,1,2,4,3]\nOutput: 2\nExplanation: The subarray [4,3] has the minimal length under the problem constraint.\n\nExample 2:\n\nInput: target = 4, nums = [1,4,4]\nOutput: 1\n\nExample 3:\n\nInput: target = 11, nums = [1,1,1,1,1,1,1,1]\nOutput: 0\n\n \n\nConstraints:\n\n\t1 <= target <= 109\n\n\t1 <= nums.length <= 105\n\n\t1 <= nums[i] <= 104\n\n \n\nFollow up: If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log(n)).",
+      "statement": "给定一个含有 n 个正整数的数组和一个正整数 target 。\n\n找出该数组中满足其总和大于等于 target 的长度最小的 子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。\n\n \n\n示例 1：\n\n输入：target = 7, nums = [2,3,1,2,4,3]\n输出：2\n解释：子数组 [4,3] 是该条件下的长度最小的子数组。\n\n示例 2：\n\n输入：target = 4, nums = [1,4,4]\n输出：1\n\n示例 3：\n\n输入：target = 11, nums = [1,1,1,1,1,1,1,1]\n输出：0\n\n \n\n提示：\n\n\t1 <= target <= 109\n\n\t1 <= nums.length <= 105\n\n\t1 <= nums[i] <= 104\n\n \n\n进阶：\n\n\t如果你已经实现 O(n) 时间复杂度的解法, 请尝试设计一个 O(n log(n)) 时间复杂度的解法。",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "java": "class Solution {\n    public int minSubArrayLen(int s, int[] nums) {\n        int n = nums.length;\n        if (n == 0) {\n            return 0;\n        }\n        int ans = Integer.MAX_VALUE;\n        int[] sums = new int[n + 1]; \n        // 为了方便计算，令 size = n + 1 \n        // sums[0] = 0 意味着前 0 个元素的前缀和为 0\n        // sums[1] = A[0] 前 1 个元素的前缀和为 A[0]\n        // 以此类推\n        for (int i = 1; i <= n; i++) {\n            sums[i] = sums[i - 1] + nums[i - 1];\n        }\n        for (int i = 1; i <= n; i++) {\n            int target = s + sums[i - 1];\n            int bound = Arrays.binarySearch(sums, target);\n            if (bound < 0) {\n                bound = -bound - 1;\n            }\n            if (bound <= n) {\n                ans = Math.min(ans, bound - (i - 1));\n            }\n        }\n        return ans == Integer.MAX_VALUE ? 0 : ans;\n    }\n}",
+        "cpp": "public class Solution {\n    private int LowerBound(int[] a, int l, int r, int target) \n    {\n        int mid = -1, originL = l, originR = r;\n        while (l < r) \n        {\n            mid = (l + r) >> 1;\n            if (a[mid] < target) l = mid + 1;\n            else r = mid;\n        } \n\n        return (a[l] >= target) ? l : -1;\n    }\n\n    public int MinSubArrayLen(int s, int[] nums) \n    {\n        int n = nums.Length;\n        if (n == 0) \n        {\n            return 0;\n        }\n\n        int ans = int.MaxValue;\n        int[] sums = new int[n + 1]; \n        // 为了方便计算，令 size = n + 1 \n        // sums[0] = 0 意味着前 0 个元素的前缀和为 0\n        // sums[1] = A[0] 前 1 个元素的前缀和为 A[0]\n        // 以此类推\n        for (int i = 1; i <= n; ++i) \n        {\n            sums[i] = sums[i - 1] + nums[i - 1];\n        }\n\n        for (int i = 1; i <= n; ++i) \n        {\n            int target = s + sums[i - 1];\n            int bound = LowerBound(sums, i, n, target);\n            if (bound != -1)\n            {\n                ans = Math.Min(ans, bound - i + 1);\n            }\n        }\n\n        return ans == int.MaxValue ? 0 : ans;\n    }\n}",
+        "go": "func minSubArrayLen(s int, nums []int) int {\n    n := len(nums)\n    if n == 0 {\n        return 0\n    }\n    ans := math.MaxInt32\n    sums := make([]int, n + 1)\n    // 为了方便计算，令 size = n + 1 \n    // sums[0] = 0 意味着前 0 个元素的前缀和为 0\n    // sums[1] = A[0] 前 1 个元素的前缀和为 A[0]\n    // 以此类推\n    for i := 1; i <= n; i++ {\n        sums[i] = sums[i - 1] + nums[i - 1]\n    }\n    for i := 1; i <= n; i++ {\n        target := s + sums[i-1]\n        bound := sort.SearchInts(sums, target)\n        if bound < 0 {\n            bound = -bound - 1\n        }\n        if bound <= n {\n            ans = min(ans, bound - (i - 1))\n        }\n    }\n    if ans == math.MaxInt32 {\n        return 0\n    }\n    return ans\n}\n\nfunc min(x, y int) int {\n    if x < y {\n        return x\n    }\n    return y\n}",
+        "python": "class Solution:\n    def minSubArrayLen(self, s: int, nums: List[int]) -> int:\n        if not nums:\n            return 0\n        \n        n = len(nums)\n        ans = n + 1\n        sums = [0]\n        for i in range(n):\n            sums.append(sums[-1] + nums[i])\n        \n        for i in range(1, n + 1):\n            target = s + sums[i - 1]\n            bound = bisect.bisect_left(sums, target)\n            if bound != len(sums):\n                ans = min(ans, bound - (i - 1))\n        \n        return 0 if ans == n + 1 else ans"
+      },
+      "id": 407
+    },
+    {
+      "title": "课程表 II",
+      "titleSlug": "course-schedule-ii",
+      "tags": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "拓扑排序"
+      ],
+      "difficulty": "中等",
+      "acceptance": 59.68,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/course-schedule-ii/",
+      "hotCompanies": [
+        "亚马逊",
+        "谷歌",
+        "微软"
+      ],
+      "statementZh": "现在你总共有 numCourses 门课需要选，记为 0 到 numCourses - 1。给你一个数组 prerequisites ，其中 prerequisites[i] = [ai, bi] ，表示在选修课程 ai 前 必须 先选修 bi 。\n\n\t例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示：[0,1] 。\n\n返回你为了学完所有课程所安排的学习顺序。可能会有多个正确的顺序，你只要返回 任意一种 就可以了。如果不可能完成所有课程，返回 一个空数组 。\n\n \n\n示例 1：\n\n输入：numCourses = 2, prerequisites = [[1,0]]\n输出：[0,1]\n解释：总共有 2 门课程。要学习课程 1，你需要先完成课程 0。因此，正确的课程顺序为 [0,1] 。\n\n示例 2：\n\n输入：numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]\n输出：[0,2,1,3]\n解释：总共有 4 门课程。要学习课程 3，你应该先完成课程 1 和课程 2。并且课程 1 和课程 2 都应该排在课程 0 之后。\n因此，一个正确的课程顺序是 [0,1,2,3] 。另一个正确的排序是 [0,2,1,3] 。\n\n示例 3：\n\n输入：numCourses = 1, prerequisites = []\n输出：[0]\n\n \n\n提示：\n\n\t1 <= numCourses <= 2000\n\n\t0 <= prerequisites.length <= numCourses * (numCourses - 1)\n\n\tprerequisites[i].length == 2\n\n\t0 <= ai, bi < numCourses\n\n\tai != bi\n\n\t所有[ai, bi] 互不相同",
+      "statementEn": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.\n\n\tFor example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.\n\nReturn the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.\n\n \n\nExample 1:\n\nInput: numCourses = 2, prerequisites = [[1,0]]\nOutput: [0,1]\nExplanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0. So the correct course order is [0,1].\n\nExample 2:\n\nInput: numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]\nOutput: [0,2,1,3]\nExplanation: There are a total of 4 courses to take. To take course 3 you should have finished both courses 1 and 2. Both courses 1 and 2 should be taken after you finished course 0.\nSo one correct course order is [0,1,2,3]. Another correct ordering is [0,2,1,3].\n\nExample 3:\n\nInput: numCourses = 1, prerequisites = []\nOutput: [0]\n\n \n\nConstraints:\n\n\t1 <= numCourses <= 2000\n\n\t0 <= prerequisites.length <= numCourses * (numCourses - 1)\n\n\tprerequisites[i].length == 2\n\n\t0 <= ai, bi < numCourses\n\n\tai != bi\n\n\tAll the pairs [ai, bi] are distinct.",
+      "statement": "现在你总共有 numCourses 门课需要选，记为 0 到 numCourses - 1。给你一个数组 prerequisites ，其中 prerequisites[i] = [ai, bi] ，表示在选修课程 ai 前 必须 先选修 bi 。\n\n\t例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示：[0,1] 。\n\n返回你为了学完所有课程所安排的学习顺序。可能会有多个正确的顺序，你只要返回 任意一种 就可以了。如果不可能完成所有课程，返回 一个空数组 。\n\n \n\n示例 1：\n\n输入：numCourses = 2, prerequisites = [[1,0]]\n输出：[0,1]\n解释：总共有 2 门课程。要学习课程 1，你需要先完成课程 0。因此，正确的课程顺序为 [0,1] 。\n\n示例 2：\n\n输入：numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]\n输出：[0,2,1,3]\n解释：总共有 4 门课程。要学习课程 3，你应该先完成课程 1 和课程 2。并且课程 1 和课程 2 都应该排在课程 0 之后。\n因此，一个正确的课程顺序是 [0,1,2,3] 。另一个正确的排序是 [0,2,1,3] 。\n\n示例 3：\n\n输入：numCourses = 1, prerequisites = []\n输出：[0]\n\n \n\n提示：\n\n\t1 <= numCourses <= 2000\n\n\t0 <= prerequisites.length <= numCourses * (numCourses - 1)\n\n\tprerequisites[i].length == 2\n\n\t0 <= ai, bi < numCourses\n\n\tai != bi\n\n\t所有[ai, bi] 互不相同",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "int** edges;\nint* edgeColSize;\nint* visited;\nint* result;\nint resultSize;\nbool valid;\n\nvoid dfs(int u) {\n    visited[u] = 1;\n    for (int i = 0; i < edgeColSize[u]; ++i) {\n        if (visited[edges[u][i]] == 0) {\n            dfs(edges[u][i]);\n            if (!valid) {\n                return;\n            }\n        } else if (visited[edges[u][i]] == 1) {\n            valid = false;\n            return;\n        }\n    }\n    visited[u] = 2;\n    result[resultSize++] = u;\n}\n\nint* findOrder(int numCourses, int** prerequisites, int prerequisitesSize, int* prerequisitesColSize, int* returnSize) {\n    valid = true;\n    edges = (int**)malloc(sizeof(int*) * numCourses);\n    for (int i = 0; i < numCourses; i++) {\n        edges[i] = (int*)malloc(0);\n    }\n    edgeColSize = (int*)malloc(sizeof(int) * numCourses);\n    memset(edgeColSize, 0, sizeof(int) * numCourses);\n    visited = (int*)malloc(sizeof(int) * numCourses);\n    memset(visited, 0, sizeof(int) * numCourses);\n    for (int i = 0; i < prerequisitesSize; ++i) {\n        int a = prerequisites[i][1], b = prerequisites[i][0];\n        edgeColSize[a]++;\n        edges[a] = (int*)realloc(edges[a], sizeof(int) * edgeColSize[a]);\n        edges[a][edgeColSize[a] - 1] = b;\n    }\n    result = (int*)malloc(sizeof(int) * numCourses);\n    resultSize = 0;\n    for (int i = 0; i < numCourses && valid; ++i) {\n        if (!visited[i]) {\n            dfs(i);\n        }\n    }\n    for (int i = 0; i < numCourses; i++) {\n        free(edges[i]);\n    }\n    free(edges);\n    free(edgeColSize);\n    free(visited);\n    if (!valid) {\n        *returnSize = 0;\n    } else\n        *returnSize = numCourses;\n    for (int i = 0; i < numCourses / 2; i++) {\n        int t = result[i];\n        result[i] = result[numCourses - i - 1], result[numCourses - i - 1] = t;\n    }\n    return result;\n}",
+        "java": "class Solution {\n    // 存储有向图\n    List<List<Integer>> edges;\n    // 标记每个节点的状态：0=未搜索，1=搜索中，2=已完成\n    int[] visited;\n    // 用数组来模拟栈，下标 n-1 为栈底，0 为栈顶\n    int[] result;\n    // 判断有向图中是否有环\n    boolean valid = true;\n    // 栈下标\n    int index;\n\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        edges = new ArrayList<List<Integer>>();\n        for (int i = 0; i < numCourses; ++i) {\n            edges.add(new ArrayList<Integer>());\n        }\n        visited = new int[numCourses];\n        result = new int[numCourses];\n        index = numCourses - 1;\n        for (int[] info : prerequisites) {\n            edges.get(info[1]).add(info[0]);\n        }\n        // 每次挑选一个「未搜索」的节点，开始进行深度优先搜索\n        for (int i = 0; i < numCourses && valid; ++i) {\n            if (visited[i] == 0) {\n                dfs(i);\n            }\n        }\n        if (!valid) {\n            return new int[0];\n        }\n        // 如果没有环，那么就有拓扑排序\n        return result;\n    }\n\n    public void dfs(int u) {\n        // 将节点标记为「搜索中」\n        visited[u] = 1;\n        // 搜索其相邻节点\n        // 只要发现有环，立刻停止搜索\n        for (int v: edges.get(u)) {\n            // 如果「未搜索」那么搜索相邻节点\n            if (visited[v] == 0) {\n                dfs(v);\n                if (!valid) {\n                    return;\n                }\n            }\n            // 如果「搜索中」说明找到了环\n            else if (visited[v] == 1) {\n                valid = false;\n                return;\n            }\n        }\n        // 将节点标记为「已完成」\n        visited[u] = 2;\n        // 将节点入栈\n        result[index--] = u;\n    }\n}",
+        "python": "class Solution:\n    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:\n        # 存储有向图\n        edges = collections.defaultdict(list)\n        # 标记每个节点的状态：0=未搜索，1=搜索中，2=已完成\n        visited = [0] * numCourses\n        # 用数组来模拟栈，下标 0 为栈底，n-1 为栈顶\n        result = list()\n        # 判断有向图中是否有环\n        valid = True\n\n        for info in prerequisites:\n            edges[info[1]].append(info[0])\n        \n        def dfs(u: int):\n            nonlocal valid\n            # 将节点标记为「搜索中」\n            visited[u] = 1\n            # 搜索其相邻节点\n            # 只要发现有环，立刻停止搜索\n            for v in edges[u]:\n                # 如果「未搜索」那么搜索相邻节点\n                if visited[v] == 0:\n                    dfs(v)\n                    if not valid:\n                        return\n                # 如果「搜索中」说明找到了环\n                elif visited[v] == 1:\n                    valid = False\n                    return\n            # 将节点标记为「已完成」\n            visited[u] = 2\n            # 将节点入栈\n            result.append(u)\n        \n        # 每次挑选一个「未搜索」的节点，开始进行深度优先搜索\n        for i in range(numCourses):\n            if valid and not visited[i]:\n                dfs(i)\n        \n        if not valid:\n            return list()\n        \n        # 如果没有环，那么就有拓扑排序\n        # 注意下标 0 为栈底，因此需要将数组反序输出\n        return result[::-1]",
+        "go": "func findOrder(numCourses int, prerequisites [][]int) []int {\n    var (\n        edges = make([][]int, numCourses)\n        visited = make([]int, numCourses)\n        result []int\n        valid bool = true\n        dfs func(u int)\n    )\n\n    dfs = func(u int) {\n        visited[u] = 1\n        for _, v := range edges[u] {\n            if visited[v] == 0 {\n                dfs(v)\n                if !valid {\n                    return\n                }\n            } else if visited[v] == 1 {\n                valid = false\n                return\n            }\n        }\n        visited[u] = 2\n        result = append(result, u)\n    }\n\n    for _, info := range prerequisites {\n        edges[info[1]] = append(edges[info[1]], info[0])\n    }\n\n    for i := 0; i < numCourses && valid; i++ {\n        if visited[i] == 0 {\n            dfs(i)\n        }\n    }\n    if !valid {\n        return []int{}\n    }\n    for i := 0; i < len(result)/2; i ++ {\n        result[i], result[numCourses-i-1] = result[numCourses-i-1], result[i]\n    }\n    return result\n}"
+      },
+      "id": 408
+    },
+    {
+      "title": "添加与搜索单词 - 数据结构设计",
+      "titleSlug": "design-add-and-search-words-data-structure",
+      "tags": [
+        "深度优先搜索",
+        "设计",
+        "字典树",
+        "字符串"
+      ],
+      "difficulty": "中等",
+      "acceptance": 51.83,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/design-add-and-search-words-data-structure/",
+      "hotCompanies": [
+        "facebook",
+        "亚马逊",
+        "谷歌"
+      ],
+      "statementZh": "请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。\n\n实现词典类 WordDictionary ：\n\n\tWordDictionary() 初始化词典对象\n\n\tvoid addWord(word) 将 word 添加到数据结构中，之后可以对它进行匹配\n\n\tbool search(word) 如果数据结构中存在字符串与 word 匹配，则返回 true ；否则，返回  false 。word 中可能包含一些 '.' ，每个 . 都可以表示任何一个字母。\n\n \n\n示例：\n\n输入：\n[\"WordDictionary\",\"addWord\",\"addWord\",\"addWord\",\"search\",\"search\",\"search\",\"search\"]\n[[],[\"bad\"],[\"dad\"],[\"mad\"],[\"pad\"],[\"bad\"],[\".ad\"],[\"b..\"]]\n输出：\n[null,null,null,null,false,true,true,true]\n\n解释：\nWordDictionary wordDictionary = new WordDictionary();\nwordDictionary.addWord(\"bad\");\nwordDictionary.addWord(\"dad\");\nwordDictionary.addWord(\"mad\");\nwordDictionary.search(\"pad\"); // 返回 False\nwordDictionary.search(\"bad\"); // 返回 True\nwordDictionary.search(\".ad\"); // 返回 True\nwordDictionary.search(\"b..\"); // 返回 True\n\n \n\n提示：\n\n\t1 <= word.length <= 25\n\n\taddWord 中的 word 由小写英文字母组成\n\n\tsearch 中的 word 由 '.' 或小写英文字母组成\n\n\t最多调用 104 次 addWord 和 search",
+      "statementEn": "Design a data structure that supports adding new words and finding if a string matches any previously added string.\n\nImplement the WordDictionary class:\n\n\tWordDictionary() Initializes the object.\n\n\tvoid addWord(word) Adds word to the data structure, it can be matched later.\n\n\tbool search(word) Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots &#39;.&#39; where dots can be matched with any letter.\n\n \n\nExample:\n\nInput\n[\"WordDictionary\",\"addWord\",\"addWord\",\"addWord\",\"search\",\"search\",\"search\",\"search\"]\n[[],[\"bad\"],[\"dad\"],[\"mad\"],[\"pad\"],[\"bad\"],[\".ad\"],[\"b..\"]]\nOutput\n[null,null,null,null,false,true,true,true]\n\nExplanation\nWordDictionary wordDictionary = new WordDictionary();\nwordDictionary.addWord(\"bad\");\nwordDictionary.addWord(\"dad\");\nwordDictionary.addWord(\"mad\");\nwordDictionary.search(\"pad\"); // return False\nwordDictionary.search(\"bad\"); // return True\nwordDictionary.search(\".ad\"); // return True\nwordDictionary.search(\"b..\"); // return True\n\n \n\nConstraints:\n\n\t1 <= word.length <= 25\n\n\tword in addWord consists of lowercase English letters.\n\n\tword in search consist of &#39;.&#39; or lowercase English letters.\n\n\tThere will be at most 2 dots in word for search queries.\n\n\tAt most 104 calls will be made to addWord and search.",
+      "statement": "请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。\n\n实现词典类 WordDictionary ：\n\n\tWordDictionary() 初始化词典对象\n\n\tvoid addWord(word) 将 word 添加到数据结构中，之后可以对它进行匹配\n\n\tbool search(word) 如果数据结构中存在字符串与 word 匹配，则返回 true ；否则，返回  false 。word 中可能包含一些 '.' ，每个 . 都可以表示任何一个字母。\n\n \n\n示例：\n\n输入：\n[\"WordDictionary\",\"addWord\",\"addWord\",\"addWord\",\"search\",\"search\",\"search\",\"search\"]\n[[],[\"bad\"],[\"dad\"],[\"mad\"],[\"pad\"],[\"bad\"],[\".ad\"],[\"b..\"]]\n输出：\n[null,null,null,null,false,true,true,true]\n\n解释：\nWordDictionary wordDictionary = new WordDictionary();\nwordDictionary.addWord(\"bad\");\nwordDictionary.addWord(\"dad\");\nwordDictionary.addWord(\"mad\");\nwordDictionary.search(\"pad\"); // 返回 False\nwordDictionary.search(\"bad\"); // 返回 True\nwordDictionary.search(\".ad\"); // 返回 True\nwordDictionary.search(\"b..\"); // 返回 True\n\n \n\n提示：\n\n\t1 <= word.length <= 25\n\n\taddWord 中的 word 由小写英文字母组成\n\n\tsearch 中的 word 由 '.' 或小写英文字母组成\n\n\t最多调用 104 次 addWord 和 search",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "java": "class WordDictionary {\n    private Trie root;\n\n    public WordDictionary() {\n        root = new Trie();\n    }\n    \n    public void addWord(String word) {\n        root.insert(word);\n    }\n    \n    public boolean search(String word) {\n        return dfs(word, 0, root);\n    }\n\n    private boolean dfs(String word, int index, Trie node) {\n        if (index == word.length()) {\n            return node.isEnd();\n        }\n        char ch = word.charAt(index);\n        if (Character.isLetter(ch)) {\n            int childIndex = ch - 'a';\n            Trie child = node.getChildren()[childIndex];\n            if (child != null && dfs(word, index + 1, child)) {\n                return true;\n            }\n        } else {\n            for (int i = 0; i < 26; i++) {\n                Trie child = node.getChildren()[i];\n                if (child != null && dfs(word, index + 1, child)) {\n                    return true;\n                }\n            }\n        }\n        return false;\n    }\n}\n\nclass Trie {\n    private Trie[] children;\n    private boolean isEnd;\n\n    public Trie() {\n        children = new Trie[26];\n        isEnd = false;\n    }\n    \n    public void insert(String word) {\n        Trie node = this;\n        for (int i = 0; i < word.length(); i++) {\n            char ch = word.charAt(i);\n            int index = ch - 'a';\n            if (node.children[index] == null) {\n                node.children[index] = new Trie();\n            }\n            node = node.children[index];\n        }\n        node.isEnd = true;\n    }\n\n    public Trie[] getChildren() {\n        return children;\n    }\n\n    public boolean isEnd() {\n        return isEnd;\n    }\n}",
+        "cpp": "public class WordDictionary {\n    private Trie root;\n\n    public WordDictionary() {\n        root = new Trie();\n    }\n    \n    public void AddWord(string word) {\n        root.Insert(word);\n    }\n    \n    public bool Search(string word) {\n        return DFS(word, 0, root);\n    }\n\n    private bool DFS(String word, int index, Trie node) {\n        if (index == word.Length) {\n            return node.IsEnd;\n        }\n        char ch = word[index];\n        if (char.IsLetter(ch)) {\n            int childIndex = ch - 'a';\n            Trie child = node.Children[childIndex];\n            if (child != null && DFS(word, index + 1, child)) {\n                return true;\n            }\n        } else {\n            for (int i = 0; i < 26; i++) {\n                Trie child = node.Children[i];\n                if (child != null && DFS(word, index + 1, child)) {\n                    return true;\n                }\n            }\n        }\n        return false;\n    }\n}\n\nclass Trie {\n    public Trie[] Children { get; }\n    public bool IsEnd { get; set; }\n\n    public Trie() {\n        Children = new Trie[26];\n        IsEnd = false;\n    }\n    \n    public void Insert(String word) {\n        Trie node = this;\n        for (int i = 0; i < word.Length; i++) {\n            char ch = word[i];\n            int index = ch - 'a';\n            if (node.Children[index] == null) {\n                node.Children[index] = new Trie();\n            }\n            node = node.Children[index];\n        }\n        node.IsEnd = true;\n    }\n}",
+        "go": "type TrieNode struct {\n    children [26]*TrieNode\n    isEnd    bool\n}\n\nfunc (t *TrieNode) Insert(word string) {\n    node := t\n    for _, ch := range word {\n        ch -= 'a'\n        if node.children[ch] == nil {\n            node.children[ch] = &TrieNode{}\n        }\n        node = node.children[ch]\n    }\n    node.isEnd = true\n}\n\ntype WordDictionary struct {\n    trieRoot *TrieNode\n}\n\nfunc Constructor() WordDictionary {\n    return WordDictionary{&TrieNode{}}\n}\n\nfunc (d *WordDictionary) AddWord(word string) {\n    d.trieRoot.Insert(word)\n}\n\nfunc (d *WordDictionary) Search(word string) bool {\n    var dfs func(int, *TrieNode) bool\n    dfs = func(index int, node *TrieNode) bool {\n        if index == len(word) {\n            return node.isEnd\n        }\n        ch := word[index]\n        if ch != '.' {\n            child := node.children[ch-'a']\n            if child != nil && dfs(index+1, child) {\n                return true\n            }\n        } else {\n            for i := range node.children {\n                child := node.children[i]\n                if child != nil && dfs(index+1, child) {\n                    return true\n                }\n            }\n        }\n        return false\n    }\n    return dfs(0, d.trieRoot)\n}",
+        "python": "class TrieNode:\n    def __init__(self):\n        self.children = [None] * 26\n        self.isEnd = False\n\n    def insert(self, word: str) -> None:\n        node = self\n        for ch in word:\n            ch = ord(ch) - ord('a')\n            if not node.children[ch]:\n                node.children[ch] = TrieNode()\n            node = node.children[ch]\n        node.isEnd = True\n\n\nclass WordDictionary:\n    def __init__(self):\n        self.trieRoot = TrieNode()\n\n    def addWord(self, word: str) -> None:\n        self.trieRoot.insert(word)\n\n    def search(self, word: str) -> bool:\n        def dfs(index: int, node: TrieNode) -> bool:\n            if index == len(word):\n                return node.isEnd\n            ch = word[index]\n            if ch != '.':\n                child = node.children[ord(ch) - ord('a')]\n                if child is not None and dfs(index + 1, child):\n                    return True\n            else:\n                for child in node.children:\n                    if child is not None and dfs(index + 1, child):\n                        return True\n            return False\n\n        return dfs(0, self.trieRoot)",
+        "javascript": "var WordDictionary = function() {\n    this.trieRoot = new TrieNode();\n};\n\nWordDictionary.prototype.addWord = function(word) {\n    this.trieRoot.insert(word);\n};\n\nWordDictionary.prototype.search = function(word) {\n    const dfs = (index, node) => {\n        if (index === word.length) {\n            return node.isEnd;\n        }\n        const ch = word[index];\n        if (ch !== '.') {\n            const child = node.children[ch.charCodeAt() - 'a'.charCodeAt()]\n            if (child && dfs(index + 1, child)) {\n                return true;\n            }\n        } else {\n            for (const child of node.children) {\n                if (child && dfs(index + 1, child)) {\n                    return true;\n                }\n            }\n        }\n        return false;\n    }\n    \n    return dfs(0, this.trieRoot);\n};\n\nclass TrieNode {\n    constructor() {\n        this.children = new Array(26).fill(0);\n        this.isEnd = false;\n    }\n\n    insert(word) {\n        let node = this;\n        for (let i = 0; i < word.length; i++) {\n            const ch = word[i];\n            const index = ch.charCodeAt() - 'a'.charCodeAt();\n            if (node.children[index] === 0) {\n                node.children[index] = new TrieNode();\n            }\n            node = node.children[index];\n        }\n        node.isEnd = true;\n    }\n\n    getChildren() {\n        return this.children;\n    }\n\n    isEnd() {\n        return this.isEnd;\n    }\n}"
+      },
+      "id": 409
+    },
+    {
+      "title": "单词搜索 II",
+      "titleSlug": "word-search-ii",
+      "tags": [
+        "字典树",
+        "数组",
+        "字符串",
+        "回溯",
+        "矩阵"
+      ],
+      "difficulty": "困难",
+      "acceptance": 43.7,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/word-search-ii/",
+      "hotCompanies": [
+        "亚马逊",
+        "uber",
+        "微软"
+      ],
+      "statementZh": "给定一个 m x n 二维字符网格 board 和一个单词（字符串）列表 words， 返回所有二维网格上的单词 。\n\n单词必须按照字母顺序，通过 相邻的单元格 内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母在一个单词中不允许被重复使用。\n\n \n\n示例 1：\n\n输入：board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]\n输出：[\"eat\",\"oath\"]\n\n示例 2：\n\n输入：board = [[\"a\",\"b\"],[\"c\",\"d\"]], words = [\"abcb\"]\n输出：[]\n\n \n\n提示：\n\n\tm == board.length\n\n\tn == board[i].length\n\n\t1 <= m, n <= 12\n\n\tboard[i][j] 是一个小写英文字母\n\n\t1 <= words.length <= 3 * 104\n\n\t1 <= words[i].length <= 10\n\n\twords[i] 由小写英文字母组成\n\n\twords 中的所有字符串互不相同",
+      "statementEn": "Given an m x n board of characters and a list of strings words, return all words on the board.\n\nEach word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.\n\n \n\nExample 1:\n\nInput: board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]\nOutput: [\"eat\",\"oath\"]\n\nExample 2:\n\nInput: board = [[\"a\",\"b\"],[\"c\",\"d\"]], words = [\"abcb\"]\nOutput: []\n\n \n\nConstraints:\n\n\tm == board.length\n\n\tn == board[i].length\n\n\t1 <= m, n <= 12\n\n\tboard[i][j] is a lowercase English letter.\n\n\t1 <= words.length <= 3 * 104\n\n\t1 <= words[i].length <= 10\n\n\twords[i] consists of lowercase English letters.\n\n\tAll the strings of words are unique.",
+      "statement": "给定一个 m x n 二维字符网格 board 和一个单词（字符串）列表 words， 返回所有二维网格上的单词 。\n\n单词必须按照字母顺序，通过 相邻的单元格 内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母在一个单词中不允许被重复使用。\n\n \n\n示例 1：\n\n输入：board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]\n输出：[\"eat\",\"oath\"]\n\n示例 2：\n\n输入：board = [[\"a\",\"b\"],[\"c\",\"d\"]], words = [\"abcb\"]\n输出：[]\n\n \n\n提示：\n\n\tm == board.length\n\n\tn == board[i].length\n\n\t1 <= m, n <= 12\n\n\tboard[i][j] 是一个小写英文字母\n\n\t1 <= words.length <= 3 * 104\n\n\t1 <= words[i].length <= 10\n\n\twords[i] 由小写英文字母组成\n\n\twords 中的所有字符串互不相同",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "python": "from collections import defaultdict\n\n\nclass Trie:\n    def __init__(self):\n        self.children = defaultdict(Trie)\n        self.word = \"\"\n\n    def insert(self, word):\n        cur = self\n        for c in word:\n            cur = cur.children[c]\n        cur.is_word = True\n        cur.word = word\n\n\nclass Solution:\n    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:\n        trie = Trie()\n        for word in words:\n            trie.insert(word)\n\t\t\n        def dfs(now, i1, j1):\n            if board[i1][j1] not in now.children:\n                return\n\n            ch = board[i1][j1]\n\n            nxt = now.children[ch]\n            if nxt.word != \"\":\n                ans.append(nxt.word)\n                nxt.word = \"\"\n\n            if nxt.children:\n                board[i1][j1] = \"#\"\n                for i2, j2 in [(i1 + 1, j1), (i1 - 1, j1), (i1, j1 + 1), (i1, j1 - 1)]:\n                    if 0 <= i2 < m and 0 <= j2 < n:\n                        dfs(nxt, i2, j2)\n                board[i1][j1] = ch\n\n            if not nxt.children:\n                now.children.pop(ch)\n\n        ans = []\n        m, n = len(board), len(board[0])\n\n        for i in range(m):\n            for j in range(n):\n                dfs(trie, i, j)\n\n        return ans",
+        "java": "class Solution {\n    int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};\n\n    public List<String> findWords(char[][] board, String[] words) {\n        Trie trie = new Trie();\n        for (String word : words) {\n            trie.insert(word);\n        }\n\n        Set<String> ans = new HashSet<String>();\n        for (int i = 0; i < board.length; ++i) {\n            for (int j = 0; j < board[0].length; ++j) {\n                dfs(board, trie, i, j, ans);\n            }\n        }\n\n        return new ArrayList<String>(ans);\n    }\n\n    public void dfs(char[][] board, Trie now, int i1, int j1, Set<String> ans) {\n        if (!now.children.containsKey(board[i1][j1])) {\n            return;\n        }\n        char ch = board[i1][j1];\n        Trie nxt = now.children.get(ch);\n        if (!\"\".equals(nxt.word)) {\n            ans.add(nxt.word);\n            nxt.word = \"\";\n        }\n\n        if (!nxt.children.isEmpty()) {\n            board[i1][j1] = '#';\n            for (int[] dir : dirs) {\n                int i2 = i1 + dir[0], j2 = j1 + dir[1];\n                if (i2 >= 0 && i2 < board.length && j2 >= 0 && j2 < board[0].length) {\n                    dfs(board, nxt, i2, j2, ans);\n                }\n            }\n            board[i1][j1] = ch;\n        }\n\n        if (nxt.children.isEmpty()) {\n            now.children.remove(ch);\n        }\n    }\n}\n\nclass Trie {\n    String word;\n    Map<Character, Trie> children;\n    boolean isWord;\n\n    public Trie() {\n        this.word = \"\";\n        this.children = new HashMap<Character, Trie>();\n    }\n\n    public void insert(String word) {\n        Trie cur = this;\n        for (int i = 0; i < word.length(); ++i) {\n            char c = word.charAt(i);\n            if (!cur.children.containsKey(c)) {\n                cur.children.put(c, new Trie());\n            }\n            cur = cur.children.get(c);\n        }\n        cur.word = word;\n    }\n}",
+        "cpp": "public class Solution {\n    int[][] dirs = new int[][] {\n        new int[]{1, 0},\n        new int[]{-1, 0},\n        new int[]{0, 1},\n        new int[]{0, -1}\n    };\n\n    public IList<string> FindWords(char[][] board, string[] words) {\n        Trie trie = new Trie();\n        foreach (string word in words) {\n            trie.Insert(word);\n        }\n\n        ISet<string> ans = new HashSet<string>();\n        for (int i = 0; i < board.Length; ++i) {\n            for (int j = 0; j < board[0].Length; ++j) {\n                DFS(board, trie, i, j, ans);\n            }\n        }\n\n        return new List<string>(ans);\n    }\n\n    void DFS(char[][] board, Trie now, int i1, int j1, ISet<string> ans) {\n        if (!now.children.ContainsKey(board[i1][j1])) {\n            return;\n        }\n        char ch = board[i1][j1];\n        Trie nxt = now.children[ch];\n        if (!\"\".Equals(nxt.word)) {\n            ans.Add(nxt.word);\n            nxt.word = \"\";\n        }\n\n        if (nxt.children.Count > 0) {\n            board[i1][j1] = '#';\n            int[][] dirs = new int[][] {\n                new int[]{1, 0},\n                new int[]{-1, 0},\n                new int[]{0, 1},\n                new int[]{0, -1}\n            };\n            foreach (int[] dir in dirs) {\n                int i2 = i1 + dir[0], j2 = j1 + dir[1];\n                if (i2 >= 0 && i2 < board.Length && j2 >= 0 && j2 < board[0].Length) {\n                    DFS(board, nxt, i2, j2, ans);\n                }\n            }\n            board[i1][j1] = ch;\n        }\n\n        if (nxt.children.Count == 0) {\n            now.children.Remove(ch);\n        }\n    }\n}\n\nclass Trie {\n    public string word;\n    public Dictionary<char, Trie> children;\n    public bool isWord;\n\n    public Trie() {\n        this.word = \"\";\n        this.children = new Dictionary<char, Trie>();\n    }\n\n    public void Insert(string word) {\n        Trie cur = this;\n        foreach (char c in word) {\n            if (!cur.children.ContainsKey(c)) {\n                cur.children.Add(c, new Trie());\n            }\n            cur = cur.children[c];\n        }\n        cur.word = word;\n    }\n}",
+        "go": "type Trie struct {\n    children map[byte]*Trie\n    word     string\n}\n\nfunc (t *Trie) Insert(word string) {\n    node := t\n    for i := range word {\n        ch := word[i]\n        if node.children[ch] == nil {\n            node.children[ch] = &Trie{children: map[byte]*Trie{}}\n        }\n        node = node.children[ch]\n    }\n    node.word = word\n}\n\nvar dirs = []struct{ x, y int }{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}\n\nfunc findWords(board [][]byte, words []string) (ans []string) {\n    t := &Trie{children: map[byte]*Trie{}}\n    for _, word := range words {\n        t.Insert(word)\n    }\n\n    m, n := len(board), len(board[0])\n\n    var dfs func(node *Trie, x, y int)\n    dfs = func(node *Trie, x, y int) {\n        ch := board[x][y]\n        nxt := node.children[ch]\n        if nxt == nil {\n            return\n        }\n\n        if nxt.word != \"\" {\n            ans = append(ans, nxt.word)\n            nxt.word = \"\"\n        }\n\n        if len(nxt.children) > 0 {\n            board[x][y] = '#'\n            for _, d := range dirs {\n                nx, ny := x+d.x, y+d.y\n                if 0 <= nx && nx < m && 0 <= ny && ny < n && board[nx][ny] != '#' {\n                    dfs(nxt, nx, ny)\n                }\n            }\n            board[x][y] = ch\n        }\n        \n        if len(nxt.children) == 0 {\n            delete(node.children, ch)\n        }\n    }\n    for i, row := range board {\n        for j := range row {\n            dfs(t, i, j)\n        }\n    }\n\n    return\n}"
+      },
+      "id": 410
+    },
+    {
+      "title": "打家劫舍 II",
+      "titleSlug": "house-robber-ii",
+      "tags": [
+        "数组",
+        "动态规划"
+      ],
+      "difficulty": "中等",
+      "acceptance": 46.22,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/house-robber-ii/",
+      "hotCompanies": [
+        "谷歌",
+        "亚马逊",
+        "字节"
+      ],
+      "statementZh": "你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都 围成一圈 ，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警 。\n\n给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，今晚能够偷窃到的最高金额。\n\n \n\n示例 1：\n\n输入：nums = [2,3,2]\n输出：3\n解释：你不能先偷窃 1 号房屋（金额 = 2），然后偷窃 3 号房屋（金额 = 2）, 因为他们是相邻的。\n\n示例 2：\n\n输入：nums = [1,2,3,1]\n输出：4\n解释：你可以先偷窃 1 号房屋（金额 = 1），然后偷窃 3 号房屋（金额 = 3）。\n     偷窃到的最高金额 = 1 + 3 = 4 。\n\n示例 3：\n\n输入：nums = [1,2,3]\n输出：3\n\n \n\n提示：\n\n\t1 <= nums.length <= 100\n\n\t0 <= nums[i] <= 1000",
+      "statementEn": "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and it will automatically contact the police if two adjacent houses were broken into on the same night.\n\nGiven an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.\n\n \n\nExample 1:\n\nInput: nums = [2,3,2]\nOutput: 3\nExplanation: You cannot rob house 1 (money = 2) and then rob house 3 (money = 2), because they are adjacent houses.\n\nExample 2:\n\nInput: nums = [1,2,3,1]\nOutput: 4\nExplanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).\nTotal amount you can rob = 1 + 3 = 4.\n\nExample 3:\n\nInput: nums = [1,2,3]\nOutput: 3\n\n \n\nConstraints:\n\n\t1 <= nums.length <= 100\n\n\t0 <= nums[i] <= 1000",
+      "statement": "你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都 围成一圈 ，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警 。\n\n给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，今晚能够偷窃到的最高金额。\n\n \n\n示例 1：\n\n输入：nums = [2,3,2]\n输出：3\n解释：你不能先偷窃 1 号房屋（金额 = 2），然后偷窃 3 号房屋（金额 = 2）, 因为他们是相邻的。\n\n示例 2：\n\n输入：nums = [1,2,3,1]\n输出：4\n解释：你可以先偷窃 1 号房屋（金额 = 1），然后偷窃 3 号房屋（金额 = 3）。\n     偷窃到的最高金额 = 1 + 3 = 4 。\n\n示例 3：\n\n输入：nums = [1,2,3]\n输出：3\n\n \n\n提示：\n\n\t1 <= nums.length <= 100\n\n\t0 <= nums[i] <= 1000",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "java": "class Solution {\n    public int rob(int[] nums) {\n        int length = nums.length;\n        if (length == 1) {\n            return nums[0];\n        } else if (length == 2) {\n            return Math.max(nums[0], nums[1]);\n        }\n        return Math.max(robRange(nums, 0, length - 2), robRange(nums, 1, length - 1));\n    }\n\n    public int robRange(int[] nums, int start, int end) {\n        int first = nums[start], second = Math.max(nums[start], nums[start + 1]);\n        for (int i = start + 2; i <= end; i++) {\n            int temp = second;\n            second = Math.max(first + nums[i], second);\n            first = temp;\n        }\n        return second;\n    }\n}",
+        "javascript": "var rob = function(nums) {\n    const length = nums.length;\n    if (length === 1) {\n        return nums[0];\n    } else if (length === 2) {\n        return Math.max(nums[0], nums[1]);\n    }\n    return Math.max(robRange(nums, 0, length - 2), robRange(nums, 1, length - 1));\n};\n\nconst robRange = (nums, start, end) => {\n    let first = nums[start], second = Math.max(nums[start], nums[start + 1]);\n    for (let i = start + 2; i <= end; i++) {\n        const temp = second;\n        second = Math.max(first + nums[i], second);\n        first = temp;\n    }\n    return second;\n}",
+        "go": "func _rob(nums []int) int {\n    first, second := nums[0], max(nums[0], nums[1])\n    for _, v := range nums[2:] {\n        first, second = second, max(first+v, second)\n    }\n    return second\n}\n\nfunc rob(nums []int) int {\n    n := len(nums)\n    if n == 1 {\n        return nums[0]\n    }\n    if n == 2 {\n        return max(nums[0], nums[1])\n    }\n    return max(_rob(nums[:n-1]), _rob(nums[1:]))\n}\n\nfunc max(a, b int) int {\n    if a > b {\n        return a\n    }\n    return b\n}",
+        "python": "class Solution:\n    def rob(self, nums: List[int]) -> int:\n        def robRange(start: int, end: int) -> int:\n            first = nums[start]\n            second = max(nums[start], nums[start + 1])\n            for i in range(start + 2, end + 1):\n                first, second = second, max(first + nums[i], second)\n            return second\n        \n        length = len(nums)\n        if length == 1:\n            return nums[0]\n        elif length == 2:\n            return max(nums[0], nums[1])\n        else:\n            return max(robRange(0, length - 2), robRange(1, length - 1))",
+        "cpp": "class Solution {\npublic:\n    int robRange(vector<int>& nums, int start, int end) {\n        int first = nums[start], second = max(nums[start], nums[start + 1]);\n        for (int i = start + 2; i <= end; i++) {\n            int temp = second;\n            second = max(first + nums[i], second);\n            first = temp;\n        }\n        return second;\n    }\n\n    int rob(vector<int>& nums) {\n        int length = nums.size();\n        if (length == 1) {\n            return nums[0];\n        } else if (length == 2) {\n            return max(nums[0], nums[1]);\n        }\n        return max(robRange(nums, 0, length - 2), robRange(nums, 1, length - 1));\n    }\n};"
+      },
+      "id": 411
+    },
+    {
+      "title": "最短回文串",
+      "titleSlug": "shortest-palindrome",
+      "tags": [
+        "字符串",
+        "字符串匹配",
+        "哈希函数",
+        "滚动哈希"
+      ],
+      "difficulty": "困难",
+      "acceptance": 41.2,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/shortest-palindrome/",
+      "hotCompanies": [
+        "谷歌",
+        "微软",
+        "bloomberg"
+      ],
+      "statementZh": "给定一个字符串 s，你可以通过在字符串前面添加字符将其转换为回文串。找到并返回可以用这种方式转换的最短回文串。\n\n \n\n示例 1：\n\n输入：s = \"aacecaaa\"\n输出：\"aaacecaaa\"\n\n示例 2：\n\n输入：s = \"abcd\"\n输出：\"dcbabcd\"\n\n \n\n提示：\n\n\t0 <= s.length <= 5 * 104\n\n\ts 仅由小写英文字母组成",
+      "statementEn": "You are given a string s. You can convert s to a palindrome by adding characters in front of it.\n\nReturn the shortest palindrome you can find by performing this transformation.\n\n \n\nExample 1:\n\nInput: s = \"aacecaaa\"\nOutput: \"aaacecaaa\"\nExample 2:\n\nInput: s = \"abcd\"\nOutput: \"dcbabcd\"\n\n \n\nConstraints:\n\n\t0 <= s.length <= 5 * 104\n\n\ts consists of lowercase English letters only.",
+      "statement": "给定一个字符串 s，你可以通过在字符串前面添加字符将其转换为回文串。找到并返回可以用这种方式转换的最短回文串。\n\n \n\n示例 1：\n\n输入：s = \"aacecaaa\"\n输出：\"aaacecaaa\"\n\n示例 2：\n\n输入：s = \"abcd\"\n输出：\"dcbabcd\"\n\n \n\n提示：\n\n\t0 <= s.length <= 5 * 104\n\n\ts 仅由小写英文字母组成",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "char* shortestPalindrome(char* s) {\n    int n = strlen(s);\n    int fail[n + 1];\n    memset(fail, -1, sizeof(fail));\n    for (int i = 1; i < n; ++i) {\n        int j = fail[i - 1];\n        while (j != -1 && s[j + 1] != s[i]) {\n            j = fail[j];\n        }\n        if (s[j + 1] == s[i]) {\n            fail[i] = j + 1;\n        }\n    }\n    int best = -1;\n    for (int i = n - 1; i >= 0; --i) {\n        while (best != -1 && s[best + 1] != s[i]) {\n            best = fail[best];\n        }\n        if (s[best + 1] == s[i]) {\n            ++best;\n        }\n    }\n    int ret_len = n - best - 1;\n    char* ret = malloc(sizeof(char) * (ret_len + n + 1));\n    for (int i = 0; i < ret_len; i++) ret[i] = s[n - i - 1];\n    for (int i = 0; i < n; i++) ret[i + ret_len] = s[i];\n    ret[ret_len + n] = 0;\n    return ret;\n}",
+        "java": "class Solution {\n    public String shortestPalindrome(String s) {\n        int n = s.length();\n        int[] fail = new int[n];\n        Arrays.fill(fail, -1);\n        for (int i = 1; i < n; ++i) {\n            int j = fail[i - 1];\n            while (j != -1 && s.charAt(j + 1) != s.charAt(i)) {\n                j = fail[j];\n            }\n            if (s.charAt(j + 1) == s.charAt(i)) {\n                fail[i] = j + 1;\n            }\n        }\n        int best = -1;\n        for (int i = n - 1; i >= 0; --i) {\n            while (best != -1 && s.charAt(best + 1) != s.charAt(i)) {\n                best = fail[best];\n            }\n            if (s.charAt(best + 1) == s.charAt(i)) {\n                ++best;\n            }\n        }\n        String add = (best == n - 1 ? \"\" : s.substring(best + 1));\n        StringBuffer ans = new StringBuffer(add).reverse();\n        ans.append(s);\n        return ans.toString();\n    }\n}",
+        "python": "class Solution:\n    def shortestPalindrome(self, s: str) -> str:\n        n = len(s)\n        fail = [-1] * n\n        for i in range(1, n):\n            j = fail[i - 1]\n            while j != -1 and s[j + 1] != s[i]:\n                j = fail[j]\n            if s[j + 1] == s[i]:\n                fail[i] = j + 1\n        \n        best = -1\n        for i in range(n - 1, -1, -1):\n            while best != -1 and s[best + 1] != s[i]:\n                best = fail[best]\n            if s[best + 1] == s[i]:\n                best += 1\n\n        add = (\"\" if best == n - 1 else s[best+1:])\n        return add[::-1] + s",
+        "go": "func shortestPalindrome(s string) string {\n    n := len(s)\n    fail := make([]int, n)\n    for i := 0; i < n; i++ {\n        fail[i] = -1\n    }\n    for i := 1; i < n; i++ {\n        j := fail[i - 1]\n        for j != -1 && s[j + 1] != s[i] {\n            j = fail[j]\n        }\n        if s[j + 1] == s[i] {\n            fail[i] = j + 1\n        }\n    }\n    best := -1\n    for i := n - 1; i >= 0; i-- {\n        for best != -1 && s[best + 1] != s[i] {\n            best = fail[best]\n        }\n        if s[best + 1] == s[i] {\n            best++\n        }\n    }\n    add := \"\"\n    if best != n - 1 {\n        add = s[best + 1:]\n    }\n    b := []byte(add)\n    for i := 0; i < len(b) / 2; i++ {\n        b[i], b[len(b) - 1 -i] = b[len(b) - 1 -i], b[i]\n    }\n    return string(b) + s\n}"
+      },
+      "id": 412
+    },
+    {
+      "title": "数组中的第K个最大元素",
+      "titleSlug": "kth-largest-element-in-an-array",
+      "tags": [
+        "数组",
+        "分治",
+        "快速选择",
+        "排序",
+        "堆（优先队列）"
+      ],
+      "difficulty": "中等",
+      "acceptance": 60.05,
+      "source": "leetcode",
+      "sourceUrl": "https://leetcode.cn/problems/kth-largest-element-in-an-array/",
+      "hotCompanies": [
+        "facebook",
+        "亚马逊",
+        "字节"
+      ],
+      "statementZh": "给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。\n\n请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。\n\n你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。\n\n \n\n示例 1:\n\n输入: [3,2,1,5,6,4], k = 2\n输出: 5\n\n示例 2:\n\n输入: [3,2,3,1,2,4,5,5,6], k = 4\n输出: 4\n\n \n\n提示： \n\n\t1 <= k <= nums.length <= 105\n\n\t-104 <= nums[i] <= 104",
+      "statementEn": "Given an integer array nums and an integer k, return the kth largest element in the array.\n\nNote that it is the kth largest element in the sorted order, not the kth distinct element.\n\nCan you solve it without sorting?\n\n \n\nExample 1:\n\nInput: nums = [3,2,1,5,6,4], k = 2\nOutput: 5\nExample 2:\n\nInput: nums = [3,2,3,1,2,4,5,5,6], k = 4\nOutput: 4\n\n \n\nConstraints:\n\n\t1 <= k <= nums.length <= 105\n\n\t-104 <= nums[i] <= 104",
+      "statement": "给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。\n\n请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。\n\n你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。\n\n \n\n示例 1:\n\n输入: [3,2,1,5,6,4], k = 2\n输出: 5\n\n示例 2:\n\n输入: [3,2,3,1,2,4,5,5,6], k = 4\n输出: 4\n\n \n\n提示： \n\n\t1 <= k <= nums.length <= 105\n\n\t-104 <= nums[i] <= 104",
+      "approach": "可参考力扣官方题解与讨论区的高赞思路。",
+      "solutions": {
+        "cpp": "class Solution {\npublic:\n    void maxHeapify(vector<int>& a, int i, int heapSize) {\n        int l = i * 2 + 1, r = i * 2 + 2, largest = i;\n        if (l < heapSize && a[l] > a[largest]) {\n            largest = l;\n        } \n        if (r < heapSize && a[r] > a[largest]) {\n            largest = r;\n        }\n        if (largest != i) {\n            swap(a[i], a[largest]);\n            maxHeapify(a, largest, heapSize);\n        }\n    }\n\n    void buildMaxHeap(vector<int>& a, int heapSize) {\n        for (int i = heapSize / 2 - 1; i >= 0; --i) {\n            maxHeapify(a, i, heapSize);\n        } \n    }\n\n    int findKthLargest(vector<int>& nums, int k) {\n        int heapSize = nums.size();\n        buildMaxHeap(nums, heapSize);\n        for (int i = nums.size() - 1; i >= nums.size() - k + 1; --i) {\n            swap(nums[0], nums[i]);\n            --heapSize;\n            maxHeapify(nums, 0, heapSize);\n        }\n        return nums[0];\n    }\n};",
+        "java": "class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        int heapSize = nums.length;\n        buildMaxHeap(nums, heapSize);\n        for (int i = nums.length - 1; i >= nums.length - k + 1; --i) {\n            swap(nums, 0, i);\n            --heapSize;\n            maxHeapify(nums, 0, heapSize);\n        }\n        return nums[0];\n    }\n\n    public void buildMaxHeap(int[] a, int heapSize) {\n        for (int i = heapSize / 2 - 1; i >= 0; --i) {\n            maxHeapify(a, i, heapSize);\n        } \n    }\n\n    public void maxHeapify(int[] a, int i, int heapSize) {\n        int l = i * 2 + 1, r = i * 2 + 2, largest = i;\n        if (l < heapSize && a[l] > a[largest]) {\n            largest = l;\n        } \n        if (r < heapSize && a[r] > a[largest]) {\n            largest = r;\n        }\n        if (largest != i) {\n            swap(a, i, largest);\n            maxHeapify(a, largest, heapSize);\n        }\n    }\n\n    public void swap(int[] a, int i, int j) {\n        int temp = a[i];\n        a[i] = a[j];\n        a[j] = temp;\n    }\n}",
+        "go": "func findKthLargest(nums []int, k int) int {\n    heapSize := len(nums)\n    buildMaxHeap(nums, heapSize)\n    for i := len(nums) - 1; i >= len(nums) - k + 1; i-- {\n        nums[0], nums[i] = nums[i], nums[0]\n        heapSize--\n        maxHeapify(nums, 0, heapSize)\n    }\n    return nums[0]\n}\n\nfunc buildMaxHeap(a []int, heapSize int) {\n    for i := heapSize / 2 - 1; i >= 0; i-- {\n        maxHeapify(a, i, heapSize)\n    }\n}\n\nfunc maxHeapify(a []int, i, heapSize int) {\n    l, r, largest := i * 2 + 1, i * 2 + 2, i\n    if l < heapSize && a[l] > a[largest] {\n        largest = l\n    }\n    if r < heapSize && a[r] > a[largest] {\n        largest = r\n    }\n    if largest != i {\n        a[i], a[largest] = a[largest], a[i]\n        maxHeapify(a, largest, heapSize)\n    }\n}"
+      },
+      "id": 413
     }
   ],
   "errors": []
