@@ -29,14 +29,19 @@ import './index.less';
 
 const PANEL_SIZE = { width: 360, height: 520 };
 const BALL_SIZE = { width: 60, height: 60 };
-const BALL_INITIAL = () => ({
-  x: Math.max(24, (typeof window !== 'undefined' ? window.innerWidth : 1440) - 84),
-  y: Math.max(24, (typeof window !== 'undefined' ? window.innerHeight : 900) - 180),
-});
-const PANEL_INITIAL = () => ({
-  x: Math.max(24, (typeof window !== 'undefined' ? window.innerWidth : 1440) - PANEL_SIZE.width - 24),
-  y: Math.max(24, (typeof window !== 'undefined' ? window.innerHeight : 900) - PANEL_SIZE.height - 24),
-});
+/** 右下角留白；额外抬高一点避开移动端底部导航 */
+const CORNER_PADDING = 12;
+const BOTTOM_EXTRA = 72;
+
+function getBottomRightPosition(size: { width: number; height: number }) {
+  if (typeof window === 'undefined') {
+    return { x: CORNER_PADDING, y: CORNER_PADDING };
+  }
+  return {
+    x: Math.max(CORNER_PADDING, window.innerWidth - size.width - CORNER_PADDING),
+    y: Math.max(CORNER_PADDING, window.innerHeight - size.height - CORNER_PADDING - BOTTOM_EXTRA),
+  };
+}
 
 function formatTime(sec: number) {
   if (!Number.isFinite(sec) || sec < 0) return '0:00';
@@ -84,16 +89,19 @@ const MusicPlayer: React.FC = () => {
   const [tab, setTab] = useState<TabKey>('playing');
 
   const ballDrag = useDraggable({
-    storageKey: 'gy_music_ball_pos',
-    initial: BALL_INITIAL(),
+    // v2：清掉旧版 SSR 错误坐标缓存在中间的问题
+    storageKey: 'gy_music_ball_pos_v2',
+    getDefaultPosition: () => getBottomRightPosition(BALL_SIZE),
+    initial: { x: CORNER_PADDING, y: CORNER_PADDING },
     size: BALL_SIZE,
-    padding: 12,
+    padding: CORNER_PADDING,
   });
   const panelDrag = useDraggable({
-    storageKey: 'gy_music_panel_pos',
-    initial: PANEL_INITIAL(),
+    storageKey: 'gy_music_panel_pos_v2',
+    getDefaultPosition: () => getBottomRightPosition(PANEL_SIZE),
+    initial: { x: CORNER_PADDING, y: CORNER_PADDING },
     size: PANEL_SIZE,
-    padding: 12,
+    padding: CORNER_PADDING,
   });
 
   const player = useAudioPlayer();
@@ -415,8 +423,12 @@ const MusicPlayer: React.FC = () => {
     <>
       {!expanded && (
         <div
-          className={`gy-music-ball ${ballDrag.dragging ? 'is-dragging' : ''} ${player.playing ? 'is-playing' : ''}`}
-          style={{ left: ballDrag.position.x, top: ballDrag.position.y }}
+          className={`gy-music-ball ${ballDrag.dragging ? 'is-dragging' : ''} ${player.playing ? 'is-playing' : ''} ${ballDrag.ready ? 'is-ready' : ''}`}
+          style={
+            ballDrag.ready
+              ? { left: ballDrag.position.x, top: ballDrag.position.y, right: 'auto', bottom: 'auto' }
+              : undefined
+          }
           onPointerDown={ballDrag.handlers.onPointerDown}
           onPointerMove={ballDrag.handlers.onPointerMove}
           onPointerUp={handleBallPointerUp}
@@ -447,8 +459,15 @@ const MusicPlayer: React.FC = () => {
 
       {expanded && (
         <div
-          className="gy-music-panel"
-          style={{ left: panelDrag.position.x, top: panelDrag.position.y, width: PANEL_SIZE.width, height: PANEL_SIZE.height }}
+          className={`gy-music-panel ${panelDrag.ready ? 'is-ready' : ''}`}
+          style={{
+            left: panelDrag.position.x,
+            top: panelDrag.position.y,
+            right: 'auto',
+            bottom: 'auto',
+            width: PANEL_SIZE.width,
+            height: PANEL_SIZE.height,
+          }}
           role="dialog"
           aria-label="音乐播放器"
         >

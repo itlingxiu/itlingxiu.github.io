@@ -1,11 +1,13 @@
 'use client';
 
-import { storageGet, storageSet, storageRemove } from '@/lib/safeStorage';
+import { storageGet, storageSet } from '@/lib/safeStorage';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Position } from './types';
 
 interface UseDraggableOptions {
   storageKey?: string;
+  /** 无本地缓存时，在客户端挂载后用真实窗口尺寸计算默认位置 */
+  getDefaultPosition?: () => Position;
   initial?: Position;
   size?: { width: number; height: number };
   padding?: number;
@@ -13,11 +15,11 @@ interface UseDraggableOptions {
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
-function loadInitial(storageKey: string | undefined, fallback: Position): Position {
-  if (!storageKey) return fallback;
+function loadStored(storageKey: string | undefined): Position | null {
+  if (!storageKey) return null;
   try {
     const raw = storageGet(storageKey);
-    if (!raw) return fallback;
+    if (!raw) return null;
     const parsed = JSON.parse(raw) as Partial<Position>;
     if (typeof parsed.x === 'number' && typeof parsed.y === 'number') {
       return { x: parsed.x, y: parsed.y };
@@ -25,21 +27,26 @@ function loadInitial(storageKey: string | undefined, fallback: Position): Positi
   } catch {
     /* ignore */
   }
-  return fallback;
+  return null;
 }
 
 export function useDraggable({
   storageKey,
+  getDefaultPosition,
   initial = { x: 24, y: 24 },
   size = { width: 60, height: 60 },
   padding = 8,
 }: UseDraggableOptions = {}) {
-  const [position, setPosition] = useState<Position>(() => loadInitial(storageKey, initial));
+  const storedOnInit = useRef(loadStored(storageKey));
+  const [position, setPosition] = useState<Position>(() => storedOnInit.current ?? initial);
   const [dragging, setDragging] = useState(false);
+  const [ready, setReady] = useState(false);
   const dragState = useRef<{ startX: number; startY: number; originX: number; originY: number } | null>(null);
   const movedRef = useRef(false);
   const sizeRef = useRef(size);
   sizeRef.current = size;
+  const getDefaultRef = useRef(getDefaultPosition);
+  getDefaultRef.current = getDefaultPosition;
 
   const clampToViewport = useCallback(
     (pos: Position): Position => {
@@ -54,20 +61,30 @@ export function useDraggable({
   );
 
   useEffect(() => {
-    setPosition((prev) => clampToViewport(prev));
+    const resolve = () => {
+      if (!storedOnInit.current && getDefaultRef.current) {
+        return clampToViewport(getDefaultRef.current());
+      }
+      return clampToViewport(storedOnInit.current ?? initial);
+    };
+
+    setPosition(resolve());
+    setReady(true);
+
     const onResize = () => setPosition((prev) => clampToViewport(prev));
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only resolve once on mount
   }, [clampToViewport]);
 
   useEffect(() => {
-    if (!storageKey) return;
+    if (!storageKey || !ready) return;
     try {
       storageSet(storageKey, JSON.stringify(position));
     } catch {
       /* ignore */
     }
-  }, [position, storageKey]);
+  }, [position, storageKey, ready]);
 
   const handlePointerDown = useCallback(
     (event: React.PointerEvent<HTMLElement>) => {
@@ -113,6 +130,7 @@ export function useDraggable({
     position,
     setPosition,
     dragging,
+    ready,
     hasMoved: () => movedRef.current,
     handlers: {
       onPointerDown: handlePointerDown,

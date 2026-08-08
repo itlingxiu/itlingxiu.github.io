@@ -5,6 +5,11 @@
 /* ============================== 迷你球 ============================== */
 .gy-music-ball {
   position: fixed;
+  /* 默认贴右下角，避免 SSR/首帧错误坐标落到中间或左上 */
+  right: 12px;
+  bottom: 84px;
+  left: auto;
+  top: auto;
   width: 60px;
   height: 60px;
   border-radius: @border-radius-full;
@@ -112,6 +117,10 @@
 /* ============================== 面板 ============================== */
 .gy-music-panel {
   position: fixed;
+  right: 12px;
+  bottom: 84px;
+  left: auto;
+  top: auto;
   z-index: @gy-z;
   display: flex;
   flex-direction: column;
