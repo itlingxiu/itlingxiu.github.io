@@ -8,7 +8,6 @@ import {
   ToolOutlined,
   FireOutlined,
   GlobalOutlined,
-  DeploymentUnitOutlined,
   ArrowRightOutlined,
 } from '@ant-design/icons';
 import './index.less';
@@ -65,8 +64,8 @@ const products: ProductItem[] = [
     title: '今日热榜',
     tag: '资讯聚合',
     desc: '全网热点资讯实时聚合，AI 精选每日热门话题一键直达。',
-    url: 'https://www.ai.it-zhijia.icu/',
-    domain: 'ai.it-zhijia.icu',
+    url: 'https://www.top.goodssoft.com/',
+    domain: 'top.goodssoft.com',
     color: '#ef4444',
   },
   {
@@ -77,15 +76,6 @@ const products: ProductItem[] = [
     url: 'https://www.goodssoft.com',
     domain: 'goodssoft.com',
     color: '#f59e0b',
-  },
-  {
-    icon: <DeploymentUnitOutlined />,
-    title: 'n8n 自动化',
-    tag: '工作流',
-    desc: '可视化自动化工作流编排平台，连接 API 与服务高效协作。',
-    url: 'https://n8n.goodssoft.com/',
-    domain: 'n8n.goodssoft.com',
-    color: '#ea4b71',
   },
 ];
 
@@ -98,7 +88,7 @@ const Products: React.FC = () => {
     <div className="products-page">
       <div className="page-header">
         <h1 className="page-title">产品矩阵</h1>
-        <p className="page-desc">精选自营与合作产品，覆盖账号交易、工具箱、自动化与跨境服务</p>
+        <p className="page-desc">精选自营与合作产品，覆盖账号交易、工具箱、资讯聚合与跨境服务</p>
       </div>
 
       <div className="products-grid">
