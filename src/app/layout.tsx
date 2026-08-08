@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
+import AntdRegistry from '@/components/AntdRegistry';
 import AppShell from '@/components/AppShell';
 import {
   buildOrganizationJsonLd,
